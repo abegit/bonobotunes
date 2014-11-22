@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule \.(php|html|phtml|php3|php4)$ - [NC,F,L]
+
+php_flag engine off

@@ -1,0 +1,45 @@
+.is-user-profile .sing-tit-cont {
+    display: none;
+}
+.is-user-profile .row.spacer-sing {
+    display: none;
+}
+.is-user-profile .sing-cont {
+    margin-left: 0;
+    width: 100%;
+}
+#item-meta > div#item-buttons {
+    position: absolute;
+    right: 0;
+    top: 70px;
+}
+#item-header > div#item-header-content {
+    padding-left: 170px;
+    padding-top: 55px;
+    width: 100%;
+}
+#item-buttons .generic-button a {
+    clear: both;
+    display: block;
+    height: 45px;
+    line-height: 10px;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+    width: 45px;
+}
+#item-buttons .generic-button {
+    clear: both;
+    margin: 0 !important;
+}
+
+
+
+#buddypress div#item-header img.avatar {float: none;position: absolute;}
+.is-user-profile {
+	.col-md-9.single {float: left;}
+	.profile_header {@include box-shadow(0 2px 0 #dddddd inset);
+ display: block; margin-bottom: -50px; width: 100%; 
+ background:#efefef;
+    min-height: 100px;}
+
+    } /*end user profile*/

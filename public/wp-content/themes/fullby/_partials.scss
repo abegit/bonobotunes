@@ -1,0 +1,44 @@
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     box-sizing: border-box;
+}
+
+@mixin border-radius($rad1, $rad2:false, $rad3:false, $rad4:false) {
+ $params: $rad1;
+  @if $rad2 
+    { $params: $rad1, $rad2; }
+    @if $rad3 != false
+      { $params: $rad1, $rad2, $rad3; }
+      @if $rad4 != false
+        { $params: $rad1, $rad2, $rad3, $rad4; }
+        
+  -webkit-border-radius: $params;
+  -moz-border-radius: $params;
+  border-radius: $params;
+}
+
+
+
+
+@mixin box-shadow($shadow1, $shadow2:false, $shadow3:false, $shadow4:false, $shadow5:false) {
+ $params: $shadow1;
+  @if $shadow2 
+    { $params: $shadow1, $shadow2; }
+    @if $shadow3 != false
+      { $params: $shadow1, $shadow2, $shadow3; }
+      @if $shadow4 != false
+        { $params: $shadow1, $shadow2, $shadow3, $shadow4; }
+        @if $shadow5 != false
+          { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5; }
+
+  -webkit-box-shadow: $params;
+  -moz-box-shadow: $params;
+  box-shadow: $params;
+}
+
+
+@mixin trans($numb){-webkit-transition:all $numb ease-in-out;
+     -moz-transition:all $numb ease-in-out;
+       -o-transition:all $numb ease-in-out;
+          transition:all $numb ease-in-out;}

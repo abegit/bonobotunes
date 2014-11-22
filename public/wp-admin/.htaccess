@@ -1,0 +1,3 @@
+#AuthType Basic
+#AuthName 'Authenticate'
+#AuthUserFile /home/httpd/.htpasswd

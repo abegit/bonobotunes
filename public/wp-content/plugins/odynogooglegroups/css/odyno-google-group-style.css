@@ -1,0 +1,11 @@
+.sm_button {padding:4px;display:block;padding-left:25px;background-repeat:no-repeat;background-position:5px 50%;text-decoration:none;border:none;}
+.sm_button:hover {border-bottom-width:1px;}
+a.sm_bug {background-image:url(../images/bug.png);}
+a.sm_code {background-image:url(../images/code.png);}
+a.sm_autor {background-image:url(../images/logo_small.png);}
+a.sm_star {background-image:url(../images/star.png);}
+.sm_it {background-image:url(../images/flags/it_IT.png);}
+.sm_es {background-image:url(../images/flags/es_ES.png);}
+a.sm_demo{background-image:url(../images/demo.gif);}
+
+

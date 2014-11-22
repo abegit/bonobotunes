@@ -1,0 +1,12 @@
+body.bbpress #post-entry {width:100%;float:left;} 
+#bbpress-forums ul.bbp-lead-topic, #bbpress-forums ul.bbp-topics, #bbpress-forums ul.bbp-forums, #bbpress-forums ul.bbp-replies, #bbpress-forums ul.bbp-search-results {
+border: 1px solid #ddd;     }
+#bbpress-forums li.bbp-body ul.forum, #bbpress-forums li.bbp-body ul.topic {
+border-top: 1px solid #ddd;}
+#bbpress-forums div.bbp-the-content-wrapper textarea.bbp-the-content {
+border: 1px solid #ddd;
+}
+#bbpress-forums fieldset.bbp-form {
+border: 1px solid #ddd;
+}
+body.bbpress article .post-meta,body.bbpress #breadcrumbs {display:none;}

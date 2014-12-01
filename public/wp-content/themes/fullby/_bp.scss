@@ -1,45 +1,108 @@
-.is-user-profile .sing-tit-cont {
-    display: none;
-}
-.is-user-profile .row.spacer-sing {
-    display: none;
-}
-.is-user-profile .sing-cont {
-    margin-left: 0;
-    width: 100%;
-}
-#item-meta > div#item-buttons {
-    position: absolute;
-    right: 0;
-    top: 70px;
-}
-#item-header > div#item-header-content {
-    padding-left: 170px;
-    padding-top: 55px;
-    width: 100%;
-}
-#item-buttons .generic-button a {
-    clear: both;
-    display: block;
-    height: 45px;
-    line-height: 10px;
-    margin-bottom: 0 !important;
-    overflow: hidden;
-    width: 45px;
-}
-#item-buttons .generic-button {
-    clear: both;
-    margin: 0 !important;
-}
+#buddypress div.activity-comments ul li>ul {padding-left:0 !important; margin-left:0 !important;margin-top:0 !important; }
 
 
 
-#buddypress div#item-header img.avatar {float: none;position: absolute;}
+.logged-in {
+    #mainmenu {
+        .navbar-nav > li:last-child > a {padding-right: 65px !important;}
+    }
+}
+
+.widget {
+    .item-avatar a {border-bottom: none;
+    padding: 0;}
+    a {display: unset !important; }
+}
+
+
+.is-user-profile #item-header, .is-user-profile .col-md-9.single #buddypress #item-nav, .is-user-profile .profile_header {display: none ;}
+
 .is-user-profile {
-	.col-md-9.single {float: left;}
-	.profile_header {@include box-shadow(0 2px 0 #dddddd inset);
- display: block; margin-bottom: -50px; width: 100%; 
- background:#efefef;
-    min-height: 100px;}
+	.col-md-9.single {float: left;
+        .sing-spacer {padding:0;}
+        #buddypress {
+            #item-header {overflow: visible;background: none repeat scroll 0 0 #f4f4f4; height:90px; position: relative;
+                    &> div:first-child {color: #ffffff;
+                                padding: 0 10px;
+                                position: absolute;
+                                right: 0;
+                                text-align: center;
+                                top: -80px; }
+                    #item-header-avatar .avatar {float: left;
+                    margin: 0 30px -25px 0;
+                    position: relative;
+                    right: -30px;
+                    top: -25px;}
+                    .activity {bottom: 5px; position: absolute; right: 5px; opacity: 0; color:#777; @include trans(400ms); }
+                    &> div#item-header-content {
+                        float: none !important;
+                        width: 100%; 
+                        #mycred-my-rank, .user-nicename {text-indent: 15px; }
+                        #item-meta {margin: 0 !important; padding-bottom: 0 !important;
+                            #item-buttons {position: absolute; right: 0; top: 0;}
+                            #latest-update {display: none;}
+                        }
+                    }
+                &:hover .activity {opacity: 1;}
+            }
+            #item-nav {background: none repeat scroll 0 0 #fdfdfd;
+                border-top: 1px solid #cfcfcf;
+               
+                height: 35px;
+                line-height: 20px;
+                @include box-shadow( 0 -20px 21px #ededed inset);
+                .item-list-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none; float:none; overflow: hidden;}
+            }
+            #item-buttons .generic-button a {background: none repeat scroll 0 0 #959595; border: 2px solid #656565; clear: both; color: #ffffff; display: inline-block; float: left; font-size: 12px; height: 25px; line-height: 10px; margin-bottom: 0 !important; overflow: hidden;}
+            #item-buttons .generic-button {margin: 7px 7px 0 0 !important;}
+        }
+        &> .col-md-9 { width: 100%;}
+        &> .col-md-3 {margin-top:50px; display: none;}
+    }
 
-    } /*end user profile*/
+
+	
+    .sing-tit-cont {display: none; }
+    .row.spacer-sing {display: none; }
+    .sing-cont {margin-left: 0; width: 100%; }
+
+
+    
+    &.my-account.activity {
+        #subnav > ul > li {display: inline-block;}
+        #item-header {display: block;}
+        #notifications-personal-li, #messages-personal-li, #groups-personal-li, #settings-personal-li, #activity-friends-personal-li {display: none !important;}
+        .profile_header {@include box-shadow(0 2px 0 rgba(179, 179, 179, 0.23) inset); display: block; width: 100%; background-color:#efefef; min-height: 100px;}
+    }
+    &.activity {
+
+        .col-md-9.single #buddypress #item-nav {display: block;}
+        #subnav > ul > li {display: none;
+                            &.last {display: inline-block;}
+                        }
+        #item-header {display: block;}
+        .profile_header {@include box-shadow(0 2px 0 rgba(179, 179, 179, 0.23) inset); display: block; width: 100%; background-color:#efefef; min-height: 100px;}
+    }
+
+} /*end user profile*/
+
+
+
+
+
+
+.my-account {
+        .col-md-9.single #buddypress #item-header > div#item-header-avatar {padding: 0;
+    position: unset;
+    right: auto;
+    text-align: center;
+    top: auto;}
+    }
+
+
+
+
+/*activity*/
+.activity {
+    .activity-content iframe {height: 300px !important; max-width: 100%;}
+}

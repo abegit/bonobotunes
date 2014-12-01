@@ -1,3 +1,6 @@
+<?php if (!is_user_logged_in() && !is_page('register')) {
+	header( 'Location: http://bloggamy.bonobodesigns.com/register' ) ;
+}?>
 <!DOCTYPE html>
 <html  <?php language_attributes();?>>
   <head>
@@ -12,7 +15,7 @@
     <link rel="icon" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicon.png" type="image/x-icon"> 
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo get_stylesheet_directory_uri(); ?>/css/bootstrap.css" rel="stylesheet">
+    <!-- <link href="<?php echo get_stylesheet_directory_uri(); ?>/css/bootstrap.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/font-awesome/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->

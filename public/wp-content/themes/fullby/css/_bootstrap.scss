@@ -2595,8 +2595,8 @@ input[type="button"].btn-block {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 .glyphicon {
@@ -3443,6 +3443,7 @@ input[type="button"].btn-block {
   display: none;
   float: right;
   min-width: 160px;
+  width: 100%;
   padding: 5px 0;
   margin: 2px 0 0;
   font-size: 14px;
@@ -3470,12 +3471,16 @@ input[type="button"].btn-block {
 
 .dropdown-menu > li > a {
   display: block;
-  padding: 3px 20px;
+  padding: 3px 5px 3px 20px;
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
   color: #333333;
   white-space: nowrap;
+  i {font-family: fontawesome;
+    font-style: normal;
+    color:#02c29d; margin-left: 10px; margin-right: 7px; float: right;
+  }
 }
 
 .dropdown-menu > li > a:hover,

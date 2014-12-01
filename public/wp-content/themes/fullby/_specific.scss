@@ -1,0 +1,10 @@
+body.home-page {
+
+&> .sidebar {display: none;}
+&> .single {width: 100%;}
+&> .single * {margin: 0; padding: 0 !important;}
+&> .single .single-in {width: 100% !important;}
+&> .single .single-in .spacer-sing, &> .single .single-in .sing-tit-cont {display: none;}
+&> .single .single-in .sing-cont {width: 100%;}
+.rslides.rslides1 {margin: 0 auto; }
+}

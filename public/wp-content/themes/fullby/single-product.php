@@ -31,11 +31,12 @@ get_header(); ?>
 					<div class="videoWrapper">		
 						
 					 	<div class='video-container'>
-									<video controls loop poster="http://placehold.it/1920x1080.jpg" id="bgvid" style="width:100%;height:auto;">
-									<source src="<?php echo get_post_meta($product->id, 'webm', true); ?>" type="video/webm">
-									<source src="<?php echo get_post_meta($product->id, 'mp4', true); ?>" type="video/mp4">
-									<source src="<?php echo get_post_meta($product->id, 'mp4', true); ?>" type="video/ogg">
-									</video>
+					 		<?php if ( has_post_thumbnail() ) {
+									$thumb_id = get_post_thumbnail_id();
+									$thumb_url_array = wp_get_attachment_image_src($thumb_id, 'video', true);
+									$thumb_url = $thumb_url_array[0];}
+									$abevidURL = get_post_meta($product->id, 'mp4', true);
+					 		echo do_shortcode('[KGVID poster="'.$thumb_url.'" width="720" height="404" view_count="true" right_click="true" resize="true" embedcode="html code"]'.$abevidURL.'[/KGVID]') ?>
 						</div>
 					</div>
 
@@ -129,6 +130,19 @@ get_header(); ?>
 			    
 	</div>
 
+<script>
+	if (document.addEventListener) {
+        document.addEventListener('contextmenu', function(e) {
+            alert("You've tried to open context menu"); //here you draw your own menu
+            e.preventDefault();
+        }, false);
+    } else {
+        document.attachEvent('oncontextmenu', function() {
+            alert("You've tried to open context menu");
+            window.event.returnValue = false;
+        });
+    }
+</script>
 
 <?php get_footer( 'shop' ); ?>
 

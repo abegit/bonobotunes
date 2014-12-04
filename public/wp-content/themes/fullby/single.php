@@ -65,6 +65,8 @@
 						
 						<?php wp_link_pages('pagelink=Page %'); ?>
 
+
+
 						<p>
 							<?php $post_tags = wp_get_post_tags($post->ID); if(!empty($post_tags)) {?>
 								<span class="tag"> <i class="fa fa-tag"></i> <?php the_tags('', ', ', ''); ?> </span>
@@ -89,7 +91,6 @@
 	                <p>Sorry, no posts matched your criteria.</p>
 	         
 	        <?php endif; ?> 
-	        
 		</div>	
 		 
 		<div class="col-md-3">

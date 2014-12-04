@@ -104,5 +104,50 @@
 
 /*activity*/
 .activity {
-    .activity-content iframe {height: 300px !important; max-width: 100%;}
+    &.directory {
+        .col-md-9.single {float: left;}
+
+        .activity-content, .activity-comments {background: none repeat scroll 0 0 #ffffff; }
+        .activity-content {@include border-radius($myrad);
+            iframe {height: 300px !important; max-width: 110%; width: 104% !important; margin:0 -2%;}
+        }
+        .activity-comments {@include border-radius( 0 0 $myrad $myrad);}
+        .activity-meta {background: none repeat scroll 0 0 #efefef; padding: 5px; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
+        .activity-meta a {font-size: 13px !important; }
+        .activity-inner {margin: 0 !important;
+            p {padding:0 2%;}
+        }
+        
+        .thickbox {
+            width: 100%; text-align: center;display: block;
+            &> br {display: none; }
+        }
+        .activity-header > p {margin: 0 !important; }
+        .activity-header {margin: 0 !important; padding: 3% 2%; }
+        .activity-inner > p > iframe {width: 100%; }
+    }
 }
+
+
+
+/*messages*/
+.messages {
+        .item-list-tabs.no-ajax {background: url("http://bloggamy.bonobodesigns.com/wp-content/themes/fullby/img/45degreee_fabric.png") repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+        margin: 0 !important;
+        padding: 1% 2%; }
+        .message-search label {margin: 0; }
+        .message-search input {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); font-size: 14px; padding: 0; }
+        #search-message-form > input[type="submit"] {
+        border: medium none;
+        @include border-box;
+        display: inline-block;
+        font-size: 14px;
+        line-height: 34px;
+        padding: 0;
+        vertical-align: middle;
+        }
+
+}
+
+
+

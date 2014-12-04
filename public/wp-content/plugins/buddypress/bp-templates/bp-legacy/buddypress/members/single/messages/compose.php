@@ -1,10 +1,10 @@
-<?php if ( function_exists( 'mycred_get_users_cred' ) && mycred_get_users_cred( get_current_user_id() ) < 0  ) : ?>
+<?php if ( function_exists( 'mycred_get_users_cred' ) && mycred_get_users_cred( get_current_user_id() ) < 1  ) : ?>
 
 	<h3>Access Denied</h3>
 	<p>You must have more then zero points to send messages.</p>
 
 <?php else : ?>
-<form action="<?php bp_messages_form_action('compose' ); ?>" method="post" id="send_message_form" class="standard-form" role="main" enctype="multipart/form-data">
+	<form action="<?php bp_messages_form_action('compose' ); ?>" method="post" id="send_message_form" class="standard-form" role="main" enctype="multipart/form-data">
 
 	<?php do_action( 'bp_before_messages_compose_content' ); ?>
 

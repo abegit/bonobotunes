@@ -2,7 +2,7 @@
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
 *  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+*  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
 *  By using this code you agree to indemnify Arnan de Gans from any
@@ -121,10 +121,11 @@ if($edit_banner->imagetype == "field") {
 	        	<label for="adrotate_bannercode"><textarea tabindex="2" id="adrotate_bannercode" name="adrotate_bannercode" cols="65" rows="15"><?php echo stripslashes($edit_banner->bannercode); ?></textarea></label>
 	        </td>
 	        <td width="40%">
+		        <p><?php _e('Copy your ad tag/code in this field if you have received ready to go adverts.', 'adrotate'); ?><br /><?php _e('Advertising and affiliate networks often use these.', 'adrotate'); ?></p>
 		        <p><strong><?php _e('Basic Examples:', 'adrotate'); ?></strong></p>
-		        <p>1. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.ajdg.net&quot;&gt;This ad is great!&lt;/a&gt;');return false;">&lt;a href="http://www.ajdg.net"&gt;This ad is great!&lt;/a&gt;</a></em></p>
-		        <p>2. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;%link%&quot;&gt;This ad is great!&lt;/a&gt;');return false;">&lt;a href="%link%"&gt;This ad is great!&lt;/a&gt;</a></em></p>
-		        <p>3. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.ajdg.net&quot;&gt;&lt;img src=&quot;%image%&quot; /&gt;&lt;/a&gt;');return false;">&lt;a href="http://www.ajdg.net"&gt;&lt;img src="%image%" /&gt;&lt;/a&gt;</a></em></p>
+		        <p>1. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.adrotateplugin.com&quot;&gt;Buy AdRotate Pro here!&lt;/a&gt;');return false;">&lt;a href="http://www.adrotateplugin.com"&gt;Buy AdRotate Pro here!&lt;/a&gt;</a></em></p>
+		        <p>2. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;%link%&quot;&gt;This advert is great!&lt;/a&gt;');return false;">&lt;a href="%link%"&gt;This advert is great!&lt;/a&gt;</a></em></p>
+		        <p>3. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.floatingcoconut.net&quot;&gt;&lt;img src=&quot;%image%&quot; /&gt;&lt;/a&gt;');return false;">&lt;a href="http://www.floatingcoconut.net"&gt;&lt;img src="%image%" /&gt;&lt;/a&gt;</a></em></p>
 		        <p>4. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;span class=&quot;ad-%id%&quot;&gt;&lt;a href=&quot;http://www.ajdg.net&quot;&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;');return false;">&lt;span class="ad-%id%"&gt;&lt;a href="http://www.ajdg.net"&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;</a></em></p>
 
 		        <p><strong><?php _e('Options:', 'adrotate'); ?></strong></p>
@@ -267,11 +268,11 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">			
 		<tbody>
 	    <tr>
-			<th width="15%" valign="top"><?php _e('Cities:', 'adrotate'); ?></strong></th>
-			<td colspan="2"><textarea tabindex="14" name="adrotate_geo_cities" cols="65" rows="3" disabled>Amsterdam, New York, Tokyo, London</textarea></td>
+			<th width="15%" valign="top"><?php _e('Cities/States:', 'adrotate'); ?></strong></th>
+			<td colspan="2"><textarea tabindex="14" name="adrotate_geo_cities" cols="65" rows="3" disabled>Amsterdam, Noord Holland, New York, California, Tokyo, London</textarea></td>
 			<td>
 		        <p><strong><?php _e('Usage:', 'adrotate'); ?></strong></p>
-		        <p><em><?php _e('A comma separated list of cities', 'adrotate'); ?> (Alkmaar, Philadelphia, Melbourne)<br /><?php _e('AdRotate does not check the validity of names so make sure you spell them correctly!', 'adrotate'); ?></em></p>
+		        <p><em><?php _e('A comma separated list of cities and/or states', 'adrotate'); ?> (Alkmaar, Philadelphia, Melbourne, ...)<br /><?php _e('AdRotate does not check the validity of names so make sure you spell them correctly!', 'adrotate'); ?></em></p>
 			</td>
 		</tr>
 	    <tr>
@@ -424,9 +425,7 @@ if($edit_banner->imagetype == "field") {
 	        <th width="17%"><?php _e('From / Until', 'adrotate'); ?></th>
 	        <th>&nbsp;</th>
 	        <th width="12%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
-	        <th width="8%"><center><?php _e('Used', 'adrotate'); ?></center></th>
 	        <th width="12%"><center><?php _e('Impressions', 'adrotate'); ?></center></th>
-	        <th width="8%"><center><?php _e('Used', 'adrotate'); ?></center></th>
 		</tr>
 		</thead>
 
@@ -434,28 +433,23 @@ if($edit_banner->imagetype == "field") {
       	<tr id='schedule-1'>
 			<th class="check-column"><input type="checkbox" name="scheduleselect[]" value="" disabled /></th>
 			<td>1</td>
-			<td><?php echo date_i18n("F d, Y H:i", 1408233600);?><br /><span style="color: <?php echo adrotate_prepare_color(1416614400);?>;"><?php echo date_i18n("F d, Y H:i", 1416614400);?></span></td>
-	        <td>Schedule for trekking campaign <span style="color:#999;"><br /><span style="font-weight:bold;">Spread:</span> Max. 342 <?php _e('impressions per hour', 'adrotate'); ?></span></td>
+			<td><?php echo date_i18n("F d, Y H:i", $now-86400);?><br /><span style="color: <?php echo adrotate_prepare_color($now+604800);?>;"><?php echo date_i18n("F d, Y H:i", $now+604800);?></span></td>
+	        <td>Schedule for trekking campaign <span style="color:#999;"><br /><span style="font-weight:bold;">Spread:</span> Max. 342 <?php _e('impressions per day', 'adrotate'); ?></span></td>
 	        <td><center>100000</center></td>
-	        <td><center>12372</center></td>
 	        <td><center>Unlimited</center></td>
-	        <td><center>N/a</center></td>
       	</tr>
       	<tr id='schedule-2' class='alternate'>
 			<th class="check-column"><input type="checkbox" name="scheduleselect[]" value="" disabled /></th>
 			<td>1</td>
-			<td><?php echo date_i18n("F d, Y H:i", 1405641600);?><br /><span style="color: <?php echo adrotate_prepare_color(1415750400);?>;"><?php echo date_i18n("F d, Y H:i", 1415750400);?></span></td>
+			<td><?php echo date_i18n("F d, Y H:i", $now);?><br /><span style="color: <?php echo adrotate_prepare_color($now+1209600);?>;"><?php echo date_i18n("F d, Y H:i", $now+1209600);?></span></td>
 	        <td>Generic schedule</td>
 	        <td><center>Unlimited</center></td>
-	        <td><center>N/a</center></td>
 	        <td><center>Unlimited</center></td>
-	        <td><center>N/a</center></td>
       	</tr>
 		</tbody>
 
 	</table>
 	<p><center>
-		<?php if($adrotate_config['hide_schedules'] == "Y") { ?><?php _e("Schedules not in use by this advert are hidden.", "adrotate"); ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php } ?>
 		<span style="border: 1px solid #518257; height: 12px; width: 12px; background-color: #e5faee">&nbsp;&nbsp;&nbsp;&nbsp;</span> <?php _e("In use by this advert.", "adrotate"); ?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<span style="border: 1px solid #c00; height: 12px; width: 12px; background-color: #ffebe8">&nbsp;&nbsp;&nbsp;&nbsp;</span> <?php _e("Expires soon.", "adrotate"); ?>
 	</center></p>

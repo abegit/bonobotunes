@@ -4,7 +4,7 @@ Plugin Name: AdRotate
 Plugin URI: https://www.adrotateplugin.com
 Description: The very best and most convenient way to publish your ads.
 Author: Arnan de Gans of AJdG Solutions
-Version: 3.10.12
+Version: 3.10.13
 Author URI: http://ajdg.solutions/
 License: GPLv3
 */
@@ -12,7 +12,7 @@ License: GPLv3
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
 *  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+*  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
 *  By using this code you agree to indemnify Arnan de Gans from any
@@ -20,9 +20,9 @@ License: GPLv3
 ------------------------------------------------------------------------------------ */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_DISPLAY", '3.10.12');
-define("ADROTATE_VERSION", 374);
-define("ADROTATE_DB_VERSION", 44);
+define("ADROTATE_DISPLAY", '3.10.13');
+define("ADROTATE_VERSION", 375);
+define("ADROTATE_DB_VERSION", 46);
 define("ADROTATE_FOLDER", 'adrotate');
 /*-----------------------------------------------------------*/
 
@@ -34,6 +34,7 @@ include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-statistics.ph
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-export.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-output.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-widget.php');
+require_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-cookie.php');
 /*-----------------------------------------------------------*/
 
 /*--- Check and Load config ---------------------------------*/
@@ -685,7 +686,7 @@ function adrotate_options() {
 	if(isset($_GET['message'])) $message = esc_attr($_GET['message']);
 
 	$converted = base64_decode($converted);
-	$adtracker = wp_next_scheduled('adrotate_clean_trackerdata');
+	$adevaluate = wp_next_scheduled('adrotate_evaluate_ads');
 ?>
 	<div class="wrap">
 	  	<h2><?php _e('AdRotate Settings', 'adrotate'); ?></h2>
@@ -785,7 +786,7 @@ function adrotate_options() {
 					<th valign="top"><?php _e('Impressions timer', 'adrotate'); ?></th>
 					<td>
 						<input name="adrotate_impression_timer" type="text" class="search-input" size="5" value="<?php echo $adrotate_config['impression_timer']; ?>" autocomplete="off" /> <?php _e('Seconds.', 'adrotate'); ?><br />
-						<span class="description"><?php _e('Default: 10. Set to 0 to disable this timer.', 'adrotate'); ?><br /><?php _e('This number may not be empty, negative or exceed 3600 (1 hour).', 'adrotate'); ?></span>
+						<span class="description"><?php _e('Default: 60. Set to 0 to disable this timer.', 'adrotate'); ?><br /><?php _e('This number may not be empty, negative or exceed 3600 (1 hour).', 'adrotate'); ?></span>
 					</td>
 				</tr>
 				<tr>
@@ -932,8 +933,8 @@ function adrotate_options() {
 					<td><?php _e('Previous database version:', 'adrotate'); ?> <?php echo $adrotate_db_version['previous']; ?></td>
 				</tr>
 				<tr>
-					<td><?php _e('Clean Trackerdata next run:', 'adrotate'); ?></td>
-					<td><?php if(!$adtracker) _e('Not scheduled!', 'adrotate'); else echo date_i18n(get_option('date_format')." H:i", $adtracker); ?></td>
+					<td><?php _e('Ad evaluation next run:', 'adrotate'); ?></td>
+					<td><?php if(!$adevaluate) _e('Not scheduled!', 'adrotate'); else echo date_i18n(get_option('date_format')." H:i", $adevaluate); ?></td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Current status of adverts', 'adrotate'); ?></th>

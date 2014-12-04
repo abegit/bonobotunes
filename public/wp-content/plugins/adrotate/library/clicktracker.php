@@ -2,7 +2,7 @@
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
 *  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+*  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
 *  By using this code you agree to indemnify Arnan de Gans from any
@@ -61,15 +61,15 @@ if(isset($_POST['track']) OR isset($_GET['track'])) {
 					$impression_timer = $now - $adrotate_config['click_timer'];
 				}
 	
-				$ip = $wpdb->get_var($wpdb->prepare("SELECT `timer` FROM `".$wpdb->prefix."adrotate_tracker` WHERE `ipaddress` = '%s' AND `stat` = 'c' AND `bannerid` = %d ORDER BY `timer` DESC LIMIT 1;", $remote_ip, $ad));
-				if($ip < $impression_timer) {
+				$timer = adrotate_get_cookie('track', $ad);
+				if($timer[1] < $impression_timer) {
 					$stats = $wpdb->get_var($wpdb->prepare("SELECT `id` FROM `".$wpdb->prefix."adrotate_stats` WHERE `ad` = %d AND `group` = %d AND `thetime` = $today;", $ad, $group));
 					if($stats > 0) {
 						$wpdb->query("UPDATE `".$wpdb->prefix."adrotate_stats` SET `clicks` = `clicks` + 1 WHERE `id` = $stats;");
 					} else {
 						$wpdb->insert($wpdb->prefix.'adrotate_stats', array('ad' => $ad, 'group' => $group, 'block' => 0, 'thetime' => $today, 'clicks' => 1, 'impressions' => 1));
 					}
-					$wpdb->insert($prefix.'adrotate_tracker', array('ipaddress' => $remote_ip, 'timer' => $now, 'bannerid' => $ad, 'stat' => 'c', 'useragent' => $useragent, 'country' => '', 'city' => ''));
+					adrotate_cookie_clicks($ad, $now);
 				}
 			}
 		}

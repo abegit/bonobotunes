@@ -2,7 +2,7 @@
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
 *  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+*  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
 *  By using this code you agree to indemnify Arnan de Gans from any
@@ -70,6 +70,61 @@ function adrotate_is_networked() {
 	}		
 	return false;
 }
+
+/*-------------------------------------------------------------
+ Name:      adrotate_count_impression
+
+ Purpose:   Count Impressions where needed
+ Receive:   $selected
+ Return:    -None-
+ Since:		3.10.12
+-------------------------------------------------------------*/
+function adrotate_count_impression($ad, $group = 0) { 
+	global $wpdb, $adrotate_config, $adrotate_crawlers, $adrotate_debug;
+
+	$now = adrotate_now();
+	$today = adrotate_date_start('day');
+	$timer = adrotate_get_cookie('track', $ad);
+
+	if($adrotate_debug['timers'] == true) {
+		$impression_timer = $now;
+	} else {
+		$impression_timer = $now - $adrotate_config['impression_timer'];
+	}
+
+	if($timer[0] < $impression_timer) {
+		if(($adrotate_config['enable_loggedin_impressions'] == 'Y' AND is_user_logged_in()) OR !is_user_logged_in()) {
+			$remote_ip 	= adrotate_get_remote_ip();
+			if(is_array($adrotate_crawlers)) {
+				$crawlers = $adrotate_crawlers;
+			} else {
+				$crawlers = array();
+			}
+
+			if(isset($_SERVER['HTTP_USER_AGENT'])) {
+				$useragent = $_SERVER['HTTP_USER_AGENT'];
+				$useragent = trim($useragent, ' \t\r\n\0\x0B');
+			} else {
+				$useragent = '';
+			}
+
+			$nocrawler = true;
+			foreach($crawlers as $crawler) {
+				if(preg_match("/$crawler/i", $useragent)) $nocrawler = false;
+			}
+
+			if($nocrawler == true AND strlen($useragent) > 0) {
+				$stats = $wpdb->get_var($wpdb->prepare("SELECT `id` FROM `".$wpdb->prefix."adrotate_stats` WHERE `ad` = %d AND `group` = %d AND `thetime` = $today;", $ad, $group));
+				if($stats > 0) {
+					$wpdb->query("UPDATE `".$wpdb->prefix."adrotate_stats` SET `impressions` = `impressions` + 1 WHERE `id` = $stats;");
+				} else {
+					$wpdb->insert($wpdb->prefix.'adrotate_stats', array('ad' => $ad, 'group' => $group, 'block' => 0, 'thetime' => $today, 'clicks' => 0, 'impressions' => 1));
+				}
+				adrotate_cookie_impressions($ad, $now);
+			}
+		}
+	}
+} 
 
 /*-------------------------------------------------------------
  Name:      adrotate_filter_schedule

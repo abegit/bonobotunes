@@ -2,7 +2,7 @@
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
 *  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+*  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
 *  By using this code you agree to indemnify Arnan de Gans from any
@@ -608,7 +608,7 @@ function adrotate_options_submit() {
 		if(is_numeric($impression_timer) AND $impression_timer >= 0 AND $impression_timer <= 3600) {
 			$config['impression_timer'] = $impression_timer;
 		} else {
-			$config['impression_timer'] = 10;
+			$config['impression_timer'] = 60;
 		}
 
 		// Set up click timer

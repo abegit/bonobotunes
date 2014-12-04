@@ -1,15 +1,15 @@
 /****************************************************************************************
  * Dynamic advert rotation for AdRotate													*
  * Arnan de Gans from AJdG Solutions (http://meandmymac.net, https://ajdg.solutions/)	*
- * Version: 0.5.3													   					*
- * With help from: Mathias Joergensen (http://www.moofy.me)								*
- * Original code: Fraser Munro															*
+ * Version: 0.6														   					*
+ * With help from: Mathias Joergensen (http://www.moofy.me), Fraser Munro				*
+ * Original code: Arnan de Gans															*
  ****************************************************************************************/
 
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
 *  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+*  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
 *  By using this code you agree to indemnify Arnan de Gans from any
@@ -34,12 +34,16 @@ speed : Time each slide is shown [integer: milliseconds, defaults to 3000]
 			var counter = 1;
 
 			if(length > 1) {
-				for(n = 1; n < length; n++) {
+				for(n = 1; n <= length; n++) {
 					$cont.find(".c-" + n).hide();
 				}
 				$cont.find(".c-" + Math.floor(Math.random()*length+1)).show();
 				
 				timer = setInterval(function(){ play(); }, config.speed);
+			}
+			
+			if(length == 1) {
+				impressions(counter);
 			}
 
 			function transitionTo(gallery, index) {
@@ -49,14 +53,21 @@ speed : Time each slide is shown [integer: milliseconds, defaults to 3000]
 					counter++;
 				}
 
-				$cont.find(".c-" + counter).fadeIn(300)
+				impressions(counter);
+
+				$cont.find(".c-" + counter).fadeIn(300);
 				if(length > 1) {
-					$cont.find(".c-" + index).fadeOut(300);
+					$cont.find(".c-" + index).fadeOut(250);
 				}
 			}
 			
 			function play() {
-				if(length > 1) transitionTo(gallery, counter);
+				transitionTo(gallery, counter);
+			}
+
+			function impressions(counter) {
+				var tracker = $cont.find(".c-" + counter + ' a').attr("data-track");
+				$.post(impression_url, { track: tracker });
 			}
 		});
 		return this;

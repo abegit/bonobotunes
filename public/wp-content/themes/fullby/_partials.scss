@@ -40,6 +40,22 @@
   box-shadow: $params;
 }
 
+@mixin text-shadow($shadow1, $shadow2:false, $shadow3:false, $shadow4:false, $shadow5:false) {
+ $params: $shadow1;
+  @if $shadow2 
+    { $params: $shadow1, $shadow2; }
+    @if $shadow3 != false
+      { $params: $shadow1, $shadow2, $shadow3; }
+      @if $shadow4 != false
+        { $params: $shadow1, $shadow2, $shadow3, $shadow4; }
+        @if $shadow5 != false
+          { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5; }
+
+  -webkit-text-shadow: $params;
+  -moz-text-shadow: $params;
+  text-shadow: $params;
+}
+
 
 @mixin trans($numb){-webkit-transition:all $numb ease-in-out;
      -moz-transition:all $numb ease-in-out;

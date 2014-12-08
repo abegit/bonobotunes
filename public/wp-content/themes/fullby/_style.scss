@@ -1,20 +1,16 @@
 /*
-Theme Name: FULLBY 
-Theme URI: 	http://www.marchettidesign.net/fullby/demo/
+Theme Name: Bonoboville 
+Theme URI: 	http://bonoboville.com/unscene
 Description:Responsive Grid Wordpress Theme based on Boostrap 3, Font Awesome and Isotope.
-Version: 	1.4.1
-Author:		Andrea Marchetti
-Author URI:	http://www.marchettidesign.net/chisono
-Site: 		http://www.marchettidesign.net
+Version: 	1.1
+Author:		Abraham Perez
+Author URI:	http://bonoboville/tech
+Site: 		http://unscene.us
 Tags:		responsive-layout,custom-menu, featured-images, fluid-layout, full-width-template, left-sidebar, right-sidebar, theme-options
 
-Copyright (c) 2014 Andrea Marchetti  
-http://www.marchettidesign.net
+Copyright (c) 2014 Bonoboville
+http://bonoboville.com
 
-FULLBY is free to use for personal and commercial projects.
-You can NOT redistribute FULLBY theme or parts from it.
-Attribution is not required, but much appreciated.
- 
 The software is provided "as is", without warranty of any kind,
 express or implied, including but not limited to the warranties
 of merchantability, fitness for a particular purpose and
@@ -98,6 +94,12 @@ img {height: auto; max-width: 100%;}
 	
 	
 /*** Grid ***/
+.wrap {
+    display: block;
+    margin: 0 auto;
+    max-width: 95%;
+    padding-top: 10px;
+}
 .cont-grid{float:right;padding: 10px 0 0 5px;border-left: 1px solid #eee;}
 
 	.cont-grid .post{padding:20px 25px 20px 15px;}
@@ -132,7 +134,7 @@ img {height: auto; max-width: 100%;}
 	
 	
 /* Single */
-.single{float:right;margin:0;padding:0; background:#e3e3e3;}
+.single{float:right;margin:0;padding:0;}
 
 	.sing-cop{width:100%; height:auto;}
 	.sing-tit-cont{position: relative;margin:-69px 0 0 0;margin-left:10%; padding:3% 5% 1% 5%;width:80%;background:#fff;}
@@ -171,7 +173,7 @@ img {height: auto; max-width: 100%;}
 	#submit{margin-top:10px;background: #00ebbe; color:#fff;text-transform: uppercase;padding: 15px 20px;}
 	
 	/* Video Resposnive */
-	.videoWrapper {position: relative;margin-bottom: 70px;padding-top: 25px;padding-bottom: 56.25%; /* 16:9 */height: 0;}
+	.videoWrapper {position: relative; line-height: 0;}
 	.videoWrapper iframe {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
 	
 	.link-video{position:relative;}
@@ -187,9 +189,11 @@ img {height: auto; max-width: 100%;}
 
 	
 /* Primary Sidebar */
-body > .sidebar > * {background:#f4f4f4; @include border-radius(10px); padding:7px;}
 .sidebar{float:left;}	
-.sidebar .widget{margin-top: 10px; padding: 10px;}
+.sidebar .widget{margin-top: 10px; background:#f4f4f4;padding:7px; margin:1px 0 0 0;
+	&:first-child {@include border-radius($myrad $myrad 0 0); }
+	&:last-child {margin:0 0 10px 0; @include border-radius(0 0 $myrad $myrad); }
+}
 .sidebar .widget h3{text-transform: uppercase;font-weight:700;font-size: 14px; margin-top: 7px; color: #7f7f7f;}
 .sidebar .widget a{ display:block; padding: 10px 15px;border-bottom: 1px solid #eee;}
 .sidebar .widget ul{padding:0;list-style-type: none;}
@@ -260,7 +264,9 @@ body > .sidebar > * {background:#f4f4f4; @include border-radius(10px); padding:7
 	
 	.featured{margin-top:50px}
 	.cont-grid, .sidebar{width:100%;}	
-	.single{float:left; width:100%;border-left: none;}	
+	.single{float:left; width:100%;border-left: none;}
+	.wrap {max-width: 100%;
+    padding: 0;}
 	
 }
 

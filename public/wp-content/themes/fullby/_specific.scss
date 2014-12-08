@@ -1,10 +1,58 @@
-body.home-page {
-
-&> .sidebar {display: none;}
-&> .single {width: 100%;}
-&> .single * {margin: 0; padding: 0 !important;}
-&> .single .single-in {width: 100% !important;}
-&> .single .single-in .spacer-sing, &> .single .single-in .sing-tit-cont {display: none;}
-&> .single .single-in .sing-cont {width: 100%;}
-.rslides.rslides1 {margin: 0 auto; }
+body.home-pagse {
+	&> .sidebar {display: none;}
+	&> .single {width: 100%;}
+	&> .single * {margin: 0; padding: 0 !important;}
+	&> .single .single-in {width: 100% !important;}
+	&> .single .single-in .spacer-sing, &> .single .single-in .sing-tit-cont {display: none;}
+	&> .single .single-in .sing-cont {width: 100%;}
+	.rslides.rslides1 {margin: 0 auto; }
 }
+
+body.single-product {
+	.kgvid_wrapper_inline_left {margin: 0; }
+	.kgvid_wrapper {margin:0; line-height: 0}
+	.kgvid_wrapper_inline_left video {height: auto; width: 100% !important; }
+	.vjs-poster {position: absolute; top: 0; width: 100%; z-index: 0; }
+	.video-js .vjs-tech {position: relative;}
+	.video-js {height: unset !important; line-height: 0 !important; max-width: 100%; min-width: 100% !important; width: 100% !important; }
+	.sing-tit-cont, .sing-cont {background-color:#ffffff; margin:10px 0; padding:10px; width: 100%;}
+	.sidebar .widget:first-child {margin-top:0;}
+}
+
+body.registration {
+	.navbar-sub {display: none;}
+	.single {background: rgba(0,0,0,.6);color:#fff;}
+	.sing-tit-cont {margin:0 auto; width: 100%; background:none; text-align: center;}
+	.wp-social-login-provider > img {display: none; }
+	.wp-social-login-provider.wp-social-login-provider-facebook:after {content: " Sign In with Facebook"; display: inline-block; }
+	.wp-social-login-provider.wp-social-login-provider-twitter:after {content: " Sign In with Twitter"; display: inline-block; }
+	.wp-social-login-provider.wp-social-login-provider-twitter:before {-moz-osx-font-smoothing: grayscale; content: ""; display: inline-block; font-family: icomoon; }
+	.wp-social-login-provider.wp-social-login-provider-twitter {background: #51b6f7; color: #ffffff; }
+	.wp-social-login-provider.wp-social-login-provider-facebook {background: #5b71ad; color: #ffffff; }
+	.wp-social-login-provider.wp-social-login-provider-facebook:before {-moz-osx-font-smoothing: grayscale;  content: ""; font-family: icomoon; }
+	.wp-social-login-provider { @include border-radius($myrad); @include box-shadow(0 -20px 20px -20px rgba(0, 0, 0, 0.7) inset); font-size: 18px; padding: 10px; 
+		&:before {border-right: 1px solid rgba(255, 255, 255, 0.2); @include box-shadow(1px 0 0 rgba(0, 0, 0, 0.1)); font-size: 24px; line-height: 18px; margin-right: 4px; padding-right: 7px; position: relative;
+			@include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); top: -2px; vertical-align: middle;}
+		&:after {@include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); }
+		&:hover {opacity: 0.8;}
+	}
+
+}
+
+
+
+
+/*
+#buddypress .comment-reply-link, 
+#buddypress a.button, 
+#buddypress button, 
+#buddypress div.generic-button a, 
+#buddypress input[type="button"], 
+#buddypress input[type="reset"], 
+#buddypress input[type="submit"], 
+#buddypress ul.button-nav li a,
+a.bp-title-button {background: #ffff00 !important;
+    border: medium none !important;
+    box-shadow: 0 20px 30px rgba(255, 255, 255, 0.7) inset;
+    font-size: 13px !important;
+    padding: 10px 15px !important;}*/

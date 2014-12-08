@@ -1,5 +1,5 @@
 <?php get_header(); ?>			
-		
+		<div class="wrap">
 	<div class="col-md-9 single">
 		<div class="col-md-9 single-in">
 		
@@ -110,5 +110,5 @@
 		<?php get_sidebar( 'primary' ); ?>	
 			    
 	</div>
-
+</div>
 <?php get_footer(); ?>

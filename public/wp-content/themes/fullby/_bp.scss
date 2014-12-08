@@ -132,9 +132,9 @@
 
 /*messages*/
 .messages {
-        .item-list-tabs.no-ajax {background: url("http://bloggamy.bonobodesigns.com/wp-content/themes/fullby/img/45degreee_fabric.png") repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+        .item-list-tabs.no-ajax {background: #f4f4f4 !important;
         margin: 0 !important;
-        padding: 1% 2%; }
+        padding: 1% 2%; @include border-radius($myrad $myrad 0 0);}
         .message-search label {margin: 0; }
         .message-search input {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); font-size: 14px; padding: 0; }
         #search-message-form > input[type="submit"] {
@@ -148,6 +148,40 @@
         }
 
 }
+
+
+#buddypress {
+    table.forum tr td,
+    table.messages-notices tr td,
+    table.notifications tr td,
+    table.notifications-settings tr td,
+    table.profile-fields tr td,
+    table.profile-settings tr td,
+    table.wp-profile-fields tr td { background:#fff;}
+
+    table.forum tr.alt td,
+    table.messages-notices tr.alt td,
+    table.notifications tr.alt td,
+    table.notifications-settings tr.alt td,
+    table.profile-fields tr.alt td,
+    table.profile-settings tr.alt td,
+    table.wp-profile-fields tr.alt td { background:#f4f4f4;}
+
+    div.pagination {
+    background: none repeat scroll 0 0 #ffffff !important;
+    border-radius: 0;
+    @include box-shadow(0 -20px 36px -36px #dfdfdf inset);
+    font-size: 13px !important;
+    text-align: center;
+    text-transform: uppercase;
+        .pag-count {float: none !important; }
+    }
+
+
+}
+
+
+
 
 
 

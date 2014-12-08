@@ -1,6 +1,3 @@
-<?php if (!is_user_logged_in() && !is_page('register')) {
-	header( 'Location: http://bloggamy.bonobodesigns.com/register' ) ;
-}?>
 <!DOCTYPE html>
 <html  <?php language_attributes();?>>
   <head>

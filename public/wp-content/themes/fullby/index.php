@@ -1,5 +1,5 @@
 <?php get_header(); ?>		
-
+<div class="wrap">
 		<div class="col-md-9 cont-grid">
 		
 		<?php // if is home and is not paged show featured post
@@ -123,5 +123,5 @@
 		<?php get_sidebar( 'primary' ); ?>		
 		    
 	</div>
-	
+	</div>
 <?php get_footer(); ?>	

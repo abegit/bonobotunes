@@ -26,6 +26,7 @@ get_header(); ?>
 				<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					global $product;
 					$current_user = wp_get_current_user();
+					$author_id = $post->post_author;
 
 					if ( has_post_thumbnail() ) {
 						$thumb_id = get_post_thumbnail_id();
@@ -38,17 +39,16 @@ get_header(); ?>
 		
 						<div class="videoWrapper">		
 						 		<?php $abevidURL = get_post_meta($product->id, 'mp4', true);
-						 		echo do_shortcode('[KGVID poster="'.$thumb_url.'" view_count="true" autoplay="false" right_click="true" resize="true" embedcode="html code"]'.$abevidURL.'[/KGVID]') ?>
+						 		echo do_shortcode('[KGVID poster="'.$thumb_url.'" view_count="true" autoplay="false" right_click="true" resize="true" embedcode="html code"]'.$abevidURL.'[/KGVID]'); ?>
 						</div>
 
 					<?php $buyLink = 'Purchased';
 
-						} else { 
-
-						  $buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA=XXXXXXX&HTML='.site_url().'/?add-to-cart='.$post->ID;
-						  $buyLink = '<button onClick="location.href='.$buyLinkHref.'" class="button alt">Add To Cart</button>';
-							 
-							 ?>
+						} else { ?>
+				  			<?php if ( $data = bp_get_profile_field_data( 'field=ccbillaffil&user_id='.$author_id ) ) : ?>
+	 	 					<?php $buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA='.$data.'&HTML='.site_url().'/?add-to-cart='.$post->ID;  ?>
+							<?php endif ?>
+						  	<?php $buyLink = '<button onClick="location.href='.$buyLinkHref.'" class="button alt">Add To Cart</button>'; ?>
 	                	<div class="videoWrapper" style="cursor:pointer;" onClick="location.href='<?php echo $buyLinkHref; ?>'">
 	                		<button class="button alt" onClick="location.href='<?php echo $buyLinkHref; ?>'">Watch Video</button>
 			                    <?php the_post_thumbnail('video'); ?>
@@ -68,9 +68,7 @@ get_header(); ?>
 					
 					<h3 class="sing-tit"><?php the_title(); ?></h3>
 				
-					<p class="meta">		
-						<?php $author_id=$post->post_author;
-							echo bp_core_fetch_avatar( array( 'item_id' => $author_id ) ); 
+					<p class="meta"><?php echo bp_core_fetch_avatar( array( 'item_id' => $author_id ) );
 							echo BP_Friends_Friendship::total_friend_count( $author_id );
 							 $args = array(
 								    'field'     => 'Occupation',

@@ -1,4 +1,13 @@
 <?php get_header(); ?>			
+<?php
+//	$url = strtok($url, '?');
+
+	// The value of the variable name is found
+	$afil = $_GET["friend"];
+
+
+	?>
+
 
 	<div class="col-md-12 single">
 		<div class="col-md-12 single-in">
@@ -59,4 +68,15 @@
   transition: 1s opacity;">
 <source src="<?php bloginfo('stylesheet_directory'); ?>/img/20121117_patreus_vicky_vixen.webm" type="video/webm">
 </video>
+<script>
+var stateObj = { foo: "bar" };
+window.history.pushState(stateObj, "Register", "<?php echo $current_url[0]; ?>");
+</script>
+
+<script>
+var abeRegister = jQuery.noConflict(); 
+	abeRegister(function () {
+  abeRegister(".field_20 input[type=text]").val("<?php echo $afil; ?>");
+});
+</script>
 <?php get_footer(); ?>

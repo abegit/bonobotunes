@@ -1,1 +1,0 @@
-<h3><?php _e( 'Not Found', kopa_get_domain() ); ?></h3>

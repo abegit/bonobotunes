@@ -39,7 +39,7 @@
 					</td>
 				<?php endif; ?>
 
-				<td width="50%" class="thread-info">
+				<td width="50%" class="thread-info" onClick="location.href='<?php bp_message_thread_view_link(); ?>'" style="cursor:pointer;">
 					<p><a href="<?php bp_message_thread_view_link(); ?>" title="<?php esc_attr_e( "View Message", "buddypress" ); ?>"><?php bp_message_thread_subject(); ?></a></p>
 					<p class="thread-excerpt"><?php bp_message_thread_excerpt(); ?></p>
 				</td>

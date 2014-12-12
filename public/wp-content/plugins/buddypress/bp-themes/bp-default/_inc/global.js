@@ -421,9 +421,9 @@ jq(document).ready( function() {
 			if ( form.parent().hasClass( 'activity-comments' ) )
 				form.addClass('root');
 
-			form.slideDown( 200 );
+			form.slideDown( 400 );
 			jq.scrollTo( form, 500, {
-				offset:-100,
+				offset:  -150,
 				easing:'swing'
 			} );
 			jq('#ac-form-' + ids[2] + ' textarea').focus();

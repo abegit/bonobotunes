@@ -31,6 +31,9 @@ a:focus, a:hover{color:#ff0052;}
 
 img {height: auto; max-width: 100%;}
 
+
+
+
 /* Menus */
 .navbar {margin:0;border:none;border-radius:0;background-color: #343434;background-image: none;text-transform: uppercase;
 	.avatar {height: auto;
@@ -42,7 +45,7 @@ img {height: auto; max-width: 100%;}
     vertical-align: middle;
     width: 30px;
     z-index: 1;}
-    i {font-style: normal; margin-left: 10px; margin-right: 7px; }
+    i {font-style: normal; margin-left: 10px; margin-right: 7px; font-family: icomoon; -moz-osx-font-smoothing:grayscale;}
     .dropdown-menu i {float:right;}
     .notifications span {position: absolute; right: 13px; top: 5px;}
 }
@@ -51,7 +54,7 @@ img {height: auto; max-width: 100%;}
 .navbar-inverse .navbar-brand .arrow{margin-right:5px;}
 .navbar-nav ul{list-style-type: none}
 .navbar-inverse .navbar-nav > li > a {color:#fff;font-weight: 300;
-	i {font-family: fontawesome; -moz-osx-font-smoothing:grayscale;}
+	i.glyphicon-search {font-family: fontawesome; -moz-osx-font-smoothing:grayscale;}
 }
 .navbar-inverse .navbar-nav > li > a:hover {background:#ccd5d4;font-weight: 300;}
 
@@ -60,7 +63,7 @@ img {height: auto; max-width: 100%;}
 	.navbar-inverse .navbar-nav > .active > a:focus {background-color: #ffffff; color: #6f6f6f;}
 	
 	.navbar-sub{background: #e3e3e3; @include box-shadow(0 0 6px #bbc9ca); z-index: 1;}
-	.navbar-sub .navbar-nav > li > a{color:#666; i {font-family: icomoon; -moz-osx-font-smoothing:grayscale;}}
+	.navbar-sub .navbar-nav > li > a{color:#666;}
 	.navbar-sub .navbar-nav > li > a:hover{background: #ccd5d4;color:#000;}
 	
 
@@ -168,7 +171,9 @@ img {height: auto; max-width: 100%;}
 	ol.commentlist li.parent { border-left:1px solid #eee; }
 	ol.commentlist li.bypostauthor .fn{	font-weight: bold;}
 
-	input{ margin-right:10px;padding: 10px;border:none;background: #eee;}
+	input{ margin-right:10px;padding: 10px;border:none;background: #eee;
+		&[type=text], &[type=password] {width: 100%; margin-right: 0; @include border-box;}
+	}
 	textarea{ float:left;padding:10px;width:90%;border:none;background: #eee;}
 	#submit{margin-top:10px;background: #00ebbe; color:#fff;text-transform: uppercase;padding: 15px 20px;}
 	
@@ -189,10 +194,21 @@ img {height: auto; max-width: 100%;}
 
 	
 /* Primary Sidebar */
-.sidebar{float:left;}	
+.sidebar{float:left;
+	&:after {
+    background: url('img/bonobos.png') no-repeat scroll center center rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0);
+    content: ".";
+    display: block;
+    height: 30px;
+    margin-top: 20px;
+    opacity: 0.2;
+    text-align: center;
+    width: 100%;}}	
 .sidebar .widget{margin-top: 10px; background:#f4f4f4;padding:7px; margin:1px 0 0 0;
 	&:first-child {@include border-radius($myrad $myrad 0 0); }
 	&:last-child {margin:0 0 10px 0; @include border-radius(0 0 $myrad $myrad); }
+	.menu li a {display: block !important;}
 }
 .sidebar .widget h3{text-transform: uppercase;font-weight:700;font-size: 14px; margin-top: 7px; color: #7f7f7f;}
 .sidebar .widget a{ display:block; padding: 10px 15px;border-bottom: 1px solid #eee;}

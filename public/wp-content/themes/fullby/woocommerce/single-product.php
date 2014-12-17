@@ -31,29 +31,43 @@ get_header(); ?>
 					if ( has_post_thumbnail() ) {
 						$thumb_id = get_post_thumbnail_id();
 						$thumb_url_array = wp_get_attachment_image_src($thumb_id, 'video', true);
-						$thumb_url = $thumb_url_array[0]; }
+						$thumb_url = $thumb_url_array[0];
+					}
 
+					// Add items to the footer
+					function add_requirejs() {
+						$vid_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'video' );
+						$small_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'smallvideo' );
+						
+						echo '<style media="screen"> .videoWrapper {background-image:url('. $vid_thumb[0] .') !important} </style>';
+						echo '<style media="screen and (max-width:760px)"> .videoWrapper {background-image:url('. $small_thumb[0] .') !important} </style>';
 
+					}
+					add_filter('wp_footer', 'add_requirejs');
 
-					if ( wc_customer_bought_product( $current_user->user_email, $current_user->ID, $product->id)) { ?>
+				// checks if user bought product
+			if ( wc_customer_bought_product( $current_user->user_email, $current_user->ID, $product->id)) { 
+					$buyLink = 'Purchased'; ?>
 		
 						<div class="videoWrapper">		
 						 		<?php $abevidURL = get_post_meta($product->id, 'mp4', true);
 						 		echo do_shortcode('[KGVID poster="'.$thumb_url.'" view_count="true" autoplay="false" right_click="true" resize="true" embedcode="html code"]'.$abevidURL.'[/KGVID]'); ?>
 						</div>
 
-					<?php $buyLink = 'Purchased';
+			<?php 	} else { 
+						// fires if user has not bought product 
+							if ( $data = bp_get_profile_field_data( 'field=ccbillaffil&user_id='.$author_id ) ) :
+								$buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA='.$data.'&HTML='.site_url().'/?add-to-cart='.$post->ID; 
+	 	 					endif ?>
+						  	<?php $buyLink = '<button onClick="location.href='.$buyLinkHref.'" class="button alt" alt="Continue to Checkout">Add To Collection</button>'; ?>
 
-						} else { ?>
-				  			<?php if ( $data = bp_get_profile_field_data( 'field=ccbillaffil&user_id='.$author_id ) ) : ?>
-	 	 					<?php $buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA='.$data.'&HTML='.site_url().'/?add-to-cart='.$post->ID;  ?>
-							<?php endif ?>
-						  	<?php $buyLink = '<button onClick="location.href='.$buyLinkHref.'" class="button alt">Add To Cart</button>'; ?>
-	                	<div class="videoWrapper" style="cursor:pointer;" onClick="location.href='<?php echo $buyLinkHref; ?>'">
-	                		<button class="button alt" onClick="location.href='<?php echo $buyLinkHref; ?>'">Watch Video</button>
-			                    <?php the_post_thumbnail('video'); ?>
+	                	<div class="videoWrapper" style="cursor:pointer; background: repeat scroll 0 0 / cover #000;" onClick="location.href='<?php echo $buyLinkHref; ?>'">
+	                		<button class="button alt" onClick="location.href='<?php echo $buyLinkHref; ?>'" alt="Play Video"><i class="icon-play3"></i></button>
+			                    <?php // the_post_thumbnail('video'); ?>
+			                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/16px.png" style="width:100%;">
 						</div>	    
-	                <?php }  ?>
+
+			<?php }  ?>
 				
 
 
@@ -75,9 +89,12 @@ get_header(); ?>
 								    'user_id'   => $author_id
 								); ?>
 						<i class="fa fa-user"></i> <?php echo bp_core_get_userlink( $author_id, $no_anchor = false, $just_link = false ); ?> <?php bp_profile_field_data( $args ); ?>  &nbsp;
-						<?php bp_add_friend_button( $author_id ) ?>
-						<?php 
-						$video = get_post_meta($post->ID, 'fullby_video', true );
+							<?php if (!is_user_logged_in()) {
+								echo "<a href='../register' class='button'>Bonobo</a>";
+							} else {
+								bp_add_friend_button( $author_id );
+							} ?>
+						<?php $video = get_post_meta($post->ID, 'fullby_video', true );
 						
 						if($video != '') { ?>
 		             			
@@ -174,7 +191,7 @@ get_header(); ?>
     }
 </script>
 
-<?php get_footer( 'shop' ); ?>
+<?php get_footer(); ?>
 
 
 

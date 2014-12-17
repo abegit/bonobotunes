@@ -133,6 +133,7 @@ function mycred_pro_login_redirect( $redirect_to, $request, $user = NULL )
 		add_image_size( 'quad', 400, 400, true ); //(cropped)
 		add_image_size( 'single', 800, 494, true ); //(cropped)
 		add_image_size( 'video', 800, 450, true ); //(cropped)
+		add_image_size( 'smallvideo', 400, 225, true ); //(cropped)
 	}
 
 ?>
@@ -307,7 +308,7 @@ function fullby_settings()
 add_action( 'admin_menu', 'register_my_custom_menu_page' );
 
 function register_my_custom_menu_page(){
-    add_menu_page( 'Fullby Premium', 'FULLBY Premium', 'manage_options', 'custompage', 'my_custom_menu_page', get_template_directory_uri() . '/img/icon-backend.png', 99); 
+    add_menu_page( 'Fullby Premium', 'FULLBY Premium', 'manage_options', 'custompage', 'my_custom_menu_page', get_template_directory_uri() . '/img/icon-backend.png', 100); 
 }
 
 function my_custom_menu_page(){ ?>

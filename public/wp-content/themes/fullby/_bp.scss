@@ -61,12 +61,6 @@
     }
 
 
-	
-    .sing-tit-cont {display: none; }
-    .row.spacer-sing {display: none; }
-    .sing-cont {margin-left: 0; width: 100%; }
-
-
     
     &.my-account.activity {
         #subnav > ul > li {display: inline-block;}
@@ -106,37 +100,72 @@
 .activity {
     &.directory {
         .col-md-9.single {float: left;}
-
-        .activity-content, .activity-comments {background: none repeat scroll 0 0 #ffffff; }
-        .activity-content {@include border-radius($myrad);
-            iframe {height: 300px !important; max-width: 110%; width: 104% !important; margin:0 -2%;}
-        }
-        .activity-comments {@include border-radius( 0 0 $myrad $myrad);}
-        .activity-meta {background: none repeat scroll 0 0 #efefef; padding: 5px; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
-        .activity-meta a {font-size: 13px !important; }
-        .activity-inner {margin: 0 !important;
-            p {padding:0 2%;}
-        }
+        #buddypress {
+            .activity-content, .activity-comments {background: none repeat scroll 0 0 #ffffff; }
+            .activity-content {@include border-radius($myrad);
+                iframe {height: 300px !important; max-width: 110%; width: 104% !important; margin:0 -2%;}
+            }
+            .activity-comments {@include border-radius( 0 0 $myrad $myrad);}
+            .activity-meta {background: none repeat scroll 0 0 #efefef; padding: 5px; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
+            .activity-meta a {font-size: 13px !important; }
+            .activity-inner {margin: 0 !important;
+                p {padding:0 2%;}
+            }
+            
+            .thickbox {
+                width: 100%; text-align: center;display: block;
+                &> br {display: none; }
+            }
+            .activity-header > p {margin: 0 !important; }
+            .activity-header {margin: 0 !important; padding: 3% 2%; }
+            .activity-inner > p > iframe {width: 100%; }
+            #subnav {background: none !important;
+                .feed {display: none;}
+            }
+            .activity-list {border-top: none !important;}
+            #whats-new-form {background: rgba(255, 255, 255, 0.4); margin-bottom:10px; padding:10px;
+                textarea {background: none repeat scroll 0 0 rgb(255, 255, 255) !important;
+                    @include border-radius($myrad $myrad 0 0); width: 100%;
+                    @include box-shadow(0 0 2px rgb(189, 189, 189));
+                    height: 60px;
+                    padding: 8px !important; border: 1px solid rgb(189, 189, 189); resize:none;
+                    &:focus {resize: vertical !important;} }
+                #whats-new-content {
+                    padding:0 0 0 20px;
+                    &> * {display: inline-block; width: 100%;}
+                }
+                    .mpp-upload-butons a  {
+                                        img {display: none;}
+                                        &:before {border-right: 1px solid rgb(189, 189, 189); @include box-shadow(0 0 10px rgb(221, 221, 221)); display: inline-block; float: left; font-family: icomoon; font-size: 28px; line-height: 60px; margin: 0; text-align: center; width: 40px;}
+                                        &#mpp-photo-upload:before {content:"";}
+                                        &#mpp-audio-upload:before {content:"";}
+                                        &#mpp-video-uploader:before {content:"";}
+                    }
+                    #whats-new-options {background: none repeat scroll 0 0 rgb(242, 242, 242); margin-top: -7px;border-left: 1px solid rgb(189, 189, 189);border-right: 1px solid rgb(189, 189, 189);border-bottom: 1px solid rgb(189, 189, 189);}
+                    #whats-new-options #whats-new-submit {margin-top: 0; 
+                        input {font-size: 16px; line-height: 50px; margin: 5px; padding: 0 30px;}}
+                    #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
+                    #whats-new-options #whats-new-post-in-box {clear: both !important; color: rgb(152, 152, 152); font-size: 10px; line-height: 30px !important; padding: 0 10px; }
+                }
         
-        .thickbox {
-            width: 100%; text-align: center;display: block;
-            &> br {display: none; }
-        }
-        .activity-header > p {margin: 0 !important; }
-        .activity-header {margin: 0 !important; padding: 3% 2%; }
-        .activity-inner > p > iframe {width: 100%; }
+     }
     }
 }
 
 
 
 /*messages*/
-.messages {
+
         .item-list-tabs.no-ajax {background: #f4f4f4 !important;
         margin: 0 !important;
-        padding: 1% 2%; @include border-radius($myrad $myrad 0 0);}
-        .message-search label {margin: 0; }
-        .message-search input {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); font-size: 14px; padding: 0; }
+        padding:0; line-height: 0; @include border-radius($myrad $myrad 0 0);}
+        #subnav li {line-height: 28px;}
+        #subnav {height: 48px;
+            ul {margin:10px 0 0 10px !important;}
+            }
+        .message-search input {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border-bottom: 2px solid #000; font-size: 14px; height: 130px; line-height: 36px; margin: 0 -30px 0 0 !important; padding: 0; position: relative; vertical-align: bottom; z-index: 1;@include trans(500ms);
+            &:focus {margin:0 18px 0 0 !important;height: 37px;}
+        }
         #search-message-form > input[type="submit"] {
         border: medium none;
         @include border-box;
@@ -147,7 +176,6 @@
         vertical-align: middle;
         }
 
-}
 
 
 #buddypress {
@@ -167,6 +195,8 @@
     table.profile-settings tr.alt td,
     table.wp-profile-fields tr.alt td { background:#f4f4f4;}
 
+    div.item-list-tabs ul li.current a, div.item-list-tabs ul li.selected a {background:#fff !important; opacity: 1 !important; @include border-radius($myrad $myrad 0 0)}
+
     div.pagination {
     background: none repeat scroll 0 0 #ffffff !important;
     border-radius: 0;
@@ -176,6 +206,19 @@
     text-transform: uppercase;
         .pag-count {float: none !important; }
     }
+
+    #messages_search_submit {background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+    border: medium none !important;
+    font-size: 14px !important;
+    line-height: 36px !important;
+    padding: 0 10px !important; position: absolute;top:7px; right:7px;}
+    #search-message-form label {margin: 0; }
+
+
+
+
+
+
 
 
 }

@@ -126,43 +126,7 @@
 	</div>
 	<?php } ?>
 	
-	<?php 
-	$user_ID = get_current_user_id();
-	if ( bp_has_profile() ) : ?>
-  <?php while ( bp_profile_groups() ) : bp_the_profile_group(); ?>
- 
-    <ul id="profile-groups">
-    <?php if ( bp_profile_group_has_fields() ) : ?>
- 
-      <li>
-        <?php bp_the_profile_group_name() ?>
- 
-        <ul id="profile-group-fields">
-        <?php while ( bp_profile_fields() ) : bp_the_profile_field(); ?>
- 
-          <?php if ( bp_field_has_data() ) : ?>
-          <li>
-            <?php bp_the_profile_field_name() ?>
-            <?php bp_the_profile_field_value() ?>
-          </li>
-          <?php endif; ?>
- 
-        <?php endwhile; ?>
-        </ul>
-      <li>
- 
-    <?php endif; ?>
-    </ul>
- 
-  <?php endwhile; ?>
- 
-<?php else: ?>
- 
-  <div id="message" class="info">
-    <p>This user does not have a profile.</p>
-  </div>
- 
-<?php endif;?>
+
 
 	
 

@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css?v=3" rel="stylesheet">
     <link href="<?php echo get_stylesheet_directory_uri(); ?>/fonts.css" rel="stylesheet">
   
     

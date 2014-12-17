@@ -39,7 +39,9 @@
 
 		<li>
 			<div class="item-avatar">
-				<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(); ?></a>
+				<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(array(
+						'type'    => 'full',
+				)); ?></a>
 			</div>
 
 			<div class="item">

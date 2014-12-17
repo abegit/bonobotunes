@@ -3447,7 +3447,7 @@ function bp_directory_groups_search_form() {
 
 	$search_form_html = '<form action="" method="get" id="search-groups-form">
 		<label><input type="text" name="s" id="groups_search" placeholder="'. esc_attr( $search_value ) .'" /></label>
-		<input type="submit" id="groups_search_submit" name="groups_search_submit" value="'. __( 'Search', 'buddypress' ) .'" />
+		<button type="submit" id="groups_search_submit" name="groups_search_submit"><i class="icon-search"></i></button>
 	</form>';
 
 	echo apply_filters( 'bp_directory_groups_search_form', $search_form_html );

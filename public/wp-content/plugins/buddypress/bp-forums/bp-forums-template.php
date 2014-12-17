@@ -2193,7 +2193,7 @@ function bp_directory_forums_search_form() {
 
 	$search_form_html = '<form action="" method="get" id="search-forums-form">
 		<label><input type="text" name="s" id="forums_search" placeholder="'. esc_attr( $search_value ) .'" /></label>
-		<input type="submit" id="forums_search_submit" name="forums_search_submit" value="' . __( 'Search', 'buddypress' ) . '" />
+		<button type="submit" id="forums_search_submit" name="forums_search_submit"><i class="icon-search"></i></button>
 	</form>';
 
 	echo apply_filters( 'bp_directory_forums_search_form', $search_form_html );

@@ -6815,36 +6815,6 @@ textarea {
   #subnav ul {
     margin: 10px 0 0 10px !important; }
 
-.message-search input {
-  background: none repeat scroll 0 0 transparent;
-  border-bottom: 2px solid #000;
-  font-size: 14px;
-  height: 130px;
-  line-height: 36px;
-  margin: 0 -30px 0 0 !important;
-  padding: 0;
-  position: relative;
-  vertical-align: bottom;
-  z-index: 1;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out; }
-  .message-search input:focus {
-    margin: 0 18px 0 0 !important;
-    height: 37px; }
-
-#search-message-form > input[type="submit"] {
-  border: medium none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: inline-block;
-  font-size: 14px;
-  line-height: 34px;
-  padding: 0;
-  vertical-align: middle; }
-
 #buddypress table.forum tr td,
 #buddypress table.messages-notices tr td,
 #buddypress table.notifications tr td,
@@ -6878,7 +6848,7 @@ textarea {
   text-transform: uppercase; }
   #buddypress div.pagination .pag-count {
     float: none !important; }
-#buddypress #messages_search_submit {
+#buddypress #messages_search_submit, #buddypress #members_search_submit {
   background: none repeat scroll 0 0 transparent !important;
   border: medium none !important;
   font-size: 14px !important;
@@ -6889,6 +6859,34 @@ textarea {
   right: 7px; }
 #buddypress #search-message-form label {
   margin: 0; }
+#buddypress .message-search input {
+  background: none repeat scroll 0 0 transparent;
+  border-bottom: 2px solid #000;
+  font-size: 14px;
+  height: 130px;
+  line-height: 36px;
+  margin: 0 -30px 0 0 !important;
+  padding: 0;
+  position: relative;
+  vertical-align: bottom;
+  z-index: 1;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out; }
+  #buddypress .message-search input:focus {
+    margin: 0 18px 0 0 !important;
+    height: 37px; }
+#buddypress #search-message-form > input[type="submit"] {
+  border: medium none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 34px;
+  padding: 0;
+  vertical-align: middle; }
 
 body.home-pagse > .sidebar {
   display: none; }

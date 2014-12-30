@@ -351,17 +351,4 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
-
-
-// add_filter('add_to_cart_redirect', 'custom_add_to_cart_redirect');
-// function custom_add_to_cart_redirect() {
-// 	$direct_checkout_cart_redirect_url	= get_option( 'direct_checkout_cart_redirect_url' );
-	
-// 	if($direct_checkout_cart_redirect_url != "")
-// 		return "http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA=XXXXXXX&HTML=http://bloggamy.bonobodesigns.com/?add-to-cart=5457\n"; // Replace with the url of your choosing
-// 	else 
-// 		return get_permalink(get_option('woocommerce_checkout_page_id'));
-// 	}
-
-
  ?>

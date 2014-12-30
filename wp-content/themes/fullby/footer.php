@@ -79,6 +79,7 @@
 
 </script>
 
+<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
    <script>
 var $spl3ndid = jQuery.noConflict();
@@ -102,12 +103,46 @@ $spl3ndid(window).load(function() {
                     $bgobj.css({ backgroundPosition: coords });
                 });
           });
+        } else {
+        	$spl3ndid('#item-header').iosSlider({
+                            desktopClickDrag: true,
+                            snapToChildren: true,
+                            keyboardControls: true,                
+                            onSlideComplete: slideComplete,
+                            onSliderLoaded: showMySlider,
+                            navNextSelector: $spl3ndid('.next'),
+                            navPrevSelector: $spl3ndid('.prev'),
+                });
+        	function down() {
+                Yay('#item-header').one('mouseup', function() {
+                    var SNAP_MULTIPLE = 2;
+                    var data = Yay('#item-header').data('args');
+                    var round = SNAP_MULTIPLE * Math.round((data.currentSlideNumber - 1) / SNAP_MULTIPLE) + 1;
+                    setTimeout(function() {
+                        Yay('#item-header').iosSlider('goToSlide', round);
+                    }, 10);
+                });
+            }
+            
+            function showMySlider() {
+                Yay('.item').addClass('ready');
+            }
+
+            function slideComplete(args) {
+                Yay('.next, .prev').removeClass('unselectable');
+                if(args.currentSlideNumber == 1) {
+                    Yay('.prev').addClass('unselectable');
+                } else if(args.currentSliderOffset == args.data.sliderMax) {
+                    Yay('.next').addClass('unselectable');
+                }
+            }
         }
-        else { }
+         
+
     });
 
 </script>
-	
+
 	<?php wp_footer();?>
     
   </body>

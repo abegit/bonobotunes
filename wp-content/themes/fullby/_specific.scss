@@ -37,8 +37,22 @@ body.single-product {
 
 
 .buddyb {
-	.sing-tit-cont {background:rgb(244, 244, 244); @include border-radius($myrad $myrad 0 0); margin:0; width: 100%; }
-	.sing-cont {background:#fff; @include border-radius(0 0 $myrad $myrad ); margin:0; width: 100%;}
+	.sing-spacer {padding:10px;}
+	.sing-cont {background:#fff; @include border-radius(0 0 $myrad $myrad ); width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;}
+    .sing-tit-cont {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 60px !important;
+    margin: 0 !important;
+    padding: 0 10px !important;
+	background:rgb(244, 244, 244); width: 100%; 
+		* {line-height: 60px; margin: 0; }
+		h3 {z-index: 1; position: relative;}
+	}	
+	.single-in {@include border-radius($myrad $myrad 0 0); overflow: hidden;}
+
 }
 
 

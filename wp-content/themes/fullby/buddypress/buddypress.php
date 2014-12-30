@@ -1,5 +1,5 @@
 <?php get_header(); ?>			
-		<div class="wrap buddyb">
+		<div class="wrap buddyb row">
 	<div class="col-md-9 single">
 		<div class="col-md-9 single-in">
 		
@@ -16,7 +16,14 @@
 				
 				<div class="sing-tit-cont">
 					
-					<h3 class="sing-tit"><?php the_title(); ?></h3>
+					<h3 class="sing-tit">
+						
+						<?php if(isset($_GET['members_search_submit'])) {
+						 	$afil2 = $_GET["s"];
+							echo $afil2;
+						} else {
+							the_title();
+						} ?></h3>
 				
 				</div>
 

@@ -2510,7 +2510,7 @@ function bp_group_create_button() {
 		$button_args = array(
 			'id'         => 'create_group',
 			'component'  => 'groups',
-			'link_text'  => __( 'Create a Group', 'buddypress' ),
+			'link_text'  => '<i class="icon-wand"></i>',
 			'link_title' => __( 'Create a Group', 'buddypress' ),
 			'link_class' => 'button group-create bp-title-button',
 			'link_href'  => trailingslashit( bp_get_root_domain() ) . trailingslashit( bp_get_groups_root_slug() ) . trailingslashit( 'create' ),

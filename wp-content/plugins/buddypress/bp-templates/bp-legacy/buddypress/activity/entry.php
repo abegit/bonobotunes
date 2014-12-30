@@ -37,6 +37,14 @@
 
 				<?php bp_activity_content_body(); ?>
 
+			<?php $blogpost_id = bp_get_activity_secondary_item_id();
+				if ($blogpost_id) :
+					if (has_post_thumbnail( $blogpost_id ) )	:
+						$theimg = wp_get_attachment_image_src( get_post_thumbnail_id( $blogpost_id ), 'large' ); ?>
+						<a href="<?php echo get_post_permalink($blogpost_id); ?>"> <img style="thumbnail" style="width:100%;" src="<?php echo $theimg[0]; ?>"></a>
+					<?php endif; ?>
+				<?php endif; ?>
+
 			</div>
 
 		<?php endif; ?>

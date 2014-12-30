@@ -1,4 +1,5 @@
 <?php define ( 'BP_ENABLE_ROOT_PROFILES', true );
+// signin top bar
 global $blog_id;
 if ( 1 == $blog_id) :
 
@@ -55,11 +56,11 @@ if ( 1 == $blog_id) :
                 // _e( '<i class="fa-bell-o"></i>', 'buddypress' );
 
                 if ( $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() ) ) { 
-                      _e( '<i class="fa-bell"></i>', 'buddypress' );  ?>
+                      _e( '<i class="icon-bell"></i>', 'buddypress' );  ?>
                     <span> <?php echo count( $notifications ) ?> </span>
                     <?php
                 } elseif ( !$notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() ) ) { 
-                      _e( '<i class="fa-bell-o"></i>', 'buddypress' ); 
+                      _e( '<i class="icon-bell"></i>', 'buddypress' ); 
                 }
 
             echo ' </a>';

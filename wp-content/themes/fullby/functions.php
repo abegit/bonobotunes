@@ -1,4 +1,12 @@
 <?php 
+/**
+ * Show the list of attached media in an activity
+ * Should we add a link to view gallery too?
+ * 
+ * @return type
+ */
+
+
 // Disable Admin Bar for everyone but administrators
 if (!function_exists('df_disable_admin_bar')) {
 
@@ -32,63 +40,63 @@ if (!function_exists('df_disable_admin_bar')) {
 add_action('init','df_disable_admin_bar');
 
 
-/**
- * Redirect user after successful login.
- *
- * @param string $redirect_to URL to redirect to.
- * @param string $request URL the user is coming from.
- * @param object $user Logged user's data.
- * @return string
- */
-function my_login_redirect( $redirect_to, $request, $user ) {
-	//is there a user to check?
-	global $user;
-	if ( isset( $user->roles ) && is_array( $user->roles ) ) {
-		//check for admins
-		if ( in_array( 'administrator', $user->roles ) ) {
-			// redirect them to the default place
-			return $redirect_to;
-		} if ( in_array( 'author', $user->roles ) ) {
-			// redirect them to the default place
-			return $redirect_to;
-		} else {
-			return home_url().'/activity';
-		}
-	} else {
-		return $redirect_to;
-	}
-}
+// /**
+//  * Redirect user after successful login.
+//  *
+//  * @param string $redirect_to URL to redirect to.
+//  * @param string $request URL the user is coming from.
+//  * @param object $user Logged user's data.
+//  * @return string
+//  */
+// function my_login_redirect( $redirect_to, $request, $user ) {
+// 	//is there a user to check?
+// 	global $user;
+// 	if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+// 		//check for admins
+// 		if ( in_array( 'administrator', $user->roles ) ) {
+// 			// redirect them to the default place
+// 			return $redirect_to;
+// 		} if ( in_array( 'author', $user->roles ) ) {
+// 			// redirect them to the default place
+// 			return $redirect_to;
+// 		} else {
+// 			return home_url().'/activity';
+// 		}
+// 	} else {
+// 		return $redirect_to;
+// 	}
+// }
 
-add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
+// add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 
 
-/**
- * Login Redirect
- * @since 0.1
- * @version 1.0
- */
-add_filter( 'login_redirect', 'mycred_pro_login_redirect', 10, 3 );
-function mycred_pro_login_redirect( $redirect_to, $request, $user = NULL )
-{
-	// Make sure myCRED is enabled
-	if ( ! function_exists( 'mycred_get_users_cred' ) ) return $redirect_to;
+// /**
+//  * Login Redirect
+//  * @since 0.1
+//  * @version 1.0
+//  */
+// add_filter( 'login_redirect', 'mycred_pro_login_redirect', 10, 3 );
+// function mycred_pro_login_redirect( $redirect_to, $request, $user = NULL )
+// {
+// 	// Make sure myCRED is enabled
+// 	if ( ! function_exists( 'mycred_get_users_cred' ) ) return $redirect_to;
 
-	if ( is_object( $user ) )
-		$user_id = $user->ID;
-	else
-		$user_id = get_current_user_id();
+// 	if ( is_object( $user ) )
+// 		$user_id = $user->ID;
+// 	else
+// 		$user_id = get_current_user_id();
 
-	// Page ID to redirect users to
-	$redirect_to_page = 99;
+// 	// Page ID to redirect users to
+// 	$redirect_to_page = 99;
 
-	// Check for negative balances
-	if ( mycred_get_users_cred( $user_id ) <= 0 ) {
-		return get_permalink( $redirect_to_page );
-	}
+// 	// Check for negative balances
+// 	if ( mycred_get_users_cred( $user_id ) <= 0 ) {
+// 		return get_permalink( $redirect_to_page );
+// 	}
 	
-	return $redirect_to;
-}
+// 	return $redirect_to;
+// }
 ?>
 
 <?php // CONTENT WIDTH & feedlinks 

@@ -9,6 +9,11 @@
 			'poster' => mpp_get_media_src( 'thumbnail', $media ),
 
 		);
+// replace the above output with this
+// <div class="videoWrapper">		
+// 				 		<?php $abevidURL = get_post_meta($product->id, 'mp4', true);
+// 				 		echo do_shortcode('[KGVID poster="'.$thumb_url.'" view_count="true" autoplay="false" right_click="true" resize="true" embedcode="html code"]'.$abevidURL.'[/KGVID]'); ?>
+		</div>
 	echo wp_video_shortcode( $args );
 	}else{
 	

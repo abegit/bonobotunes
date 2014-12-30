@@ -14,6 +14,15 @@
 
 	<form action="" method="post" id="members-directory-form" class="dir-form">
 
+		
+		
+
+		<div id="members-dir-list" class="members dir-list">
+			<?php bp_get_template_part( 'members/members-loop' ); ?>
+		</div><!-- #members-dir-list -->
+
+		<?php do_action( 'bp_directory_members_content' ); ?>
+
 		<div class="item-list-tabs" role="navigation">
 			<ul>
 				<li class="selected" id="members-all"><a href="<?php bp_members_directory_permalink(); ?>"><?php printf( __( 'All Members <span>%s</span>', 'buddypress' ), bp_get_total_member_count() ); ?></a></li>
@@ -26,8 +35,7 @@
 
 			</ul>
 		</div><!-- .item-list-tabs -->
-
-		<div class="item-list-tabs" id="subnav" role="navigation">
+	<div class="item-list-tabs" id="subnav" role="navigation">
 			<ul>
 				<?php do_action( 'bp_members_directory_member_sub_types' ); ?>
 
@@ -46,12 +54,6 @@
 				</li>
 			</ul>
 		</div>
-
-		<div id="members-dir-list" class="members dir-list">
-			<?php bp_get_template_part( 'members/members-loop' ); ?>
-		</div><!-- #members-dir-list -->
-
-		<?php do_action( 'bp_directory_members_content' ); ?>
 
 		<?php wp_nonce_field( 'directory_members', '_wpnonce-member-filter' ); ?>
 

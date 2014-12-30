@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/font-awesome/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css" rel="stylesheet">
-    <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css?v=3" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css?v=1" rel="stylesheet">
     <link href="<?php echo get_stylesheet_directory_uri(); ?>/fonts.css" rel="stylesheet">
   
     
@@ -42,7 +41,7 @@
 <body <?php body_class(); ?>>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-     
+     <div class="row">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
             <span class="icon-bar"></span>
@@ -63,7 +62,7 @@
 			);
 			?>
         </div><!--/.nav-collapse -->
-    
+    </div>
     </div>
     
     <?php if (is_home()) { ?>
@@ -149,7 +148,7 @@
 	<?php  } // end if(is_home) ?>
 	
 	<div class="navbar navbar-inverse navbar-sub">
-     
+     	<div class="row">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#submenu">
             <span class="icon-bar"></span>
@@ -175,7 +174,7 @@
 			        <div class="input-group">
 			            <input type="text" class="form-control" placeholder="Search" name="s" id="srch-term">
 			            <div class="input-group-btn">
-			                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			                <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
 			            </div>
 			        </div>
 		        </form>
@@ -183,4 +182,5 @@
 	        
         </div><!--/.nav-collapse -->
 
+	</div>
 	</div>

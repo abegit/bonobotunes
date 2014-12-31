@@ -308,7 +308,8 @@ img {height: auto;max-width: 100%;}
 
 
 @media (max-width: 760px) { 
-
+	.navbar-sub .navbar-toggle {display: inline-block;}
+    .navbar-toggle {display: none;}
 	#mainmenu{float:left;width:100%;}
 	.collapse {display: none;}
 	.navbar-form {border:none}

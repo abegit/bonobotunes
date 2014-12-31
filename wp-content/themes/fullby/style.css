@@ -6100,12 +6100,6 @@ textarea {
     .is-user-profile.bp-user .col-md-9.single #buddypress #item-nav ul {
       display: table;
       width: 100%; }
-    .is-user-profile.bp-user .col-md-9.single #buddypress #item-nav .item-list-tabs {
-      background: none repeat scroll 0 0 transparent;
-      display: block;
-      clear: none;
-      float: none;
-      overflow: hidden; }
   .is-user-profile.bp-user .col-md-9.single #buddypress #item-buttons .generic-button a {
     background: none repeat scroll 0 0 #959595;
     border: 2px solid #656565;
@@ -6260,7 +6254,7 @@ textarea {
       display: none; }
     #buddypress #whats-new-form #whats-new-post-in-box span.value {
       display: none; }
-    #buddypress #whats-new-form #whats-new-post-in-box dl dt a:before {
+    #buddypress #whats-new-form #whats-new-post-in-box dl dt:before {
       content: "";
       font-family: icomoon;
       display: block;
@@ -6273,7 +6267,7 @@ textarea {
       top: 0;
       vertical-align: middle;
       -moz-osx-font-smoothing: grayscale; }
-    #buddypress #whats-new-form #whats-new-post-in-box .whats-new-post-in > dt > a {
+    #buddypress #whats-new-form #whats-new-post-in-box .whats-new-post-in > dt {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
@@ -6339,6 +6333,58 @@ textarea {
       border-radius: 5px 0 0 5px; }
   #buddypress #whats-new-options #mpp-activity-upload-buttons {
     margin-top: 0; }
+  #buddypress div.item-list-tabs {
+    background: none repeat scroll 0 0 transparent;
+    display: block;
+    clear: none; }
+    #buddypress div.item-list-tabs ul {
+      -webkit-box-shadow: 0 0 0 2px #00b570 inset;
+      -moz-box-shadow: 0 0 0 2px #00b570 inset;
+      box-shadow: 0 0 0 2px #00b570 inset;
+      -webkit-border-radius: 200px;
+      -moz-border-radius: 200px;
+      border-radius: 200px;
+      display: inline-block;
+      height: 35px; }
+      #buddypress div.item-list-tabs ul a {
+        -webkit-transition: all 100ms ease-in-out;
+        -moz-transition: all 100ms ease-in-out;
+        -o-transition: all 100ms ease-in-out;
+        transition: all 100ms ease-in-out;
+        line-height: 35px;
+        padding: 0 10px !important;
+        color: #00b570;
+        font-size: 14px; }
+      #buddypress div.item-list-tabs ul li:first-child a {
+        -webkit-border-radius: 50% 0 0 50%;
+        -moz-border-radius: 50% 0 0 50%;
+        border-radius: 50% 0 0 50%; }
+      #buddypress div.item-list-tabs ul li:last-child a {
+        -webkit-border-radius: 0 50% 50% 0;
+        -moz-border-radius: 0 50% 50% 0;
+        border-radius: 0 50% 50% 0; }
+      #buddypress div.item-list-tabs ul li:first-child a, #buddypress div.item-list-tabs ul li:last-child a {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%; }
+      #buddypress div.item-list-tabs ul li.current a, #buddypress div.item-list-tabs ul li.selected a {
+        background: #00b570 !important;
+        color: #fff !important;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        opacity: 1 !important; }
+      #buddypress div.item-list-tabs ul li.current:first-child a, #buddypress div.item-list-tabs ul li.selected:first-child a {
+        -webkit-border-radius: 50% 0 0 50%;
+        -moz-border-radius: 50% 0 0 50%;
+        border-radius: 50% 0 0 50%; }
+      #buddypress div.item-list-tabs ul li.current:last-child a, #buddypress div.item-list-tabs ul li.selected:last-child a {
+        -webkit-border-radius: 0 50% 50% 0;
+        -moz-border-radius: 0 50% 50% 0;
+        border-radius: 0 50% 50% 0; }
+      #buddypress div.item-list-tabs ul li a:hover {
+        background: rgba(0, 181, 112, 0.2);
+        color: #00b570; }
 
 /*end activityform*/
 /*activity*/
@@ -6346,11 +6392,9 @@ textarea {
   /*end activity directory*/ }
   .activity.directory {
     /*mediapress*/ }
-    .activity.directory #submenu.collapse {
+    .activity.directory #mainmenu.collapse {
       height: auto;
       display: block; }
-    .activity.directory .navbar-toggle {
-      display: none; }
     .activity.directory .col-md-9.single {
       float: left; }
     .activity.directory .mpp-container.mpp-media-list.mpp-activity-media-list.mpp-activity-photo-list > a {
@@ -6422,12 +6466,6 @@ textarea {
 #buddypress table.profile-settings tr.alt td,
 #buddypress table.wp-profile-fields tr.alt td {
   background: #f4f4f4; }
-#buddypress div.item-list-tabs ul li.current a, #buddypress div.item-list-tabs ul li.selected a {
-  background: #fff !important;
-  opacity: 1 !important;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0; }
 #buddypress div.pagination {
   background: none repeat scroll 0 0 #ffffff !important;
   -webkit-border-radius: 0;
@@ -6720,6 +6758,12 @@ a.bp-title-button {background: #ffff00 !important;
   .single {
     padding: 0; } }
 @media (max-width: 760px) {
+  .navbar-sub .navbar-toggle {
+    display: inline-block; }
+
+  .navbar-toggle {
+    display: none; }
+
   #mainmenu {
     float: left;
     width: 100%; }

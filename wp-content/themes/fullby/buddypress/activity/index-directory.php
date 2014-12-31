@@ -39,7 +39,7 @@
             createDropDown();
             
 
-            $dd(".selectwrap .dropdown dt a").click(function() {
+            $dd(".selectwrap .dropdown dt").click(function() {
                 //inside select wrapper only toggle ul inside wrapper
                 $dd(this).closest('.selectwrap').find("dd ul").toggle();
             });

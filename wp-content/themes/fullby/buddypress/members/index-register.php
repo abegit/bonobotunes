@@ -1,6 +1,6 @@
 <?php get_header(); ?>			
 <?php
-//	$url = strtok($url, '?');
+	// $url = strtok($url, '?');
 
 	// The value of the variable name is found
 	$afil = $_GET["friend"];
@@ -70,7 +70,7 @@
 </video>
 <script>
 var stateObj = { foo: "bar" };
-window.history.pushState(stateObj, "Register", "<?php echo $current_url[0]; ?>");
+window.history.pushState(stateObj, "Register", "<?php echo $url; ?>");
 </script>
 
 <script>
@@ -79,4 +79,5 @@ var abeRegister = jQuery.noConflict();
   abeRegister(".field_20 input[type=text]").val("<?php echo $afil; ?>");
 });
 </script>
+<?php echo $url; ?>
 <?php get_footer(); ?>

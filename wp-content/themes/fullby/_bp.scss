@@ -58,7 +58,6 @@
                 a {padding:0 5px; text-align: center; line-height: 34px;}
                 li{ display: table-cell; float: none;}
                 ul {display: table; width: 100%;}
-                .item-list-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none; float:none; overflow: hidden;}
             }
             #item-buttons .generic-button a {background: none repeat scroll 0 0 #959595; border: 2px solid #656565; clear: both; color: #ffffff; display: inline-block; float: left; font-size: 12px; height: 25px; line-height: 10px; margin-bottom: 0 !important; overflow: hidden;}
             #item-buttons .generic-button {margin: 7px 7px 0 0 !important;}
@@ -142,8 +141,8 @@
         #whats-new-post-in-box {
             select {display: none;}
             span.value {display: none;}
-            dl dt a:before {content: "";font-family:icomoon; display: block; font-size: 20px !important; text-align: center; line-height: 50px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
-            .whats-new-post-in > dt > a {@include border-box;  @include border-radius(0 $myrad $myrad 0); background: none repeat scroll 0 0 #ffffff !important; border-color: #cdcdcd; border-style: solid solid solid none !important; border-width: 1px 1px 1px 0 !important; display: inline-block; line-height: 0 !important; margin: 5px 0 2px; padding: 0 5px; width: 40px; }
+            dl dt:before {content: "";font-family:icomoon; display: block; font-size: 20px !important; text-align: center; line-height: 50px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
+            .whats-new-post-in > dt {@include border-box;  @include border-radius(0 $myrad $myrad 0); background: none repeat scroll 0 0 #ffffff !important; border-color: #cdcdcd; border-style: solid solid solid none !important; border-width: 1px 1px 1px 0 !important; display: inline-block; line-height: 0 !important; margin: 5px 0 2px; padding: 0 5px; width: 40px; }
         }
         #whats-new-content {padding:0 0 0 20px;
             &> * {display: inline-block; width: 100%;}
@@ -162,6 +161,25 @@
         input {font-size: 16px; line-height: 50px; margin: 5px 0 5px 5px; padding: 0 30px; @include border-radius($myrad 0 0 $myrad);}
     }
     #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
+    div.item-list-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none;
+        ul {@include box-shadow(0 0 0 2px $green inset); @include border-radius(200px); display: inline-block; height: 35px;
+            a {@include trans(100ms); line-height: 35px; padding: 0 10px !important; color:$green; font-size: 14px;}
+            li {
+                &:first-child a{@include border-radius(50% 0 0 50%);}
+                &:last-child a{@include border-radius(0 50% 50% 0);}
+                &:first-child a, &:last-child a{@include border-radius(50%);}
+            }
+            li.current, li.selected {
+                a {background:$green !important; color:#fff !important; @include border-radius(0); opacity: 1 !important;}
+                &:first-child a{@include border-radius(50% 0 0 50%);}
+                &:last-child a{@include border-radius(0 50% 50% 0);}
+            }
+            li a:hover {background:transparentize($green,.8); color:$green;}
+        }
+        
+        &.activity-type-tabs {}
+    }
+
 }
 /*end activityform*/
 
@@ -169,8 +187,7 @@
 /*activity*/
 .activity {
     &.directory {
-        #submenu.collapse {height: auto;display: block;}
-        .navbar-toggle {display: none;}
+        #mainmenu.collapse {height: auto;display: block;}
         .col-md-9.single {float: left;}
         /*mediapress*/
             .mpp-container.mpp-media-list.mpp-activity-media-list.mpp-activity-photo-list > a {
@@ -241,8 +258,6 @@
     table.profile-fields tr.alt td,
     table.profile-settings tr.alt td,
     table.wp-profile-fields tr.alt td { background:#f4f4f4;}
-
-    div.item-list-tabs ul li.current a, div.item-list-tabs ul li.selected a {background:#fff !important; opacity: 1 !important; @include border-radius($myrad $myrad 0 0)}
 
     div.pagination {
     background: none repeat scroll 0 0 #ffffff !important;

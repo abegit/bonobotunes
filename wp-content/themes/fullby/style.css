@@ -6090,6 +6090,8 @@ textarea {
     z-index: 1; }
     .is-user-profile.bp-user .col-md-9.single #buddypress #item-nav * {
       line-height: 34px; }
+    .is-user-profile.bp-user .col-md-9.single #buddypress #item-nav #object-nav {
+      clear: unset; }
     .is-user-profile.bp-user .col-md-9.single #buddypress #item-nav a {
       padding: 0 5px;
       text-align: center;
@@ -6286,11 +6288,11 @@ textarea {
       border-radius: 5px 0 0 5px; }
   #buddypress #whats-new-options #mpp-activity-upload-buttons {
     margin-top: 0; }
-  #buddypress div.item-list-tabs {
+  #buddypress div.item-list-tabs.activity-type-tabs {
     background: none repeat scroll 0 0 transparent;
     display: block;
     clear: none; }
-    #buddypress div.item-list-tabs ul {
+    #buddypress div.item-list-tabs.activity-type-tabs ul {
       -webkit-box-shadow: 0 0 0 2px #00b570 inset;
       -moz-box-shadow: 0 0 0 2px #00b570 inset;
       box-shadow: 0 0 0 2px #00b570 inset;
@@ -6299,7 +6301,7 @@ textarea {
       border-radius: 200px;
       display: inline-block;
       height: 35px; }
-      #buddypress div.item-list-tabs ul a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul a {
         -webkit-transition: all 100ms ease-in-out;
         -moz-transition: all 100ms ease-in-out;
         -o-transition: all 100ms ease-in-out;
@@ -6308,34 +6310,34 @@ textarea {
         padding: 0 10px !important;
         color: #00b570;
         font-size: 14px; }
-      #buddypress div.item-list-tabs ul li:first-child a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li:first-child a {
         -webkit-border-radius: 200px 0 0 200px;
         -moz-border-radius: 200px 0 0 200px;
         border-radius: 200px 0 0 200px; }
-      #buddypress div.item-list-tabs ul li:last-child a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li:last-child a {
         -webkit-border-radius: 0 200px 200px 0;
         -moz-border-radius: 0 200px 200px 0;
         border-radius: 0 200px 200px 0; }
-      #buddypress div.item-list-tabs ul li:first-child:last-child a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li:first-child:last-child a {
         -webkit-border-radius: 200px !important;
         -moz-border-radius: 200px !important;
         border-radius: 200px !important; }
-      #buddypress div.item-list-tabs ul li.current a, #buddypress div.item-list-tabs ul li.selected a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li.current a, #buddypress div.item-list-tabs.activity-type-tabs ul li.selected a {
         background: #00b570 !important;
         color: #fff !important;
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
         opacity: 1 !important; }
-      #buddypress div.item-list-tabs ul li.current:first-child a, #buddypress div.item-list-tabs ul li.selected:first-child a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li.current:first-child a, #buddypress div.item-list-tabs.activity-type-tabs ul li.selected:first-child a {
         -webkit-border-radius: 200px 0 0 200px;
         -moz-border-radius: 200px 0 0 200px;
         border-radius: 200px 0 0 200px; }
-      #buddypress div.item-list-tabs ul li.current:last-child a, #buddypress div.item-list-tabs ul li.selected:last-child a {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li.current:last-child a, #buddypress div.item-list-tabs.activity-type-tabs ul li.selected:last-child a {
         -webkit-border-radius: 0 200px 200px 0;
         -moz-border-radius: 0 200px 200px 0;
         border-radius: 0 200px 200px 0; }
-      #buddypress div.item-list-tabs ul li a:hover {
+      #buddypress div.item-list-tabs.activity-type-tabs ul li a:hover {
         background: rgba(0, 181, 112, 0.2);
         color: #00b570; }
   #buddypress .activity-meta {

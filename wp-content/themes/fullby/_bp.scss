@@ -23,8 +23,7 @@
 
 .is-user-profile {
     &.bp-user {
-        .col-md-9.single #buddypress #item-header #item-header-avatar .avatar {
-            max-width: 70px; top: 10px; }
+        .col-md-9.single #buddypress #item-header #item-header-avatar .avatar {max-width: 70px; top: 10px; }
     }
     .edit_bg {display: none;}
     &.bp-user .col-md-9.single {float: left;
@@ -55,6 +54,7 @@
                 line-height: 0;
                 @include box-shadow( 0 -20px 21px #ededed inset, 0 -20px 21px #ededed inset, 0 -1px 0 #cfcfcf); position: relative; z-index: 1;
                 * {line-height: 34px;}
+                #object-nav {clear: unset;}
                 a {padding:0 5px; text-align: center; line-height: 34px;}
                 li{ display: table-cell; float: none;}
                 ul {display: table; width: 100%;}
@@ -138,7 +138,8 @@
         input {font-size: 16px; line-height: 30px; margin: 5px 0 5px 5px; padding: 0 30px; @include border-radius($myrad 0 0 $myrad);}
     }
     #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
-    div.item-list-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none;
+    
+    div.item-list-tabs.activity-type-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none;
         ul {@include box-shadow(0 0 0 2px $green inset); @include border-radius(200px); display: inline-block; height: 35px;
             a {@include trans(100ms); line-height: 35px; padding: 0 10px !important; color:$green; font-size: 14px;}
             li {

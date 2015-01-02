@@ -1,4 +1,4 @@
-<?php get_header(); ?>			
+<?php get_header('register'); ?>			
 <?php
 	// $url = strtok($url, '?');
 
@@ -39,23 +39,13 @@
 	        <?php endif; ?> 
 	        
 		</div>	
-		 
-		<div class="col-md-3">
-		
-			<div class="sec-sidebar sidebar">
-
-										
-		    </div>
-		   
-		 </div>
-
 	</div>			
 
-	<div class="col-md-3 sidebar">
+	<div class="col-md-12 sidebar">
 
 		    
 	</div>
-<video autoplay loop muted id="bgvid" style="position: fixed;
+<!-- <video autoplay loop muted id="bgvid" style="position: fixed;
   right: 0;
   bottom: 0;
   min-width: 100%;
@@ -67,7 +57,7 @@
   background-size: cover;
   transition: 1s opacity;">
 <source src="<?php bloginfo('stylesheet_directory'); ?>/img/20121117_patreus_vicky_vixen.webm" type="video/webm">
-</video>
+</video> -->
 <script>
 var stateObj = { foo: "bar" };
 window.history.pushState(stateObj, "Register", "<?php echo $url; ?>");

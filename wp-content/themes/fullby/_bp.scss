@@ -106,11 +106,58 @@
 
 /*activityform*/
 #buddypress {
-    .activity-content, .activity-comments {background: none repeat scroll 0 0 #ffffff; }
-    .activity-content {@include border-radius($myrad);
-        iframe {height: 300px !important; max-width: 110%; width: 104% !important; margin:0 -2%;}
+    #whats-new-form {background: rgba(255, 255, 255, 0.4); margin-bottom:10px; padding:10px;
+        textarea {background: none repeat scroll 0 0 rgb(255, 255, 255) !important;
+            @include border-radius($myrad $myrad 0 0); width: 100% !important;
+            @include box-shadow(0 0 2px rgb(189, 189, 189));
+            height: 60px;
+            padding: 8px !important; border: 1px solid rgb(189, 189, 189); resize:none;
+                &:focus {resize: vertical !important;}
+        }
+        #whats-new-post-in-box, #whats-new-post-in-box > * {clear: both !important; color: #989898; font-size: 0 !important; line-height: 20px !important; padding: 0 10px; position: absolute; right: 0; top: 0; }
+        #whats-new-post-in-box {
+            select {display: none;}
+            span.value {display: none;}
+            dl dt:before {content: "";font-family:icomoon; display: block; font-size: 20px !important; text-align: center; line-height: 30px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
+            .whats-new-post-in > dt {@include border-box;  @include border-radius(0 $myrad $myrad 0); background: none repeat scroll 0 0 #ffffff !important; border-color: #cdcdcd; border-style: solid solid solid none !important; border-width: 1px 1px 1px 0 !important; display: inline-block; line-height: 0 !important; margin: 5px 0 2px; padding: 0 5px; width: 40px; }
+        }
+        #whats-new-content {padding:0 0 0 20px;
+            &> * {display: inline-block; width: 100%;}
+        }
+        .mpp-upload-butons a  {
+            img {display: none;}
+            &:before { @include box-shadow(0 0 10px #dddddd); background: none repeat scroll 0 0 #bfbfbf; border-right: 1px solid #5d5d5d; color: #7f7f7f; display: inline-block; float: left; font-family: icomoon; font-size: 25px; font-weight: lighter; line-height: 40px; margin: 0; text-align: center; width: 50px; }
+            &#mpp-photo-upload:before {content:"";}
+            &#mpp-audio-upload:before {content:"";}
+            &#mpp-video-uploader:before {content:"";}
+        }
+    } /*end whats new form*/
+    
+    #whats-new-options {background: none repeat scroll 0 0 rgb(242, 242, 242); margin-top: -7px;border-left: 1px solid rgb(189, 189, 189);border-right: 1px solid rgb(189, 189, 189);border-bottom: 1px solid rgb(189, 189, 189); overflow:visible !important; position: relative;}
+    #whats-new-options #whats-new-submit {margin-top: 0 !important; margin-right: 40px;
+        input {font-size: 16px; line-height: 30px; margin: 5px 0 5px 5px; padding: 0 30px; @include border-radius($myrad 0 0 $myrad);}
     }
-    .activity-comments {@include border-radius( 0 0 $myrad $myrad);}
+    #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
+    div.item-list-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none;
+        ul {@include box-shadow(0 0 0 2px $green inset); @include border-radius(200px); display: inline-block; height: 35px;
+            a {@include trans(100ms); line-height: 35px; padding: 0 10px !important; color:$green; font-size: 14px;}
+            li {
+                &:first-child a{@include border-radius(200px 0 0 200px);}
+                &:last-child a{@include border-radius(0 200px 200px 0);}
+                &:first-child:last-child a{@include border-radius(200px !important);}
+            }
+            li.current, li.selected {
+                a {background:$green !important; color:#fff !important; @include border-radius(0); opacity: 1 !important;}
+                &:first-child a{@include border-radius(200px 0 0 200px);}
+                &:last-child a{@include border-radius(0 200px 200px 0);}
+            }
+            li a:hover {background:transparentize($green,.8); color:$green;}
+        }
+        
+        &.activity-type-tabs {}
+    } /* end whats new options*/
+
+    
     .activity-meta {background: none repeat scroll 0 0 #efefef; clear:both; padding: 5px; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
     .activity-meta a {font-size: 13px !important; }
     .activity-inner {margin: 0 !important;
@@ -127,58 +174,17 @@
     #subnav {background: none !important;
         .feed {display: none;}
     }
-    .activity-list {border-top: none !important;}
+    .activity-list {border-top: none !important;
+        li {background:#f4f4f4; @include border-radius($myrad); margin:10px 30px !important;
+            .activity-content {margin:0;}
+            .activity-comments {background: none repeat scroll 0 0 #ffffff; margin:0;}
+            .activity-content {@include border-radius($myrad);
+                iframe {height: 300px !important; max-width: 110%; width: 104% !important; margin:0 -2%;}
+            }
+            .activity-comments {@include border-radius( 0 0 $myrad $myrad);}
+        }
+}
             
-    #whats-new-form {background: rgba(255, 255, 255, 0.4); margin-bottom:10px; padding:10px;
-        textarea {background: none repeat scroll 0 0 rgb(255, 255, 255) !important;
-            @include border-radius($myrad $myrad 0 0); width: 100% !important;
-            @include box-shadow(0 0 2px rgb(189, 189, 189));
-            height: 60px !important;
-            padding: 8px !important; border: 1px solid rgb(189, 189, 189); resize:none;
-                &:focus {resize: vertical !important;}
-        }
-        #whats-new-post-in-box, #whats-new-post-in-box > * {clear: both !important; color: #989898; font-size: 0 !important; line-height: 20px !important; padding: 0 10px; position: absolute; right: 0; top: 0; }
-        #whats-new-post-in-box {
-            select {display: none;}
-            span.value {display: none;}
-            dl dt:before {content: "";font-family:icomoon; display: block; font-size: 20px !important; text-align: center; line-height: 50px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
-            .whats-new-post-in > dt {@include border-box;  @include border-radius(0 $myrad $myrad 0); background: none repeat scroll 0 0 #ffffff !important; border-color: #cdcdcd; border-style: solid solid solid none !important; border-width: 1px 1px 1px 0 !important; display: inline-block; line-height: 0 !important; margin: 5px 0 2px; padding: 0 5px; width: 40px; }
-        }
-        #whats-new-content {padding:0 0 0 20px;
-            &> * {display: inline-block; width: 100%;}
-        }
-        .mpp-upload-butons a  {
-            img {display: none;}
-            &:before { @include box-shadow(0 0 10px #dddddd); background: none repeat scroll 0 0 #bfbfbf; border-right: 1px solid #5d5d5d; color: #7f7f7f; display: inline-block; float: left; font-family: icomoon; font-size: 25px; font-weight: lighter; line-height: 50px; margin: 0; text-align: center; width: 50px; }
-            &#mpp-photo-upload:before {content:"";}
-            &#mpp-audio-upload:before {content:"";}
-            &#mpp-video-uploader:before {content:"";}
-        }
-    } /*end whats new form*/
-
-    #whats-new-options {background: none repeat scroll 0 0 rgb(242, 242, 242); margin-top: -7px;border-left: 1px solid rgb(189, 189, 189);border-right: 1px solid rgb(189, 189, 189);border-bottom: 1px solid rgb(189, 189, 189); overflow:visible !important; position: relative;}
-    #whats-new-options #whats-new-submit {margin-top: 0 !important; margin-right: 40px;
-        input {font-size: 16px; line-height: 50px; margin: 5px 0 5px 5px; padding: 0 30px; @include border-radius($myrad 0 0 $myrad);}
-    }
-    #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
-    div.item-list-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none;
-        ul {@include box-shadow(0 0 0 2px $green inset); @include border-radius(200px); display: inline-block; height: 35px;
-            a {@include trans(100ms); line-height: 35px; padding: 0 10px !important; color:$green; font-size: 14px;}
-            li {
-                &:first-child a{@include border-radius(50% 0 0 50%);}
-                &:last-child a{@include border-radius(0 50% 50% 0);}
-                &:first-child a, &:last-child a{@include border-radius(50%);}
-            }
-            li.current, li.selected {
-                a {background:$green !important; color:#fff !important; @include border-radius(0); opacity: 1 !important;}
-                &:first-child a{@include border-radius(50% 0 0 50%);}
-                &:last-child a{@include border-radius(0 50% 50% 0);}
-            }
-            li a:hover {background:transparentize($green,.8); color:$green;}
-        }
-        
-        &.activity-type-tabs {}
-    }
 
 }
 /*end activityform*/
@@ -189,6 +195,10 @@
     &.directory {
         #mainmenu.collapse {height: auto;display: block;}
         .col-md-9.single {float: left;}
+        .sing-spacer {padding:0;}
+        .sing-cont {background-color:transparent;}
+        .single-in {background: none repeat scroll 0 0 #e3e3e3; @include box-shadow(1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset !important); margin: 0 !important; padding: 0 !important; width: 100%;}
+        
         /*mediapress*/
             .mpp-container.mpp-media-list.mpp-activity-media-list.mpp-activity-photo-list > a {
                     display: inline-block;
@@ -198,6 +208,17 @@
                     width: 33.333%; }
             .mpp-attached-media-item {max-width: 100%; }
     } /*end activity directory*/
+    .activity-filter-by.selectwrap dl {display: none; }
+    .selectwrap.activity-filter-by > select {display: inline-block; height: 30px; width: 90px; opacity: 0;}
+    #activity-filter-select {overflow: hidden; position: relative; margin-top: 0 !important; }
+    #activity-filter-select label {display: none; }
+    #activity-filter-select div:before {background: none repeat scroll 0 0 #ffffff; border-radius: 200px; content: ""; font-family: icomoon; pointer-events: none; position: absolute; text-align: center; width: 100%; }
+    #subnav {float: right; margin-bottom: -50px !important; position: relative; top: -50px;
+        li {line-height: 35px;}}
+    .item-list-tabs.activity-type-tabs {
+        float: left;
+        margin-left: 30px;
+    }
 }
 
 /*members and groups */

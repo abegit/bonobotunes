@@ -51,7 +51,7 @@
                     $dd(".dropdown dd ul").hide();
             });
                         
-            $dd(".dropdown dd ul li a").click(function() {
+            $dd(".dropdown dd ul li").click(function() {
                 var text = $dd(this).html();
                 var selfie = $dd(this).closest(".dropdown").attr('class').split(' ')[1];
 
@@ -81,9 +81,9 @@ function createDropDown(){
         $dd('.dropdown.' + self).append('<dd><ul class="dropdown-menu"></ul></dd>')
 
         options.each(function(){
-            $dd('.dropdown.' + self + ' dd ul').append('<li><a href="#">' + 
+            $dd('.dropdown.' + self + ' dd ul').append('<li>' + 
                 $dd(this).text() + '<span class="value">' + 
-                $dd(this).val() + '</span></a></li>');
+                $dd(this).val() + '</span></li>');
         });
     });
 

@@ -18,7 +18,7 @@ if ( 1 == $blog_id) :
             ob_start();
             ?>
             <?php if ( !is_user_logged_in()) { ?>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle register" data-toggle="dropdown" href="#" title="Login"> <i class="icon-briefcase"> </i>  <?php _e( 'Account', 'firmasite' ) ?>  <b class="caret"> </b> </a>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle register" data-toggle="dropdown" href="#" title="Login"> <i class="icon-key"> </i>  Members Login <b class="caret"> </b> </a>
                <ul class=" dropdown-menu" role="menu">
                    <li>
                        <form name="login-form" id="login-form" action=" <?php echo site_url( 'wp-login.php' ) ?>" method="post">

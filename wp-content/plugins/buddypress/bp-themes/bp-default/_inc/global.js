@@ -46,7 +46,7 @@ jq(document).ready( function() {
 
 	/* Textarea focus */
 	jq('#whats-new').focus( function(){
-		jq("#whats-new-options").animate({
+		jq("#whats-new-options").addClass('show-me').animate({
 			height:'40px'
 		});
 		jq("form#whats-new-form textarea").animate({
@@ -64,11 +64,11 @@ jq(document).ready( function() {
 	jq('#whats-new').blur( function(){
 		if (!this.value.match(/\S+/)) {
 			this.value = "";
-			jq("#whats-new-options").animate({
-				height:'40px'
+			jq("#whats-new-options").removeClass('show-me').animate({
+				height:'0px'
 			});
-			jq("form#whats-new-form textarea").animate({
-				height:'20px'
+			jq("form#whats-new-form textarea").addClass('selected').animate({
+				height:'40px'
 			});
 			jq("#aw-whats-new-submit").prop("disabled", true);
 		}

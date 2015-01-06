@@ -60,9 +60,22 @@
 				<div class="sing-cont">
 					
 					<div class="sing-spacer">
-					
+						
 						<?php the_content('Leggi...');?>
 						
+
+	<?php 	$medias =& get_children( array (
+		'post_parent' => $post->ID,
+		'post_type' => 'attachment'
+	));
+
+	if ( empty($medias) ) {
+		// no attachments here
+	} else {
+		foreach ( $medias as $attachment_id => $attachment ) {
+			echo do_shortcode("[video file='".wp_get_attachment_link( $attachment_id )."']");
+		}
+	} ?>
 						<?php wp_link_pages('pagelink=Page %'); ?>
 
 

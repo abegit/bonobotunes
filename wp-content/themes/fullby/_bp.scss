@@ -106,11 +106,11 @@
 
 /*activityform*/
 #buddypress {
-    #whats-new-form {background: rgba(255, 255, 255, 0.4); margin-bottom:10px; padding:10px;
+    #whats-new-form {background: #bdbdbd; padding:30px; @include border-radius($myrad $myrad 0 0); @include box-shadow(-110px -90px 230px 60px #101010 inset !important);
         textarea {background: none repeat scroll 0 0 rgb(255, 255, 255) !important;
             @include border-radius($myrad $myrad 0 0); width: 100% !important;
             @include box-shadow(0 0 2px rgb(189, 189, 189));
-            height: 60px;
+            height: 60px !important;
             padding: 8px !important; border: 1px solid rgb(189, 189, 189); resize:none;
                 &:focus {resize: vertical !important;}
         }
@@ -133,29 +133,14 @@
         }
     } /*end whats new form*/
     
-    #whats-new-options {background: none repeat scroll 0 0 rgb(242, 242, 242); margin-top: -7px;border-left: 1px solid rgb(189, 189, 189);border-right: 1px solid rgb(189, 189, 189);border-bottom: 1px solid rgb(189, 189, 189); overflow:visible !important; position: relative;}
+    #whats-new-options {background: none repeat scroll 0 0 rgb(242, 242, 242); margin-top: -7px;border-left: 1px solid rgb(189, 189, 189); height:40px !important;border-right: 1px solid rgb(189, 189, 189);border-bottom: 1px solid rgb(189, 189, 189); overflow:visible !important; position: relative;}
     #whats-new-options #whats-new-submit {margin-top: 0 !important; margin-right: 40px;
         input {font-size: 16px; line-height: 30px; margin: 5px 0 5px 5px; padding: 0 30px; @include border-radius($myrad 0 0 $myrad);}
     }
     #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
     
-    div.item-list-tabs.activity-type-tabs {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); display: block; clear:none;
-        ul {@include box-shadow(0 0 0 2px $green inset); @include border-radius(200px); display: inline-block; height: 35px;
-            a {@include trans(100ms); line-height: 35px; padding: 0 10px !important; color:$green; font-size: 14px;}
-            li {
-                &:first-child a{@include border-radius(200px 0 0 200px);}
-                &:last-child a{@include border-radius(0 200px 200px 0);}
-                &:first-child:last-child a{@include border-radius(200px !important);}
-            }
-            li.current, li.selected {
-                a {background:$green !important; color:#fff !important; @include border-radius(0); opacity: 1 !important;}
-                &:first-child a{@include border-radius(200px 0 0 200px);}
-                &:last-child a{@include border-radius(0 200px 200px 0);}
-            }
-            li a:hover {background:transparentize($green,.8); color:$green;}
-        }
-        
-        &.activity-type-tabs {}
+    div.item-list-tabs.activity-type-tabs {
+        @include tabs($green);
     } /* end whats new options*/
 
     
@@ -175,9 +160,10 @@
     #subnav {background: none !important;
         .feed {display: none;}
     }
-    .activity-list {border-top: none !important;
-        li {background:#f4f4f4; @include border-radius($myrad); margin:10px 30px !important;
+    .activity-list {border-top: none !important; margin-top: 0 !important; 
+        li {background:#f4f4f4; @include border-radius($myrad); margin:0 30px 10px !important;
             .activity-content {margin:0;}
+            .activity-avatar {margin-left:15px;}
             .activity-comments {background: none repeat scroll 0 0 #ffffff; margin:0;}
             .activity-content {@include border-radius($myrad);
                 iframe {height: 300px !important; max-width: 110%; width: 104% !important; margin:0 -2%;}
@@ -198,7 +184,7 @@
         .col-md-9.single {float: left;}
         .sing-spacer {padding:0;}
         .sing-cont {background-color:transparent;}
-        .single-in {background: none repeat scroll 0 0 #e3e3e3; @include box-shadow(1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset !important); margin: 0 !important; padding: 0 !important; width: 100%;}
+        .single-in {background: none repeat scroll 0 0 #e3e3e3; @include box-shadow(1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset, -1px -1px 0 #cfcfcf inset, -2px -2px 0 #ffffff inset !important); margin: 0 !important; padding: 0 !important; width: 100%;}
         
         /*mediapress*/
             .mpp-container.mpp-media-list.mpp-activity-media-list.mpp-activity-photo-list > a {
@@ -210,16 +196,22 @@
             .mpp-attached-media-item {max-width: 100%; }
     } /*end activity directory*/
     .activity-filter-by.selectwrap dl {display: none; }
-    .selectwrap.activity-filter-by > select {display: inline-block; height: 30px; width: 90px; opacity: 0;}
-    #activity-filter-select {overflow: hidden; position: relative; margin-top: 0 !important; }
-    #activity-filter-select label {display: none; }
-    #activity-filter-select div:before {background: none repeat scroll 0 0 #ffffff; border-radius: 200px; content: ""; font-family: icomoon; pointer-events: none; position: absolute; text-align: center; width: 100%; }
-    #subnav {float: right; margin-bottom: -50px !important; position: relative; top: -50px;
-        li {line-height: 35px;}}
-    .item-list-tabs.activity-type-tabs {
-        float: left;
-        margin-left: 30px;
+    .selectwrap.activity-filter-by {
+        &:before {content: ""; font-family: icomoon; margin-right: 10px; pointer-events: none;}
+        &:after {content: "Filter By"; pointer-events: none;}
     }
+    #activity-filter-select {overflow: hidden; position: relative; margin-top: 0 !important; 
+        select {display: inline-block; opacity: 0; height: 35px; left: 0; margin: 0 !important; max-width: 175px; position: absolute; top: 0; width: 100%;}
+    }
+    #activity-filter-select label {display: none; }
+    #activity-filter-select div {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); @include border-radius(200px); display: block; padding: 0 20px; text-align: center; width: 100%;
+        &:hover {background:#f4f4f4;@include box-shadow(0 0 0 2px $green inset);}
+    }
+    
+    #subnav {float: right; height: 60px; margin: 0 0 -60px !important; padding: 14px 30px; display: none !important; position: relative; top: -60px;
+        ul {margin:0 !important;}
+        li {line-height: 35px;}}
+    
 }
 
 /*members and groups */

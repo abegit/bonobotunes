@@ -68,9 +68,53 @@
        -o-transition:all $numb ease-in-out;
           transition:all $numb ease-in-out;}
 
+
+@mixin tabs($color1){height: 60px; opacity: 0.6; padding: 14px 30px; @include trans(500ms); width: 100%;
+        &:hover {opacity: 1;}
+        ul {@include box-shadow(0 0 0 2px $color1 inset); @include border-radius(200px); display: inline-block; height: 35px;
+            a {@include trans(100ms); line-height: 35px; padding: 0 10px; color:$color1; font-size: 14px;
+                span {background: $color1 !important;
+                border-color: #ffffff !important;
+                color: #ffffff !important;
+                line-height: 0;
+                position: relative;
+                top: -2px;}
+            }
+            li {
+                &:first-child a{@include border-radius(200px 0 0 200px); padding-left:13px;}
+                &:last-child a{@include border-radius(0 200px 200px 0); padding-right:13px;}
+                &:first-child:last-child a{@include border-radius(200px !important);}
+            }
+            li.current, li.selected {
+                a {background:$color1 !important; color:#fff !important; @include border-radius(0); opacity: 1 !important;}
+                &:first-child a{@include border-radius(200px 0 0 200px);}
+                &:last-child a{@include border-radius(0 200px 200px 0);}
+            }
+            li a:hover {background:transparentize($color1,.8); color:$color1;}
+        }
+}
+
+@mixin tabs2($color2){padding: 0; @include trans(500ms); width: 100%; margin-bottom: 20px; @include box-shadow(0 0 3px #b0b0b0);
+        ul {display: table; width:100%; height: 35px;
+            a {@include trans(100ms); line-height: 35px; padding: 0 10px; color:$color2; font-size: 14px;
+                span {background: $color2 !important;
+                border-color: #ffffff !important;
+                color: #ffffff !important;
+                line-height: 0;
+                position: relative;
+                top: -2px;}
+            }
+            li {float:none; display: table-cell; text-align: center;}
+            li.current, li.selected {
+                a {background: rgba(0, 0, 0, 0) !important; @include box-shadow(0 -3px 0 $color2 inset); color: $color2 !important; font-weight: 400; @include border-radius(0); opacity: 1 !important;}
+            }
+            li a:hover {background:transparentize($color2,.8); color:$color2;}
+        }
+}
+
 $myrad : 5px;
-$green : #00b570;
-$blue : #4283ab;
+$green : #4283ab;
+$blue : #00b570;
 $blue1 : #b9c6ce;
 
 

@@ -6178,9 +6178,14 @@ textarea {
   /*end whats new form*/
   /* end whats new options*/ }
   #buddypress #whats-new-form {
-    background: rgba(255, 255, 255, 0.4);
-    margin-bottom: 10px;
-    padding: 10px; }
+    background: #bdbdbd;
+    padding: 30px;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+    -webkit-box-shadow: -110px -90px 230px 60px #101010 inset !important;
+    -moz-box-shadow: -110px -90px 230px 60px #101010 inset !important;
+    box-shadow: -110px -90px 230px 60px #101010 inset !important; }
     #buddypress #whats-new-form textarea {
       background: none repeat scroll 0 0 white !important;
       -webkit-border-radius: 5px 5px 0 0;
@@ -6190,7 +6195,7 @@ textarea {
       -webkit-box-shadow: 0 0 2px #bdbdbd;
       -moz-box-shadow: 0 0 2px #bdbdbd;
       box-shadow: 0 0 2px #bdbdbd;
-      height: 60px;
+      height: 60px !important;
       padding: 8px !important;
       border: 1px solid #bdbdbd;
       resize: none; }
@@ -6271,6 +6276,7 @@ textarea {
     background: none repeat scroll 0 0 #f2f2f2;
     margin-top: -7px;
     border-left: 1px solid #bdbdbd;
+    height: 40px !important;
     border-right: 1px solid #bdbdbd;
     border-bottom: 1px solid #bdbdbd;
     overflow: visible !important;
@@ -6289,13 +6295,20 @@ textarea {
   #buddypress #whats-new-options #mpp-activity-upload-buttons {
     margin-top: 0; }
   #buddypress div.item-list-tabs.activity-type-tabs {
-    background: none repeat scroll 0 0 transparent;
-    display: block;
-    clear: none; }
+    height: 60px;
+    opacity: 0.6;
+    padding: 14px 30px;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    width: 100%; }
+    #buddypress div.item-list-tabs.activity-type-tabs:hover {
+      opacity: 1; }
     #buddypress div.item-list-tabs.activity-type-tabs ul {
-      -webkit-box-shadow: 0 0 0 2px #00b570 inset;
-      -moz-box-shadow: 0 0 0 2px #00b570 inset;
-      box-shadow: 0 0 0 2px #00b570 inset;
+      -webkit-box-shadow: 0 0 0 2px #4283ab inset;
+      -moz-box-shadow: 0 0 0 2px #4283ab inset;
+      box-shadow: 0 0 0 2px #4283ab inset;
       -webkit-border-radius: 200px;
       -moz-border-radius: 200px;
       border-radius: 200px;
@@ -6307,23 +6320,32 @@ textarea {
         -o-transition: all 100ms ease-in-out;
         transition: all 100ms ease-in-out;
         line-height: 35px;
-        padding: 0 10px !important;
-        color: #00b570;
+        padding: 0 10px;
+        color: #4283ab;
         font-size: 14px; }
+        #buddypress div.item-list-tabs.activity-type-tabs ul a span {
+          background: #4283ab !important;
+          border-color: #ffffff !important;
+          color: #ffffff !important;
+          line-height: 0;
+          position: relative;
+          top: -2px; }
       #buddypress div.item-list-tabs.activity-type-tabs ul li:first-child a {
         -webkit-border-radius: 200px 0 0 200px;
         -moz-border-radius: 200px 0 0 200px;
-        border-radius: 200px 0 0 200px; }
+        border-radius: 200px 0 0 200px;
+        padding-left: 13px; }
       #buddypress div.item-list-tabs.activity-type-tabs ul li:last-child a {
         -webkit-border-radius: 0 200px 200px 0;
         -moz-border-radius: 0 200px 200px 0;
-        border-radius: 0 200px 200px 0; }
+        border-radius: 0 200px 200px 0;
+        padding-right: 13px; }
       #buddypress div.item-list-tabs.activity-type-tabs ul li:first-child:last-child a {
         -webkit-border-radius: 200px !important;
         -moz-border-radius: 200px !important;
         border-radius: 200px !important; }
       #buddypress div.item-list-tabs.activity-type-tabs ul li.current a, #buddypress div.item-list-tabs.activity-type-tabs ul li.selected a {
-        background: #00b570 !important;
+        background: #4283ab !important;
         color: #fff !important;
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
@@ -6338,8 +6360,8 @@ textarea {
         -moz-border-radius: 0 200px 200px 0;
         border-radius: 0 200px 200px 0; }
       #buddypress div.item-list-tabs.activity-type-tabs ul li a:hover {
-        background: rgba(0, 181, 112, 0.2);
-        color: #00b570; }
+        background: rgba(66, 131, 171, 0.2);
+        color: #4283ab; }
   #buddypress .activity-meta {
     background: none repeat scroll 0 0 #efefef;
     clear: both;
@@ -6372,15 +6394,18 @@ textarea {
     #buddypress #subnav .feed {
       display: none; }
   #buddypress .activity-list {
-    border-top: none !important; }
+    border-top: none !important;
+    margin-top: 0 !important; }
     #buddypress .activity-list li {
       background: #f4f4f4;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px;
-      margin: 10px 30px !important; }
+      margin: 0 30px 10px !important; }
       #buddypress .activity-list li .activity-content {
         margin: 0; }
+      #buddypress .activity-list li .activity-avatar {
+        margin-left: 15px; }
       #buddypress .activity-list li .activity-comments {
         background: none repeat scroll 0 0 #ffffff;
         margin: 0; }
@@ -6415,9 +6440,9 @@ textarea {
       background-color: transparent; }
     .activity.directory .single-in {
       background: none repeat scroll 0 0 #e3e3e3;
-      -webkit-box-shadow: 1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset !important;
-      -moz-box-shadow: 1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset !important;
-      box-shadow: 1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset !important;
+      -webkit-box-shadow: 1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset, -1px -1px 0 #cfcfcf inset, -2px -2px 0 #ffffff inset !important;
+      -moz-box-shadow: 1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset, -1px -1px 0 #cfcfcf inset, -2px -2px 0 #ffffff inset !important;
+      box-shadow: 1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset, -1px -1px 0 #cfcfcf inset, -2px -2px 0 #ffffff inset !important;
       margin: 0 !important;
       padding: 0 !important;
       width: 100%; }
@@ -6431,36 +6456,56 @@ textarea {
       max-width: 100%; }
   .activity .activity-filter-by.selectwrap dl {
     display: none; }
-  .activity .selectwrap.activity-filter-by > select {
-    display: inline-block;
-    height: 30px;
-    width: 90px;
-    opacity: 0; }
+  .activity .selectwrap.activity-filter-by:before {
+    content: "";
+    font-family: icomoon;
+    margin-right: 10px;
+    pointer-events: none; }
+  .activity .selectwrap.activity-filter-by:after {
+    content: "Filter By";
+    pointer-events: none; }
   .activity #activity-filter-select {
     overflow: hidden;
     position: relative;
     margin-top: 0 !important; }
+    .activity #activity-filter-select select {
+      display: inline-block;
+      opacity: 0;
+      height: 35px;
+      left: 0;
+      margin: 0 !important;
+      max-width: 175px;
+      position: absolute;
+      top: 0;
+      width: 100%; }
   .activity #activity-filter-select label {
     display: none; }
-  .activity #activity-filter-select div:before {
-    background: none repeat scroll 0 0 #ffffff;
+  .activity #activity-filter-select div {
+    background: none repeat scroll 0 0 transparent;
+    -webkit-border-radius: 200px;
+    -moz-border-radius: 200px;
     border-radius: 200px;
-    content: "";
-    font-family: icomoon;
-    pointer-events: none;
-    position: absolute;
+    display: block;
+    padding: 0 20px;
     text-align: center;
     width: 100%; }
+    .activity #activity-filter-select div:hover {
+      background: #f4f4f4;
+      -webkit-box-shadow: 0 0 0 2px #4283ab inset;
+      -moz-box-shadow: 0 0 0 2px #4283ab inset;
+      box-shadow: 0 0 0 2px #4283ab inset; }
   .activity #subnav {
     float: right;
-    margin-bottom: -50px !important;
+    height: 60px;
+    margin: 0 0 -60px !important;
+    padding: 14px 30px;
+    display: none !important;
     position: relative;
-    top: -50px; }
+    top: -60px; }
+    .activity #subnav ul {
+      margin: 0 !important; }
     .activity #subnav li {
       line-height: 35px; }
-  .activity .item-list-tabs.activity-type-tabs {
-    float: left;
-    margin-left: 30px; }
 
 /*members and groups */
 .members.directory .buddyb .sing-spacer, .groups.directory .buddyb .sing-spacer {

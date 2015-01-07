@@ -2579,7 +2579,7 @@ function bp_activity_delete_link() {
 			$class = 'delete-activity-single';
 		}
 
-		$link = '<a href="' . esc_url( $url ) . '" class="button item-button bp-secondary-action ' . $class . ' confirm" rel="nofollow"><i class="icon-remove"></i></a>';
+		$link = '<a href="' . esc_url( $url ) . '" class="button item-button bp-secondary-action ' . $class . ' confirm" rel="nofollow">' . __( 'Delete', 'buddypress' ) . '</a>';
 
 		return apply_filters( 'bp_get_activity_delete_link', $link );
 	}

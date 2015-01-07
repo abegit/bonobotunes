@@ -14,7 +14,7 @@
 
 <?php do_action( 'bp_before_activity_entry' ); ?>
 
-<li class="<?php bp_activity_css_class(); ?>" id="activity-<?php bp_activity_id(); ?>">
+<li class="<?php bp_activity_css_class(); ?> panel" id="activity-<?php bp_activity_id(); ?>">
 	<div class="activity-avatar">
 		<a href="<?php bp_activity_user_link(); ?>">
 
@@ -63,7 +63,7 @@
 
 				<?php if ( bp_activity_can_comment() ) : ?>
 
-					<a href="<?php bp_activity_comment_link(); ?>" class="button acomment-reply bp-primary-action" id="acomment-comment-<?php bp_activity_id(); ?>"><?php printf( __( '<i class="icon-bubbles4"></i> <span>%s</span>', 'buddypress' ), bp_activity_get_comment_count() ); ?></a>
+					<a href="<?php bp_activity_comment_link(); ?>" class="button acomment-reply bp-primary-action" id="acomment-comment-<?php bp_activity_id(); ?>"><?php printf( __( 'Comment <span>%s</span>', 'buddypress' ), bp_activity_get_comment_count() ); ?></a>
 
 				<?php endif; ?>
 
@@ -71,11 +71,11 @@
 
 					<?php if ( !bp_get_activity_is_favorite() ) : ?>
 
-						<a href="<?php bp_activity_favorite_link(); ?>" class="button fav bp-secondary-action" title="<?php esc_attr_e( 'Mark as Favorite', 'buddypress' ); ?>"><i class="icon-heart2"></i></a>
+						<a href="<?php bp_activity_favorite_link(); ?>" class="button fav bp-secondary-action" title="<?php esc_attr_e( 'Mark as Favorite', 'buddypress' ); ?>"><?php _e( 'Favorite', 'buddypress' ); ?></a>
 
 					<?php else : ?>
 
-						<a href="<?php bp_activity_unfavorite_link(); ?>" class="button unfav bp-secondary-action" title="<?php esc_attr_e( 'Remove Favorite', 'buddypress' ); ?>"><i class="icon-heart"></i></a>
+						<a href="<?php bp_activity_unfavorite_link(); ?>" class="button unfav bp-secondary-action" title="<?php esc_attr_e( 'Remove Favorite', 'buddypress' ); ?>"><?php _e( 'Remove Favorite', 'buddypress' ); ?></a>
 
 					<?php endif; ?>
 

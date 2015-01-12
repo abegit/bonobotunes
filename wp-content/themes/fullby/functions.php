@@ -97,15 +97,14 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 	
 // 	return $redirect_to;
 // }
-?>
 
-<?php // CONTENT WIDTH & feedlinks 
+// CONTENT WIDTH & feedlinks 
 	
 	if ( ! isset( $content_width ) ) $content_width = 900;
 	add_theme_support( 'automatic-feed-links' );
 
-?>
-<?php // REPLY comment script 
+
+// REPLY comment script 
 
 	function fullby_enqueue_comments_reply() {
 		if( get_option( 'thread_comments' ) )  {
@@ -114,8 +113,8 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 	}
 	add_action( 'comment_form_before', 'fullby_enqueue_comments_reply' );
 	
-?>
-<?php // MENU 
+
+// MENU 
 
 	add_action( 'after_setup_theme', 'wpt_setup' );
     if ( ! function_exists( 'wpt_setup' ) ):
@@ -123,13 +122,13 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
             register_nav_menu( 'primary', __( 'Primary navigation', 'wptuts' ) );
             register_nav_menu( 'secondary', __( 'Secondary navigation', 'wptuts' ) );
     } endif;
-?>
-<?php // BOOTSTRAP MENU - Custom navigation walker (Required)
+
+// BOOTSTRAP MENU - Custom navigation walker (Required)
 
     require_once('wp_bootstrap_navwalker.php');
     
-?>
-<?php // CUSTOM THUMBNAIL 
+
+// CUSTOM THUMBNAIL 
 
 	add_theme_support('post-thumbnails');
 	
@@ -144,8 +143,8 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 		add_image_size( 'smallvideo', 400, 225, true ); //(cropped)
 	}
 
-?>
-<?php // WIDGET SIDEBAR 
+
+// WIDGET SIDEBAR 
 
 	if ( function_exists('register_sidebar') )
 		register_sidebar(array('name'=>'Primary Sidebar',
@@ -161,8 +160,8 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 		'after_title' => '</h3>',
 	));
 
-?>
-<?php // METABOX POST (Video,[...])
+
+// METABOX POST (Video,[...])
 
 add_action( 'add_meta_boxes', 'meta_box_post' );
 
@@ -222,8 +221,8 @@ add_action('save_post', 'save_resource_meta');
 	        }
 	    }  
 	}
-?>
-<?php // POPULAR POST 
+
+// POPULAR POST 
 
 if ( !function_exists('wpb_set_post_views') ) {
 
@@ -257,8 +256,8 @@ if ( !function_exists('wpb_track_post_views') ) {
 }
 add_action( 'wp_head', 'wpb_track_post_views');
 
-?>
-<?php // THEME OPTIONS
+
+// THEME OPTIONS
 
 add_action('admin_menu', 'fullby_theme_page');
 function fullby_theme_page ()
@@ -277,8 +276,7 @@ function fullby_theme_page ()
 	add_theme_page('Theme Options', 'Theme Options', 'edit_themes', basename(__FILE__), 'fullby_settings');
 	
 }
-function fullby_settings()
-{?>
+function fullby_settings() { ?>
 <div class="wrap">
 <h2>SEO Options</h2>
 	
@@ -311,31 +309,7 @@ function fullby_settings()
 
 </form>
 </div>
-<?php }?>
-<?php // CUSTOM PAGE - Premium Version
-add_action( 'admin_menu', 'register_my_custom_menu_page' );
-
-function register_my_custom_menu_page(){
-    add_menu_page( 'Fullby Premium', 'FULLBY Premium', 'manage_options', 'custompage', 'my_custom_menu_page', get_template_directory_uri() . '/img/icon-backend.png', 100); 
-}
-
-function my_custom_menu_page(){ ?>
-<div style="float:left; padding:3% 5% 5% 5%; width:90%; ">
-
-   <h1>Why update to FULLBY Premium ?</h1>
-   <h2>A lot of new features for awesome site with easy customization..</h2>
-   
-   <img src="<?php echo get_template_directory_uri(); ?>/img/features.png" style="width:80%; height:auto; float:left;margin-right:20%"/>
-   
-   <a href="http://www.marchettidesign.net/fullby/demo.php" target="_blank" style="float:left; display:block; padding: 15px 40px; margin-right:20px; border-radius: 4px;color:#fff; background:#333; font-weight:700; text-decoration:none">LIVE DEMO</a>
-
-   <a href="http://www.marchettidesign.net/shop/cart/?add-to-cart=12" target="_blank" style="float:left; display:block; padding: 15px 40px; margin-right:20px; border-radius: 4px;color:#000; background:#00ecbd; font-weight:700; text-decoration:none">BUY PREMIUM 29$</a>
-   
-</div>
-     
-<?php } 
-
-
+<?php }
 
 // woo - Remove Main Product Image & Display Thumbnails	
 add_filter('add_to_cart_redirect', 'imageSlashVid');

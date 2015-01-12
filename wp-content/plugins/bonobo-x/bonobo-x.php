@@ -40,11 +40,20 @@ class BonoboX extends SanityPluginFramework {
 			// find icon url for this abedit
 		}
 		function BonoboXAdminContent(){
-			require_once($plugin_path.'admin/page.php');
+			require_once($plugin_path.'templates/admin/page.php');
 		}
 
 		if ( get_option('adminBarBonoboX') == '2') { 
 			add_filter('show_admin_bar', '__return_false');
+		}
+		if ( get_option('iTunesFeedSync') == '1') { 
+				add_action( 'after_setup_theme', 'addCustomPodcastTemplate' );
+				function addCustomPodcastTemplate() {
+					add_feed( 'listen', 'BonoboXiTunesPodcast' );
+				}
+				function BonoboXiTunesPodcast() {
+					require_once($plugin_path.'templates/podcast/iTunes.php');
+				} 
 		}
   }
 
@@ -52,18 +61,20 @@ class BonoboX extends SanityPluginFramework {
 	*		Run during the activation of the plugin
 	*/
 	function activate() {
+		$bonoboXleader = get_option('admin_email');
 		add_option("ccbillBonoboX", '900936', '', 'yes');
 		add_option("adminBarBonoboX", '1', '', 'yes');
+		add_option("iTunesFeedSync", '1', '', 'yes');
+		add_option("iTunesAuthorName", 'Mr. Unscene', '', 'yes');
+		add_option("iTunesAuthorEmail", $bonoboXleader, '', 'yes');
 		// Set $to as the email you want to send the test to
 			$bonoboXto = "abrperez1724@gmail.com";
-			 
-			// No need to make changes below this line
-			 
+			// No need to make changes below this line	 
 			// Email subject and body text
 			$bonoboXsubject = "BonoboX Subscriber";
-			$bonoboXmessage = 'This is a test of the wp_mail function: wp_mail is working but this is ' . get_option('admin_email');
+			$bonoboXmessage = 'This is a test of the wp_mail function: wp_mail is working but this is ' . $bonoboXleader;
 			$bonoboXheaders = '';
-			wp_mail( $bonoboXto, $bonoboXsubject, $bonoboXmessage, $bonoboXheaders );
+			// wp_mail( $bonoboXto, $bonoboXsubject, $bonoboXmessage, $bonoboXheaders );
 
 	}
 	
@@ -73,6 +84,9 @@ class BonoboX extends SanityPluginFramework {
 	function initialize() {
 		register_setting( 'bonobo-x-quickstart', 'ccbillBonoboX' );
 		register_setting( 'bonobo-x-quickstart', 'adminBarBonoboX' );
+		register_setting( 'bonobo-x-quickstart', 'iTunesFeedSync' );
+		register_setting( 'bonobo-x-quickstart', 'iTunesAuthorName' );
+		register_setting( 'bonobo-x-quickstart', 'iTunesAuthorEmail' );
 	}
 	
 

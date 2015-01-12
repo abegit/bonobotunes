@@ -1,20 +1,4 @@
 <?php 
-// custom rss feed 
-add_action( 'after_setup_theme', 'my_rss_template' );
-/**
-* Register custom RSS template.
-*/
-function my_rss_template() {
-add_feed( 'short', 'my_custom_rss_render' );
-}
-/**
-* Custom RSS template callback.
-*/
-function my_custom_rss_render() {
-get_template_part( 'feed', 'short' );
-} 
-
-
 // Disable Admin Bar for everyone but administrators
 if (!function_exists('df_disable_admin_bar')) {
 

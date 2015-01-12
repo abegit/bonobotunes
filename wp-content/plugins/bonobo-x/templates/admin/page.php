@@ -2,6 +2,11 @@
 
    <h2>BonoboX</h2>
    <h3>A lot of new features for awesome site with easy customization..</h3>
+   <form action="http://groups.google.com/group/drsuzybonoboville/boxsubscribe">
+      Email:
+      <input type="text" name="email">
+      <input type="submit" name="sub" value="Subscript">
+</form>
    <form method="post" action="options.php">
 				    <?php settings_fields( 'bonobo-x-quickstart' ); ?>
 				    <!-- Wordpress documentation is wrong and suggests do_settings (which is for older versions below 2.7) -->
@@ -25,9 +30,30 @@
 				        </td>
 				        </tr>
 				    </table>
+
+
 				    <?php submit_button(); ?>
 				
 			<?php } ?>
+            </div></li>
+
+            <li class="node"><span>Podcast <i class="icon-arrowleft"></i></span>
+            <div class="message">
+				    <table class="form-table">
+				        <tr valign="top">
+				        <th scope="row">Activate iTunes Feed Sync</th>
+				        <td><input type="radio" name="iTunesFeedSync" value="1" <?php if ( get_option('iTunesFeedSync') == '1') { echo 'checked';}?> /> Yes <br />
+				        	<input type="radio" name="iTunesFeedSync" value="2" <?php if ( get_option('iTunesFeedSync') == '2') { echo 'checked';}?> /> No <br />
+				        </td>
+				        </tr>
+				        <tr valign="top">
+				        <th scope="row">Podcast Details</th>
+				        <td>Name: <input type="text" name="iTunesAuthorName" value="<?php echo get_option('iTunesAuthorName'); ?>" /></td>
+				        <td>Email: <input type="text" name="iTunesAuthorEmail" value="<?php echo get_option('iTunesAuthorEmail'); ?>" /></td>
+				    </td>
+				        </tr>
+				    </table>
+				    <?php submit_button(); ?>
             </div></li>
         	
         	<li class="node"><span class="selected" data-uri="1">Hosting Accounts <i class="icon-arrowleft"></i></span>

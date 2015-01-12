@@ -143,6 +143,16 @@
         @include tabs($green);
     } /* end whats new options*/
 
+    div.item-list-tabs.no-ajax {
+        @include tabs2($green);
+    } /* end whats new options*/
+
+     .item-list-tabs.no-ajax {width: unset !important;}
+        #subnav li {line-height: 28px;}
+        #subnav {height: 48px;
+            ul {margin:10px 0 0 10px !important;}
+        }
+
     
     .activity-meta {background: none repeat scroll 0 0 #efefef; clear:both; padding: 5px; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
     .activity-meta a {font-size: 13px !important; }
@@ -184,7 +194,7 @@
         .col-md-9.single {float: left;}
         .sing-spacer {padding:0;}
         .sing-cont {background-color:transparent;}
-        .single-in {background: none repeat scroll 0 0 #e3e3e3; @include box-shadow(1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset, -1px -1px 0 #cfcfcf inset, -2px -2px 0 #ffffff inset !important); margin: 0 !important; padding: 0 !important; width: 100%;}
+        .single-in {background: none repeat scroll 0 0 #e3e3e3; float:right; @include box-shadow(1px 1px 0 #cfcfcf inset, 2px 2px 0 #ffffff inset, -1px -1px 0 #cfcfcf inset, -2px -2px 0 #ffffff inset !important); margin: 0 !important; padding: 0 !important;}
         
         /*mediapress*/
             .mpp-container.mpp-media-list.mpp-activity-media-list.mpp-activity-photo-list > a {
@@ -245,13 +255,7 @@
 
 /*messages*/
 
-        .item-list-tabs.no-ajax {background: #f4f4f4 !important;
-        margin: 0 !important;
-        padding:0; line-height: 0; @include border-radius($myrad $myrad 0 0);}
-        #subnav li {line-height: 28px;}
-        #subnav {height: 48px;
-            ul {margin:10px 0 0 10px !important;}
-            }
+   
         
 
 

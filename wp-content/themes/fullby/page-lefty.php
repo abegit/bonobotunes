@@ -5,7 +5,7 @@ Template Name: Lefty Profile
 get_header(); ?>			
 		
 	<div class="col-md-9 single">
-	<div class="profile_header" data-type="background" data-speed="3"></div>
+	
 		<div class="col-md-9 single-in">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 

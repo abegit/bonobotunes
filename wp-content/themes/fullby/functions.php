@@ -1,24 +1,32 @@
 <?php 
+// custom rss feed 
+add_action( 'after_setup_theme', 'my_rss_template' );
 /**
- * Show the list of attached media in an activity
- * Should we add a link to view gallery too?
- * 
- * @return type
- */
+* Register custom RSS template.
+*/
+function my_rss_template() {
+add_feed( 'short', 'my_custom_rss_render' );
+}
+/**
+* Custom RSS template callback.
+*/
+function my_custom_rss_render() {
+get_template_part( 'feed', 'short' );
+} 
 
 
 // Disable Admin Bar for everyone but administrators
 if (!function_exists('df_disable_admin_bar')) {
 
 	function df_disable_admin_bar() {
-		
+
 		if (!current_user_can('manage_options')) {
-		
+
 			// for the admin page
 			remove_action('admin_footer', 'wp_admin_bar_render', 1000);
 			// for the front-end
 			remove_action('wp_footer', 'wp_admin_bar_render', 1000);
-			
+
 			// css override for the admin page
 			function remove_admin_bar_style_backend() { 
 				echo '<style>body.admin-bar #wpcontent, body.admin-bar #adminmenu { padding-top: 0px !important; }</style>';
@@ -56,9 +64,15 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 		if ( in_array( 'administrator', $user->roles ) ) {
 			// redirect them to the default place
 			return $redirect_to;
-		} if ( in_array( 'author', $user->roles ) ) {
+		} elseif ( in_array( 'author', $user->roles ) ) {
 			// redirect them to the default place
 			return $redirect_to;
+		} elseif ( in_array( 'customer', $user->roles ) ) {
+			// redirect them to the default place
+			return home_url().'/activity';
+		} elseif ( in_array( 'subscriber', $user->roles ) ) {
+			// redirect them to the default place
+			return home_url().'/activity';
 		} else {
 			return home_url().'/activity';
 		}
@@ -276,7 +290,7 @@ function fullby_theme_page ()
 	add_theme_page('Theme Options', 'Theme Options', 'edit_themes', basename(__FILE__), 'fullby_settings');
 	
 }
-function fullby_settings() { ?>
+function fullby_settings() {?>
 <div class="wrap">
 <h2>SEO Options</h2>
 	

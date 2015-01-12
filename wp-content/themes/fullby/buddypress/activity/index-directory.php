@@ -1,4 +1,4 @@
-<?php get_header(); ?>			
+<?php get_header(); ?>
 		<div class="wrap buddyb row">
 	<div class="col-md-9 single">
 		<div class="col-md-12 single-in">
@@ -37,7 +37,7 @@
 
         $dd(document).ready(function() {
             createDropDown();
-            
+
 
             $dd(".selectwrap .dropdown dt").click(function() {
                 //inside select wrapper only toggle ul inside wrapper
@@ -50,22 +50,19 @@
                 if (! $ddclicked.parents().hasClass("dropdown"))
                     $dd(".dropdown dd ul").hide();
             });
-                        
+
             $dd(".dropdown dd ul li").click(function() {
                 var text = $dd(this).html();
                 var selfie = $dd(this).closest(".dropdown").attr('class').split(' ')[1];
-
                 $dd('.dropdown.' + selfie + ' dt a').html(text);
                 $dd('.dropdown.' + selfie + ' dd ul').hide();
                 $dd('.dropdown.' + selfie + ' dd ul').hide();
-                
+
                 var source = $dd('select#' + selfie);
                 source.val($dd(this).find("span.value").html())
             });
-
-
         });
-        
+
 function createDropDown(){
     $dd("select").each(function() {
         var source = $dd(this);
@@ -74,21 +71,16 @@ function createDropDown(){
         var self = $dd(this).attr('id');
         $dd(this).wrap( '<div class="selectwrap ' + self + '"></div>')
         $dd(this).after('<dl class="dropdown ' + self + '"></dl>')
-
         $dd('.dropdown.' + self).append('<dt><a href="#">' + selected.text() + 
             '<span class="value">' + selected.val() + 
             '</span></a></dt>')
         $dd('.dropdown.' + self).append('<dd><ul class="dropdown-menu"></ul></dd>')
-
         options.each(function(){
             $dd('.dropdown.' + self + ' dd ul').append('<li>' + 
                 $dd(this).text() + '<span class="value">' + 
                 $dd(this).val() + '</span></li>');
         });
     });
-
 }
-
-
 </script>
 <?php get_footer(); ?>

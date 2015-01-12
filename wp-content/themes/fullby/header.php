@@ -43,15 +43,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
      <div class="row">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="<?php echo home_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a>
-        </div>
-        
-        <div id="mainmenu" class="collapse navbar-collapse">
+        	<div id="mainmenu" class="collapse navbar-collapse col-md-3">
           <?php /* Primary navigation */
 			wp_nav_menu( array(
 			  'theme_location' => 'primary',
@@ -61,11 +53,47 @@
 			  'walker' => new wp_bootstrap_navwalker())
 			);
 			?>
+				<div class="col-sm-2 col-md-2 pull-right search-cont">
+					
+				</div>
+
+        </div>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <button type="button" class="navbar-toggle for-submenu" data-toggle="collapse" data-target="#submenu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<?php echo home_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a>
+        
+        
+        <!--/.nav-collapse -->
+                <div  id="submenu" class="collapse navbar-collapse">
+          <?php /* Primary navigation */
+			wp_nav_menu( array(
+			  'theme_location' => 'secondary',
+			  'container' => false,
+			  'menu_class' => 'nav navbar-nav',
+			  //Process nav menu using our custom nav walker
+			  'walker' => new wp_bootstrap_navwalker())
+			);
+			?>
+
+          
+        
+			
+	        
+        </div>
         </div><!--/.nav-collapse -->
+
     </div>
     </div>
     
-    <?php if (is_home()) { ?>
+    <?php if (is_front_page()) { ?>
     
     	 <?php if (!is_paged()){ ?> 
     
@@ -73,12 +101,12 @@
     
 					<?php
 					$specialPosts = new WP_Query();
-					$specialPosts->query('tag=featured&showposts=3');
+					$specialPosts->query('tag=featured&showposts=4');
 					?>
 					
 					<?php if ($specialPosts->have_posts()) : while($specialPosts->have_posts()) : $specialPosts->the_post(); ?>
 			  
-					    <div class="col-sm-4 col-md-4 item-featured">
+					    <div class="col-sm-3 col-md-3 item-featured">
 					    
 					    	
 							<a href="<?php the_permalink(); ?>">
@@ -149,38 +177,6 @@
 	
 	<div class="navbar navbar-inverse navbar-sub">
      	<div class="row">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#submenu">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          
-        </div>
-        
-        <div  id="submenu" class="collapse navbar-collapse">
-          <?php /* Primary navigation */
-			wp_nav_menu( array(
-			  'theme_location' => 'secondary',
-			  'container' => false,
-			  'menu_class' => 'nav navbar-nav alignleft',
-			  //Process nav menu using our custom nav walker
-			  'walker' => new wp_bootstrap_navwalker())
-			);
-			?>
-			
-			<div class="col-sm-2 col-md-2 pull-right search-cont">
-		        <form class="navbar-form" role="search" method="get" action="<?php echo home_url() ; ?>">
-			        <div class="input-group">
-			            <input type="text" class="form-control" placeholder="Search" name="s" id="srch-term">
-			            <div class="input-group-btn">
-			                <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
-			            </div>
-			        </div>
-		        </form>
-	        </div>
-	        
-        </div><!--/.nav-collapse -->
-
+        <div class="navbar-header"></div>
 	</div>
 	</div>

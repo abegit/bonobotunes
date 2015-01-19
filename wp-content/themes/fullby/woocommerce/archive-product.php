@@ -44,7 +44,7 @@ jaMn(document).ready(function() {
 	<?php woocommerce_product_loop_start(); ?>
 	<?php woocommerce_product_subcategories(); ?>
 <?php while ( have_posts() ) : the_post(); ?>
-	<div  style="display:none;">
+	<div style="display:none;">
 <?php wc_get_template_part( 'content', 'product' ); ?>
 </div>
 <?php endwhile; // end of the loop. ?>

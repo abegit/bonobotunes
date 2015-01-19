@@ -1,4 +1,29 @@
 <?php 
+function pg_enc() {
+
+	foreach ( (array) get_post_custom() as $key => $val) {
+		if ($key == 'enclosure') {
+			foreach ( (array) $val as $enc ) {
+				$enclosure = explode("\n", $enc);
+
+				// only get the first element, e.g. audio/mpeg from 'audio/mpeg mpga mp2 mp3'
+				$t = preg_split('/[ \t]/', trim($enclosure[2]) );
+				$type = $t[0];
+
+				/**
+				 * Filter the RSS enclosure HTML link tag for the current post.
+				 *
+				 * @since 2.2.0
+				 *
+				 * @param string $html_link_tag The HTML link tag with a URI and other attributes.
+				 */
+				echo apply_filters( 'pg_enc', $enclosure[0] );
+			}
+		}
+	}
+}
+
+
 // Disable Admin Bar for everyone but administrators
 if (!function_exists('df_disable_admin_bar')) {
 
@@ -322,5 +347,33 @@ add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_produ
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+
+
+  //add my_print to query vars
+function add_print_query_vars($vars) {
+    // add my_print to the valid list of variables
+    $new_vars = array('embed');
+    $vars = $new_vars + $vars;
+    return $vars;
+}
+
+add_filter('query_vars', 'add_print_query_vars');
+add_action("template_redirect", 'my_template_redirect_2322');
+
+// Template selection
+function my_template_redirect_2322()
+{
+    global $wp;
+    global $wp_query;
+    if (isset($wp->query_vars["embed"]))
+    {  
+        include(TEMPLATEPATH . '/single-player.php');
+        die();
+
+    }
+}
+
+
 
  ?>

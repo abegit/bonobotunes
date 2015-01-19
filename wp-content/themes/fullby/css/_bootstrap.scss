@@ -3516,9 +3516,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 @media (min-width: 768px) {
-  .navbar-header {
+ /* .navbar-header {
     float: left;
-  }
+  }*/
 }
 
 .navbar-collapse {
@@ -3680,7 +3680,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     display: inline-block;
     font-weight: 500 !important;
     line-height: 30px;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 @media (max-width: 767px) {

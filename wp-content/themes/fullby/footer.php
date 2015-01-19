@@ -81,13 +81,20 @@
 
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-   <script>
+
+  <?php if (bp_is_component('activity') && bp_is_component('directory')){ ?>
+   	
+<script>
 var $spl3ndid = jQuery.noConflict();
 
 $spl3ndid(window).load(function() {
-        var w = $(window).width();
 
+
+
+
+        var w = $(window).width();
         if(w>400) {
+        	// parralax for profile fields
             $spl3ndid('.profile_header[data-type="background"]').each(function(){
                 var $bgobj = $spl3ndid(this); // assigning the object
                 var $window = $spl3ndid(window);
@@ -137,11 +144,27 @@ $spl3ndid(window).load(function() {
                 }
             }
         }
+        // end
          
 
     });
 
 </script>
+
+   <?php endif ?> 
+
+   
+<?php if (is_fronsst_page()) { ?>
+	<!-- <script type="text/javascript">
+    var $frontpg = jQuery.noConflict();
+    var hght = $frontpg(".row.featured").height();
+    $frontpg(".row.featured").hide();
+        $frontpg(window).load(function() {
+
+            $frontpg(".row.featured").delay(400).addClass('animate').attr('style', '');
+        });
+</script> -->
+<?php } ?>
 
 	<?php wp_footer();?>
     

@@ -1,8 +1,10 @@
 <?php get_header(); ?>
 		<div class="wrap buddyb row">
+            
 	<div class="col-md-9 single">
-		<div class="col-md-12 single-in">
-		
+          <?php display_gsc_results(); ?>
+		<div class="col-md-9 single-in">
+
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 
 				<div class="sing-cont">
@@ -23,13 +25,12 @@
 	        <?php endif; ?> 
 	        
 		</div>	
+        <div class="col-md-3">
+            <div class="sec-sidebar sidebar"> <?php get_sidebar( 'primary' ); ?> </div>
+         </div>
 	</div>			
 
-	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>	
-		    
-	</div>
+	<div class="col-md-3 sidebar"><?php get_sidebar( 'secondary' ); ?></div>
 </div>		
 <script type="text/javascript">
 
@@ -83,4 +84,12 @@ function createDropDown(){
     });
 }
 </script>
+    <script>
+ var $clear = jQuery.noConflict();
+
+        $clear(document).ready(function() {
+            $clear('.icon-close.gsc-clear-button').click(function() { 
+                $clear('td.gsc-clear-button, div.gsc-clear-button').click();
+            });
+        });
 <?php get_footer(); ?>

@@ -1,4 +1,8 @@
 
+$myrad : 5px;
+$green : #4283ab;
+$blue : #00b570;
+$blue1 : #b9c6ce;
 
 
 
@@ -62,12 +66,29 @@
   text-shadow: $params;
 }
 
-
+@mixin animate($numb, $numb2, $numb3, $numb4){-moz-animation-duration: $numb2;
+ -moz-animation-delay: $numb3;
+ -moz-animation-iteration-count: $numb4;
+ -moz-animation-name: $numb;
+ -o-animation-duration: $numb2;
+ -o-animation-delay: $numb3;
+ -o-animation-iteration-count: $numb4;
+ -o-animation-name: $numb;
+ animation-duration: $numb2;
+ animation-delay: $numb3;
+ animation-iteration-count: $numb4;
+ animation-name: $numb;
+}
 @mixin trans($numb){-webkit-transition:all $numb ease-in-out;
      -moz-transition:all $numb ease-in-out;
        -o-transition:all $numb ease-in-out;
           transition:all $numb ease-in-out;}
+@mixin delay($numb) {
+   -moz-animation-delay: $numb !important;
+ -o-animation-delay: $numb !important;
+ animation-delay: $numb !important;
 
+}
 
 @mixin tabs($color1){height: 60px; opacity: 0.6; padding: 14px 30px; @include trans(500ms); width: 100%;
         &:hover {opacity: 1;}
@@ -111,11 +132,17 @@
             li a:hover {background:transparentize($color2,.8); color:$color2;}
         }
 }
+@mixin nav {
+  background:#454545;
+  li a {background: none repeat scroll 0 0 #656565;
+    @include border-radius($myrad);
+    color: #bfbfbf;
+    margin: 0 0 4px;
+    padding: 10px !important;
+    border-bottom-color:#707070;
+    &:hover {text-decoration:none; background:#777;}}
+}
 
-$myrad : 5px;
-$green : #4283ab;
-$blue : #00b570;
-$blue1 : #b9c6ce;
 
 
 

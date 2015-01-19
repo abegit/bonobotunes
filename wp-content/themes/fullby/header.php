@@ -12,14 +12,15 @@
     <link rel="icon" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicon.png" type="image/x-icon"> 
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="<?php echo get_stylesheet_directory_uri(); ?>/css/bootstrap.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/font-awesome/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
     <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css?v=1" rel="stylesheet">
     <link href="<?php echo get_stylesheet_directory_uri(); ?>/fonts.css" rel="stylesheet">
   
-    
+    <!-- animate -->
+    <link href="<?php echo get_stylesheet_directory_uri(); ?>/css/animate.css" rel="stylesheet">
+
     <!-- Google web Font -->
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,100' rel='stylesheet' type='text/css'>
 
@@ -53,8 +54,8 @@
 			  'walker' => new wp_bootstrap_navwalker())
 			);
 			?>
-				<div class="col-sm-2 col-md-2 pull-right search-cont">
-					
+				<div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
+					<?php display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
 				</div>
 
         </div>
@@ -83,9 +84,6 @@
 			);
 			?>
 
-          
-        
-			
 	        
         </div>
         </div><!--/.nav-collapse -->
@@ -96,7 +94,7 @@
     <?php if (is_front_page()) { ?>
     
     	 <?php if (!is_paged()){ ?> 
-    
+    		 <div class="row spacer"></div>
 	    	 <div class="row featured">
     
 					<?php

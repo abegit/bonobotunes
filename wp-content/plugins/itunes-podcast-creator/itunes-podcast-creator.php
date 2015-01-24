@@ -31,13 +31,27 @@ class iTunesRSS extends SanityPluginFramework {
 	function __construct() {
       parent::__construct(__FILE__);
 
-      // create 'unscene_rss_feed' page
-      add_action( 'admin_menu', 'iTunesCreatePage' );
+      // STEP #1 -- create options page
+		add_action( 'admin_menu', 'iTunesCreatePage' );
 		function iTunesCreatePage(){
-			add_menu_page( 'iTunes Podcast Creator', 'iTunes Podcast Creator', 'manage_options', 'unscene_rss_feed', 'iTunesConfigContent', $plugin_path . 'img/icon-backend.png', 99);
-			// find icon url for this abedit
+			$file = dirname(__FILE__) . '/itunes-podcast-creator/';
+			$plugin_url = plugin_dir_url($file);
+			add_menu_page( 'iTunes Podcast Creator', 'iTunes Podcast Creator', 'manage_options', 'unscene_rss_feed', 'iTunesConfigPage', $plugin_url . 'templates/assets/images/icon-backend.png', 99);
+			add_action( 'admin_init', 'iTunesRegisterSettings' );
 		}
-		function iTunesConfigContent(){
+		
+		function iTunesRegisterSettings() {
+			register_setting( 'iTunesFeedStart', 'iTunesFeedSync');
+			register_setting( 'iTunesFeedStart', 'iTunesAuthorName');
+			register_setting( 'iTunesFeedStart', 'iTunesAuthorEmail');
+			register_setting( 'iTunesFeedStart', 'iTunesPodcastSummary');
+			register_setting( 'iTunesFeedStart', 'iTunesPodcastImage');
+			register_setting( 'iTunesFeedStart', 'iTunesExplicit');
+			register_setting( 'iTunesFeedStart', 'iTunesCategories');
+			register_setting( 'iTunesFeedStart', 'UnsceneMusicPlayer');
+		}
+
+		function iTunesConfigPage(){
 			require_once($plugin_path.'templates/admin/page.php');
 		}
 
@@ -117,14 +131,7 @@ class iTunesRSS extends SanityPluginFramework {
 	*		Run during the initialization of Wordpress
 	*/
 	function initialized() {
-		register_setting( 'iTunesFeedStart', 'iTunesFeedSync', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'iTunesAuthorName', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'iTunesAuthorEmail', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'iTunesPodcastSummary', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'iTunesPodcastImage', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'iTunesExplicit', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'iTunesCategories', 'iTuney' );
-		register_setting( 'iTunesFeedStart', 'UnsceneMusicPlayer', 'iTuney' );
+		
 	}
 	
 	// abedit
@@ -141,4 +148,4 @@ $iTunesRSS = new iTunesRSS();
 register_activation_hook(__FILE__, array(&$iTunesRSS, 'activated'));
 
 // Run the plugins initialization method
-add_action('admin_init', 'initialized'); ?>
+add_action('admin_init', __FILE__, array(&$iTunesRSS, 'initialized')); ?>

@@ -1,36 +1,34 @@
 /*! share mode popup */
-var q = jQuery.noConflict();
-q(document).ready(function(){
-    // q("#more").click(function(){
-    //     var X=q(this).attr('data-uri');
-    //       if(X==1){
-    //         q(this).removeClass('unselectable');
-    //         q(".playlist").show();
-    //         q("#embedcode").hide();
-    //         q(this).attr('data-uri', '0');
-    //       } else{
-    //         q(this).addClass('unselectable');
-    //         q(".playlist").hide();
-    //         q("#embedcode").show();
-    //         q(this).attr('data-uri', '1');
-    //       }
-    // });
-
-
-    q('.actions li span').each( function() {
-         q(this).click(function(){
-        var X=q(this).attr('data-uri');
-          if(X==1){
-            q(this).removeClass('selected');
-            q(this).parent('.node').find('.message').removeClass('visible');
-            q(this).attr('data-uri', '0');
-          } else{
-            q(this).addClass('selected');
-            q(this).parent('.node').find('.message').addClass('visible');
-            q(this).attr('data-uri', '1');
-          }
-           });
+var iTunes = jQuery.noConflict();
+iTunes(document).ready(function(){
+    iTunes('.actions li span').each( function() {
+         iTunes(this).click(function(){
+            var X=iTunes(this).attr('data-uri');
+              if(X==null | X=='0'){
+                iTunes(this).removeClass('selected');
+                iTunes(this).parent('.node').find('.message').removeClass('visible');
+                iTunes(this).attr('data-uri', '0');
+              } else {
+                iTunes(this).addClass('selected');
+                iTunes(this).parent('.node').find('.message').addClass('visible');
+                iTunes(this).attr('data-uri', '1');
+              }
+         });
     });
-
-
  }); 
+
+
+iTunes(document).ready(function ($) {
+iTunes('#iTunesPodcastImage_button').click(function() {
+formfield = iTunes('#iTunesPodcastImage').attr('name');
+tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+return false;
+});
+window.send_to_editor = function(html) {
+imgurl = iTunes('img',html).attr('src');
+iTunes('#iTunesPodcastImage').val(imgurl);
+tb_remove();
+iTunes('#iTunesPodcastImage_thumb').html("<img width='100%' src='"+imgurl+"'/>");
+}
+  
+}); 

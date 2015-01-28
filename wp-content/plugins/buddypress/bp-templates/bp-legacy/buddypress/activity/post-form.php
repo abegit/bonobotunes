@@ -31,6 +31,10 @@
 		</div>
 
 		<div id="whats-new-options">
+			<div id="whats-new-submit">
+				<input type="submit" name="aw-whats-new-submit" id="aw-whats-new-submit" value="<?php esc_attr_e( 'Post Update', 'buddypress' ); ?>" />
+			</div>
+
 			<?php if ( bp_is_active( 'groups' ) && !bp_is_my_profile() && !bp_is_group() ) : ?>
 
 				<div id="whats-new-post-in-box">
@@ -59,10 +63,6 @@
 
 			<?php endif; ?>
 
-			<div id="whats-new-submit">
-				<input type="submit" name="aw-whats-new-submit" id="aw-whats-new-submit" value="<?php esc_attr_e( 'Post Update', 'buddypress' ); ?>" />
-			</div>
-			
 			<?php do_action( 'bp_activity_post_form_options' ); ?>
 
 		</div><!-- #whats-new-options -->

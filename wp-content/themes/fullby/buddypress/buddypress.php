@@ -47,21 +47,14 @@
 		</div>	
 		 
 		<div class="col-md-3">
-		
-			<div class="sec-sidebar sidebar">
-
-				<?php get_sidebar( 'secondary' ); ?>	
-										
+			<div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?>
 		    </div>
-		   
 		 </div>
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>	
-		    
+	<div class="col-md-3">
+		<div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 		</div>
 <?php get_footer(); ?>

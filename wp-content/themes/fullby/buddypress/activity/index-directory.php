@@ -1,36 +1,24 @@
 <?php get_header(); ?>
-		<div class="wrap buddyb row">
-            
+<div class="wrap buddyb row" id="content">
 	<div class="col-md-9 single">
           <?php display_gsc_results(); ?>
 		<div class="col-md-9 single-in">
-
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
-
 				<div class="sing-cont">
-					
 					<div class="sing-spacer">
-					
 						<?php the_content('Leggi...');?>
-
 					</div>
-
-				</div>	
-				 					
+				</div>					 					
 			<?php endwhile; ?>
 	        <?php else : ?>
-
 	                <p>Sorry, no posts matched your criteria.</p>
-	         
 	        <?php endif; ?> 
-	        
 		</div>	
         <div class="col-md-3">
-            <div class="sec-sidebar sidebar"> <?php get_sidebar( 'primary' ); ?> </div>
+            <div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
          </div>
 	</div>			
-
-	<div class="col-md-3 sidebar"><?php get_sidebar( 'secondary' ); ?></div>
+	<div class="col-md-3"> <div class="sidebar well"><?php get_sidebar( 'secondary' ); ?></div></div>
 </div>		
 <script type="text/javascript">
 
@@ -52,7 +40,7 @@
                     $dd(".dropdown dd ul").hide();
             });
 
-            $dd(".dropdown dd ul li").click(function() {
+            $dd(".dropdown dd ul li a").click(function() {
                 var text = $dd(this).html();
                 var selfie = $dd(this).closest(".dropdown").attr('class').split(' ')[1];
                 $dd('.dropdown.' + selfie + ' dt a').html(text);
@@ -61,6 +49,7 @@
 
                 var source = $dd('select#' + selfie);
                 source.val($dd(this).find("span.value").html())
+                return false;
             });
         });
 
@@ -77,19 +66,12 @@ function createDropDown(){
             '</span></a></dt>')
         $dd('.dropdown.' + self).append('<dd><ul class="dropdown-menu"></ul></dd>')
         options.each(function(){
-            $dd('.dropdown.' + self + ' dd ul').append('<li>' + 
+            $dd('.dropdown.' + self + ' dd ul').append('<li><a href="#">' + 
                 $dd(this).text() + '<span class="value">' + 
-                $dd(this).val() + '</span></li>');
+                $dd(this).val() + '</span></a></li>');
         });
     });
 }
 </script>
-    <script>
- var $clear = jQuery.noConflict();
 
-        $clear(document).ready(function() {
-            $clear('.icon-close.gsc-clear-button').click(function() { 
-                $clear('td.gsc-clear-button, div.gsc-clear-button').click();
-            });
-        });
 <?php get_footer(); ?>

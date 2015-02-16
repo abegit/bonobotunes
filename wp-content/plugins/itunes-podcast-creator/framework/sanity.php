@@ -39,7 +39,7 @@ class SanityPluginFramework {
         $this->css_path = WP_PLUGIN_URL.'/'.$this->plugin_dir_name.'/css/';
         $this->js_path = WP_PLUGIN_URL.'/'.$this->plugin_dir_name.'/js/';
         add_action('wp_loaded', array(&$this, 'create_nonce'));
-        if(!empty($this->admin_css) || !empty($this->admin_js) ) {
+        if(!empty($this->admin_css) || !empty($this->admin_js) && $hook == 'toplevel_page_unscene_rss_feed' ) {
             add_action('admin_enqueue_scripts', array(&$this, 'load_admin_scripts'));
         }
         if(!empty($this->plugin_css) || !empty($this->plugin_js) ) {
@@ -57,12 +57,12 @@ class SanityPluginFramework {
     *       Loads admin-facing CSS and JS.
     */
     function load_admin_scripts() {
-        foreach($this->admin_css as $css) {
-            wp_enqueue_style($css, $this->css_path.$css.'.css');
-        }
-        foreach($this->admin_js as $js) {
-            wp_enqueue_script($js, $this->js_path.$js.'.js');
-        }
+            foreach($this->admin_css as $css) {
+                wp_enqueue_style($css, $this->css_path.$css.'.css');
+            }
+            foreach($this->admin_js as $js) {
+                wp_enqueue_script($js, $this->js_path.$js.'.js');
+            }
     }
 
     /*

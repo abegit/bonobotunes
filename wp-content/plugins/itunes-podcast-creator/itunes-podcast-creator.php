@@ -34,9 +34,10 @@ class iTunesRSS extends SanityPluginFramework {
       // STEP #1 -- create options page
 		add_action( 'admin_menu', 'iTunesCreatePage' );
 		function iTunesCreatePage(){
+			global $iTunesPage;
 			$file = dirname(__FILE__) . '/itunes-podcast-creator/';
 			$plugin_url = plugin_dir_url($file);
-			add_menu_page( 'iTunes Podcast Creator', 'iTunes Podcast Creator', 'manage_options', 'unscene_rss_feed', 'iTunesConfigPage', $plugin_url . 'templates/assets/images/icon-backend.png', 99);
+			$iTunesPage = add_menu_page( 'iTunes Podcast Creator', 'iTunes Podcast Creator', 'manage_options', 'unscene_rss_feed', 'iTunesConfigPage', $plugin_path . 'templates/assets/images/icon-backend.png', 6);
 			add_action( 'admin_init', 'iTunesRegisterSettings' );
 		}
 		
@@ -49,6 +50,7 @@ class iTunesRSS extends SanityPluginFramework {
 			register_setting( 'iTunesFeedStart', 'iTunesExplicit');
 			register_setting( 'iTunesFeedStart', 'iTunesCategories');
 			register_setting( 'iTunesFeedStart', 'UnsceneMusicPlayer');
+			register_setting( 'iTunesFeedStart', 'UnsceneMusicLogo');
 		}
 
 		function iTunesConfigPage(){
@@ -59,21 +61,26 @@ class iTunesRSS extends SanityPluginFramework {
 			add_action( 'after_setup_theme', 'addCustomPodcastRSS' );
 			function addCustomPodcastRSS() {
 				add_feed( 'listen', 'iTunesPodcast' );
+				add_feed( 'ios', 'iTunesiOS' );
+				function iTunesPodcast() {
+					require_once($plugin_path.'templates/podcast/iTunes.php');
+				}
+				function iTunesiOS() {
+					require_once($plugin_path.'templates/podcast/iosSlider.php');
+				}
 			}
-			function iTunesPodcast() {
-				require_once($plugin_path.'templates/podcast/iTunes.php');
-			} 
+			 
 	}
 	if ( get_option('UnsceneMusicPlayer') == '1') { 
 			//add my_print to query vars
-			function add_print_query_vars($vars) {
+			function iTunesPlayerCallback($vars) {
 			    // add my_print to the valid list of variables
 			    $new_vars = array('embed');
 			    $vars = $new_vars + $vars;
 			    return $vars;
 			}
 
-			add_filter('query_vars', 'add_print_query_vars');
+			add_filter('query_vars', 'iTunesPlayerCallback');
 			add_action("template_redirect", 'PlayerTemplateInit');
 
 			// Template selection
@@ -126,6 +133,7 @@ class iTunesRSS extends SanityPluginFramework {
 		add_option("iTunesExplicit", '1', '', 'yes');
 		add_option("iTunesCategories", 'Design', '', 'yes');
 		add_option("UnsceneMusicPlayer", '1', '', 'yes');	
+		add_option("UnsceneMusicLogo", '', '', 'yes');
 	}
 	/*
 	*		Run during the initialization of Wordpress
@@ -135,9 +143,9 @@ class iTunesRSS extends SanityPluginFramework {
 	}
 	
 	// abedit
-    var $admin_js = array('script');
-    var $admin_css = array('style' , 'fonts');
-
+    
+	    var $admin_css = array('style' , 'fonts');
+		// var $admin_js = array('script');
 }
 
 

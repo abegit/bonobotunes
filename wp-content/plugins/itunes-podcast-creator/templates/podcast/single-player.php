@@ -12,11 +12,11 @@
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/gfeedfetcher.js', dirname(__FILE__) );?>"></script>
 </head>
 
-<body>
+<body onLoad="playPause()">
     <div id="header"><div class="container">
-       <a href="http://drsusanblock.tv/main/"><img src="<?php echo plugins_url( '/assets/images/dsb-iframe.png', dirname(__FILE__) );?>"></a>
+       <a href="http://drsusanblock.tv/main/"><img src="<?php echo get_option('UnsceneMusicLogo'); ?>"></a>
         <ul id="nav">
-        <!-- <li><a href="#" onclick="myFunction()">Open Player <i class="ico-publish"></i> </a></li> -->
+        <li><a href="#" onclick="myFunction()">Open Player <i class="ico-publish"></i> </a></li>
         <li style="width:100% !important; clear:both;"></li>
     </ul>
    </div></div>
@@ -86,14 +86,16 @@
 
         <script type="text/javascript">
             var newcss=new gfeedfetcher("artist", "", "");
-            newcss.addFeed("Bloggamy", "http://drsusanblockinstitute.com/category/phone-sex-therapy/feed/") //Specify "label" plus URL to RSS feed
-            newcss.displayoptions("description label") //show the specified additional fields
+            newcss.addFeed("Bloggamy", "http://bloggamy.com/category/shows?feed=listen") //Specify "label" plus URL to RSS feed
+            newcss.displayoptions("description") //show the specified additional fields
             newcss.addregexp(/(\[CDATA\[)|(\]\])/g, '', 'descriptionfield')
-            newcss.definetemplate("<h1 id='hd'>{label}{description}</h1><h2 id='dc'><div class='artistTXT' url='{url}'>{title}</div></h2><h2 id='dcc' style='display:none;'></h2><h3 id='ex'><a href='http://bloggamy.com' target='_new'>DSB Radio</a></h3>")
+            newcss.definetemplate("<h1 id='hd'>{description}</h1><h2 id='dc'><div class='artistTXT' url='{url}'>{title}</div></h2><h2 id='dcc' style='display:none;'>{datetime}</h2><h3 id='ex'><a href='http://bloggamy.com' target='_new'>DSB Radio</a></h3>")
             newcss.setentrycontainer("div", "item") //Display each entry as a DIV (div element)
             newcss.filterfeed(20, "date") //Show 5 entries, sort by date
+            // newcss.onfeedload=function(){
+            //     alert("RSS Displayer has loaded!")
+            // }
             newcss.init() //Always call this last 
-
             </script>
 
 
@@ -143,48 +145,17 @@
 <script>
     // playlist for songs
     var urls = new Array();
-        urls[0] = '<?php echo pg_enc(); ?>';
-        urls[1] = 'http://drsusanblock.com:8000/stream';
-        urls[2] = 'http://drsusanblock.com:8000/stream';
-        urls[3] = 'http://drsusanblock.com:8000/stream';
-        urls[4] = 'http://drsusanblock.com:8000/stream';
-        urls[5] = 'http://drsusanblock.com:8000/stream';
-        urls[6] = 'http://drsusanblock.com:8000/stream';
-        urls[7] = 'http://drsusanblock.com:8000/stream';
-        urls[8] = 'http://drsusanblock.com:8000/stream';
-        urls[9] = 'http://drsusanblock.com:8000/stream';
-        urls[10] = 'http://drsusanblock.com:8000/stream';
-        urls[11] = 'http://drsusanblock.com:8000/stream';
-        urls[12] = 'http://drsusanblock.com:8000/stream';
-        urls[13] = 'http://drsusanblock.com:8000/stream';
-        urls[14] = 'http://drsusanblock.com:8000/stream';
-        urls[15] = 'http://drsusanblock.com:8000/stream';
-        urls[16] = 'http://drsusanblock.com:8000/stream';
-        urls[17] = 'http://drsusanblock.com:8000/stream';
-        urls[18] = 'http://drsusanblock.com:8000/stream';
-        urls[19] = 'http://drsusanblock.com:8000/stream';
-        urls[20] = 'http://drsusanblock.com:8000/stream';
-        urls[20] = 'http://drsusanblock.com:8000/stream';
-        urls[21] = 'http://drsusanblock.com:8000/stream';
-        urls[22] = 'http://drsusanblock.com:8000/stream';
-        urls[23] = 'http://drsusanblock.com:8000/stream';
-        urls[24] = 'http://drsusanblock.com:8000/stream';
-        urls[25] = 'http://drsusanblock.com:8000/stream';
-        urls[26] = 'http://drsusanblock.com:8000/stream';
-        urls[27] = 'http://drsusanblock.com:8000/stream';
-        urls[28] = 'http://drsusanblock.com:8000/stream';
-        urls[29] = 'http://drsusanblock.com:8000/stream';
-        urls[30] = 'http://drsusanblock.com:8000/stream';
-        urls[31] = 'http://drsusanblock.com:8000/stream';
-        urls[32] = 'http://drsusanblock.com:8000/stream';
-        urls[33] = 'http://drsusanblock.com:8000/stream';
-        urls[34] = 'http://drsusanblock.com:8000/stream';
-        urls[35] = 'http://drsusanblock.com:8000/stream';
-        urls[36] = 'http://drsusanblock.com:8000/stream';
-        urls[37] = 'http://drsusanblock.com:8000/stream';
-        urls[38] = 'http://drsusanblock.com:8000/stream';
-        urls[39] = 'http://drsusanblock.com:8000/stream';
-        urls[40] = 'http://drsusanblock.com:8000/stream';
+    <?php $i = 0; ?>
+    <?php if (is_archive()) {
+        while( have_posts()) : the_post();
+            echo 'urls['.$i.'] ' ?> = '<?php echo pg_enc(); ?>';
+           <?php $i++; 
+        endwhile; 
+    } elseif (is_single()) {
+        while( have_posts()) : the_post(); ?>
+        urls[0] = '<?php pg_enc(); ?>';
+      <?php endwhile; } ?>
+
 
     // playlist for ads
     var adUrls = new Array();
@@ -231,9 +202,9 @@
         adUrls[40] = '<?php echo plugins_url( '/assets/songs/paul.mp3', dirname(__FILE__) );?>';    
 </script>
 <script>
-// function myFunction() {
-//     var myWindow = window.open("./player.html", "BonoboRadio", "width=640, height=240");
-// }
+function myFunction() {
+    var myWindow = window.open("", "BonoboRadio", "width=640, height=240");
+}
 function artistLink(which) {
     var myWindow = window.open( which , 'theFrame');
 }

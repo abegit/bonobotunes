@@ -107,7 +107,7 @@ ob_clean();
 echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
-    <channel> 
+    <channel>
 		<title><?php echo get_bloginfo('title'); ?></title>
 		<link><?php echo get_bloginfo('url'); ?></link>
         <language><?php bloginfo_rss( 'language' ); ?></language>
@@ -120,6 +120,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 			<itunes:name><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:name>
 			<itunes:email><![CDATA[<?php echo get_option('iTunesAuthorEmail'); ?>]]></itunes:email>
 		</itunes:owner>
+		<itunes:image href="<?php echo get_option('iTunesPodcastImage'); ?>" />
 		<itunes:category text="Technology">
 		<itunes:category text="Gadgets"/>
 		<itunes:category text="TV &amp; Film"/> </itunes:category>
@@ -138,29 +139,20 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
         
         <!-- Start loop -->
         <?php while( have_posts()) : the_post(); ?>
-
             <item>
                 <title><?php the_title_rss(); ?></title>
                 <link><?php the_permalink_rss(); ?></link>
                 <guid><?php the_guid(); ?></guid>
+                <snippet><?php echo mp3_enclosure(); ?></snippet>
+                <description><![CDATA[<?php echo the_content_feed(); ?>]]></description>
                 <itunes:author><?php the_author(); ?></itunes:author>
-                <itunes:subtitle></itunes:subtitle>
-                <itunes:summary><![CDATA[]]></itunes:summary>
-                <?php if (has_post_thumbnail() ) {
-	                	$thumbnail_size = apply_filters( 'itunes_rss_image_size', 'itunes_rss_image_size' );
-						$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
-                		$thumbnail = image_get_intermediate_size( $thumbnail_id, $thumbnail_size ); 
-							printf(
-								'<itunes:image href="%s" />',
-								$thumbnail['url']
-							);
-                		} ?>
-                <datetime></datetime>
-                <pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
-            	<description></description>
+                <itunes:subtitle><?php the_excerpt_rss(); ?></itunes:subtitle>
+                <itunes:summary></itunes:summary>
+                <itunes:image href="<?php echo get_stylesheet_directory_uri(); ?>/images/show.jpg" />
+            	
+            	
             	<?php echo rss_enclosure(); ?>
             </item>
-
         <?php endwhile; ?>
     </channel>
 </rss>

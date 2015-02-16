@@ -17,7 +17,7 @@ wp_enqueue_script( 'media-upload');
             <div class="message">
 				    <table class="form-table">
 				        <tr valign="top">
-				        <th scope="row">Activate iTunes Feed Sync</th>
+				        <th scope="row">Activate iTunes Podcast Feed (?feed=listen)</th>
 				        <td><input type="radio" name="iTunesFeedSync" value="1" <?php if ( get_option('iTunesFeedSync' ) == '1' ){ echo 'checked';}?> /> Yes <br />
 				        	<input type="radio" name="iTunesFeedSync" value="2" <?php if ( get_option('iTunesFeedSync' ) == '2' ){ echo 'checked';}?> /> No <br />
 				        </td>
@@ -123,10 +123,19 @@ wp_enqueue_script( 'media-upload');
             <div class="message">
 				    <table class="form-table">
 				        <tr valign="top">
-				        <th scope="row">Activate Unscene Music Player (?feed=listen)</th>
+				        <th scope="row">Activate Unscene Music Player  (?embed)</th>
 				        <td><input type="radio" name="UnsceneMusicPlayer" value="1" <?php if ( get_option('UnsceneMusicPlayer' ) == '1' ){ echo 'checked';}?> /> Yes <br />
 				        	<input type="radio" name="UnsceneMusicPlayer" value="2" <?php if ( get_option('UnsceneMusicPlayer' ) == '2' ){ echo 'checked';}?> /> No <br />
 				        </td>
+				        </tr>
+				        <tr valign="top">
+				        <th scope="row">Podcast Details</th>
+				        <td><div id="UnsceneMusicLogo_thumb" class="wpss-file">
+    <?php if(get_option('UnsceneMusicLogo') !='' ){ ?>
+       <img src="<?php echo get_option('UnsceneMusicLogo'); ?>"  width="100%"/><?php } else {    echo $defaultImage; } ?>
+</div> 
+<input id="UnsceneMusicLogo" type="text" size="36" style="direction:rtl; width:100%;" name="UnsceneMusicLogo" value="<?php echo get_option('UnsceneMusicLogo'); ?>" class="wpss_text wpss-file" />
+				        <td><input id="UnsceneMusicLogo_button" type="button" value="Upload Image" class="wpss-filebtn" /></td></td>
 				        </tr>
 				    </table>
             </div></li>
@@ -142,3 +151,4 @@ wp_enqueue_script( 'media-upload');
       <input type="submit" name="sub" value="Subscript">
 </form></div> -->
 </div>
+<script src="/wp-content/plugins/itunes-podcast-creator/js/script.js"></script>

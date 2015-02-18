@@ -37,7 +37,7 @@ class iTunesRSS extends SanityPluginFramework {
 			global $iTunesPage;
 			$file = dirname(__FILE__) . '/itunes-podcast-creator/';
 			$plugin_url = plugin_dir_url($file);
-			$iTunesPage = add_menu_page( 'iTunes Podcast Creator', 'iTunes Podcast Creator', 'manage_options', 'unscene_rss_feed', 'iTunesConfigPage', $plugin_path . 'templates/assets/images/icon-backend.png', 6);
+			$iTunesPage = add_menu_page( 'iTunes Podcast Creator', 'iTunes Podcast Creator', 'manage_options', 'unscene_rss_feed', 'iTunesConfigPage', $plugin_url . 'templates/assets/images/icon-backend.png', 6);
 			add_action( 'admin_init', 'iTunesRegisterSettings' );
 		}
 		

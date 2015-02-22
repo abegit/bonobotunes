@@ -7,10 +7,10 @@
       <input type="text" name="email">
       <input type="submit" name="sub" value="Subscript">
 </form>
-   <form method="post" action="options.php">
-				    <?php settings_fields( 'bonobo-x-quickstart' ); ?>
+   <form method="POST" action="options.php">
+				    <?php settings_fields( 'bonobo_x' ); ?>
 				    <!-- Wordpress documentation is wrong and suggests do_settings (which is for older versions below 2.7) -->
-				    <?php do_settings_sections( 'bonobo-x-quickstart' ); ?>
+				    <?php do_settings_sections( 'bonobo_x' ); ?>
       	<ul class="actions">
             <li class="node"><span>QuickStart <i class="icon-arrowleft"></i></span>
             <div class="message">
@@ -29,6 +29,12 @@
 				        	<input type="radio" name="adminBarBonoboX" value="2" <?php if ( get_option('adminBarBonoboX') == '2') { echo 'checked';}?> /> No <br />
 				        </td>
 				        </tr>
+				        <tr valign="top">
+				        <th scope="row">Show BuddyBar?</th>
+				        <td><input type="radio" name="buddyBarBonoboX" value="1" <?php if ( get_option('buddyBarBonoboX') == '1') { echo 'checked';}?> /> Yes <br />
+				        	<input type="radio" name="buddyBarBonoboX" value="2" <?php if ( get_option('buddyBarBonoboX') == '2') { echo 'checked';}?> /> No <br />
+				        </td>
+				        </tr>
 				    </table>
 
 
@@ -36,26 +42,7 @@
 				
 			<?php } ?>
             </div></li>
-
-            <li class="node"><span>Podcast <i class="icon-arrowleft"></i></span>
-            <div class="message">
-				    <table class="form-table">
-				        <tr valign="top">
-				        <th scope="row">Activate iTunes Feed Sync</th>
-				        <td><input type="radio" name="iTunesFeedSync" value="1" <?php if ( get_option('iTunesFeedSync') == '1') { echo 'checked';}?> /> Yes <br />
-				        	<input type="radio" name="iTunesFeedSync" value="2" <?php if ( get_option('iTunesFeedSync') == '2') { echo 'checked';}?> /> No <br />
-				        </td>
-				        </tr>
-				        <tr valign="top">
-				        <th scope="row">Podcast Details</th>
-				        <td>Name: <input type="text" name="iTunesAuthorName" value="<?php echo get_option('iTunesAuthorName'); ?>" /></td>
-				        <td>Email: <input type="text" name="iTunesAuthorEmail" value="<?php echo get_option('iTunesAuthorEmail'); ?>" /></td>
-				    </td>
-				        </tr>
-				    </table>
-				    <?php submit_button(); ?>
-            </div></li>
-        	
+	
         	<li class="node"><span class="selected" data-uri="1">Hosting Accounts <i class="icon-arrowleft"></i></span>
             <div class="message visible">
             	<a href="http://unscene.us/bonoboville"><img src="data:image/png;base64,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">Server</a>

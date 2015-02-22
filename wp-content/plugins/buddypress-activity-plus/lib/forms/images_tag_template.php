@@ -14,7 +14,7 @@
 		$target = 'all' == BPFB_LINKS_TARGET ? 'target="_blank"' : '';
 		?>
 		<a href="<?php echo bpfb_get_image_url($activity_blog_id) . trim($img); ?>" class="<?php echo $use_thickbox; ?>" rel="<?php echo $rel;?>" <?php echo $target; ?> >
-			<img src="<?php echo $thumbnail;?>" />
+			<img src="<?php echo $thumbnail;?>" data-canvas-image="" />
 		</a>
 	<?php } ?>
 <?php } ?>

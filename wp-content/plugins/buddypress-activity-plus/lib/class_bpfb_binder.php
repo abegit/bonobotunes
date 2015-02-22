@@ -160,12 +160,12 @@ EOFontIconCSS;
 	function css_load_styles () {
 		wp_enqueue_style('thickbox');
 		wp_enqueue_style('file_uploader_style', BPFB_PLUGIN_URL . '/css/external/fileuploader.css');
-		if (!current_theme_supports('bpfb_interface_style')) {
-			wp_enqueue_style('bpfb_interface_style', BPFB_PLUGIN_URL . '/css/bpfb_interface.css');
-		}
-		if (!current_theme_supports('bpfb_toolbar_icons')) {
-			wp_enqueue_style('bpfb_toolbar_icons', BPFB_PLUGIN_URL . '/css/bpfb_toolbar.css');
-		}
+		// if (!current_theme_supports('bpfb_interface_style')) {
+		// 	wp_enqueue_style('bpfb_interface_style', BPFB_PLUGIN_URL . '/css/bpfb_interface.css');
+		// }
+		// if (!current_theme_supports('bpfb_toolbar_icons')) {
+		// 	wp_enqueue_style('bpfb_toolbar_icons', BPFB_PLUGIN_URL . '/css/bpfb_toolbar.css');
+		// }
 	}
 
 	/**
@@ -283,7 +283,8 @@ EOFontIconCSS;
 		$aid = 0;
 		$codec = new BpfbCodec;
 		if (@$_POST['data']['bpfb_video_url']) {
-			$bpfb_code = $codec->create_video_tag($_POST['data']['bpfb_video_url']);
+			$bpfb_vidcode = $codec->create_video_tag($_POST['data']['bpfb_video_url']);
+			$bpfb_code = '<div class="videoWrapper">' . $bpfb_vidcode . '</div>';
 		}
 		if (@$_POST['data']['bpfb_link_url']) {
 			$bpfb_code = $codec->create_link_tag(

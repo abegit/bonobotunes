@@ -1,34 +1,9 @@
-<?php define ( 'BP_ENABLE_ROOT_PROFILES', true );
-
-/*
-Plugin Name: Default to GD
-Plugin URI: http://wordpress.org/extend/plugins/default-to-gd
-Description: Sets GD as default WP_Image_Editor class.
-Author: Mike Schroder
-Version: 1.0
-Author URI: http://www.getsource.net/
-*/
-
-function ms_image_editor_default_to_gd( $editors ) {
-  $gd_editor = 'WP_Image_Editor_GD';
-
-  $editors = array_diff( $editors, array( $gd_editor ) );
-  array_unshift( $editors, $gd_editor );
-
-  return $editors;
-}
-add_filter( 'wp_image_editors', 'ms_image_editor_default_to_gd' );
-
-
-// hide adminbar
-add_filter('show_admin_bar', '__return_false');
-
-// custom header
+<?php 
 global $blog_id;
 if ( 1 == $blog_id) :
 	add_filter( "wp_nav_menu_items", function ($items, $args){
 		if ($args->theme_location == 'primary') {
-			$items .= bpCustom_Header();
+			$items .= firmasite_custom_bpmenu();
 			return $items; 
 		} else {
 			return $items; 
@@ -36,8 +11,8 @@ if ( 1 == $blog_id) :
 
 	},10,2 );
 
-add_action("wp_footer","bpCustom_Header");
-function bpCustom_Header() {
+add_action("wp_footer","firmasite_custom_bpmenu");
+function firmasite_custom_bpmenu() {
 	ob_start(); ?>
 	<?php if ( !is_user_logged_in()) { ?>
 			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle register" data-toggle="dropdown" href="#" title="Login"> <i class="icon-key"> </i> Login <b class="caret"> </b> </a>
@@ -65,13 +40,13 @@ function bpCustom_Header() {
 				</ul>
 			</li>
 	<?php } elseif (is_user_logged_in()) { ?>
-			<?php bpCustom_notifications_menu() ?>
+			<?php firmasite_bp_adminbar_notifications_menu() ?>
 			<?php } ?>
 			<?php
 			return ob_get_clean();
 		}
 
-		function bpCustom_notifications_menu() {
+		function firmasite_bp_adminbar_notifications_menu() {
 
 			if ( !is_user_logged_in() )
 				return false;
@@ -113,14 +88,14 @@ endif;
 
 
 
-	add_filter( 'wp_nav_menu_items', 'bpCustom_menu_item', 10, 2 );
-	function bpCustom_menu_item ( $items, $args ) {
+	add_filter( 'wp_nav_menu_items', 'your_custom_menu_item', 10, 2 );
+	function your_custom_menu_item ( $items, $args ) {
 		if (is_user_logged_in() && $args->theme_location == 'primary') {
 			global $current_user;
 			return $items . '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle account" data-toggle="dropdown" href="#" title="My Account">@'.$current_user->user_login.'<span class="caret" style="display:none;"></span></a>
 			<ul class=" dropdown-menu" role="menu"><li class="bp-menu bp-profile-nav menu-item menu-item-type-custom menu-item-object-custom">
 			<a href="'.bp_loggedin_user_domain().'"><i class="icon-user"></i>my profile
-			'.get_avatar($current_user->ID).'</a></li><li class="bp-menu bp-profile-nav menu-item menu-item-type-custom menu-item-object-custom">
+			'.bp_loggedin_user_avatar( 'type=thumb&width=50&height=50&url=true' ).'</a></li><li class="bp-menu bp-profile-nav menu-item menu-item-type-custom menu-item-object-custom">
 			<a href="'.bp_loggedin_user_domain().'profile/edit"><i class="icon-edit"></i>edit profile</a></li>
 			<li class="bp-menu bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/my-account" title="Account"><i class="icon-cogs"></i>Account</a></li><li class="bp-menu bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Settings"><i class="icon-cogs"></i>Settings</a></li><li class="bp-menu bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.wp_logout_url(get_permalink()).'" title="Log Out"><i class="icon-sign-out"></i>log out</a></li></ul></li>';
 		}

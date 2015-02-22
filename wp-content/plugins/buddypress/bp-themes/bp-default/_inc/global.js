@@ -46,7 +46,12 @@ jq(document).ready( function() {
 
 	/* Textarea focus */
 	jq('#whats-new').focus( function(){
-		jq(this).closest("#whats-new-form").addClass('show-me');
+		jq("#whats-new-options").animate({
+			height:'40px'
+		});
+		jq("form#whats-new-form textarea").animate({
+			height:'50px'
+		});
 		jq("#aw-whats-new-submit").prop("disabled", false);
 
 		var $whats_new_form = jq("form#whats-new-form");
@@ -59,8 +64,13 @@ jq(document).ready( function() {
 	jq('#whats-new').blur( function(){
 		if (!this.value.match(/\S+/)) {
 			this.value = "";
+			jq("#whats-new-options").animate({
+				height:'40px'
+			});
+			jq("form#whats-new-form textarea").animate({
+				height:'20px'
+			});
 			jq("#aw-whats-new-submit").prop("disabled", true);
-			// jq(this).closest("#whats-new-form").removeClass('show-me');
 		}
 	});
 
@@ -412,10 +422,10 @@ jq(document).ready( function() {
 				form.addClass('root');
 
 			form.slideDown( 400 );
-			// jq.scrollTo( form, 500, {
-			// 	offset:  -150,
-			// 	easing:'swing'
-			// } );
+			jq.scrollTo( form, 500, {
+				offset:  -150,
+				easing:'swing'
+				} );
 			jq('#ac-form-' + ids[2] + ' textarea').focus();
 
 			return false;

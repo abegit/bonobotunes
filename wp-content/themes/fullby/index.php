@@ -119,9 +119,6 @@
 	</div>
 	
 	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>		
-		    
-	</div>
+		<div class="sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>	

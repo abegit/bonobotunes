@@ -37,14 +37,20 @@
 	<?php if (get_option('fullby_analytics') <> "") { echo get_option('fullby_analytics'); } ?>
     
 	<?php wp_head(); ?> 
-	
+
+  <script src="http://www.google.com/jsapi"></script>
 </head>
 <body <?php body_class(); ?>>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
+    	<div id="details" class="hidden">
+    		<div class="row">
+					<h2>Use This</h2>
+		</div>
+</div>
      <div class="row">
         <div class="navbar-header">
         	<div id="mainmenu" class="collapse navbar-collapse col-md-3">
+<!-- <div id="hello" style="position:absolute;right:0; top:0; color:#fff; text-transform:uppercase; cursor:pointer; height:30px; line-height:30px; display:block;"><i class="icon-menu"></i> menu</div> -->
           <?php /* Primary navigation */
 			wp_nav_menu( array(
 			  'theme_location' => 'primary',
@@ -54,6 +60,7 @@
 			  'walker' => new wp_bootstrap_navwalker())
 			);
 			?>
+
 				<div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
 					<?php display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
 				</div>
@@ -69,7 +76,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo home_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a>
+          <a class="navbar-brand" href="<?php if (is_page('home')){
+          			echo '#';
+					} else {
+				  echo home_url(); }; ?>">
+		 	<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a>
         
         
         <!--/.nav-collapse -->
@@ -90,25 +101,22 @@
 
     </div>
     </div>
+     <!-- <div class="row spacer"></div> -->
+    <?php if (bp_is_activity_directory()) { ?>
     
-    <?php if (is_front_page()) { ?>
-    
-    	 <?php if (!is_paged()){ ?> 
-    		 <div class="row spacer"></div>
-	    	 <div class="row featured">
-    
-					<?php
-					$specialPosts = new WP_Query();
-					$specialPosts->query('tag=featured&showposts=4');
-					?>
+    		
+	    	 <div class="row featured loading">
+				<div class="wrap" style="">
+					<?php $specialPosts = new WP_Query();
+					$specialPosts->query('tag=featured&showposts=4'); ?>
 					
 					<?php if ($specialPosts->have_posts()) : while($specialPosts->have_posts()) : $specialPosts->the_post(); ?>
-			  
-					    <div class="col-sm-3 col-md-3 item-featured">
+
+					    <div class="col-sm-4 col-xs-6 col-md-3 item-featured">
 					    
 					    	
 							<a href="<?php the_permalink(); ?>">
-				
+
 					    		<div class="caption">
 						    		<div class="cat"><span><?php $category = get_the_category(); echo $category[0]->cat_name; ?></span></div>
 						    		<div class="date"><i class="fa fa-clock-o"></i> <?php the_time('j M , Y') ?> &nbsp;
@@ -123,9 +131,9 @@
 						             	<?php } else if (strpos($post->post_content,'[gallery') !== false) { ?>
 						             			
 						             		<i class="fa fa-th"></i> Gallery
-			
+
 					             		<?php } else {?>
-		
+
 					             		<?php } ?>
 
 						    		
@@ -142,39 +150,45 @@
 									 <img class="yt-featured" src="http://img.youtube.com/vi/<?php echo $video ?>/hqdefault.jpg" class="grid-cop"/>
 										
 								<?php 				                 
-		                   
+				           
 				             	} else if ( has_post_thumbnail() ) { ?>
-			
-			                        <?php the_post_thumbnail('quad', array('class' => 'quad')); ?>
-			                        				   
-			                    <?php } ?>
+									<?php the_post_thumbnail('quad', array('class' => 'quad')); ?>
+				                <?php } ?>
 						    	
 						    </a>
 						
 						</div>
 					
 					<?php endwhile;  else : ?>
-			
+
 						<p>Sorry, no posts matched your criteria.</p>
 
 					<?php endif; ?>	
-				 		
-				</div>	
+				</div> <!-- end wrap -->
+			</div> <!-- end loading -->
 				
-			<?php } else { ?>
-			
-				<div class="row spacer"></div>	
-			
-			<?php } // end if(!is_paged) ?>
-				
-	<?php } else { ?>	
+	<?php }  ?>
 	
-		<div class="row spacer"></div>		   
-			
-	<?php  } // end if(is_home) ?>
-	
-	<div class="navbar navbar-inverse navbar-sub">
+	<!-- <div class="navbar navbar-inverse navbar-sub">
      	<div class="row">
-        <div class="navbar-header"></div>
+        <div class="navbar-header">
+        		<div id="mainmenu" class="collapse navbar-collapse col-md-3">
+          <?php /* Primary navigation */
+			// wp_nav_menu( array(
+			  // 'theme_location' => 'third',
+			  // 'container' => false,
+			  // 'menu_class' => 'nav navbar-nav alignright',
+			  // Process nav menu using our custom nav walker
+			  // 'walker' => new wp_bootstrap_navwalker())
+			// );
+			?>
+				<div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
+					<?php display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
+				</div>
+
+        </div>
+
+
+        </div>
 	</div>
-	</div>
+	</div> -->

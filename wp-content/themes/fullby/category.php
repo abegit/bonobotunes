@@ -74,11 +74,7 @@
 						
 						<?php } ?>
 						
-						<div class="grid-text">
-						
-							<?php the_content('More...');?>
-							
-						</div>
+					
 						
 						<p>
 							<?php $post_tags = wp_get_post_tags($post->ID); if(!empty($post_tags)) {?>
@@ -118,10 +114,7 @@
 			
 	</div>
 	
-	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>		
-		    
-	</div>
+	<div class="col-md-3">
+		<div class="sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>	

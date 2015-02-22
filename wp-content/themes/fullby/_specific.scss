@@ -1,14 +1,16 @@
-body.registration {
-	&> .sidebar:after {background-image:none !important;}
-	.row {max-width: 880px; }
-	.navbar.navbar-inverse.navbar-fixed-top {
-    background: none repeat scroll 0 0 #6d6d6d;
-    margin: 0 auto;
-    max-width: 100%;
-    position: relative !important; }
-.navbar-header {text-align: center; }
-.navbar-header a {display: inline-block; padding: 40px 10px 20px !important; max-width: 100%;}
+body.page-template-page-no-sidebar {
+	.sing-tit-cont {background: transparent;margin-bottom: 0;text-align: center;
+		h3 {margin-bottom: 0;display: inline-block; padding:16px 110px; @include box-shadow(0 1px 0px 0 rgba(0,0,0,0.24), 0 2px 0px 0 rgba(255,255,255,1.0), 0 3px 0px 0 rgba(0,0,0,0.24), 0 4px 0px 0 rgba(255,255,255,1.0))}
+	}
+	.fund {  margin: 0 auto; max-width: 480px;
+		&> div {width: 46%; margin: 0px 2% 1%; height: 200px; float: left; text-align: center; background-color: rgba(245, 244, 245,0.5); border-radius: 7px; padding: 20px 0px;}
+		input {max-width: 100%;}
+	 }
+	 .wrap .single {@include trans(1000ms);
+	 }
+
 }
+
 
 body.single-product {
 	.kgvid_wrapper_inline_left {margin: 0; }
@@ -39,13 +41,14 @@ body.single-product {
 
 
 .buddyb {
+	position: relative;
 	.sing-spacer {padding:10px;}
 	.sing-cont {background:#fff; @include border-radius(0 0 $myrad $myrad ); width: 100%;
     margin: 0 !important;
     padding: 0 !important;}
     .sing-tit-cont {
     display: inline-block;
-    font-size: 20px;
+    font-size: 1.250em;
     line-height: 60px !important;
     margin: 0 !important;
     padding: 0 10px !important;
@@ -53,31 +56,16 @@ body.single-product {
 		* {line-height: 60px; margin: 0; }
 		h3 {z-index: 1; position: relative;}
 	}	
-	.single-in {@include border-radius($myrad $myrad 0 0); overflow: hidden;}
-
-}
-
-
-
-body.registration {
-	.navbar-sub {display: none;}
-	.single {background: rgba(0,0,0,.6);color:#fff;}
-	.sing-tit-cont {margin:0 auto; width: 100%; background:none; text-align: center;}
-	.wp-social-login-provider > img {display: none; }
-	.wp-social-login-provider.wp-social-login-provider-facebook:after {content: " Sign In with Facebook"; display: inline-block; }
-	.wp-social-login-provider.wp-social-login-provider-twitter:after {content: " Sign In with Twitter"; display: inline-block; }
-	.wp-social-login-provider.wp-social-login-provider-twitter:before {-moz-osx-font-smoothing: grayscale; content: ""; display: inline-block; font-family: icomoon; }
-	.wp-social-login-provider.wp-social-login-provider-twitter {background: #51b6f7; color: #ffffff; }
-	.wp-social-login-provider.wp-social-login-provider-facebook {background: #5b71ad; color: #ffffff; }
-	.wp-social-login-provider.wp-social-login-provider-facebook:before {-moz-osx-font-smoothing: grayscale;  content: ""; font-family: icomoon; }
-	.wp-social-login-provider { @include border-radius($myrad); @include box-shadow(0 -20px 20px -20px rgba(0, 0, 0, 0.7) inset); font-size: 18px; padding: 10px; 
-		&:before {border-right: 1px solid rgba(255, 255, 255, 0.2); @include box-shadow(1px 0 0 rgba(0, 0, 0, 0.1)); font-size: 24px; line-height: 18px; margin-right: 4px; padding-right: 7px; position: relative;
-			@include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); top: -2px; vertical-align: middle;}
-		&:after {@include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); }
-		&:hover {opacity: 0.8;}
+	.single {float:left;}
+	.single-in {border-left:1px solid #ddd;border-right:1px solid #ddd; overflow: hidden; float: right;
+		@include trans(1s);
+		&.open {width: 90%; margin:0 5%;}
 	}
 
 }
+
+
+
 
 
 
@@ -94,5 +82,5 @@ body.registration {
 a.bp-title-button {background: #ffff00 !important;
     border: medium none !important;
     box-shadow: 0 20px 30px rgba(255, 255, 255, 0.7) inset;
-    font-size: 13px !important;
+    font-size: .813em !important;
     padding: 10px 15px !important;}*/

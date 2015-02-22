@@ -1,12 +1,13 @@
 <?php 
 /*
-Template Name: Lefty Profile
+Template Name: Left Main
 */
 get_header(); ?>			
 		
+<div class="buddyb wrap">		
 	<div class="col-md-9 single">
 	
-		<div class="col-md-9 single-in">
+		<div class="col-md-12 single-in">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 
@@ -16,7 +17,7 @@ get_header(); ?>
 
                 <?php } else { ?>
                 
-                	<div class="row spacer-sing"></div>	
+                	<!-- <div class="row spacer-sing"></div>	 -->
                 
                  <?php }  ?>
 				
@@ -45,21 +46,11 @@ get_header(); ?>
 	        
 		</div>	
 		 
-		<div class="col-md-3">
-		
-			<div class="sec-sidebar sidebar">
-
-				<?php get_sidebar( 'secondary' ); ?>	
-										
-		    </div>
-		   
-		 </div>
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>	
+	<div class="col-md-3">
+	<div class="sidebar well"> <?php get_sidebar( 'primary' ); ?></div>
 		    
 	</div>
 		

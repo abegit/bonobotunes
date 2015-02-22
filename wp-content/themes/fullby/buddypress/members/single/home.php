@@ -1,12 +1,21 @@
+<?php global $bp; ?>
+<?php do_action( 'template_notices' ); ?>
+<div class="profile_hd_container profile_header">
+	<?php if (bp_is_my_profile()) { ?>
+		<div id="message" class="bp-template-notice updated">
+			<p>This is your profile page:</p>
+		</div>
+	<?php }; ?>
 
-
-
-<div class="profile_header" data-type="background" data-speed="3"> <a class="edit_bg" href="<?php bp_loggedin_user_domain(); ?>profile/change-bg/"><i class="icon-image"></i>BG Image</a> </div>
-
+<a class="edit_bg btn btn-default" href="<?php bp_loggedin_user_domain(); ?>profile/change-bg/"><i class="icon-image"></i>BG Image</a>
+<div class="profile_header" data-type="background" data-speed="3">
+	
+</div>
+</div>
 <div id="buddypress">
 	
 
-		<?php global $bp; ?>
+		
 		<?php $author_id = wp_get_current_user()->ID; ?>
 		<?php $has_members_str = "user_id=" . $author_id; ?>
 
@@ -31,17 +40,6 @@ foreach ( (array)$bp as $key => $value ) {
 			<div class="sing-cont">
 					
 					<div class="sing-spacer">
-							<div id="item-nav">
-		<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
-			<ul>
-
-				<?php bp_get_displayed_user_nav(); ?>
-
-				<?php do_action( 'bp_member_options_nav' ); ?>
-
-			</ul>
-		</div>
-	</div><!-- #item-nav -->
 
 										<div id="item-body" role="main">
 

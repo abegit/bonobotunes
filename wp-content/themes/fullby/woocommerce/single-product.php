@@ -160,7 +160,7 @@ get_header(); ?>
 		 
 		<div class="col-md-3">
 		
-			<div class="sec-sidebar sidebar">
+			<div class="sec-sidebar sidebar well">
 
 				<?php get_sidebar( 'secondary' ); ?>	
 										
@@ -170,13 +170,10 @@ get_header(); ?>
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>	
-			    
+	<div class="col-md-3">
+		<div class="sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
 	</div>
 
-</div>
 <script>
 	if (document.addEventListener) {
         document.addEventListener('contextmenu', function(e) {

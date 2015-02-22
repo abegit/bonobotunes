@@ -14,20 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 get_header(); ?>
 <script>
 	// search popup
-var jaMn = jQuery.noConflict();
-	// search popup
-jaMn(document).ready(function() {
-		// When clicking on the button close or the mask layer the popup closed
-		jaMn(window).load(function() {
-			jaMn('.sing-spacer *').fadeIn('1500');
-		});
+// var jaMn = jQuery.noConflict();
+// 	// search popup
+// jaMn(document).ready(function() {
+// 		// When clicking on the button close or the mask layer the popup closed
+// 		jaMn(window).load(function() {
+// 			jaMn('.sing-spacer *').fadeIn('1500');
+// 		});
 });
 
 
 </script>
 <?php do_action( 'woocommerce_before_main_content' ); ?>
 	<div class="wrap">
-	<div class="col-md-9 single">
+	<div class="col-md-12 single">
 		<div class="col-md-12 single-in">
 		
 				
@@ -44,9 +44,7 @@ jaMn(document).ready(function() {
 	<?php woocommerce_product_loop_start(); ?>
 	<?php woocommerce_product_subcategories(); ?>
 <?php while ( have_posts() ) : the_post(); ?>
-	<div style="display:none;">
 <?php wc_get_template_part( 'content', 'product' ); ?>
-</div>
 <?php endwhile; // end of the loop. ?>
 <?php woocommerce_product_loop_end(); ?>
 <?php do_action( 'woocommerce_after_shop_loop' ); ?>
@@ -59,13 +57,6 @@ jaMn(document).ready(function() {
 	
 		</div>
 	</div>
-
-	<div class="col-md-3 sidebar">
-		<?php get_sidebar( 'primary' ); ?>	
-			    
-	</div>
-
-</div>
 
 <?php do_action( 'woocommerce_after_main_content' ); ?>
 <?php get_footer(); ?>

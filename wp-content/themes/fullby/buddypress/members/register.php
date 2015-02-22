@@ -21,31 +21,35 @@
 
 			<p><?php _e( 'Registering for this site is easy. Just fill in the fields below, and we\'ll get a new account set up for you in no time.', 'buddypress' ); ?></p>
 
-			<?php do_action( 'bp_before_account_details_fields' ); ?>
-
+			 <?php do_action( 'bp_before_account_details_fields' ); ?>
+			<div style="display:table;">
 			<div class="register-section" id="basic-details-section">
 
 				<?php /***** Basic Account Details ******/ ?>
 
 				<h4><?php _e( 'Account Details', 'buddypress' ); ?></h4>
 
-				<label for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
-				<?php do_action( 'bp_signup_username_errors' ); ?>
-				<input type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" />
+				<div class="input-group">
+                           <span class="input-group-addon"> <i class="icon-user"> </i> </span>
+                           <input type="text" class="form-control" name="signup_username" id="signup_username" placeholder="<?php _e( 'Username', 'buddypress' ); ?>" />
+                   </div>
 
-				<label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+				<?php do_action( 'bp_signup_username_errors' ); ?>
+				
+				<div class="input-group">
+                           <span class="input-group-addon"> <i class="icon-lock"> </i> </span>
+                           <input type="text" class="form-control" name="signup_email" id="signup_email" placeholder="<?php _e( 'Email Address', 'buddypress' ); ?>"  />
+               </div>
+
 				<?php do_action( 'bp_signup_email_errors' ); ?>
-				<input type="text" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" />
 
 				<label for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
 				<?php do_action( 'bp_signup_password_errors' ); ?>
 				<input type="password" name="signup_password" id="signup_password" value="" class="password-entry" />
+				
+				<input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" placeholder="<?php _e( 'Confirm Password', 'buddypress' ); ?>" class="password-entry-confirm" />
 				<div id="pass-strength-result"></div>
-
-				<label for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
 				<?php do_action( 'bp_signup_password_confirm_errors' ); ?>
-				<input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="password-entry-confirm" />
-
 				<?php do_action( 'bp_account_details_fields' ); ?>
 
 			</div><!-- #basic-details-section -->
@@ -100,7 +104,7 @@
 
 							<p class="description"><?php bp_the_profile_field_description(); ?></p>
 
-						</div>
+						</div> 
 
 					<?php endwhile; ?>
 
@@ -158,11 +162,11 @@
 				<?php do_action( 'bp_after_blog_details_fields' ); ?>
 
 			<?php endif; ?>
-
+			</div>
 			<?php do_action( 'bp_before_registration_submit_buttons' ); ?>
 
 			<div class="submit">
-				<input type="submit" name="signup_submit" id="signup_submit" value="<?php esc_attr_e( 'Complete Sign Up', 'buddypress' ); ?>" />
+				<input type="submit" name="signup_submit" id="signup_submit" value="<?php esc_attr_e( 'Complete Sign Up', 'buddypress' ); ?>" class="btn btn-primary"/>
 			</div>
 
 			<?php do_action( 'bp_after_registration_submit_buttons' ); ?>

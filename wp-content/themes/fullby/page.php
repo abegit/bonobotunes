@@ -1,5 +1,5 @@
 <?php get_header(); ?>			
-		<div class="wrap">
+		<div class="wrap buddyb">
 	<div class="col-md-9 single">
 	
 		<div class="col-md-9 single-in">
@@ -12,7 +12,6 @@
 
                 <?php } else { ?>
                 
-                	<div class="row spacer-sing"></div>	
                 
                  <?php }  ?>
 				
@@ -27,7 +26,7 @@
 					<div class="sing-spacer">
 					
 						<?php the_content('Leggi...');?>
-
+						
 					</div>
 
 				</div>	
@@ -42,21 +41,12 @@
 		</div>	
 		 
 		<div class="col-md-3">
-		
-			<div class="sec-sidebar sidebar">
-
-				<?php get_sidebar( 'secondary' ); ?>	
-										
-		    </div>
-		   
-		 </div>
+            <div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
+         </div>
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
-
-		<?php get_sidebar( 'primary' ); ?>	
-		    
+	<div class="col-md-3">
+		<div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
-		</div>
 <?php get_footer(); ?>

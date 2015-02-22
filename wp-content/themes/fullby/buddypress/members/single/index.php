@@ -2,11 +2,7 @@
 				<div class="wrap buddyb">
 
 	
-		<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
-
-				<?php if ( $data = bp_get_profile_field_data( 'field=ccbillaffil&user_id='.$author_id ) ) : ?>
- 					<?php $buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA='.$data.'&HTML='.site_url().'/register?friend='.$data;  ?>
-				<?php endif; ?>		
+		<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 		
 									<?php the_content('Leggi...');?>
 				 					
 			<?php endwhile; endif; ?> 
@@ -51,7 +47,7 @@ $spl3ndid(window).load(function() {
 
 
 
-        var w = $(window).width();
+        var w = $spl3ndid(window).width();
         if(w>400) {
         	// parralax for profile fields
             $spl3ndid('.profile_header[data-type="background"]').each(function(){
@@ -110,6 +106,5 @@ $spl3ndid(window).load(function() {
 
 </script>
 
-</div> <!-- end wrap -->
 
 <?php get_footer(); ?>

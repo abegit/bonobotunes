@@ -1,6 +1,7 @@
 <?php get_header('register'); ?>			
 <?php
-	// $url = strtok($url, '?');
+$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+	$url = strtok($actual_link, '?');
 
 	// The value of the variable name is found
 	$afil = $_GET["friend"];
@@ -10,7 +11,7 @@
 
 
 	<div class="col-md-12 single">
-		<div class="col-md-12 single-in">
+		<div class="col-md-6 single-in">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 
@@ -20,7 +21,7 @@
 					<h3 class="sing-tit"><?php the_title(); ?></h3>
 				
 				</div>
-
+				
 				<div class="sing-cont">
 					
 					<div class="sing-spacer">
@@ -41,10 +42,7 @@
 		</div>	
 	</div>			
 
-	<div class="col-md-12 sidebar">
-
-		    
-	</div>
+	
 <!-- <video autoplay loop muted id="bgvid" style="position: fixed;
   right: 0;
   bottom: 0;
@@ -69,5 +67,5 @@ var abeRegister = jQuery.noConflict();
   abeRegister(".field_20 input[type=text]").val("<?php echo $afil; ?>");
 });
 </script>
-<?php echo $url; ?>
-<?php get_footer(); ?>
+
+<?php get_footer('minimal'); ?>

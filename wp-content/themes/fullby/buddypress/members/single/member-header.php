@@ -9,6 +9,7 @@
 
 ?>
 
+
 <?php do_action( 'bp_before_member_header' ); ?>
 
 <div id="item-header-avatar">
@@ -31,21 +32,12 @@
 
 	<div id="item-meta">
 
-		<?php if ( bp_is_active( 'activity' ) ) : ?>
+		<?php if ( $data = bp_get_profile_field_data( 'field=ccbillaffil&user_id='.$author_id ) ) : ?>
+				<?php $buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA='.$data.'&HTML='.site_url().'/register?friend='.$data;  ?>
+			
+		<?php echo $buyLinkHref;
+		endif; ?>
 
-			<div id="latest-update">
-
-				<?php bp_activity_latest_update( bp_displayed_user_id() ); ?>
-
-			</div>
-
-		<?php endif; ?>
-
-		<div id="item-buttons">
-
-			<?php do_action( 'bp_member_header_actions' ); ?>
-
-		</div><!-- #item-buttons -->
 
 		<?php
 		/***
@@ -58,8 +50,26 @@
 
 	</div><!-- #item-meta -->
 
+	
+<div id="item-nav">
+<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
+<ul>
+
+<?php bp_get_displayed_user_nav(); ?>
+
+<?php do_action( 'bp_member_options_nav' ); ?>
+
+<li class="last">
+	<div id="item-buttons"> <?php do_action( 'bp_member_header_actions' ); ?> </div><!-- #item-buttons -->
+</li>
+
+</ul>
+</div>
+</div><!-- #item-nav -->
+
+
+
+
 </div><!-- #item-header-content -->
 
 <?php do_action( 'bp_after_member_header' ); ?>
-
-<?php do_action( 'template_notices' ); ?>

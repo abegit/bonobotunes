@@ -1,4 +1,4 @@
-<?php if ( function_exists( 'mycred_get_users_cred' ) && mycred_get_users_cred( get_current_user_id() ) < 1  ) : ?>
+<?php if ( function_exists( 'mycred_get_users_cred' ) && mycred_get_users_cred( get_current_user_id() ) != 0  ) : ?>
 
 	<h3>Access Denied</h3>
 	<p>You must have more then zero points to send messages.</p>

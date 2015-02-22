@@ -1,29 +1,4 @@
 <?php 
-function pg_enc() {
-
-	foreach ( (array) get_post_custom() as $key => $val) {
-		if ($key == 'enclosure') {
-			foreach ( (array) $val as $enc ) {
-				$enclosure = explode("\n", $enc);
-
-				// only get the first element, e.g. audio/mpeg from 'audio/mpeg mpga mp2 mp3'
-				$t = preg_split('/[ \t]/', trim($enclosure[2]) );
-				$type = $t[0];
-
-				/**
-				 * Filter the RSS enclosure HTML link tag for the current post.
-				 *
-				 * @since 2.2.0
-				 *
-				 * @param string $html_link_tag The HTML link tag with a URI and other attributes.
-				 */
-				echo apply_filters( 'pg_enc', $enclosure[0] );
-			}
-		}
-	}
-}
-
-
 // Disable Admin Bar for everyone but administrators
 if (!function_exists('df_disable_admin_bar')) {
 
@@ -78,12 +53,12 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 			return $redirect_to;
 		} elseif ( in_array( 'customer', $user->roles ) ) {
 			// redirect them to the default place
-			return home_url().'/activity';
+			return home_url().'/home';
 		} elseif ( in_array( 'subscriber', $user->roles ) ) {
 			// redirect them to the default place
-			return home_url().'/activity';
+			return home_url().'/home';
 		} else {
-			return home_url().'/activity';
+			return home_url().'/home';
 		}
 	} else {
 		return $redirect_to;
@@ -92,6 +67,39 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 
 add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
+
+
+// remove WordPress Social Login's get_avatar filter so that we can add our own
+remove_filter( 'get_avatar', 'wsl_user_custom_avatar' );
+function my_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt) {
+        global $comment;
+
+        if( get_option ('wsl_settings_users_avatars') && !empty ($avatar)) {
+                //Check if we are in a comment
+                if (!is_null ($comment) && !empty ($comment->user_id)) {
+                        $user_id = $comment->user_id;
+                } elseif(!empty ($id_or_email)) {
+                        if ( is_numeric($id_or_email) ) {
+                                $user_id = (int) $id_or_email;
+                        } elseif ( is_string( $id_or_email ) && ( $user = get_user_by( 'email', $id_or_email ) ) ) {
+                                $user_id = $user->ID;
+                        } elseif ( is_object( $id_or_email ) && ! empty( $id_or_email->user_id ) ) {
+                                $user_id = (int) $id_or_email->user_id;
+                        }
+                }
+                // Get the thumbnail provided by WordPress Social Login
+                if ($user_id) {
+                        if (($user_thumbnail = get_user_meta ($user_id, 'wsl_user_image', true)) !== false) {
+                                if (strlen (trim ($user_thumbnail)) > 0) {
+                                        $user_thumbnail = preg_replace ('#src=([\'"])([^\\1]+)\\1#Ui', "src=\\1" . $user_thumbnail . "\\1", $avatar);
+                                        return $user_thumbnail;
+                                }
+                        }
+                }
+        }
+        // No avatar found.  Return unfiltered.
+        return $avatar;
+}
 
 
 // /**
@@ -144,6 +152,8 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
         function wpt_setup() { 
             register_nav_menu( 'primary', __( 'Primary navigation', 'wptuts' ) );
             register_nav_menu( 'secondary', __( 'Secondary navigation', 'wptuts' ) );
+            register_nav_menu( 'footer', __( 'Footer', 'wptuts' ) );
+            register_nav_menu( 'third', __( 'Third', 'wptuts' ) );
     } endif;
 
 // BOOTSTRAP MENU - Custom navigation walker (Required)
@@ -160,6 +170,7 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 	}
 	
 	if ( function_exists( 'add_image_size' ) ) { 
+		add_image_size( 'thumbnail', 400, 400, true ); //(cropped)
 		add_image_size( 'quad', 400, 400, true ); //(cropped)
 		add_image_size( 'single', 800, 494, true ); //(cropped)
 		add_image_size( 'video', 800, 450, true ); //(cropped)
@@ -171,13 +182,13 @@ add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 	if ( function_exists('register_sidebar') )
 		register_sidebar(array('name'=>'Primary Sidebar',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',	
+		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	));
 	register_sidebar(array('name'=>'Secondary Sidebar',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',	
+		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
@@ -347,33 +358,5 @@ add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_produ
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-
-
-
-  //add my_print to query vars
-function add_print_query_vars($vars) {
-    // add my_print to the valid list of variables
-    $new_vars = array('embed');
-    $vars = $new_vars + $vars;
-    return $vars;
-}
-
-add_filter('query_vars', 'add_print_query_vars');
-add_action("template_redirect", 'my_template_redirect_2322');
-
-// Template selection
-function my_template_redirect_2322()
-{
-    global $wp;
-    global $wp_query;
-    if (isset($wp->query_vars["embed"]))
-    {  
-        include(TEMPLATEPATH . '/single-player.php');
-        die();
-
-    }
-}
-
-
 
  ?>

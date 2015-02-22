@@ -63,6 +63,7 @@
 				</div>
 
 			</div>
+             <canvas id="backdrop" width="100%" height="100%" data-canvas style="width:100%; vertical-align:middle; position:absolute; height: 100% !important; z-index:0; opacity:0;"></canvas>
 
 			<div class="clear"></div>
 		</li>
@@ -98,3 +99,35 @@
 <?php endif; ?>
 
 <?php do_action( 'bp_after_groups_loop' ); ?>
+
+<script>
+	var $groupLst = jQuery.noConflict();
+	$groupLst(window).load(function() {
+			$groupLst("#groups-list").addClass('init');
+
+
+        var w = $spl3ndid(window).width();
+        if(w>400) {
+        	// parralax for profile fields
+            $spl3ndid('[data-type="background"]').each(function(){
+                var $bgobj = $spl3ndid(this); // assigning the object
+                var $window = $spl3ndid(window);
+
+                $spl3ndid(window).scroll(function() {
+                  var yPos = -($window.scrollTop() / $bgobj.data('speed'));
+
+                    // Put together our final background position
+                    var round = '50% '+ yPos;
+                    var coords = round + 'px';
+
+                    // Move the background
+                    $bgobj.css({ backgroundPosition: coords });
+                });
+          });
+        } 
+        
+
+
+
+});
+</script>

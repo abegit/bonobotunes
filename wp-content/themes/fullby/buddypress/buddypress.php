@@ -1,7 +1,7 @@
 <?php get_header(); ?>			
 		<div class="wrap buddyb row">
 	<div class="col-md-9 single">
-		<div class="col-md-9 single-in">
+		<div class="col-md-9 single-in open">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 
@@ -46,7 +46,7 @@
 	        
 		</div>	
 		 
-		<div class="col-md-3">
+		<div class="col-md-3 hidden">
 			<div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?>
 		    </div>
 		 </div>
@@ -54,7 +54,11 @@
 	</div>			
 
 	<div class="col-md-3">
+	<ul class="nav nav-tabs nav-justified panel-header">
+		<li><a id="dashboard" class="btn btn-default" href="#popular" data-uri="1"><i class="icon-dashboard"></i> Dash</a></li>
+		<li><a class="btn btn-default" href="<?php echo bp_loggedin_user_domain(); ?>"><i class="icon-user2"></i> Profile</a></li>
+		<li><a class="btn btn-default" href="<?php echo bp_loggedin_user_domain(); ?>friends/"><i class="icon-happy"></i> Friends</a></li>  
+    </ul>
 		<div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
-		</div>
 <?php get_footer(); ?>

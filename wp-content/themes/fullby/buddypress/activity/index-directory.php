@@ -1,7 +1,6 @@
 <?php get_header(); ?>
 <div class="wrap buddyb row" id="content">
 	<div class="col-md-9 single">
-          <?php display_gsc_results(); ?>
 		<div class="col-md-9 single-in">
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 				<div class="sing-cont">
@@ -19,7 +18,7 @@
          </div>
 	</div>			
 	<div class="col-md-3"> <div class="sidebar well"><?php get_sidebar( 'secondary' ); ?></div></div>
-</div>		
+
 <script type="text/javascript">
 
     var $dd = jQuery.noConflict();

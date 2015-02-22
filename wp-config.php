@@ -19,10 +19,10 @@
 define('DB_NAME', 'bloggamybonob_wp');
 
 /** MySQL database username */
-define('DB_USER', 'bloggamybonob_wp');
+define('DB_USER', 'minus');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'mmqAVYNmsnI9');
+define('DB_PASSWORD', 'minus');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -78,7 +78,11 @@ define('WPLANG', '');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
+
 define('WP_DEBUG', false);
+// define( 'WP_MEMORY_LIMIT', '64M' );
+// define('WP_HOME','http://bonoboville.local');
+// define('WP_SITEURL','http://bonoboville.local');
 
 /* That's all, stop editing! Happy blogging. */
 

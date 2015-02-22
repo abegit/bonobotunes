@@ -15,7 +15,7 @@ foreach($query_args as $key => $string) {
 } // foreach
 
 $search = new WP_Query($search_query); ?>
-		<div class="wrap buddyb row">
+		<div class="wrap buddyb">
 	<div class="col-md-9 single">
         <p class="result">Result for: <strong><i><?php echo $s ?></i></strong></p>
 
@@ -81,11 +81,8 @@ $search = new WP_Query($search_query); ?>
             ?>
         </div>
 	</div>			
-	<div class="col-md-3 sidebar">
-
-                <?php get_sidebar( 'secondary' ); ?> 
-
+	<div class="col-md-3">
+        <div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 
-</div>	
 <?php get_footer(); ?>

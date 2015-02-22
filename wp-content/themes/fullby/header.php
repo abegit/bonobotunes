@@ -62,7 +62,7 @@
 			?>
 
 				<div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
-					<?php display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
+					<?php // display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
 				</div>
 
         </div>

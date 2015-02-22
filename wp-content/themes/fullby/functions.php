@@ -1,4 +1,10 @@
 <?php 
+
+add_theme_support( 'infinite-scroll', array(
+    'container' => 'activity-stream',
+    'footer' => 'page',
+) );
+
 // Disable Admin Bar for everyone but administrators
 if (!function_exists('df_disable_admin_bar')) {
 

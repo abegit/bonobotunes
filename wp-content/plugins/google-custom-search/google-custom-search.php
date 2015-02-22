@@ -50,8 +50,8 @@ function load_scripts(){
 	wp_enqueue_script("jquery-ui-core");
 	wp_enqueue_script("jquery-ui-draggable ");
 	wp_enqueue_script("jquery-ui-selectable ");
-	wp_enqueue_script('gsc_dialog', $gsc_plugin_dir_path.'/js/gsc.js');
-	wp_enqueue_script('gsc_jsapi', 'http://www.google.com/jsapi');
+	// wp_enqueue_script('gsc_dialog', $gsc_plugin_dir_path.'/js/gsc.js');
+	// wp_enqueue_script('gsc_jsapi', 'http://www.google.com/jsapi');
 	
 	//Adding CSS
 	wp_enqueue_style('gsc_style', $gsc_plugin_dir_path.'/css/smoothness/jquery-ui-1.7.3.custom.css');

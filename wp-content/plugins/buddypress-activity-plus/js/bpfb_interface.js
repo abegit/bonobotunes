@@ -46,7 +46,7 @@ var BpfbVideoHandler = function () {
 		if (!url) return false;
 		$('.bpfb_preview_container').html('<div class="bpfb_waiting"></div>');
 		$.post(ajaxurl, {"action":"bpfb_preview_video", "data":url}, function (data) {
-			$('.bpfb_preview_container').empty().html(data);
+			$('.bpfb_preview_container').addClass('videoWrapper').empty().html(data);
 			$('.bpfb_action_container').html(
 				'<p><input type="button" class="button-primary bpfb_primary_button" id="bpfb_submit" value="' + l10nBpfb.add_video + '" /> ' +
 				'<input type="button" class="button" id="bpfb_cancel" value="' + l10nBpfb.cancel + '" /></p>'

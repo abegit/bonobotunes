@@ -14,14 +14,9 @@
 					 	<div class='video-container'><iframe title='YouTube video player' width='400' height='275' src='http://www.youtube.com/embed/<?php echo $video; ?>' frameborder='0' allowfullscreen></iframe></div>
 					
 					</div>
+             	<?php } else if ( has_post_thumbnail() ) { ?>
 
-				<?php 				                 
-           
-             	} elseif ( has_post_thumbnail() ) {
-						$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single' );
-                    	$amount = 10; ?>
-		<?php echo do_shortcode('[mycred_sell_this  price="'.$amount.'"][/mycred_sell_this]'); ?>
-					<img src="'<?php $image[0] ?>'">
+				                    <?php the_post_thumbnail('single', array('class' => 'sing-cop')); ?>
 
                 <?php } else { ?>
                 

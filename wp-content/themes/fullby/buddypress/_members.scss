@@ -1,0 +1,49 @@
+/* #4.1 Member Profile page */
+.bp-user {
+    .profile_header {@include box-shadow(0 2px 50px 30px rgba(179, 179, 179, 0.23) inset); display: block; width: 100%; background-color:#efefef; min-height: 100px; margin-bottom: 20px;}
+}
+.is-user-profile {
+    .wrap .profile_header {height:60px; @include trans(1000ms);}
+    .edit_bg {display: none; opacity: 0;}
+    #item-header-avatar .avatar {max-width: 90px;}
+    &.activity {
+        &.init .profile_header {height: 300px;}
+    }
+    
+
+    #buddypress {
+        div#item-header ul {margin:0;}
+         #item-header {display: table; width:100%; background: none repeat scroll 0 0 #ffffff; border: medium none; border-radius: 0; margin-top: -40px; padding: 2px; @include trans(1s);
+            &.sticktop {left: 0; margin-top: 0 !important; position: fixed; top: 0; width: 100%; z-index: 3; }
+         }
+
+         #item-header-avatar {display: table-cell; vertical-align: top;
+            .avatar {margin:0; float: none; max-width: 150px; }
+         }
+         #item-header-content {float: none !important; display: table-cell; width: 100%;}
+        .col-md-9.single {float: left;
+            .sing-spacer {padding:0;}
+            &> .col-md-9 {overflow: visible;}
+        }
+
+        
+        
+        #activity-personal-li, #notifications-personal-li, #messages-personal-li, #settings-personal-li, #activity-friends-personal-li {display: none !important;}
+    } /* end buddypress */
+
+    &.my-account {
+        .profile_hd_container{
+        .profile_header { opacity: .9; }
+        }
+    }
+    &.my-account.activity {
+        .edit_bg {z-index:9; position:relative; display: inline-block; opacity: 1; text-align: center;vertical-align: middle; margin: 10px 10px 0 0; float: right;}
+    }
+    
+    &.activity {
+        #subnav > ul > li {display: none;
+                            &.last {display: inline-block;}
+                        }
+    }
+
+} /*end user profile*/

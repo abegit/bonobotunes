@@ -1,7 +1,57 @@
 <div class="clear"></div>
 <div class="col-md-12 footer">
-
-	<div class="alignright"><a href="/"> <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a></div>
+	<!--
+<?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
+<?php if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
+<?php if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
+<?php if (bp_is_home()) : echo 'bp_is_home'; endif; ?>
+<?php if (bp_is_front_page()) : echo 'bp_is_front_page'; endif; ?>
+<?php if (bp_is_activity_front_page()) : echo 'bp_is_activity_front_page'; endif; ?>
+<?php if (bp_is_directory()) : echo 'bp_is_directory'; endif; ?>
+<?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
+<?php if (bp_is_activity_component()) : echo 'bp_is_activity_component'; endif; ?>
+<?php if (bp_is_blogs_component()) : echo 'bp_is_blogs_component'; endif; ?>
+<?php if (bp_is_messages_component()) : echo 'bp_is_messages_component'; endif; ?>
+<?php if (bp_is_friends_component()) : echo 'bp_is_friends_component'; endif; ?>
+<?php if (bp_is_groups_component()) : echo 'bp_is_groups_component'; endif; ?>
+<?php if (bp_is_settings_component()) : echo 'bp_is_settings_component'; endif; ?>
+<?php if (bp_is_member()) : echo 'bp_is_member'; endif; ?>
+<?php if (bp_is_user_activity()) : echo 'bp_is_user_activity'; endif; ?>
+<?php if (bp_is_user_friends_activity()) : echo 'bp_is_user_friends_activity'; endif; ?>
+<?php if (bp_is_activity_permalink()) : echo 'bp_is_activity_permalink'; endif; ?>
+<?php if (bp_is_user_profile()) : echo 'bp_is_user_profile'; endif; ?>
+<?php if (bp_is_profile_edit()) : echo 'bp_is_profile_edit'; endif; ?>
+<?php if (bp_is_change_avatar()) : echo 'bp_is_change_avatar'; endif; ?>
+<?php if (bp_is_user_groups()) : echo 'bp_is_user_groups'; endif; ?>
+<?php if (bp_is_group()) : echo 'bp_is_group'; endif; ?>
+<?php if (bp_is_group_home()) : echo 'bp_is_group_home'; endif; ?>
+<?php if (bp_is_group_create()) : echo 'bp_is_group_create'; endif; ?>
+<?php if (bp_is_group_admin_page()) : echo 'bp_is_group_admin_page'; endif; ?>
+<?php if (bp_is_group_forum()) : echo 'bp_is_group_forum'; endif; ?>
+<?php if (bp_is_group_activity()) : echo 'bp_is_group_activity'; endif; ?>
+<?php if (bp_is_group_forum_topic()) : echo 'bp_is_group_forum_topic'; endif; ?>
+<?php if (bp_is_group_forum_topic_edit()) : echo 'bp_is_group_forum_topic_edit'; endif; ?>
+<?php if (bp_is_group_members()) : echo 'bp_is_group_members'; endif; ?>
+<?php if (bp_is_group_invites()) : echo 'bp_is_group_invites'; endif; ?>
+<?php if (bp_is_group_membership_request()) : echo 'bp_is_group_membership_request'; endif; ?>
+<?php if (bp_is_group_leave()) : echo 'bp_is_group_leave'; endif; ?>
+<?php if (bp_is_group_single()) : echo 'bp_is_group_single'; endif; ?>
+<?php if (bp_is_user_blogs()) : echo 'bp_is_user_blogs'; endif; ?>
+<?php if (bp_is_user_recent_posts()) : echo 'bp_is_user_recent_posts'; endif; ?>
+<?php if (bp_is_user_recent_commments()) : echo 'bp_is_user_recent_commments'; endif; ?>
+<?php if (bp_is_create_blog()) : echo 'bp_is_create_blog'; endif; ?>
+<?php if (bp_is_user_friends()) : echo 'bp_is_user_friends'; endif; ?>
+<?php if (bp_is_friend_requests()) : echo 'bp_is_friend_requests'; endif; ?>
+<?php if (bp_is_user_messages()) : echo 'bp_is_user_messages'; endif; ?>
+<?php if (bp_is_messages_inbox()) : echo 'bp_is_messages_inbox'; endif; ?>
+<?php if (bp_is_messages_sentbox()) : echo 'bp_is_messages_sentbox'; endif; ?>
+<?php if (bp_is_notices()) : echo 'bp_is_notices'; endif; ?>
+<?php if (bp_is_messages_compose_screen()) : echo 'bp_is_messages_compose_screen'; endif; ?>
+<?php if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
+<?php if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
+<?php if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
+-->
+	<div cass="alignright"><a href="/"> <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a></div>
 	<?php /* Primary navigation */
 			wp_nav_menu( array(
 			  'theme_location' => 'footer',
@@ -82,16 +132,16 @@ function getCookie(c_name){
 	return "";
 }
 
-var $n4w  = jQuery.noConflict();
-$n4w (document).ready(function() {
-	$n4w (window).load(function() {
+var $mmbrCookie  = jQuery.noConflict();
+$mmbrCookie (document).ready(function() {
+	$mmbrCookie (window).load(function() {
 		
 		// If there's a warning cookie in place, fade out the mask.
 		var warn=getCookie("warn");
 		var warn2=getCookie("warn2");
 		var warn3=getCookie("warn3");
 		var warn4=getCookie("warn4");
-		var hoverContain=$n4w ('.row.featured');
+		var hoverContain=$mmbrCookie ('.row.featured');
 		var vizibleInit=hoverContain.attr('visible', 1).removeClass('loading').addClass('animated');
 		
 			vizibleInit;
@@ -111,7 +161,7 @@ $n4w (document).ready(function() {
 		if (warn4!=null && warn4!=""){
 			setCookie("warn5",1,30);
 			//Fade in the Popup
-			  $n4w ('.navbar-brand, .featured.row').hover(function(e){
+			  $mmbrCookie ('.navbar-brand, .featured.row').hover(function(e){
 	    	 	 hoverContain.attr('visible', 1).addClass('animated').removeClass('ready');
 			  },
 			  function(e){
@@ -131,12 +181,15 @@ $n4w (document).ready(function() {
 		columnWidth = 0;
 		if (w > 1200) {
 			columnNum  = 4;
-		} else if (w > 900) {
-			columnNum  = 4;
-		} else if (w > 600) {
-			columnNum  = 3;
-		} else if (w > 300) {
-			columnNum  = 2;
+		}
+			  else if (w > 900) {
+					columnNum  = 4;
+		}
+			  else if (w > 600) {
+					columnNum  = 3;
+		}
+			  else if (w > 300) {
+					columnNum  = 2;
 		}
 		columnWidth = Math.floor(w/columnNum);
 		$container.find('.activity-itdem').each(function() {
@@ -194,129 +247,63 @@ $n4w (document).ready(function() {
 
 </script>
 <script>
-
-// var $n3w = jQuery.noConflict();
-// $n3w(document).ready(function(){
-	// var $butan =  $n3w('.netmenu');
+// var $navDropz = jQuery.noConflict();
+// $navDropz(document).ready(function(){
+	// var $butan =  $navDropz('.netmenu');
 	// $butan.attr('href','#');
 	// $butan.click(function(){
-	// 	var X=$n3w(this).attr('data-uri');
+	// 	var X=$navDropz(this).attr('data-uri');
 	// 	if(X==1){
-	// 		$n3w(this).removeClass('open');
-	// 		$n3w('#details').removeClass('zoomIn animated').addClass('hidden');
-	// 		$n3w(this).attr('data-uri', '0');
+	// 		$navDropz(this).removeClass('open');
+	// 		$navDropz('#details').removeClass('zoomIn animated').addClass('hidden');
+	// 		$navDropz(this).attr('data-uri', '0');
 	// 	} else{
-	// 		$n3w(this).addClass('open');
-	// 		$n3w('#details').removeClass('hidden').addClass('zoomIn animated');
-	// 		$n3w(this).attr('data-uri', '1');
+	// 		$navDropz(this).addClass('open');
+	// 		$navDropz('#details').removeClass('hidden').addClass('zoomIn animated');
+	// 		$navDropz(this).attr('data-uri', '1');
 	// 	}
 	// });
 
-	// var $butan =  $n3w('.navbar-brand');
+	// var $butan =  $navDropz('.navbar-brand');
 	// $butan.click(function(){
-	// 	var X=$n3w(this).attr('data-uri');
+	// 	var X=$navDropz(this).attr('data-uri');
 	// 	if(X==1){
-	// 		$n3w(this).removeClass('open');
-	// 		$n3w('.featured.row').removeClass('ready');
-	// 		$n3w(this).attr('data-uri', '0');
+	// 		$navDropz(this).removeClass('open');
+	// 		$navDropz('.featured.row').removeClass('ready');
+	// 		$navDropz(this).attr('data-uri', '0');
 	// 	} else{
-	// 		$n3w(this).addClass('open');
-	// 		$n3w('.featured.row').addClass('ready animated');
-	// 		$n3w(this).attr('data-uri', '1');
+	// 		$navDropz(this).addClass('open');
+	// 		$navDropz('.featured.row').addClass('ready animated');
+	// 		$navDropz(this).attr('data-uri', '1');
 	// 	}
 	// });
-
-
 // });
 </script>
 
 <?php if (is_buddypress()){ ?>
 <script>
-
-var $desh = jQuery.noConflict();
-$desh(document).ready(function(){
-	var $butan =  $desh('#dashboard');
+var $navSidebarz = jQuery.noConflict();
+$navSidebarz(document).ready(function(){
+	var $butan =  $navSidebarz('#dashboard');
 	$butan.attr('href','#');
 	$butan.click(function(){
-		var X=$desh(this).attr('data-uri');
+		var X=$navSidebarz(this).attr('data-uri');
 		if(X==1){
-			$desh(this).removeClass('open');
-			$desh('.single-in').removeClass('open');
-			$desh('.single .col-md-3').delay(1500).removeClass('hidden').addClass('zoomIn animated');
-			$desh(this).attr('data-uri', '0');
+			$navSidebarz(this).removeClass('open');
+			$navSidebarz('.single-in').removeClass('open');
+			$navSidebarz('.single .col-md-3').delay(1500).removeClass('hidden').addClass('zoomIn animated');
+			$navSidebarz(this).attr('data-uri', '0');
 		} else{
-			$desh(this).addClass('open');
-			$desh('.single .col-md-3').removeClass('zoomIn animated').addClass('hidden');
-			$desh('.single-in').delay(1000).addClass('open');
-			$desh(this).attr('data-uri', '1');
+			$navSidebarz(this).addClass('open');
+			$navSidebarz('.single .col-md-3').removeClass('zoomIn animated').addClass('hidden');
+			$navSidebarz('.single-in').delay(1000).addClass('open');
+			$navSidebarz(this).attr('data-uri', '1');
 		}
 	});
-
-
-
 });
 </script>
 <?php }; ?>
-<?php if (bp_is_activity_component() && bp_is_user()){ ?>
 
-
-	<script>
-	var braekon = jQuery.noConflict();
-	braekon(document).ready(function() {
-	 // ---------------------nav sticktop---------------------------
-   var scroll_div = braekon('#item-header'); // the div that is going to be stuck on the top
-   var sticktop = braekon('#item-header').offset().top; // grab the initial top offset of the navigation
-   var socialtab = braekon('#social-tabs');
-   var contacttab = braekon('.slide-out-div .handle')
-
-    // our function that decides weather the navigation bar should have "fixed" css position or not.
-    var sticknav = function () {
-   var scroll_top = braekon(window).scrollTop(); // our current vertical position from the top
-
-
-
-        // if we've scrolled more than the navigation, change its position to fixed to stick to top,
-        // otherwise change it back to relative
-        if (scroll_top > sticktop) {
-        	braekon(scroll_div).addClass('sticktop');  
-        } else {
-        	braekon(scroll_div).removeClass('sticktop');
-        }
-        
-     // ---------------------------------this is for after 200 pixels under the nav sticktop
-     if (scroll_top - 200 > sticktop) {
-     	braekon(socialtab).stop().animate({
-     		marginRight: 0,
-     	}, 150 );
-     	braekon(contacttab).stop().animate({
-     		left: "-40px",
-     	}, 150 );
-     } else {
-     	braekon(socialtab).stop().animate({
-     		marginRight: "34px",
-     	}, 150 );
-     	braekon(contacttab).stop().animate({
-     		left: 0,
-     	}, 150 );
-     }
-     
-     
- };
-
-    // run our function on load
-    sticknav();
-
-   // and run it again every time you scroll
-   braekon(window).scroll(function () {
-   	sticknav();
-   });
-
-
-
-
-});
-</script>
-<?php } ?>
 
 
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
@@ -325,15 +312,15 @@ $desh(document).ready(function(){
 <?php if (is_page('6')) { ?>
 	<script>    
 
-var abeLur = jQuery.noConflict();
-abeLur(function() {
+var mmberPostBlur = jQuery.noConflict();
+mmberPostBlur(function() {
   // Change this value to adjust the amount of blur
   var BLUR_RADIUS = 30;
 
   var canvas = document.querySelector('[data-canvas]');
   var canvasContext = canvas.getContext('2d');
   var image = new Image();
-  image.src = document.querySelector('.avatar').src;
+  image.src = document.getElementsByClassName('.avatar').src;
   
   var drawBlur = function() {
     var w = canvas.width;
@@ -344,7 +331,7 @@ abeLur(function() {
   
   image.onload = function() {
     drawBlur();
-    abeLur('#backdrop').attr('class', 'visible').delay( 800 ).fadeIn(400);
+    mmberPostBlur('#backdrop').attr('class', 'visible').delay( 800 ).fadeIn(400);
   }
 });
 
@@ -352,11 +339,16 @@ abeLur(function() {
 <?php }; ?>
 
 
+
+
+
+
+
 <?php if (is_page_template('page-no-sidebar.php')) { ?>
 	<script>    
 
-var abeLur = jQuery.noConflict();
-abeLur(function() {
+var mmberPostBlur = jQuery.noConflict();
+mmberPostBlur(function() {
   // Change this value to adjust the amount of blur
   var BLUR_RADIUS = 30;
 
@@ -374,7 +366,7 @@ abeLur(function() {
   
   image.onload = function() {
     drawBlur();
-    abeLur('#backdrop').attr('class', 'visible').delay( 800 ).fadeIn(400);
+    mmberPostBlur('#backdrop').attr('class', 'visible').delay( 800 ).fadeIn(400);
   }
 });
 
@@ -389,15 +381,15 @@ abeLur(function() {
 <script src="http://code.jquery.com/jquery-latest.js"></script> -->
 
 
-	<!-- <script>
-    var $frontpg = jQuery.noConflict();
-    var hght = $frontpg(".row.featured").height();
-    $frontpg(".row.featured").hide();
-        $frontpg(window).load(function() {
-
-            $frontpg(".row.featured").delay(400).addClass('animate').attr('style', '');
+	<script>
+    var $finalInit = jQuery.noConflict();
+    var hght = $finalInit(".row.featured").height();
+    $finalInit(".row.featured").hide();
+        $finalInit(window).load(function() {
+            $finalInit(".row.featured").delay(400).addClass('animate');
+            $finalInit("body").addClass('init');
         });
-    </script> -->
+    </script>
 
     <?php wp_footer();?>
 </body>

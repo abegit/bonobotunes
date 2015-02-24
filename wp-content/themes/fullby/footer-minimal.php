@@ -64,13 +64,7 @@ jqAfill(document).ready(function() {
 					document.getElementById('insertHere').innerHTML = "not set";
 			<?php } ?>
 		}
-
-
-
 		
-
-
-
 		// //Fade in the Popup
 		// if (jqAfill('body').attr('closed') != "1")
 		// {

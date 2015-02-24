@@ -76,7 +76,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php if (is_page('home')){
+          <a class="navbar-brand" href="<?php if (bp_is_directory() && bp_is_activity_component()){
           			echo '#';
 					} else {
 				  echo home_url(); }; ?>">

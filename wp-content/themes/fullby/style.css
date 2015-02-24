@@ -5839,6 +5839,7 @@ input.gsc-input {
   background-color: #343434;
   background-image: url("img/hd.gif");
   background-position: center bottom;
+  z-index: 3;
   background-repeat: repeat-x;
   border: medium none;
   border-radius: 0;
@@ -6183,11 +6184,13 @@ input.gsc-input {
   border: 1px solid #eee; }
 
 /* Single */
-.wrap .single {
-  margin: 0;
-  padding: 0; }
-  .wrap .single > .col-md-3 {
+.wrap {
+  z-index: 2; }
+  .wrap .single {
+    margin: 0;
     padding: 0; }
+    .wrap .single > .col-md-3 {
+      padding: 0; }
 
 .sing-cop {
   width: 100%;
@@ -6709,8 +6712,7 @@ textarea {
   background: none; }
 
 /* buddypress by abe */
-/*
-Contents
+/*  Contents
     #01 Generic #buddypress
     #2 Activity Permalink pages → /buddypress/activity/single/index.php
     #3 Activity Directory page → /buddypress/activity/index-directory.php
@@ -6723,6 +6725,7 @@ Contents
     #9 Registration page → /buddypress/members/index-register.php
     #10 Activation page → /buddypress/members/index-activate.php
 */
+/* #01 Generic #buddypress */
 /* #01 Generic #buddypress */
 #buddypress {
   /*pagination*/
@@ -6864,7 +6867,43 @@ Contents
     margin-bottom: 0; }
 
 /*end notices*/
+#login-form > * {
+  margin-bottom: 10px; }
+#login-form .input-prepend i {
+  float: left; }
+#login-form .input-prepend span.add-on {
+  float: left;
+  text-align: center;
+  width: 20%; }
+#login-form .input-prepend input {
+  width: 80%; }
+#login-form .input-prepend {
+  clear: both; }
+#login-form .input-prepend span.add-on i {
+  float: none;
+  line-height: 30px;
+  margin: 0; }
+#login-form .checkbox {
+  clear: both;
+  margin: 0 !important;
+  padding-bottom: 20px;
+  padding-top: 20px; }
+
+.logged-in #mainmenu .navbar-nav > li:last-child > a {
+  padding-right: 65px !important; }
+
 /* #2 Activity Permalink pages */
+body.activity-permalink #content, body.activity-permalink #content * {
+  background: none;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+body.activity-permalink .single-in {
+  float: left; }
+body.activity-permalink .wrap.buddyb {
+  padding-top: 40px; }
+
 /* #3 Activity Directory page */
 .directory.activity .wrap.buddyb {
   padding-top: 10px; }
@@ -6884,13 +6923,17 @@ Contents
 .is-user-profile {
   /* end buddypress */ }
   .is-user-profile .wrap .profile_header {
-    height: 60px; }
+    height: 60px;
+    -webkit-transition: all 1000ms ease-in-out;
+    -moz-transition: all 1000ms ease-in-out;
+    -o-transition: all 1000ms ease-in-out;
+    transition: all 1000ms ease-in-out; }
   .is-user-profile .edit_bg {
     display: none;
     opacity: 0; }
   .is-user-profile #item-header-avatar .avatar {
     max-width: 90px; }
-  .is-user-profile.activity .init .profile_header {
+  .is-user-profile.activity.init .profile_header {
     height: 300px; }
   .is-user-profile #buddypress div#item-header ul {
     margin: 0; }
@@ -6901,7 +6944,18 @@ Contents
     border: medium none;
     border-radius: 0;
     margin-top: -40px;
-    padding: 2px; }
+    padding: 2px;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out; }
+    .is-user-profile #buddypress #item-header.sticktop {
+      left: 0;
+      margin-top: 0 !important;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 3; }
   .is-user-profile #buddypress #item-header-avatar {
     display: table-cell;
     vertical-align: top; }
@@ -6943,11 +6997,6 @@ Contents
 /* #7 Site Directory page */
 /* #8 Site Creation page */
 /* #9 Registration page */
-body.page-template-page-no-sidebar-php, body.registration {
-  background: #e1e5e7; }
-body.buddypress {
-  background-image: url("img/congruent_outline.png"); }
-
 body.registration .navbar {
   background: transparent; }
 body.registration .navbar-brand {
@@ -7103,36 +7152,16 @@ body.registration #signup_submit {
   font-size: 1.063em !important;
   padding: 10px !important; }
 
+body.page-template-page-no-sidebar-php, body.registration {
+  background: #e1e5e7; }
+body.buddypress {
+  background-image: url("img/congruent_outline.png"); }
+
 /* #10 Activation page */
 #buddypress div.activity-comments ul li > ul {
   padding-left: 0 !important;
   margin-left: 0 !important;
   margin-top: 0 !important; }
-
-#login-form > * {
-  margin-bottom: 10px; }
-#login-form .input-prepend i {
-  float: left; }
-#login-form .input-prepend span.add-on {
-  float: left;
-  text-align: center;
-  width: 20%; }
-#login-form .input-prepend input {
-  width: 80%; }
-#login-form .input-prepend {
-  clear: both; }
-#login-form .input-prepend span.add-on i {
-  float: none;
-  line-height: 30px;
-  margin: 0; }
-#login-form .checkbox {
-  clear: both;
-  margin: 0 !important;
-  padding-bottom: 20px;
-  padding-top: 20px; }
-
-.logged-in #mainmenu .navbar-nav > li:last-child > a {
-  padding-right: 65px !important; }
 
 .my-account .col-md-9.single #buddypress #item-header > div#item-header-avatar {
   padding: 0;

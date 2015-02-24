@@ -106,14 +106,14 @@
 			$groupLst("#groups-list").addClass('init');
 
 
-        var w = $spl3ndid(window).width();
+        var w = $groupLst(window).width();
         if(w>400) {
         	// parralax for profile fields
-            $spl3ndid('[data-type="background"]').each(function(){
-                var $bgobj = $spl3ndid(this); // assigning the object
-                var $window = $spl3ndid(window);
+            $groupLst('[data-type="background"]').each(function(){
+                var $bgobj = $groupLst(this); // assigning the object
+                var $window = $groupLst(window);
 
-                $spl3ndid(window).scroll(function() {
+                $groupLst(window).scroll(function() {
                   var yPos = -($window.scrollTop() / $bgobj.data('speed'));
 
                     // Put together our final background position

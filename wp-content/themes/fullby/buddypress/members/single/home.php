@@ -28,7 +28,7 @@
 		<div id="item-header" role="complementary" class="panel widget">
 		<?php bp_get_template_part( 'members/single/member-header' ) ?>
 	</div><!-- #item-header -->
-		<div class="col-md-9 single-in">
+		<div class="col-md-12 single-in">
 <!-- 	<?php 
 global $bp;
 foreach ( (array)$bp as $key => $value ) {
@@ -88,15 +88,7 @@ foreach ( (array)$bp as $key => $value ) {
 				</div>	
 		</div>	
 		 
-		<div class="col-md-3">
-
-
-
-
-
-
-			<div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
-		 </div>
+		
 	</div>
 
 	<?php do_action( 'bp_after_member_home_content' ); ?>

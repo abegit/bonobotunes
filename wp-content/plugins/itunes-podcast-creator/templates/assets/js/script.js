@@ -61,7 +61,7 @@ function nextAd() {
                 audioAdPlayer.load();
                 setTimeout(function (){ 
                     adOn();
-                    if( screen.availWidth >= 100 ) {
+                    if( screen.availWidth >= 800 ) {
                            audioPlayer.pause();
                            audioAdPlayer.play();
                     }
@@ -79,7 +79,7 @@ function nextAd() {
 
 function resSong() {
         adOff();
-        if( screen.availWidth >= 100 ) {
+        if( screen.availWidth >= 800 ) {
                var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
                if (audioPlayer.paused) {
                    document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');

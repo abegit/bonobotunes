@@ -45,6 +45,7 @@ class iTunesRSS extends SanityPluginFramework {
 			register_setting( 'iTunesFeedStart', 'iTunesFeedSync');
 			register_setting( 'iTunesFeedStart', 'iTunesAuthorName');
 			register_setting( 'iTunesFeedStart', 'iTunesAuthorEmail');
+			register_setting( 'iTunesFeedStart', 'iTunesPodcastTitle');
 			register_setting( 'iTunesFeedStart', 'iTunesPodcastSummary');
 			register_setting( 'iTunesFeedStart', 'iTunesPodcastImage');
 			register_setting( 'iTunesFeedStart', 'iTunesExplicit');
@@ -112,11 +113,13 @@ class iTunesRSS extends SanityPluginFramework {
 							 *
 							 * @param string $html_link_tag The HTML link tag with a URI and other attributes.
 							 */
+							$enclosure[0] = rtrim($enclosure[0]);
 							echo apply_filters( 'pg_enc', $enclosure[0] );
+							
 						}
 					}
 				}
-			 } // end pg_enc
+			} // end pg_enc
 
 	} // end if option UnsceneMusicPlayer = 1 aka yes
 }
@@ -124,11 +127,17 @@ class iTunesRSS extends SanityPluginFramework {
 	*		Run during the activation of the plugin
 	*/
 	function activated() {
-		$iTunesleader = get_option('admin_email');
+		// if (get_option('iTunesAuthorEmail') == '') {
+		// 	$iTunesleader = get_option('admin_email');
+		// } else {
+
+		// }
+		
 		add_option("iTunesFeedSync", '1', '', 'yes');
 		add_option("iTunesAuthorName", 'Mr. Unscene', '', 'yes');
-		add_option("iTunesAuthorEmail", $iTunesleader, '', 'yes');
-		add_option("iTunesPodcastSummary", $iTunesleader, '', 'yes');
+		add_option("iTunesAuthorEmail", '', '', 'yes');
+		add_option("iTunesPodcastTitle", '', '', 'yes');
+		add_option("iTunesPodcastSummary", '', '', 'yes');
 		add_option("iTunesPodcastImage", '', '', 'yes');
 		add_option("iTunesExplicit", '1', '', 'yes');
 		add_option("iTunesCategories", 'Design', '', 'yes');

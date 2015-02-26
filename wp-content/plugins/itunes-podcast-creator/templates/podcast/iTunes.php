@@ -108,21 +108,21 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel> 
-		<title><?php echo get_bloginfo('title'); ?></title>
+		<title><![CDATA[<?php echo get_option('iTunesPodcastTitle'); ?>]]></title>
 		<link><?php echo get_bloginfo('url'); ?></link>
         <language><?php bloginfo_rss( 'language' ); ?></language>
 		<copyright>&#x2117; &amp; &#xA9; 2015 Bonoboville &amp;</copyright>
-		<itunes:subtitle>A show about everything</itunes:subtitle>
+		<itunes:subtitle><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></itunes:subtitle>
 		<itunes:author><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:author>
 		<itunes:summary><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></itunes:summary>
-		<description>All About Everything is a show about everything. Each week we dive into any subject known to man and talk about it as much as we can. Look for our podcast in the Podcasts app or in the iTunes Store</description>
+		<description><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></description>
 		<itunes:owner>
 			<itunes:name><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:name>
 			<itunes:email><![CDATA[<?php echo get_option('iTunesAuthorEmail'); ?>]]></itunes:email>
 		</itunes:owner>
-		<itunes:category text="Technology">
-		<itunes:category text="Gadgets"/>
-		<itunes:category text="TV &amp; Film"/> </itunes:category>
+		<itunes:image href="<?php echo get_option('iTunesPodcastImage'); ?>" />
+		<itunes:category text="Health">
+		<itunes:category text="Sexuality"/> </itunes:category>
 
 		<itunes:explicit><![CDATA[<?php if ( get_option('iTunesExplicit') == '1') { echo 'yes';} else { echo 'clean'; } ?>]]></itunes:explicit>
 

@@ -23,6 +23,10 @@ wp_enqueue_script( 'media-upload');
 				        </td>
 				        </tr>
 				        <tr valign="top">
+				        	<th scope="row">Podcast Title</th>
+							<td>Podcast Title: <input type="text" name="iTunesPodcastTitle" value="<?php echo get_option('iTunesPodcastTitle'); ?>" style="width:100%; height:auto;"/></td>
+						</tr>
+				        <tr valign="top">
 				        <th scope="row">Podcast Details</th>
 				        <td><div id="iTunesPodcastImage_thumb" class="wpss-file">
     <?php if(get_option('iTunesPodcastImage') !='' ){ ?>
@@ -129,7 +133,7 @@ wp_enqueue_script( 'media-upload');
 				        </td>
 				        </tr>
 				        <tr valign="top">
-				        <th scope="row">Podcast Details</th>
+				        <th scope="row">Player Thumbnail</th>
 				        <td><div id="UnsceneMusicLogo_thumb" class="wpss-file">
     <?php if(get_option('UnsceneMusicLogo') !='' ){ ?>
        <img src="<?php echo get_option('UnsceneMusicLogo'); ?>"  width="100%"/><?php } else {    echo $defaultImage; } ?>
@@ -142,6 +146,7 @@ wp_enqueue_script( 'media-upload');
         </ul>
 		<?php submit_button(); ?>
 </form>
+<a href="http://www.apple.com/itunes/podcasts/specs.html">Guide to Making a Podcast - Apple iTunes</a>
 <!-- 
    <a href="http://unscene.us" target="_blank" style="display:inline-block; padding: 15px 40px; margin:0 10px; border-radius: 4px;color:#fff; background:#333; font-weight:700; text-decoration:none">Hire a Developer</a>
    <a href="http://unscene.us" target="_blank" style="display:inline-block; padding: 15px 40px; margin:0 10px; border-radius: 4px;color:#000; background:#00ecbd; font-weight:700; text-decoration:none">Donate with PayPal<i class="icon-paypal" style="margin-left:10px;"></i></a>

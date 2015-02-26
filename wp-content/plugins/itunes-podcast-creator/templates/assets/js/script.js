@@ -1,5 +1,5 @@
-var adGapLength = 1000 * 10
-var adImgLength = 1000 * 5
+var adGapLength = 1000 * 20
+var adImgLength = 1000 * 13
 function loadPlayer() {
     var audioPlayer = new Audio();
     audioPlayer.controls="controls";
@@ -28,11 +28,11 @@ function nextSong() {
             document.getElementById("dcc").innerHTML = document.getElementById("dc").innerHTML
             document.getElementById('hd').innerHTML = 'Now Playing'
             next++;
-            if( screen.availWidth >= 800 ) {
+            // if( screen.availWidth >= 100 ) {
                 setTimeout(function (){ nextAd() }, 6000);  
-            } else { 
-                setTimeout(function (){ nextAd() }, 6000);  
-            }
+            // } else { 
+                // setTimeout(function (){ nextAd() }, 6000);  
+            // }
         } else {
             loadPlayer();
         }
@@ -61,10 +61,10 @@ function nextAd() {
                 audioAdPlayer.load();
                 setTimeout(function (){ 
                     adOn();
-                    // if( screen.availWidth >= 800 ) {
-                    //        audioPlayer.pause();
-                    //        audioAdPlayer.play();
-                    // }
+                    if( screen.availWidth >= 100 ) {
+                           audioPlayer.pause();
+                           audioAdPlayer.play();
+                    }
                     setTimeout(function (){resSong() }, adImgLength);
                  }, adGapLength);
             } else {
@@ -79,18 +79,18 @@ function nextAd() {
 
 function resSong() {
         adOff();
-        // if( screen.availWidth >= 800 ) {
-
-        //        var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
-        //        if (audioPlayer.paused) {
-        //            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
-        //            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
-    //
-        //} else {
-        //            audioPlayer.play();
-        //        }
-        //        nextAd();
+        if( screen.availWidth >= 100 ) {
+               var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
+               if (audioPlayer.paused) {
+                   document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
+                   document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+                   audioPlayer.play();
+                } else {
+                   audioPlayer.play();
+               }
+               nextAd();
             }
+        }
 
 
     function adOn() {
@@ -106,74 +106,68 @@ function resSong() {
         document.getElementById('play').setAttribute('className', 'fadeed'); //IE 
     }
 
-function adOff() {
-    var bgContent = document.getElementById('advertisement');
-    bgContent.removeAttribute("class"); //browsers
-    bgContent.removeAttribute("className"); //IE browsers.
-    document.getElementById('hd').removeAttribute('class', 'fadeed'); //browsers
-    document.getElementById('hd').removeAttribute('className', 'fadeed'); //IE
-    document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
-    document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE 
-    document.getElementById('play').removeAttribute('class', 'notfadeed'); //browsers
-    document.getElementById('play').removeAttribute('className', 'notfadeed'); //IE
-    document.getElementById('dc').innerHTML = document.getElementById("dcc").innerHTML
-}
+    function adOff() {
+        var bgContent = document.getElementById('advertisement');
+        bgContent.removeAttribute("class"); //browsers
+        bgContent.removeAttribute("className"); //IE browsers.
+        document.getElementById('hd').removeAttribute('class', 'fadeed'); //browsers
+        document.getElementById('hd').removeAttribute('className', 'fadeed'); //IE
+        document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
+        document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE 
+        document.getElementById('play').removeAttribute('class', 'notfadeed'); //browsers
+        document.getElementById('play').removeAttribute('className', 'notfadeed'); //IE
+        document.getElementById('dc').innerHTML = document.getElementById("dcc").innerHTML
+    }
 
 
 
-function errorFallback() {
+    function errorFallback() {
+            nextSong();
+    }
+    function playPause() {
+        var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
+
+        if(audioPlayer!=undefined) {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
+                document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+                document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
+                document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
+            } else {
+                audioPlayer.pause();
+                document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
+                document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+                document.getElementById('warningGradientOuterBarG').removeAttribute('class', 'fadeed'); //browsers
+                document.getElementById('warningGradientOuterBarG').removeAttribute('className', 'fadeed'); //IE
+                }
+        } else {
+            loadPlayer();
+        }
+    }
+    function pickSong(num) {
+        next = num;
         nextSong();
-}
-function playPause() {
-var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
-
-    if(audioPlayer!=undefined) {
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
-            document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
-            document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
-
-        } else {
-            audioPlayer.pause();
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
-            document.getElementById('warningGradientOuterBarG').removeAttribute('class', 'fadeed'); //browsers
-            document.getElementById('warningGradientOuterBarG').removeAttribute('className', 'fadeed'); //IE
-
-        }
-    } else {
-        loadPlayer();
     }
-}
 
+    function ad() {
+    var audioAdPlayer = document.getElementById('playerAd').getElementsByTagName('audio')[0];
 
-
-
-function pickSong(num) {
-    next = num;
-    nextSong();
-}
-
-function ad() {
-var audioAdPlayer = document.getElementById('playerAd').getElementsByTagName('audio')[0];
-
-    if(audioAdPlayer!=undefined) {
-        if (audioAdPlayer.paused) {
-            audioAdPlayer.play();
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+        if(audioAdPlayer!=undefined) {
+            if (audioAdPlayer.paused) {
+                audioAdPlayer.play();
+                document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
+                document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+            } else {
+                audioAdPlayer.pause();
+                document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
+                document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+            }
         } else {
-            audioAdPlayer.pause();
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+            loadAd();
         }
-    } else {
-        loadAd();
     }
-}
-var next = 0;
+    var next = 0;
 
 
 /*! jQuery v1.8.2 jquery.com | jquery.org/license */
@@ -260,7 +254,7 @@ q(document).ready(function(){
 
 
 
- }); 
+}); 
 
 
 

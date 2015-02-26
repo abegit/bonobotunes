@@ -4,7 +4,7 @@
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
-		<div id="activity-stream" class="activity-list item-list list-group">
+		<ul id="activity-stream" class="activity-list item-list">
 
 	<?php endif; ?>
 
@@ -14,7 +14,7 @@
 
 	<?php if ( bp_activity_has_more_items() ) : ?>
 
-		<li class="load-more list-group-item">
+		<li class="load-more">
 			<a href="<?php bp_activity_load_more_link() ?>"><?php _e( 'Load More', 'buddypress' ); ?></a>
 		</li>
 
@@ -22,7 +22,7 @@
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
-		</div>
+		</ul>
 
 	<?php endif; ?>
 

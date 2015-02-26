@@ -1,4 +1,5 @@
-	<?php if (!is_user_logged_in()) { ?>
+
+  <?php if (!is_user_logged_in()) { ?>
 
   <div class="widget widget-tabs">
       
@@ -21,23 +22,23 @@
 
                        <!-- <label for="rememberme" class="checkbox"> <input name="rememberme" type="checkbox" id="rememberme" value="forever" />  <?php esc_attr_e('Remember Me', 'firmasite'); ?> </label> -->
                        <input class="btn btn-primary pull-left" type="submit" name="wp-submit" id="wp-submit" value=" <?php _e( 'Log In', 'firmasite' ) ?>"/>
-                       <a onclick="myFunction()" class="bblogin-dv btn btn-default"></a>
-                       <a onclick="yrFunction()" class="bblogin-rq btn btn-default"></a>
-                       <input class="btn btn-primary pull-right" type="button" name="signup-submit" id="signup-submit" value=" <?php _e( 'Create an Account', 'firmasite' ) ?>" onclick="location.href=' <?php echo bp_signup_page() ?>'" />
+                       <a href="http://dev.bonoboville.com/wp-login.php?action=wordpress_social_authenticate&mode=login&provider=Facebook" class="bblogin-dv btn btn-default"></a>
+                       <a href="http://dev.bonoboville.com/wp-login.php?action=wordpress_social_authenticate&mode=login&provider=Twitter" class="bblogin-rq btn btn-default"></a>
+                       <input class="btn btn-primary pull-right" type="button" name="signup-submit" id="signup-submit" value=" <?php _e( 'Create an Account', 'firmasite' ) ?>" onclick="location.href=' <?php echo bp_signup_page() ?>/?friend=<?php echo bp_displayed_user_id(); ?>'" />
                        
                        <input type="hidden" name="redirect_to" value="<?php echo $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?>" />
                        <input type="hidden" name="testcookie" value="1" />
                        <?php do_action( 'bp_login_bar_logged_out' ) ?>
   </form>
-  <script>
-  function yrFunction() {
+<!--  <script>
+function yrFunction() {
     var myWindow = window.open("http://dev.bonoboville.com/wp-login.php?action=wordpress_social_authenticate&mode=login&provider=Twitter", "Twitter Auth for Bonoboville", "width=640, height=640");
 }
 function myFunction() {
     var myWindow = window.open("http://dev.bonoboville.com/wp-login.php?action=wordpress_social_authenticate&mode=login&provider=Facebook", "Facebook Login for Bonoboville", "width=640, height=640");
 }
 </script>
-      
+-->  
     </div>
     <!-- end tab content -->
 

@@ -52,19 +52,19 @@ jqAfill(document).ready(function() {
 	jqAfill(window).load(function() {
 
 		// If there's a warning cookie in place, fade out the mask.
-		var warn=getCookie("warn");
-		if (warn!=null && warn!="") {
-			document.getElementById('insertHere').innerHTML = "old " + warn;
-		} else {			
-			<?php if (isset($afil)) { ?>
-				var php_code = "<?php echo $afil; ?>"
-					setCookie("warn",php_code,30);
-					document.getElementById('insertHere').innerHTML = warn;
-			<?php } else { ?>
-					document.getElementById('insertHere').innerHTML = "not set";
-			<?php } ?>
-		}
-		
+		// var warn=getCookie("warn");
+		// if (warn!=null && warn!="") {
+			// document.getElementById('insertHere').innerHTML = "old " + warn;
+		// } else {			
+			// <?php if (isset($afil)) { ?>
+				// var php_code = "<?php echo $afil; ?>"
+					// setCookie("warn",php_code,30);
+					// document.getElementById('insertHere').innerHTML = warn;
+			// <?php } else { ?>
+					// document.getElementById('insertHere').innerHTML = "not set";
+			// <?php } ?>
+		// }
+		// 
 		// //Fade in the Popup
 		// if (jqAfill('body').attr('closed') != "1")
 		// {

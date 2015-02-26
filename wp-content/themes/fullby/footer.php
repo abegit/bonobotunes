@@ -384,7 +384,7 @@ mmberPostBlur(function() {
 	<script>
     var $finalInit = jQuery.noConflict();
     var hght = $finalInit(".row.featured").height();
-    $finalInit(".row.featured").hide();
+    // $finalInit(".row.featured").hide();
         $finalInit(window).load(function() {
             $finalInit(".row.featured").delay(400).addClass('animate');
             $finalInit("body").addClass('init');

@@ -1,13 +1,10 @@
 <?php get_header('register'); ?>			
-<?php
-$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
-	$url = strtok($actual_link, '?');
+<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $url = strtok($actual_link, '?');
 
-	// The value of the variable name is found
-	$afil = $_GET["friend"];
-
-
-	?>
+    // The value of the variable name is found
+    $afil = $_GET["friend"];
+    ?>
 
 
 	<div class="col-md-12 single">
@@ -64,7 +61,7 @@ window.history.pushState(stateObj, "Register", "<?php echo $url; ?>");
 <script>
 var abeRegister = jQuery.noConflict(); 
 	abeRegister(function () {
-  abeRegister(".field_20 input[type=text]").val("<?php echo $afil; ?>");
+  abeRegister(".field_1 input[type=text]").val("<?php echo $afil; ?>");
 });
 </script>
 

@@ -12,6 +12,7 @@ body.page-template-page-no-sidebar {
 }
 
 
+
 body.single-product {
 	.kgvid_wrapper_inline_left {margin: 0; }
 	.kgvid_wrapper {margin:0; line-height: 0}
@@ -24,7 +25,7 @@ body.single-product {
 	.videoWrapper {
 		.button.alt {
 		    @include border-radius(100px);
-		    font-size: 4em;
+		    font-size: 4rem;
 		    height: 70px;
 		    left: 50%;
 		    line-height: 0;
@@ -40,31 +41,9 @@ body.single-product {
 }
 
 
-.buddyb {
-	position: relative;
-	.sing-spacer {padding:10px;}
-	.sing-cont {background:#fff; @include border-radius(0 0 $myrad $myrad ); width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;}
-    .sing-tit-cont {
-    display: inline-block;
-    font-size: 1.250em;
-    line-height: 60px !important;
-    margin: 0 !important;
-    padding: 0 10px !important;
-	background:rgb(244, 244, 244); width: 100%; 
-		* {line-height: 60px; margin: 0; }
-		h3 {z-index: 1; position: relative;}
-	}	
-	.single {float:left;}
-	.single-in {border-left:1px solid #ddd;border-right:1px solid #ddd; overflow: hidden; float: right;
-		@include trans(1s);
-		&.open {width: 90%; margin:0 5%;}
-	}
 
-}
-
-
+.how > i {font-size: 3.4rem; padding:30px; background:$green; display: inline-block; color:#fff; @include border-radius(300px);}
+.bps_header {display: none;}
 
 
 

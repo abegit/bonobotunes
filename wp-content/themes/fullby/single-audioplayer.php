@@ -1,5 +1,6 @@
 <?php get_header('player'); ?>			
 		<div class="wrap">
+		<div class="wrap">
 	<div class="col-md-9 single">
 		<div class="col-md-9 single-in">
 			<audio autoplay controls="controls" src="<?php echo pg_enc(); ?>">
@@ -90,9 +91,9 @@
 	        <?php endif; ?> 
 		</div>	
 		 
-		<div class="col-md-3">
+		<div class="col-md-3 sidebar">
 		
-			<div class="sec-sidebar sidebar">
+			<div class="sec-sidebar well">
 
 				<?php get_sidebar( 'secondary' ); ?>	
 										

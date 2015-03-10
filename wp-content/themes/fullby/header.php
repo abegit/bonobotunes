@@ -28,10 +28,7 @@
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+   
     
     <!-- Analitics -->
 	<?php if (get_option('fullby_analytics') <> "") { echo get_option('fullby_analytics'); } ?>
@@ -39,6 +36,7 @@
 	<?php wp_head(); ?> 
 
   <script src="http://www.google.com/jsapi"></script>
+
 </head>
 <body <?php body_class(); ?>>
     <div class="navbar navbar-inverse">
@@ -76,11 +74,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php if (bp_is_directory() && bp_is_activity_component()){
+          <a class="navbar-brand logo" href="<?php if (bp_is_directory() && bp_is_activity_component()){
           			echo '#';
 					} else {
 				  echo home_url(); }; ?>">
-		 	<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a>
+		 	</a>
         
         
         <!--/.nav-collapse -->
@@ -105,74 +103,134 @@
     <?php if (bp_is_activity_directory()) { ?>
     
     		
-	    	 <div class="row featured loading">
-				<div class="wrap" style="">
-					<?php $specialPosts = new WP_Query();
-					$specialPosts->query('tag=featured&showposts=4'); ?>
-					
-					<?php if ($specialPosts->have_posts()) : while($specialPosts->have_posts()) : $specialPosts->the_post(); ?>
+	    	 <div id="featMenu"><span class="btn sliderNav btn-primary next" style="cursor: pointer;"><i class="icon-backward2"></i></span><div class="row featured loading menu">
+	    	 	<div class="slider">
 
-					    <div class="col-sm-4 col-xs-6 col-md-3 item-featured">
-					    
-					    	
-							<a href="<?php the_permalink(); ?>">
+	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
+	    	 				<a href="#">
+	    	 					<div class="caption">
+	    	 						<div class="cat"><span>hello</span></div>
+	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
 
-					    		<div class="caption">
-						    		<div class="cat"><span><?php $category = get_the_category(); echo $category[0]->cat_name; ?></span></div>
-						    		<div class="date"><i class="fa fa-clock-o"></i> <?php the_time('j M , Y') ?> &nbsp;
-						    		
-						    			<?php 
-										$video = get_post_meta($post->ID, 'fullby_video', true );
-										
-										if($video != '') { ?>
-						             			
-						             		<i class="fa fa-video-camera"></i> Video
-						             			
-						             	<?php } else if (strpos($post->post_content,'[gallery') !== false) { ?>
-						             			
-						             		<i class="fa fa-th"></i> Gallery
 
-					             		<?php } else {?>
 
-					             		<?php } ?>
+	    	 							<i class="fa fa-video-camera"></i> hello
 
-						    		
-						    		</div>
-						    		
-						    		<h2 class="title"><?php the_title(); ?></h2>
-						    		
-					    		</div>
 
-				                <?php $video = get_post_meta($post->ID, 'fullby_video', true );
-					  
-								if($video != '') {?>
-					
-									 <img class="yt-featured" src="http://img.youtube.com/vi/<?php echo $video ?>/hqdefault.jpg" class="grid-cop"/>
-										
-								<?php 				                 
-				           
-				             	} else if ( has_post_thumbnail() ) { ?>
-									<?php the_post_thumbnail('quad', array('class' => 'quad')); ?>
-				                <?php } ?>
-						    	
-						    </a>
-						
-						</div>
-					
-					<?php endwhile;  else : ?>
 
-						<p>Sorry, no posts matched your criteria.</p>
+	    	 						</div>
 
-					<?php endif; ?>	
-				</div> <!-- end wrap -->
-			</div> <!-- end loading -->
-				
+	    	 						<h2 class="title">Bonoboville News </h2>
+
+	    	 					</div>
+
+
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 				</a>
+	    	 			</div>
+	    	 			
+	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
+	    	 				<a href="#">
+	    	 					<div class="caption">
+	    	 						<div class="cat"><span>hello</span></div>
+	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
+
+
+
+	    	 							<i class="fa fa-video-camera"></i> hello
+
+
+
+	    	 						</div>
+
+	    	 						<h2 class="title">Radio &<br> TV </h2>
+
+	    	 					</div>
+
+
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 				</a>
+	    	 			</div>
+	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
+	    	 				<a href="#">
+	    	 					<div class="caption">
+	    	 						<div class="cat"><span>hello</span></div>
+	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
+
+
+
+	    	 							<i class="fa fa-video-camera"></i> hello
+
+
+
+	    	 						</div>
+
+	    	 						<h2 class="title"> Clips </h2>
+
+	    	 					</div>
+
+
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 				</a>
+	    	 			</div>
+	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
+	    	 				<a href="#">
+	    	 					<div class="caption">
+	    	 						<div class="cat"><span>hello</span></div>
+	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
+
+
+
+	    	 							<i class="fa fa-video-camera"></i> hello
+
+
+
+	    	 						</div>
+
+	    	 						<h2 class="title"> Classifieds </h2>
+
+	    	 					</div>
+
+
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 				</a>
+	    	 			</div>
+	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
+	    	 				<a href="#">
+	    	 					<div class="caption">
+	    	 						<div class="cat"><span>hello</span></div>
+	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
+
+
+
+	    	 							<i class="fa fa-video-camera"></i> hello
+
+
+
+	    	 						</div>
+
+	    	 						<h2 class="title">Attend a<br> Show
+	    	 						</h2>
+
+	    	 					</div>
+
+
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 				</a>
+	    	 			</div>
+
+	    	 	</div> <!-- end slider -->
+			</div> <!-- end featured -->
+			<span class="btn sliderNav btn-primary prev" style="cursor: pointer;"> <i class="icon-forward3"></i></span>
+</div>
+
+
 	<?php }  ?>
 	
-	<!-- <div class="navbar navbar-inverse navbar-sub">
+	 <!-- <div class="navbar navbar-sub row">
      	<div class="row">
         <div class="navbar-header">
-        		<div id="mainmenu" class="collapse navbar-collapse col-md-3">
+        		<div id="mainmenu" class="collapse navbar-collapse col-md-12">
           <?php /* Primary navigation */
 			// wp_nav_menu( array(
 			  // 'theme_location' => 'third',
@@ -183,7 +241,7 @@
 			// );
 			?>
 				<div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
-					<?php display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
+					<?php // display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
 				</div>
 
         </div>

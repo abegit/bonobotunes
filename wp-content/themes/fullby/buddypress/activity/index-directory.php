@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<div class="wrap">
 <div class="wrap buddyb row" id="content">
 	<div class="col-md-9 single">
 		<div class="col-md-9 single-in">
@@ -13,11 +14,11 @@
 	                <p>Sorry, no posts matched your criteria.</p>
 	        <?php endif; ?> 
 		</div>	
-        <div class="col-md-3">
-            <div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
+        <div class="col-md-3 sidebar">
+            <div class="well"> <?php get_sidebar( 'primary' ); ?> </div>
          </div>
 	</div>			
-	<div class="col-md-3"> <div class="sidebar well"><?php get_sidebar( 'secondary' ); ?></div></div>
+	<div class="col-md-3 sidebar"> <div class="well sec-sidebar"><?php get_sidebar( 'secondary' ); ?></div></div>
 
 <script type="text/javascript">
 

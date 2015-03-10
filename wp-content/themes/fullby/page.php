@@ -1,4 +1,5 @@
 <?php get_header(); ?>			
+		<div class="wrap">
 		<div class="wrap buddyb">
 	<div class="col-md-9 single">
 	
@@ -40,13 +41,13 @@
 	        
 		</div>	
 		 
-		<div class="col-md-3">
-            <div class="sec-sidebar sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
+		<div class="col-md-3 sidebar">
+            <div class="sec-sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
          </div>
 
 	</div>			
 
-	<div class="col-md-3">
-		<div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
+	<div class="col-md-3 sidebar">
+		<div class="well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>

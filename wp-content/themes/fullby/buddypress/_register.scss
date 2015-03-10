@@ -18,9 +18,8 @@ body.registration {
     .wp-social-login-widget {display: block;width: 100%;}
     .wp-social-login-provider > img {display: none; }
     .wp-social-login-provider-list { display: table; padding: 10px 0; width: 100%;}
-    .wp-social-login-provider {@extend .btn;  float: left;
-        font-size:0.9em;
-        padding:6px 0;
+    .wp-social-login-provider {float: left;
+        font-size:0.9rem;
         font-weight: normal;
         margin: 0 1%;
         width: 31.333% !important;
@@ -28,15 +27,14 @@ body.registration {
             -moz-osx-font-smoothing: grayscale;  content: ""; font-family: icomoon; 
             @include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); top: -2px; vertical-align: middle; display: inline-block;}
         &:after {@include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); }
-        &:hover {opacity: 0.8; text-decoration: none;}
-        &.wp-social-login-provider-facebook:after {content: " Sign In"; display: inline-block; }
-        &.wp-social-login-provider-twitter:after {content: " Sign In"; display: inline-block; }
-        &.wp-social-login-provider-google:after {content: " Sign In"; display: inline-block; }
+        &.wp-social-login-provider-facebook:after {content: " Use Facebook"; display: inline-block; }
+        &.wp-social-login-provider-twitter:after {content: " Use Twitter"; display: inline-block; }
+        &.wp-social-login-provider-google:after {content: " Use Goggle+"; display: inline-block; }
         &.wp-social-login-provider-twitter:before {content: ""; }
-        &.wp-social-login-provider-google:before {-moz-osx-font-smoothing: initial; content: ""; font-size: 1.2em; line-height: 1em; }
-        &.wp-social-login-provider-twitter {background: #51b6f7; color: #ffffff;}
-        &.wp-social-login-provider-facebook {background: #5b71ad; color: #ffffff;}
-        &.wp-social-login-provider-google {background: #ce5232; color: #ffffff;}
+        &.wp-social-login-provider-google:before {-moz-osx-font-smoothing: initial; content: ""; font-size: 1.2rem; line-height: 1rem; }
+        &.wp-social-login-provider-twitter {@include btn(#51b6f7,$myrad, #fff);}
+        &.wp-social-login-provider-facebook {@include btn(#5b71ad,$myrad, #fff);}
+        &.wp-social-login-provider-google {@include btn(#ce5232,$myrad, #fff);}
     }
 
 
@@ -53,23 +51,9 @@ body.registration {
 
 
     #signup_form {background: transparent;
-        &> p:first-child {display: none; }
+        
     }
-    .wp-social-login-widget {
-        border-bottom: 3px dotted #c0c0c0;
-        border-color: #c0c0c0;
-        border-width: 3px;
-        margin-bottom: 10px;
-        padding-bottom: 20px;
-        position: relative; }
-    .wp-social-login-widget:after {
-        content: "or";
-        position: absolute;
-        bottom: -1.2em;
-        left: 43%;
-        padding: 0 6%;
-    }
-
+    form .wp-social-login-widget {display: none;}
 
     #buddypress .standard-form #basic-details-section, #buddypress .standard-form #blog-details-section, #buddypress .standard-form #profile-details-section {display: table-cell;padding:0 10px;float: none; vertical-align: top;}
     #pass-strength-result { margin: 0; overflow: hidden; padding: 0 !important; width: 100%;}

@@ -2,7 +2,7 @@
 
 <div id="redfix"></div>
 <canvas id="backdrop" width="100%" height="615" data-canvas style="width:100%; top:0; vertical-align:middle; position:fixed; height: 100vh !important;"></canvas>
-<div class="wrap buddyb row" id="content"><?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
+<div class="wrap"><div class="wrap buddyb row" id="content">
 	<div class="col-md-12 single" style="margin:0 auto;">
           <?php display_gsc_results(); ?>
 		<div class="col-md-12 single-in">
@@ -142,7 +142,7 @@
 
                 <?php do_action( 'bp_after_activity_entry_comments' ); ?>
             </div>
-
+        <div class="clear"></div>
                 </li>
 
                 <?php do_action( 'bp_after_activity_entry' ); ?>
@@ -159,12 +159,8 @@
 				</div>					 					
 			
 		</div>	
-        <div class="col-md-12"> <div class="sidebar well"></div></div>
+        <div class="col-md-12 sidebar"> <div class=""></div></div>
 	</div>			
-	<?php endwhile; ?>
-            <?php else : ?>
-                    <p>Sorry, no posts matched your criteria.</p>
-            <?php endif; ?> 
 
 <script>    
 

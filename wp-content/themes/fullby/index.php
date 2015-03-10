@@ -1,5 +1,5 @@
 <?php get_header(); ?>		
-<div class="wrap buddyb">
+<div class="wrap"><div class="wrap buddyb">
 		<div class="col-md-9 cont-grid">
 		
 		<?php // if is home and is not paged show featured post
@@ -119,6 +119,6 @@
 	</div>
 	
 	<div class="col-md-3 sidebar">
-		<div class="sidebar well"> <?php get_sidebar( 'primary' ); ?> </div>
+		<div class="well"> <?php get_sidebar( 'primary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>	

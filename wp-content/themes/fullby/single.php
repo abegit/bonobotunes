@@ -1,30 +1,11 @@
 <?php get_header(); ?>			
 		<div class="wrap">
+		<div class="wrap">
 	<div class="col-md-9 single">
-		<div class="col-md-9 single-in">
+		<div class="col-md-12 single-in">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
 			
-				<?php $video = get_post_meta($post->ID, 'fullby_video', true );
-				  
-				if($video != '') {?>
-	
-					<div class="videoWrapper">
-					
-					 	<div class='video-container'><iframe title='YouTube video player' width='400' height='275' src='http://www.youtube.com/embed/<?php echo $video; ?>' frameborder='0' allowfullscreen></iframe></div>
-					
-					</div>
-             	<?php } else if ( has_post_thumbnail() ) { ?>
-
-				                    <?php the_post_thumbnail('single', array('class' => 'sing-cop')); ?>
-
-                <?php } else { ?>
-                
-                	<div class="row spacer-sing"> </div>	
-                
-                <?php }  ?>
-				
-				
 				<div class="sing-tit-cont">
 					
 					<p class="cat"> <?php the_category(','); ?></p> 
@@ -57,6 +38,20 @@
 				<div class="sing-cont">
 					
 					<div class="sing-spacer">
+						<?php $video = get_post_meta($post->ID, 'fullby_video', true );
+				  
+				if($video != '') {?>
+	
+					<div class="videoWrapper">
+					 	<div class='video-container'><iframe title='YouTube video player' width='400' height='275' src='http://www.youtube.com/embed/<?php echo $video; ?>' frameborder='0' allowfullscreen></iframe></div>
+					</div>
+					<div class="clear" style="margin-bottom:20px;"></div>
+             	<?php } else if ( has_post_thumbnail() ) { ?>
+
+	                    <?php the_post_thumbnail('single', array('class' => 'sing-cop')); ?>
+						<div class="clear" style="margin-bottom:20px;"></div>
+                <?php } else { ?>
+                <?php }  ?>
 						
 						<?php the_content('Leggi...');?>
 						
@@ -104,21 +99,9 @@
 	         
 	        <?php endif; ?> 
 		</div>	
-		 
-		<div class="col-md-3">
-		
-			<div class="sec-sidebar sidebar well">
-
-				<?php get_sidebar( 'primary' ); ?>	
-			    
-										
-		    </div>
-		   
-		 </div>
-
 	</div>			
 
-	<div class="col-md-3">
-		<div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
+	<div class="col-md-3 sidebar">
+		<div class="well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>

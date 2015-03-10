@@ -112,13 +112,3 @@
 <?php endif; ?>
 
 <?php do_action( 'bp_after_members_loop' ); ?>
-
-<script>
-	var $membrLst = jQuery.noConflict();
-	$membrLst(window).load(function() {
-			$membrLst("#members-list").addClass('init');
-	});
-</script>
-
-
-

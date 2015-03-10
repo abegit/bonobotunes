@@ -1,4 +1,6 @@
 <div class="clear"></div>
+</div> <!-- end buddyb wrap -->
+<?php global $bp; ?>
 <div class="col-md-12 footer">
 	<!--
 <?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
@@ -51,7 +53,7 @@
 <?php if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
 <?php if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
 -->
-	<div cass="alignright"><a href="/"> <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a></div>
+	<div class="alignright"><div class="navbar-brand title logo"></div></div>
 	<?php /* Primary navigation */
 			wp_nav_menu( array(
 			  'theme_location' => 'footer',
@@ -61,6 +63,7 @@
 			  'walker' => new wp_bootstrap_navwalker())
 			);
 			?>
+			<div class="clear"></div>
 </div>
 </div> <!-- end wrap -->
 <!-- <div class="friends"><div class="row">
@@ -110,7 +113,7 @@
 
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/bootstrap.min.js"></script>
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/isotope.js"></script>
-
+	<?php $afil = $_GET["friend"]; ?>
 <script>
 function setCookie(c_name,value,expiredays){
 	var exdate=new Date();
@@ -132,67 +135,105 @@ function getCookie(c_name){
 	return "";
 }
 
+// start plugin
+var jQone = jQuery.noConflict();
+jQone(document).ready(function() {
+
+	/** Splash page stuff **/
+	jQone(window).load(function() {
+		
+		var helpa=getCookie("helper");
+
+
+		<?php global $bp; ?>
+		<?php if (isset($afil)) { ?>
+
+ 				if (helpa!=null && helpa!="") {
+					return false;
+				}		
+				if (helpa=="") {
+					var php_code = "<?php echo $afil; ?>";
+					setCookie("helper",php_code,30);
+				}
+				if (helpa=="0") {
+					var php_code = "<?php echo $afil; ?>";
+					setCookie("helper",php_code,30);
+				}
+
+		<?php } else { ?>
+
+ 				if (helpa!=null && helpa!="") {
+					return false;
+				}		
+				if (helpa=="") {
+					var php_code = "<?php echo bp_displayed_user_id(); ?>";
+					setCookie("helper",php_code,30);
+				}
+				if (helpa=="0") {
+					var php_code = "<?php echo bp_displayed_user_id(); ?>";
+					setCookie("helper",php_code,30);
+				}
+
+		<?php }; ?>
+
+
+
+	});		
+
+});
+</script>
+
+
+<script>
+
 var $mmbrCookie  = jQuery.noConflict();
 $mmbrCookie (document).ready(function() {
 	$mmbrCookie (window).load(function() {
 		
 		// If there's a warning cookie in place, fade out the mask.
-		var warn=getCookie("warn");
-		var warn2=getCookie("warn2");
-		var warn3=getCookie("warn3");
-		var warn4=getCookie("warn4");
+		
 		var hoverContain=$mmbrCookie ('.row.featured');
 		var vizibleInit=hoverContain.attr('visible', 1).removeClass('loading').addClass('animated');
 		
 			vizibleInit;
 
-		if (warn=null){
-			setCookie("warn",1,30);
-		}	
-		if (warn!=null && warn!=""){
-			setCookie("warn2",1,30);
-		}	
-		if (warn2!=null && warn2!=""){
-			setCookie("warn3",1,30);
-		}	
-		if (warn3!=null && warn3!=""){
-			setCookie("warn4",1,30);
-		}	
-		if (warn4!=null && warn4!=""){
-			setCookie("warn5",1,30);
+	
 			//Fade in the Popup
-			  $mmbrCookie ('.navbar-brand, .featured.row').hover(function(e){
-	    	 	 hoverContain.attr('visible', 1).addClass('animated').removeClass('ready');
-			  },
-			  function(e){
-			      hoverContain.addClass('ready');
-			  });
-		}		
+			  // $mmbrCookie ('.navbar-brand, .featured.row').hover(function(e){
+		   //  	 	 hoverContain.attr('visible', 1).addClass('animated').removeClass('ready');
+				 //  },
+				 //  function(e){
+				 //      hoverContain.addClass('ready');
+				 //  });	
 	});		
 });
 </script>
 
+ <?php wp_footer();?>
+
+
+
 <script>
 (function ($) {
-	var $container = $('.activity-lisdt'),
+	var $container = $('.grid'),
 	colWidth = function () {
 		var w = $container.width(), 
 		columnNum = 1,
 		columnWidth = 0;
 		if (w > 1200) {
-			columnNum  = 4;
+			columnNum  = 2;
 		}
 			  else if (w > 900) {
-					columnNum  = 4;
+					columnNum  = 2;
 		}
 			  else if (w > 600) {
-					columnNum  = 3;
+					columnNum  = 2;
 		}
 			  else if (w > 300) {
 					columnNum  = 2;
 		}
 		columnWidth = Math.floor(w/columnNum);
-		$container.find('.activity-itdem').each(function() {
+		$container.find('.item').each(function() {
 			var $item = $(this),
 			multiplier_w = $item.attr('class').match(/item-w(\d)/),
 			multiplier_h = $item.attr('class').match(/item-h(\d)/),
@@ -209,7 +250,7 @@ $mmbrCookie (document).ready(function() {
 		$container.imagesLoaded( function(){
 			$container.isotope({
 				resizable: false,
-				itemSelector: '.activity-item',
+				itemSelector: '.item',
 				masonry: {
 					columnWidth: colWidth(),
 					gutterWidth: 20
@@ -306,8 +347,93 @@ $navSidebarz(document).ready(function(){
 
 
 
+
+
+
+<!-- <script src="http://www.google.com/jsapi"></script>
+<script src="./wp-content/plugins/google-custom-search/js/gsc.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script> -->
+
+
+	<script>
+    var $finalInit = jQuery.noConflict();
+    var hght = $finalInit(".row.featured").height();
+    // $finalInit(".row.featured").hide();
+        $finalInit(window).load(function() {
+            $finalInit(".row.featured").delay(400).addClass('animate');
+            $finalInit("body").addClass('init');
+        });
+    </script>
+
+   
+
+
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jq-1.4.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 
+<?php if (bp_is_activity_directory()) { ?>
+<script>
+var $sliderInit = jQuery.noConflict();
+
+$sliderInit(window).load(function() {
+        	var arrayOfImages = new Array();
+				var bufferDistance = 0;
+				
+				$sliderInit('.row.featured').iosSlider({
+					desktopClickDrag: true,
+                    snapToChildren: true,
+                    keyboardControls: true,                
+                    onSlideComplete: slideComplete,
+                    onSliderLoaded: showMySlider,
+
+					autoSlide: false,
+					autoSlideTimer: 4000,
+					autoSlideTransTimer: 2000,
+					autoSlideHoverPause: true,
+					infiniteSlider: true,
+
+					navNextSelector: "span.prev",
+					navPrevSelector: "span.next",
+					onSlideChange: getSliderNumba
+				});
+			});
+
+
+	            function getSliderNumba() {
+	                $sliderInit('.item').addClass('ready');
+	            }
+
+	            function showMySlider() {
+	                $sliderInit('.item').addClass('ready');
+	            }
+
+	            function slideComplete(args) {
+	                	$sliderInit('span.next, span.prev').removeClass('unselectable');
+	                if(args.currentSlideNumber == 1) {
+	                    $sliderInit('span.prev').addClass('unselectable');
+	                } else if(args.currentSliderOffset == args.data.sliderMax) {
+	                    $sliderInit('span.next').addClass('unselectable');
+             	   }
+            	}
+</script>
+<?php }; ?>
+
+<?php if (is_page_template('page-boiler.php')) { ?>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/parallax.js"></script>
+
+<script>
+jQuery(document).ready(function()
+{
+    jQuery('.layer').parallax({
+		mouseport: jQuery(".row.featured")
+	});
+});
+</script>
+
+<?php } ?>
 
 <?php if (is_page('6')) { ?>
 	<script>    
@@ -337,8 +463,6 @@ mmberPostBlur(function() {
 
 </script>
 <?php }; ?>
-
-
 
 
 
@@ -374,24 +498,6 @@ mmberPostBlur(function() {
 <?php }; ?>
 
 
-
-
-<!-- <script src="http://www.google.com/jsapi"></script>
-<script src="./wp-content/plugins/google-custom-search/js/gsc.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script> -->
-
-
-	<script>
-    var $finalInit = jQuery.noConflict();
-    var hght = $finalInit(".row.featured").height();
-    // $finalInit(".row.featured").hide();
-        $finalInit(window).load(function() {
-            $finalInit(".row.featured").delay(400).addClass('animate');
-            $finalInit("body").addClass('init');
-        });
-    </script>
-
-    <?php wp_footer();?>
 </body>
 </html>
 

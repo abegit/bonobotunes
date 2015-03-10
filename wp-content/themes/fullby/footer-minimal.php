@@ -19,10 +19,20 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $url = strtok($actual_link, '?');
 
-<span id="insertHere"></span>
+    // The value of the variable name is found    ?>
 
+	
+	<!-- feature -->
 
+<script>
+var stateObj = { foo: "bar" };
+window.history.pushState(stateObj, "Register", "<?php echo $url; ?>");
+</script>
+
+<?php $afil = $_GET["friend"]; ?>
 <script>
 function setCookie(c_name,value,expiredays){
 	var exdate=new Date();
@@ -45,33 +55,49 @@ function getCookie(c_name){
 }
 
 
-var jqAfill = jQuery.noConflict();
-jqAfill(document).ready(function() {
+// start plugin
+var jQone = jQuery.noConflict();
+jQone(document).ready(function() {
 
 	/** Splash page stuff **/
-	jqAfill(window).load(function() {
-
+	jQone(window).load(function() {
+		
 		// If there's a warning cookie in place, fade out the mask.
-		// var warn=getCookie("warn");
-		// if (warn!=null && warn!="") {
-			// document.getElementById('insertHere').innerHTML = "old " + warn;
-		// } else {			
-			// <?php if (isset($afil)) { ?>
-				// var php_code = "<?php echo $afil; ?>"
-					// setCookie("warn",php_code,30);
-					// document.getElementById('insertHere').innerHTML = warn;
-			// <?php } else { ?>
-					// document.getElementById('insertHere').innerHTML = "not set";
-			// <?php } ?>
-		// }
-		// 
-		// //Fade in the Popup
-		// if (jqAfill('body').attr('closed') != "1")
-		// {
-		// 	// jqAfill('body').fadeIn(300);
+		var helpa=getCookie("helper");
 
-		// }
-		// return false;
+
+		
+
+		<?php if (isset($afil)) { ?>
+
+ 				if (helpa!=null && helpa!="") {
+				  	jQone(".field_1 input[type=text]").val(helpa);
+				}		
+				if (helpa=="") {
+					var php_code = "<?php echo $afil; ?>";
+					setCookie("helper",php_code,30);
+				}
+				if (helpa=="0") {
+					var php_code = "<?php echo $afil; ?>";
+					setCookie("helper",php_code,30);
+				}
+
+		<?php } else { ?>
+
+ 				if (helpa!=null && helpa!="") {
+					jQone(".field_1 input[type=text]").val(helpa);
+				}		
+				if (helpa=="") {
+					var php_code = "<?php echo bp_displayed_user_id(); ?>";
+					setCookie("helper",php_code,30);
+				}
+				if (helpa=="0") {
+					var php_code = "<?php echo bp_displayed_user_id(); ?>";
+					setCookie("helper",php_code,30);
+				}
+
+		<?php }; ?>
+
 	});		
 
 });

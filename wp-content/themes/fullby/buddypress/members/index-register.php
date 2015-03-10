@@ -1,25 +1,36 @@
 <?php get_header('register'); ?>			
-<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $url = strtok($actual_link, '?');
-
-    // The value of the variable name is found
-    $afil = $_GET["friend"];
-    ?>
 
 
 	<div class="col-md-12 single">
 		<div class="col-md-6 single-in">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
-
+	
 				
 				<div class="sing-tit-cont">
 					
-					<h3 class="sing-tit"><?php the_title(); ?></h3>
-				
+					<h3 class="sing-tit">SIgn In:</h3>
+
+				<?php echo do_shortcode('[wordpress_social_login]'); ?>
+				<form name="login-form" id="login-form" class="login-form" action=" <?php echo site_url( 'wp-login.php' ) ?>" method="post">
+                       <div class="input-group">
+                           <span class="input-group-addon"> <i class="icon-user"> </i> </span>
+                           <input type="text" class="form-control" name="log" id="user_login" value="" placeholder=" <?php _e( 'Username', 'firmasite' ) ?>" />
+                       </div>
+                       <div class="input-group">
+                           <span class="input-group-addon"> <i class="icon-lock"> </i> </span>
+                           <input type="password" class="form-control" name="pwd" id="user_pass" value="" placeholder=" <?php _e( 'Password', 'firmasite' ) ?>" />
+                       </div>
+
+                       <input class="btn btn-primary pull-left" type="submit" name="wp-submit" id="wp-submit" value=" <?php _e( 'Log In', 'firmasite' ) ?>"/>
+                        <a href="<?php echo site_url( 'my-account/lost-password' ) ?>">Forgot Password?</a>
+                       <input type="hidden" name="redirect_to" value="<?php echo $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?>" />
+                       <input type="hidden" name="testcookie" value="1" />  </form>
 				</div>
-				
-				<div class="sing-cont">
+				<div class="sing-tit-cont">
+					<h3 class="sing-tit">or Sign Up!</h3>
+				</div>
+				<div>
 					
 					<div class="sing-spacer">
 						
@@ -35,7 +46,6 @@
 	                <p>Sorry, no posts matched your criteria.</p>
 	         
 	        <?php endif; ?> 
-	        
 		</div>	
 	</div>			
 
@@ -53,16 +63,6 @@
   transition: 1s opacity;">
 <source src="<?php bloginfo('stylesheet_directory'); ?>/img/20121117_patreus_vicky_vixen.webm" type="video/webm">
 </video> -->
-<script>
-var stateObj = { foo: "bar" };
-window.history.pushState(stateObj, "Register", "<?php echo $url; ?>");
-</script>
 
-<script>
-var abeRegister = jQuery.noConflict(); 
-	abeRegister(function () {
-  abeRegister(".field_1 input[type=text]").val("<?php echo $afil; ?>");
-});
-</script>
 
 <?php get_footer('minimal'); ?>

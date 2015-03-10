@@ -103,9 +103,6 @@
 <script>
 	var $groupLst = jQuery.noConflict();
 	$groupLst(window).load(function() {
-			$groupLst("#groups-list").addClass('init');
-
-
         var w = $groupLst(window).width();
         if(w>400) {
         	// parralax for profile fields

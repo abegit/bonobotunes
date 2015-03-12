@@ -64,7 +64,24 @@ function myFunction() {
 </div>
 </div>
     <?php } ?>
+<?php if (is_user_logged_in()) {
+  $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id());
+if ( $notifications ) {
+        $counter = 0;
+        for ( $not3 = 0, $count = count( $notifications ); $not3  < $count; ++$not3 ) {
+          $alt = ( 0 == $counter % 2 ) ? ' class="alt"' : ''; ?>
 
+          <li <?php echo $alt ?>> <?php echo $notifications[$not3] ?> </li>
+
+          <?php $counter++;
+        } 
+        echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="icon-ellipsis"></i></a></li>';
+      } else { ?>
+
+      <li> <a href=" <?php echo bp_loggedin_user_domain() ?>notifications"> <?php _e( 'No new notifications.', 'buddypress' ); ?> </a> </li>
+
+    <?php }
+  } ?>
     <?php if (!bp_is_user_activity()) { ?>
 <div class="widget widget-tabs">
 

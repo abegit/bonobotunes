@@ -37,16 +37,14 @@
 
 	<?php while ( bp_members() ) : bp_the_member(); ?>
 
-		<li onClick="location.href='<?php bp_member_permalink(); ?>'" style="cursor:pointer;">
+		<li>
 			<div class="item-avatar">
-				<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(array(
-						'type'    => 'full',
-				)); ?></a>
+				<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(); ?></a>
 			</div>
 
 			<div class="item">
 				<div class="item-title">
-					<?php bp_member_name(); ?>
+					<a href="<?php bp_member_permalink(); ?>"><?php bp_member_name(); ?></a>
 
 					<?php if ( bp_get_member_latest_update() ) : ?>
 
@@ -78,7 +76,6 @@
 			</div>
 
 			<div class="clear"></div>
-			
 		</li>
 
 	<?php endwhile; ?>

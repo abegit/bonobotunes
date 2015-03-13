@@ -22,9 +22,8 @@
 		<?php while ( bp_members() ) : bp_the_member(); ?>
 
 			<li id="friendship-<?php bp_friend_friendship_id(); ?>">
-				<a href="<?php bp_member_link(); ?>">
 				<div class="item-avatar">
-					<?php bp_member_avatar(); ?>
+					<a href="<?php bp_member_link(); ?>"><?php bp_member_avatar(); ?></a>
 				</div>
 
 				<div class="item">
@@ -40,7 +39,6 @@
 
 					<?php do_action( 'bp_friend_requests_item_action' ); ?>
 				</div>
-				</a>
 			</li>
 
 		<?php endwhile; ?>

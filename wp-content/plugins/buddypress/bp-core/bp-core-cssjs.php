@@ -7,7 +7,7 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Register scripts commonly used by BuddyPress.
@@ -125,7 +125,7 @@ function bp_core_add_cropper_inline_js() {
 		$crop_right = $image[0];
 
 	// Less than 2x full-width: cropper defaults to full-width
-	} else if ( $image[0] < ( $full_width * 2 ) ) {
+	} elseif ( $image[0] < ( $full_width * 2 ) ) {
 		$padding_w  = round( ( $image[0] - $full_width ) / 2 );
 		$crop_left  = $padding_w;
 		$crop_right = $image[0] - $padding_w;
@@ -142,7 +142,7 @@ function bp_core_add_cropper_inline_js() {
 		$crop_bottom = $image[1];
 
 	// Less than double full-height: cropper defaults to full-height
-	} else if ( $image[1] < ( $full_height * 2 ) ) {
+	} elseif ( $image[1] < ( $full_height * 2 ) ) {
 		$padding_h   = round( ( $image[1] - $full_height ) / 2 );
 		$crop_top    = $padding_h;
 		$crop_bottom = $image[1] - $padding_h;
@@ -156,9 +156,8 @@ function bp_core_add_cropper_inline_js() {
 	?>
 
 	<script type="text/javascript">
-	var abeFex = jQuery.noConflict();
-		abeFex(window).load( function(){
-			abeFex('#avatar-to-crop').Jcrop({
+		jQuery(window).load( function(){
+			jQuery('#avatar-to-crop').Jcrop({
 				onChange: showPreview,
 				onSelect: updateCoords,
 				aspectRatio: <?php echo (int) $aspect_ratio; ?>,
@@ -168,10 +167,10 @@ function bp_core_add_cropper_inline_js() {
 		});
 
 		function updateCoords(c) {
-			abeFex('#x').val(c.x);
-			abeFex('#y').val(c.y);
-			abeFex('#w').val(c.w);
-			abeFex('#h').val(c.h);
+			jQuery('#x').val(c.x);
+			jQuery('#y').val(c.y);
+			jQuery('#w').val(c.w);
+			jQuery('#h').val(c.h);
 		}
 
 		function showPreview(coords) {
@@ -181,7 +180,7 @@ function bp_core_add_cropper_inline_js() {
 				var rx = fw / coords.w;
 				var ry = fh / coords.h;
 
-				abeFex( '#avatar-crop-preview' ).css({
+				jQuery( '#avatar-crop-preview' ).css({
 					width: Math.round(rx * <?php echo (int) $image[0]; ?>) + 'px',
 					height: Math.round(ry * <?php echo (int) $image[1]; ?>) + 'px',
 					marginLeft: '-' + Math.round(rx * coords.x) + 'px',

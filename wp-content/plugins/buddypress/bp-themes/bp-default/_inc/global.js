@@ -46,12 +46,17 @@ jq(document).ready( function() {
 
 	/* Textarea focus */
 	jq('#whats-new').focus( function(){
-		jq(this).closest("#whats-new-form").addClass('show-me');
+		jq("#whats-new-options").animate({
+			height:'40px'
+		});
+		jq("form#whats-new-form textarea").animate({
+			height:'50px'
+		});
 		jq("#aw-whats-new-submit").prop("disabled", false);
 
 		var $whats_new_form = jq("form#whats-new-form");
 		if ( $whats_new_form.hasClass("submitted") ) {
-			$whats_new_form.removeClass("submitted");	
+			$whats_new_form.removeClass("submitted");
 		}
 	});
 
@@ -59,8 +64,13 @@ jq(document).ready( function() {
 	jq('#whats-new').blur( function(){
 		if (!this.value.match(/\S+/)) {
 			this.value = "";
+			jq("#whats-new-options").animate({
+				height:'40px'
+			});
+			jq("form#whats-new-form textarea").animate({
+				height:'20px'
+			});
 			jq("#aw-whats-new-submit").prop("disabled", true);
-			// jq(this).closest("#whats-new-form").removeClass('show-me');
 		}
 	});
 
@@ -319,7 +329,7 @@ jq(document).ready( function() {
 			var oldest_page = ( jq.cookie('bp-activity-oldestpage') * 1 ) + 1;
 
 			var just_posted = [];
-			
+
 			jq('.activity-list li.just-posted').each( function(){
 				just_posted.push( jq(this).attr('id').replace( 'activity-','' ) );
 			});
@@ -411,11 +421,11 @@ jq(document).ready( function() {
 			if ( form.parent().hasClass( 'activity-comments' ) )
 				form.addClass('root');
 
-			form.slideDown( 400 );
+			form.slideDown( 200 );
 			jq.scrollTo( form, 500, {
-				offset:  -150,
+				offset:-100,
 				easing:'swing'
-				} );
+			} );
 			jq('#ac-form-' + ids[2] + ' textarea').focus();
 
 			return false;
@@ -544,7 +554,7 @@ jq(document).ready( function() {
 					var count_span = jq('li#' + comment_li.parents('ul#activity-stream > li').attr('id') + ' a.acomment-reply span');
 					var new_count = count_span.html() - ( 1 + child_count );
 					count_span.html(new_count);
-	
+
 					// Change the 'Show all x comments' text
 					var show_all_a = comment_li.siblings('.show-all').find('a');
 					if ( show_all_a ) {
@@ -743,7 +753,7 @@ jq(document).ready( function() {
 				var page_number = Number( jq('.pagination span.current').html() ) - 1;
 			else
 				var page_number = Number( jq(target).html() );
-			
+
 			if ( pagination_id.indexOf( 'pag-bottom' ) !== -1 ) {
 				var caller = 'pag-bottom';
 			} else {
@@ -857,24 +867,23 @@ jq(document).ready( function() {
 
 	/** Profile Visibility Settings *********************************/
 	jq('.field-visibility-settings').hide();
-	jq('.visibility-toggle-link').on( 'click', function() {
-		var toggle_div = jq(this).parent();
+	jq( '.visibility-toggle-link' ).on( 'click', function( event ) {
+		event.preventDefault();
 
-		jq(toggle_div).fadeOut( 600, function(){
-			jq(toggle_div).siblings('.field-visibility-settings').slideDown(400);
-		});
-
-		return false;
+		jq( this ).parent().hide().addClass( 'field-visibility-settings-hide' )
+			.siblings( '.field-visibility-settings' ).show().addClass( 'field-visibility-settings-open' );
 	} );
 
-	jq('.field-visibility-settings-close').on( 'click', function() {
-		var settings_div = jq(this).parent();
+	jq( '.field-visibility-settings-close' ).on( 'click', function( event ) {
+		event.preventDefault();
 
-		jq(settings_div).slideUp( 400, function(){
-			jq(settings_div).siblings('.field-visibility-settings-toggle').fadeIn(800);
-		});
+		var settings_div = jq( this ).parent(),
+			vis_setting_text = settings_div.find( 'input:checked' ).parent().text();
 
-		return false;
+		settings_div.hide().removeClass( 'field-visibility-settings-open' )
+			.siblings( '.field-visibility-settings-toggle' )
+				.children( '.current-visibility-level' ).text( vis_setting_text ).end()
+			.show().removeClass( 'field-visibility-settings-hide' );
 	} );
 
 	jq("#profile-edit-form input:not(:submit), #profile-edit-form textarea, #profile-edit-form select, #signup_form input:not(:submit), #signup_form textarea, #signup_form select").change( function() {
@@ -883,7 +892,7 @@ jq(document).ready( function() {
 		jq('#profile-edit-form input:submit, #signup_form input:submit').on( 'click', function() {
 			shouldconfirm = false;
 		});
-		
+
 		window.onbeforeunload = function(e) {
 			if ( shouldconfirm ) {
 				return BP_DTheme.unsaved_changes;
@@ -1204,13 +1213,13 @@ jq(document).ready( function() {
 			checkboxes[i].checked = checked_value;
 		});
 	});
-	
+
 	/* Bulk delete messages */
 	jq( 'body.messages #item-body div.messages' ).on( 'click', '.messages-options-nav a', function() {
 		if ( -1 == jq.inArray( this.id ), Array( 'delete_sentbox_messages', 'delete_inbox_messages' ) ) {
 			return;
 		}
-		
+
 		checkboxes_tosend = '';
 		checkboxes = jq("#message-threads tr td input[type='checkbox']");
 
@@ -1226,7 +1235,7 @@ jq(document).ready( function() {
 			jq(this).removeClass('loading');
 			return false;
 		}
-		
+
 		jq.post( ajaxurl, {
 			action: 'messages_delete',
 			'thread_ids': checkboxes_tosend
@@ -1239,7 +1248,7 @@ jq(document).ready( function() {
 				jq(checkboxes).each( function(i) {
 					if( jq(this).is(':checked') ) {
 						// We need to uncheck because message is only hidden
-						// Otherwise, AJAX will be fired again with same data 
+						// Otherwise, AJAX will be fired again with same data
 						jq(this).attr( 'checked', false );
 						jq(this).parent().parent().fadeOut(150);
 					}
@@ -1401,7 +1410,7 @@ function bp_filter_request( object, filter, scope, target, search_terms, page, e
 					jq(this).html(response);
 					jq(this).fadeIn(100);
 			 	});
-			});	
+			});
 
 		} else {
 			jq(target).fadeOut( 100, function() {

@@ -9,7 +9,9 @@
 	<?php endif; ?>
 
 	<?php while ( bp_activities() ) : bp_the_activity(); ?>
-	<?php bp_get_template_part( 'activity/entry' ); ?>
+
+		<?php bp_get_template_part( 'activity/entry' ); ?>
+
 	<?php endwhile; ?>
 
 	<?php if ( bp_activity_has_more_items() ) : ?>

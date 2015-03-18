@@ -15,7 +15,7 @@
             border: 1px solid $blue; 
             @include border-radius($myrad); 
         .activity-greeting, #whats-new-avatar {display: none;}
-        textarea {width: 100% !important; line-height: 32px; float: none; 
+         #whats-new-content textarea {width: 100% !important; line-height: 32px; float: none; 
             @include border-radius($myrad);
             border-bottom: 1px solid #d0d0d0;
             padding: 8px !important; resize:none;
@@ -75,7 +75,7 @@
 
 
         &.show-me {border-color:$green; background-color:#f7f7f7;
-            #whats-new-options { pointer-events:auto;}
+            #whats-new-options {pointer-events:auto;}
             #whats-new-submit {
                 input {color:#fff; background: $blue; @include box-shadow(0 -1px 0 rgba(255,255,255,.2));border-color:darken($blue,20%);}
             }

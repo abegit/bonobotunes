@@ -46,8 +46,41 @@ body.single-product {
 .bps_header {display: none;}
 
 
-
-
+#blogroll {
+		background: none repeat scroll 0 0 #efefef;
+	    overflow: hidden;
+	    padding: 17px;
+	.item {
+	    display: block;
+	    float: left;
+	    font-size: 0.8rem;
+	    height: 35px;
+	    margin-bottom: 10px;
+	    overflow: hidden;
+	    vertical-align: top;
+	    width: 20%;
+	}
+	img {
+	    float: left !important;
+	    margin: 0 10px 0 0;
+	    max-width: 35px;
+	}
+	p {
+	    color: rgba(0, 0, 0, 0) !important;
+	    font-size: 0;
+	    margin: 0;
+	}
+	.item.ready:nth-child(5n+1) {
+	    clear: left !important;
+	}
+	#ex > a {
+	    display: none;
+	}
+}
+.btn-drop {position: absolute;right: 0; top: 0; width: 3%; text-align: center;}
+.accordian {@include trans (1s);}
+.accordian.closed {max-height: 100px;}
+.accordian.opend {max-height: 1000px;}
 
 /*
 #buddypress .comment-reply-link, 

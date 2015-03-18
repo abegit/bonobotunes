@@ -36,6 +36,7 @@
 	<?php wp_head(); ?> 
 
   <script src="http://www.google.com/jsapi"></script>
+  <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/gfeedfetcher.js"></script>
 
 </head>
 <body <?php body_class(); ?>>
@@ -103,11 +104,11 @@
     <?php if (bp_is_activity_directory()) { ?>
     
     		
-	    	 <div id="featMenu"><span class="btn sliderNav btn-primary next" style="cursor: pointer;"><i class="icon-backward2"></i></span><div class="row featured loading menu">
+	    	 <div id="featMenu" class="row"><span class="btn sliderNav btn-primary next" style="cursor: pointer;"><i class="icon-backward2"></i></span><div class="row featured loading menu">
 	    	 	<div class="slider">
 
 	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
-	    	 				<a href="#">
+	    	 				<a href="/bla-bla/">
 	    	 					<div class="caption">
 	    	 						<div class="cat"><span>hello</span></div>
 	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
@@ -120,7 +121,7 @@
 
 	    	 						</div>
 
-	    	 						<h2 class="title">Bonoboville News </h2>
+	    	 						<h2 class="title">Bonoboville <br> Bla Bla</h2>
 
 	    	 					</div>
 
@@ -143,16 +144,16 @@
 
 	    	 						</div>
 
-	    	 						<h2 class="title">Radio &<br> TV </h2>
+	    	 						<h2 class="title">The <br> Institute </h2>
 
 	    	 					</div>
 
 
-	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-institute.jpg" alt="Dr. Susan Block's Institute">
 	    	 				</a>
 	    	 			</div>
 	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
-	    	 				<a href="#">
+	    	 				<a href="/">
 	    	 					<div class="caption">
 	    	 						<div class="cat"><span>hello</span></div>
 	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
@@ -165,16 +166,16 @@
 
 	    	 						</div>
 
-	    	 						<h2 class="title"> Clips </h2>
+	    	 						<h2 class="title"> Bonoboville Theatre </h2>
 
 	    	 					</div>
 
 
-	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-theatre.jpg" alt="Bonoboville Theatre">
 	    	 				</a>
 	    	 			</div>
 	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
-	    	 				<a href="#">
+	    	 				<a href="/">
 	    	 					<div class="caption">
 	    	 						<div class="cat"><span>hello</span></div>
 	    	 						<div class="date"><i class="fa fa-clock-o"></i> hello &nbsp;
@@ -187,12 +188,12 @@
 
 	    	 						</div>
 
-	    	 						<h2 class="title"> Classifieds </h2>
+	    	 						<h2 class="title"> Agwa Liquour </h2>
 
 	    	 					</div>
 
 
-	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-StageW.jpg" alt="">
+	    	 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/nav-agwa-liquor-ad.jpg" alt="Agwa Liquor Ad">
 	    	 				</a>
 	    	 			</div>
 	    	 			<div class="col-sm-4 col-xs-6 col-md-3 item-featured item">
@@ -225,6 +226,23 @@
 </div>
 
 
+
+<div class="accordian wrap closed"><span class="btn-drop"><i class="icon-plus2"></i> <span class="text-hide">Read More</span></span>
+<script type="text/javascript">
+            var newcss=new gfeedfetcher("blogroll", "", "");
+            newcss.addFeed("Bloggamy", "http://bloggamy.com/category/shows/feed") //Specify "label" plus URL to RSS feed
+            newcss.displayoptions("description") //show the specified additional fields
+            newcss.addregexp(/(\[CDATA\[)|(\]\])/g, '', 'descriptionfield')
+            newcss.definetemplate("<span id='hd'>{description}</span><span id='dc'><div class='artistTXT' url='{url}'>{title}</div></span><span id='dcc' style='display:none;'>{datetime}</span><span id='ex'><a href='http://bloggamy.com' target='_new'>DSB Radio</a></span>")
+            newcss.setentrycontainer("div", "item") //Display each entry as a DIV (div element)
+            newcss.filterfeed(100, "date") //Show 5 entries, sort by date
+            // newcss.onfeedload=function(){
+            //     alert("RSS Displayer has loaded!")
+            // }
+            newcss.init() //Always call this last 
+</script>
+
+</div>
 	<?php }  ?>
 	
 	 <!-- <div class="navbar navbar-sub row">

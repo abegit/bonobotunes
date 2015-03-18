@@ -174,7 +174,7 @@ body {background-image: url("img/congruent_outline.png");
 
 /*forum create*/
 #bbpress-forums a.bbp-topic-permalink {
-    color: $blue;
+    color: $yale;
     font-size: 1.1rem;
 }
 #new-post input[type="text"], #new-post textarea {
@@ -182,9 +182,9 @@ body {background-image: url("img/congruent_outline.png");
     border-radius: 5px;
     @include box-shadow(0 2px 4px 2px #d0d0d0 inset);
 }
-#bbp_topic_submit, #bbp_reply_submit {@include btn($blue, $myrad, #fff);}
+#bbp_topic_submit, #bbp_reply_submit {@include btn($yale, $myrad, #fff);}
 .subscription-toggle {float:right; @include btn($yellow, $myrad, darken($yellow, 20%)); font-size: .7rem; font-weight: bold;}
-.is-subscribed .subscription-toggle {@include btn($blue, $myrad, #fff); font-size: .7rem; }
+.is-subscribed .subscription-toggle {@include btn($yale, $myrad, #fff); font-size: .7rem; }
 
 
 

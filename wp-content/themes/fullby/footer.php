@@ -288,22 +288,22 @@ $mmbrCookie (document).ready(function() {
 
 </script>
 <script>
-// var $navDropz = jQuery.noConflict();
-// $navDropz(document).ready(function(){
-	// var $butan =  $navDropz('.netmenu');
-	// $butan.attr('href','#');
-	// $butan.click(function(){
-	// 	var X=$navDropz(this).attr('data-uri');
-	// 	if(X==1){
-	// 		$navDropz(this).removeClass('open');
-	// 		$navDropz('#details').removeClass('zoomIn animated').addClass('hidden');
-	// 		$navDropz(this).attr('data-uri', '0');
-	// 	} else{
-	// 		$navDropz(this).addClass('open');
-	// 		$navDropz('#details').removeClass('hidden').addClass('zoomIn animated');
-	// 		$navDropz(this).attr('data-uri', '1');
-	// 	}
-	// });
+var $navDropz = jQuery.noConflict();
+$navDropz(document).ready(function(){
+	var $butan =  $navDropz('.btn-drop');
+	$butan.attr('href','#');
+	$butan.click(function(){
+		var X=$navDropz(this).attr('data-uri');
+		if(X==1){
+			$navDropz(this).removeClass('open');
+			$navDropz(this).parent('.accordian').removeClass('opend').addClass('closed');
+			$navDropz(this).attr('data-uri', '0');
+		} else{
+			$navDropz(this).addClass('open');
+			$navDropz(this).parent('.accordian').addClass('opend').removeClass('closed');
+			$navDropz(this).attr('data-uri', '1');
+		}
+	});
 
 	// var $butan =  $navDropz('.navbar-brand');
 	// $butan.click(function(){
@@ -318,7 +318,7 @@ $mmbrCookie (document).ready(function() {
 	// 		$navDropz(this).attr('data-uri', '1');
 	// 	}
 	// });
-// });
+});
 </script>
 
 <?php if (is_buddypress()){ ?>
@@ -350,10 +350,6 @@ $navSidebarz(document).ready(function(){
 
 
 
-<!-- <script src="http://www.google.com/jsapi"></script>
-<script src="./wp-content/plugins/google-custom-search/js/gsc.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script> -->
-
 
 	<script>
     var $finalInit = jQuery.noConflict();
@@ -368,10 +364,14 @@ $navSidebarz(document).ready(function(){
    
 
 
+
+
+<?php if (bp_is_activity_directory()) { ?>
+
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jq-1.4.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 
-<?php if (bp_is_activity_directory()) { ?>
+
 <script>
 var $sliderInit = jQuery.noConflict();
 

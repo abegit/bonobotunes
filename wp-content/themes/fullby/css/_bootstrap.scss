@@ -322,7 +322,7 @@ textarea {
 }
 
 a {
-  color: $blue;
+  color: $yale;
   text-decoration: none;
 }
 
@@ -418,7 +418,7 @@ cite {
 }
 
 .text-primary {
-  color: $blue;
+  color: $yale;
 }
 
 .text-primary:hover {
@@ -2279,7 +2279,7 @@ fieldset[disabled] .btn-default.active {
 
 .btn-primary {
   color: #ffffff;
-  background-color: $blue;
+  background-color: $yale;
   border-color: #357ebd;
 }
 
@@ -2314,7 +2314,7 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: $blue;
+  background-color: $yale;
   border-color: #357ebd;
 }
 
@@ -2484,7 +2484,7 @@ fieldset[disabled] .btn-info.active {
 
 .btn-link {
   font-weight: normal;
-  color: $blue;
+  color: $yale;
   cursor: pointer;
   @include border-radius( 0);
 }
@@ -2675,7 +2675,7 @@ input[type="button"].btn-block {
 .dropdown-menu > .active > a:focus {
   color: #ffffff;
   text-decoration: none;
-  background-color: $blue;
+  background-color: $yale;
   outline: 0;
 }
 
@@ -3241,7 +3241,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: $blue;
+  border-color: $yale;
 }
 
 .nav .open > a .caret,
@@ -3360,7 +3360,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #ffffff;
-  background-color: $blue;
+  background-color: $yale;
 }
 
 .nav-pills > li.active > a .caret,
@@ -3443,8 +3443,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .nav .caret {
-  border-top-color: $blue;
-  border-bottom-color: $blue;
+  border-top-color: $yale;
+  border-bottom-color: $yale;
 }
 
 .nav a:hover .caret {
@@ -4112,8 +4112,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   z-index: 2;
   color: #ffffff;
   cursor: default;
-  background-color: $blue;
-  border-color: $blue;
+  background-color: $yale;
+  border-color: $yale;
 }
 
 .pagination > .disabled > span,
@@ -4263,7 +4263,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .label-primary {
-  background-color: $blue;
+  background-color: $yale;
 }
 
 .label-primary[href]:hover,
@@ -4340,7 +4340,7 @@ a.badge:focus {
 
 a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: $blue;
+  color: $yale;
   background-color: #ffffff;
 }
 
@@ -4411,7 +4411,7 @@ a.list-group-item.active > .badge,
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: $blue;
+  border-color: $yale;
 }
 
 .thumbnail .caption {
@@ -4564,7 +4564,7 @@ a.thumbnail.active {
   line-height: 20px;
   color: #ffffff;
   text-align: center;
-  background-color: $blue;
+  background-color: $yale;
   @include box-shadow(inset 0 -1px 0 rgba(0, 0, 0, 0.15));
   -webkit-transition: width 0.6s ease;
           transition: width 0.6s ease;
@@ -4715,8 +4715,8 @@ a.list-group-item.active:hover,
 a.list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: $blue;
-  border-color: $blue;
+  background-color: $yale;
+  border-color: $yale;
 }
 
 a.list-group-item.active .list-group-item-heading,
@@ -4932,17 +4932,17 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 .panel-primary {
-  border-color: $blue;
+  border-color: $yale;
 }
 
 .panel-primary > .panel-heading {
   color: #ffffff;
-  background-color: $blue;
-  border-color: $blue;
+  background-color: $yale;
+  border-color: $yale;
 }
 
 .panel-primary > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: $blue;
+  border-top-color: $yale;
 }
 
 .panel-primary > .panel-heading > .dropdown .caret {
@@ -4950,7 +4950,7 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 .panel-primary > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: $blue;
+  border-bottom-color: $yale;
 }
 
 .panel-success {

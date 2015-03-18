@@ -17,7 +17,7 @@
 	<?php if ( bp_activity_has_more_items() ) : ?>
 
 		<li class="load-more">
-			<a href="<?php bp_activity_load_more_link() ?>"><?php _e( 'Load More', 'buddypress' ); ?></a>
+			<a href="<?php bp_activity_load_more_link(); ?>"><?php _e( 'Load More', 'buddypress' ); ?></a>
 		</li>
 
 	<?php endif; ?>

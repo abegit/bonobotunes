@@ -76,11 +76,7 @@ if ( $notifications ) {
           <?php $counter++;
         } 
         echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="icon-ellipsis"></i></a></li>';
-      } else { ?>
-
-      <li> <a href=" <?php echo bp_loggedin_user_domain() ?>notifications"> <?php _e( 'No new notifications.', 'buddypress' ); ?> </a> </li>
-
-    <?php }
+      } else {}
   } ?>
     <?php if (!bp_is_user_activity()) { ?>
 <div class="widget widget-tabs">

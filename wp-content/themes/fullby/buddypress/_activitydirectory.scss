@@ -9,16 +9,15 @@
     #group-create-tabs.no-ajax {margin: -10px -2% 0; width: 104% !important; }
     #group-create-body .left-menu {width: 100%;}
     
-    .bpfb_form_container {padding:20px 30px;}
-    #whats-new-form {background: none repeat scroll 0 0 #ffffff; position: relative;
-            @include box-shadow(0 0 2px rgb(189, 189, 189));
-            border: 1px solid $blue; 
+    #whats-new-form {background: none repeat scroll 0 0 #ffffff; margin: 3% 5% 5% !important; position: relative; width: 90%;
+            @include box-shadow(0 28px 8px -22px #bdbdbd);
+            border: 2px solid #cdcdcd; 
             @include border-radius($myrad); 
         .activity-greeting, #whats-new-avatar {display: none;}
-         #whats-new-content textarea {width: 100% !important; line-height: 32px; float: none; 
+         #whats-new-content textarea {width: 100% !important; line-height: 32px; height: 50px; float: none; 
             @include border-radius($myrad);
             border-bottom: 1px solid #d0d0d0;
-            padding: 8px !important; resize:none;
+            padding: 8px; resize:none;
                 &:focus {resize: vertical !important; border-color: $green !important; outline-color: $green;}
         }
         #whats-new-post-in-box, #whats-new-post-in-box > * {clear: both !important; color: #989898; line-height: 0 !important; float:left; }
@@ -33,16 +32,26 @@
                 &:hover {color:#333;}
             }
         }
+        textarea#whats-new { margin-bottom: 0px; @include trans(0ms);}
         #whats-new-content {padding:0 !important; margin-left:0 !important;
             .whats-new-textarea {display: inline-block; width: 100%;}
-            .bpfb_controls_container {width: 100%;}
+            .bpfb_controls_container {width: 100%; background: url("img/pattern-denim.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
+                > div {padding:10px;}
+                br {margin:1px;}
+                input {max-width: 100% !important;}
+                .qq-upload-button {@include btn(transparent,$myrad,#fff); border: 1px dashed #dddddd !important; width: 100%; overflow: hidden;}
+                .qq-upload-button:hover {@include btn($green,$myrad,#fff); border: 1px solid $green !important; width: 100%;}
+                .qq-upload-drop-area {background: none repeat scroll 0 0 #ffffff !important; border: 3px dashed $green; border-radius: 5px; @include box-shadow(0 0 0 7px #ffffff, 0 0 180px 80px #dddddd); }
+                .qq-upload-drop-area-active {bottom: 0 !important; height: 100% !important; position: absolute; top: auto !important;border: 3px dashed lighten($blue,40%);}
+                .qq-uploader {position: inherit;}
+            }
         }
 
         .bpfb_toolbar_container a  {
             &:first-child {@include border-radius(0 0 0 $myrad);}
             span {display: none;}
             &:before {-moz-osx-font-smoothing: grayscale; border-right: 1px solid #cfcfcf; color: #7f7f7f; display: inline-block; float: left; font-family: icomoon; font-size:1.563rem; font-weight: lighter; line-height: 50px; margin: 0; text-align: center; width: 50px;}
-            &:hover:before {background:#dfdfdf; color:$blue;}
+            &:hover:before {color:$green;}
             &#bpfb_addPhotos:before {content:"";}
             &#bpfb_addLinks:before {content:"";}
             &#bpfb_addVideos:before {content:"";}
@@ -51,16 +60,6 @@
 
         .bpfb_toolbar_container {opacity: 0; pointer-events: none; position: absolute; right: 0; }
         .bpfb_preview_container {line-height: 1rem;}
-        .bpfb_controls_container .qq-upload-drop-area {}
-        .bpfb_controls_container .qq-upload-drop-area-active {
-            bottom: 0 !important;
-            height: 70% !important;
-            position: absolute;
-            top: auto !important;
-        }
-        .bpfb_controls_container .qq-uploader {
-            position: inherit;
-        }
 
         
         #whats-new-options {overflow:visible !important; pointer-events:none; position: absolute; bottom:0; right: 0; height:auto !important; margin:8px;}
@@ -69,18 +68,18 @@
             input {color: $blue; background: #d6dcdf; display: unset !important; margin: 0 0 0 5px;}
         }
         #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
-        #whats-new-textarea {display: inline-block; width: 100%}
+        #whats-new-textarea {display: inline-block; width: 100%;}
         
 
 
 
-        &.show-me {border-color:$green; background-color:#f7f7f7;
+        &.show-me {background-color:#f7f7f7; border:none;
             #whats-new-options {pointer-events:auto;}
             #whats-new-submit {
                 input {color:#fff; background: $blue; @include box-shadow(0 -1px 0 rgba(255,255,255,.2));border-color:darken($blue,20%);}
             }
             #whats-new-post-in-box {opacity: 1;}
-            textarea#whats-new {min-height: 90px; padding: 10px 10px 50px; line-height: 18px; }
+            textarea#whats-new {min-height: 130px; padding: 10px 10px 50px; line-height: 18px; border:2px solid #cdcdcd; margin-bottom: -51px;}
             .bpfb_toolbar_container {opacity: 1; position: relative; pointer-events:auto; }
         } /*end show-me*/
 
@@ -94,7 +93,7 @@
     
 
     div.item-list-tabs.no-ajax {
-        @include tabs2($blue);
+        @include tabs2($green);
         .last {
             .generic-button {float: right !important;}
             .send-message, .mention {
@@ -118,11 +117,15 @@
         }
 
     
-    .activity-meta {background: none repeat scroll 0 0 #efefef; clear:both; padding: 5px; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
-    .activity-meta a {font-size:.813em !important; }
+    .activity-meta {background: none repeat scroll 0 0 #fefefe; clear:both; @include border-radius( 0 0 $myrad $myrad); margin-top:0 !important;}
+    .activity-meta a { border: medium none !important; display: inline-block; font-size: 1rem !important; line-height: 3rem; min-width: 60px; padding: 0 12px !important;
+                &.button.unfav {color:$green !important;}
+                i {pointer-events: none; }
+    }
     .activity-inner {margin: 0 !important;
         p {padding:0 2%;}
     }
+                
             
     .thickbox {
         width: 100%; text-align: center;display: block;
@@ -142,8 +145,8 @@
     
 
 
-    .activity-list {border-top: none !important; margin-top: 20px !important; 
-        &> li {background:#f4f4f4; @include border-radius($myrad); margin:0 30px 10px !important; overflow: unset !important;
+    .activity-list {border-top: none !important; margin-top: 20px !important;  margin-bottom: 50px !important;
+        &> li {background:#f4f4f4; @include border-radius($myrad); margin:0 5% 3% !important; overflow: unset !important;padding-bottom: 0 !important;
             .activity-content {margin:0;}
             .activity-avatar {margin-left:15px;}
             .activity-comments {background: none repeat scroll 0 0 #ffffff; margin: 0;
@@ -196,7 +199,7 @@
         select {display: inline-block; opacity: 0; height: 35px; left: 0; margin: 0 !important; max-width: 175px; position: absolute; top: 0; width: 100%;}
     }
     #activity-filter-select label {display: none; }
-    #activity-filter-select div {background: none repeat scroll 0 0 rgba(0, 0, 0, 0); @include border-radius(200px); display: block; padding: 0 20px; text-align: center; width: 100%;
+    #activity-filter-select div {background: transparent; @include border-radius(200px); display: block; padding: 0 20px; text-align: center; width: 100%;
         &:hover {background:#f4f4f4;@include box-shadow(0 0 0 2px $green inset);}
     }
     

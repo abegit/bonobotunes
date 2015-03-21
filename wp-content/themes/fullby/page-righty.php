@@ -18,7 +18,7 @@ get_header(); ?>
                 <?php } else { ?>
                 <?php }  ?>
 
-		<div class="single-in">
+		<div class="single-in col-md-12">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 

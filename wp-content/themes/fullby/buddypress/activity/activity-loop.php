@@ -1,5 +1,6 @@
 <?php do_action( 'bp_before_activity_loop' ); ?>
 
+<?php // if ( bp_has_activities( bp_ajax_querystring( 'activity' ).'&search_terms=bpfb_images' ) ) : ?>
 <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ) : ?>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>

@@ -43,18 +43,18 @@
 			</div>
 
 			<div class="item">
-				<div class="item-title">
+				<div class="item-title"><a href="<?php bp_member_permalink(); ?>">
 					<?php bp_member_name(); ?>
-
+					<?php $user_id = bp_get_member_user_id(); ?>
+					<br>
+						<span class="update"> <?php bp_profile_field_data( 'field=Character Type&user_id='.$user_id ) ?></span>
 					<?php if ( bp_get_member_latest_update() ) : ?>
-
-						<span class="update"> <?php bp_member_latest_update(); ?></span>
-
+						<span class="update text-hide"> <?php bp_member_latest_update(); ?></span>
 					<?php endif; ?>
-
+						</a>
 				</div>
 
-				<div class="item-meta"><span class="activity"><?php bp_member_last_active(); ?></span></div>
+				<div class="item-meta"><span class="activity text-hide"><?php bp_member_last_active(); ?></span></div>
 
 				<?php do_action( 'bp_directory_members_item' ); ?>
 

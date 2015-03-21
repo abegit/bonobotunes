@@ -94,17 +94,18 @@ body {background-image: url("img/congruent_outline.png");
     .buddyb .sing-tit-cont h3 {z-index: unset;}
 }
 #buddypress {
-    position: relative; z-index: 2;
+    position: relative; z-index: 2; padding-top: 1px;
     #groups-list.item-list .hidden {display: unset !important; visibility: unset !important;}
     #members-list, #groups-list {
-        &.item-list li:hover {background: none repeat scroll 0 0 #f5f5f5;}
-        &.item-list li {padding:2%;
+        &.item-list li:hover {background: none repeat scroll 0 0 #f5f5f5;@include box-shadow(0 0 10px #909090);}
+        &.item-list li {padding:2%;@include trans(500ms);
                -webkit-animation-duration: 1s;
                 animation-duration: 1s;
                 -webkit-animation-fill-mode: both;
                 animation-fill-mode: both;
                 -webkit-animation-name: fadeInUp;
-                animation-name: fadeInUp;
+                animation-name: fadeInUp; 
+                float: left; width: 20%;
                 &:nth-child(1) {-webkit-animation-delay:0;animation-delay:0;}
                 &:nth-child(2) {-webkit-animation-delay:100ms;animation-delay:100ms;}
                 &:nth-child(3) {-webkit-animation-delay:200ms;animation-delay:200ms;}
@@ -125,6 +126,8 @@ body {background-image: url("img/congruent_outline.png");
                 &:nth-child(18) {-webkit-animation-delay:1700ms;animation-delay:1700ms;}
                 &:nth-child(19) {-webkit-animation-delay:1800ms;animation-delay:1800ms;}
                 &:nth-child(20) {-webkit-animation-delay:1900ms;animation-delay:1900ms;}
+                &:nth-child(5n+1) {clear: both;}
+                div.action {position: relative; text-align: center; top: 5px;}
 
         }
         /*&.init li{-webkit-animation-duration: 1s;

@@ -1,38 +1,5 @@
 <?php 
 
-// Disable Admin Bar for everyone but administrators
-if (!function_exists('df_disable_admin_bar')) {
-
-	function df_disable_admin_bar() {
-
-		if (!current_user_can('manage_options')) {
-
-			// for the admin page
-			remove_action('admin_footer', 'wp_admin_bar_render', 1000);
-			// for the front-end
-			remove_action('wp_footer', 'wp_admin_bar_render', 1000);
-
-			// css override for the admin page
-			function remove_admin_bar_style_backend() { 
-				echo '<style>body.admin-bar #wpcontent, body.admin-bar #adminmenu { padding-top: 0px !important; }</style>';
-			}	  
-			add_filter('admin_head','remove_admin_bar_style_backend');
-			
-			// css override for the frontend
-			function remove_admin_bar_style_frontend() {
-				echo '<style type="text/css" media="screen">
-				html { margin-top: 0px !important; }
-				* html body { margin-top: 0px !important; }
-				</style>';
-			}
-			add_filter('wp_head','remove_admin_bar_style_frontend', 99);
-			
-		}
-  	}
-}
-add_action('init','df_disable_admin_bar');
-
-
 /**
  * Redirect user after successful login.
  *
@@ -54,12 +21,12 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 			return $redirect_to;
 		} elseif ( in_array( 'customer', $user->roles ) ) {
 			// redirect them to the default place
-			return home_url().'/home';
+			return 'http://'.home_url().'/home';
 		} elseif ( in_array( 'subscriber', $user->roles ) ) {
 			// redirect them to the default place
-			return home_url().'/home';
+			return 'http://'.home_url().'/home';
 		} else {
-			return home_url().'/home';
+			return 'http://'.home_url().'/home';
 		}
 	} else {
 		return $redirect_to;
@@ -101,34 +68,6 @@ function my_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt) {
         // No avatar found.  Return unfiltered.
         return $avatar;
 }
-
-
-// /**
-//  * Login Redirect
-//  * @since 0.1
-//  * @version 1.0
-//  */
-// add_filter( 'login_redirect', 'mycred_pro_login_redirect', 10, 3 );
-// function mycred_pro_login_redirect( $redirect_to, $request, $user = NULL )
-// {
-// 	// Make sure myCRED is enabled
-// 	if ( ! function_exists( 'mycred_get_users_cred' ) ) return $redirect_to;
-
-// 	if ( is_object( $user ) )
-// 		$user_id = $user->ID;
-// 	else
-// 		$user_id = get_current_user_id();
-
-// 	// Page ID to redirect users to
-// 	$redirect_to_page = 99;
-
-// 	// Check for negative balances
-// 	if ( mycred_get_users_cred( $user_id ) <= 0 ) {
-// 		return get_permalink( $redirect_to_page );
-// 	}
-	
-// 	return $redirect_to;
-// }
 
 // CONTENT WIDTH & feedlinks 
 	
@@ -346,18 +285,43 @@ function fullby_settings() {?>
 </div>
 <?php }
 
-// woo - Remove Main Product Image & Display Thumbnails	
-add_filter('add_to_cart_redirect', 'imageSlashVid');
-function imageSlashVid() {
-	// if (!wc_customer_bought_product( $current_user->user_email, $current_user->ID, $product->id)) {
-	// 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
-	// }
- 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+// Determine if it's an email using the WooCommerce email header
+add_action( 'woocommerce_email_header', function(){ add_filter( "better_wc_email", "__return_true" ); } );
+ 
+// Hide the WooCommerce Email header and footer
+add_action( 'woocommerce_email_header', function(){ ob_start(); }, 1 );
+add_action( 'woocommerce_email_header', function(){ ob_get_clean(); }, 100 );
+add_action( 'woocommerce_email_footer', function(){ ob_start(); }, 1 );
+add_action( 'woocommerce_email_footer', function(){ ob_get_clean(); }, 100 );
+ 
+// Selectively apply WPBE template if it's a WooCommerce email
+add_action( 'phpmailer_init', 'better_phpmailer_init', 20 );
+function better_phpmailer_init( $phpmailer ){
+    if ( apply_filters( 'better_wc_email', false ) ){
+        global $wp_better_emails;
+ 
+        // Add template to message
+        $phpmailer->Body = $wp_better_emails->set_email_template( $phpmailer->Body );
+ 
+        // Replace variables in email
+        $phpmailer->Body = apply_filters( 'wpbe_html_body', $wp_better_emails->template_vars_replacement( $phpmailer->Body ) );
+    }
 }
-add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_thumbnails', 20 );
 
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+
+require_once WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'adrotate' . DIRECTORY_SEPARATOR . 'adrotate-widget.php';
+
+class fullbyRotator extends adrotate_widgets {
+
+function fullbyRotator() { // or just __construct if you're on PHP5
+    parent::WP_Widget(false, 'My not blocked AdRotate widget', array('description' => "Show unlimited ads in the sidebar.")); 
+    }
+}
+add_action('widgets_init', create_function('', 'return register_widget("fullbyRotator");'));
+
+
+
+
 
  ?>

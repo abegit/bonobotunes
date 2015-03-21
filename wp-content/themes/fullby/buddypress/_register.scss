@@ -1,14 +1,17 @@
 
 body.registration {
     .navbar {background: transparent;}
-    .navbar-brand {margin-top: 0; display: inline-block; float: none;}
+    .navbar-brand { display: inline-block;
+    float: none;
+    height: auto;
+    margin: 24px 0 !important;}
     .navbar.navbar-inverse.navbar-fixed-top { }
     .navbar-header {}
     .navbar-header a {}
     .footer {background:transparent; text-align: center; border:none;padding-bottom:40px;
         .navbar-nav {display: inline-block; float: none;}
     }
-    .single {color:#fff;}
+    .single {color:#fff; float:none;}
     .single-in {background: none repeat scroll 0 0 rgba(255,255,255,0.81); color: #404040; padding-bottom:80px; display: block;
     float: none;
     margin: 0 auto !important;margin-bottom: 100px;}

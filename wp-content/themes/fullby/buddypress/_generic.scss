@@ -31,15 +31,37 @@
     float: none;
     text-transform: uppercase;
         .pag-count {float: none !important; }
+        .pagination-links {float: none !important;margin:0 !important;}
+        .prev, .next {
+            &.page-numbers {color: rgba(0, 0, 0, 0); font-size: 0; border:none !important; 
+               &:before {color: #004e90; content: ""; font-family: icomoon; font-size: 3rem; line-height: 50px; vertical-align: middle;}
+            }
+        }
+        .prev.page-numbers {padding-left: 0 !important;}
+        .next.page-numbers {padding-right: 0 !important;}
+        .prev.page-numbers::before {content: "";}
+        .page-numbers {display: inline-block;
+    font-size: 1rem !important;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px !important;
+    vertical-align: top;
+            &:hover {font-weight: normal !important; border:solid 1px saturate($blue, 50% );}
+            &.current {border:solid 2px $green;}
+        }
+
     }
 
     /*friendship button*/
     .friendship-button {
-        a {overflow: hidden;  position: relative;}
+        a {overflow: hidden;  position: relative;
+            i, span {pointer-events:none;}
+            i {margin-right: 7px;}
+        }
         .add { @include btn($blue,$myrad, #fff)}
-        .pending_friend, .remove {@include btn(#cae1ff,$myrad, #6f6f6f)}
+        .pending_friend, .remove {@include btn(lighten($blue,50%),$myrad, #6f6f6f)}
         .is_friend.remove {@include btn($green,$myrad, #fff)}
-        a:focus, a:hover {color: rgba(0, 0, 0, 0) !important;}
+        a:focus, a:hover, a:focus:hover {color: rgba(0, 0, 0, 0) !important;}
         a:focus::after {background: none repeat scroll 0 0 rgba(255, 255, 255, 0.1); content: ""; display: inline-block; height: 40px; line-height: inherit; margin-left: 7px; padding: 10px 6px; position: absolute; right: 0; top: 0; width: 100%; }
         a:focus::before { @include animate(rotateThis, 4000ms, 0s, infinite); -moz-osx-font-smoothing: grayscale; color: #ffffff; content: ""; font-family: icomoon; font-size: 1rem; left: 0; line-height: 2rem; padding: 0 !important; position: absolute; text-align: center; top: 0; width: 100%; z-index: 1;}
     } 
@@ -126,7 +148,7 @@
         h3 {z-index: 1; position: relative;}
     }   
     .single {float:left;}
-    .single-in { overflow: hidden; float: right;
+    .single-in { overflow: hidden; float: right; margin-top: -5px;
         @include trans(1s);
         &.open {width: 96%; margin:0 2%;}
     }

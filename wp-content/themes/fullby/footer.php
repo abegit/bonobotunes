@@ -2,7 +2,6 @@
 </div> <!-- end buddyb wrap -->
 <?php global $bp; ?>
 <div class="col-md-12 footer">
-	<!--
 <?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
 <?php if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
 <?php if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
@@ -52,7 +51,6 @@
 <?php if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
 <?php if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
 <?php if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
--->
 	<div class="alignright"><div class="navbar-brand title logo"></div></div>
 	<?php /* Primary navigation */
 			wp_nav_menu( array(

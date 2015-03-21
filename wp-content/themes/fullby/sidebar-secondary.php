@@ -78,7 +78,7 @@ if ( $notifications ) {
         echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="icon-ellipsis"></i></a></li>';
       } else {}
   } ?>
-    <?php if (!bp_is_user_activity()) { ?>
+    <?php if (!bp_is_user_activity() && !bp_is_profile_component()) { ?>
 <div class="widget widget-tabs">
 
     <!-- Nav tabs -->

@@ -286,8 +286,10 @@ function inject_css(){
 body.is-user-profile .profile_header {
     background-image: url("<?php echo $image_url;?>");
     background-position: center top;
-    height: 300px; 
     background-size: cover;
+}
+body.is-user-profile.activity.init .profile_header {
+  height:300px;
 }
 </style> 
 <?php

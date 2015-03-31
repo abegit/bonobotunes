@@ -156,8 +156,9 @@ function bp_core_add_cropper_inline_js() {
 	?>
 
 	<script type="text/javascript">
-		jQuery(window).load( function(){
-			jQuery('#avatar-to-crop').Jcrop({
+	$cropFix = jQuery.noConflict();
+		$cropFix(window).load( function(){
+			$cropFix('#avatar-to-crop').Jcrop({
 				onChange: showPreview,
 				onSelect: updateCoords,
 				aspectRatio: <?php echo (int) $aspect_ratio; ?>,
@@ -167,10 +168,10 @@ function bp_core_add_cropper_inline_js() {
 		});
 
 		function updateCoords(c) {
-			jQuery('#x').val(c.x);
-			jQuery('#y').val(c.y);
-			jQuery('#w').val(c.w);
-			jQuery('#h').val(c.h);
+			$cropFix('#x').val(c.x);
+			$cropFix('#y').val(c.y);
+			$cropFix('#w').val(c.w);
+			$cropFix('#h').val(c.h);
 		}
 
 		function showPreview(coords) {
@@ -180,7 +181,7 @@ function bp_core_add_cropper_inline_js() {
 				var rx = fw / coords.w;
 				var ry = fh / coords.h;
 
-				jQuery( '#avatar-crop-preview' ).css({
+				$cropFix( '#avatar-crop-preview' ).css({
 					width: Math.round(rx * <?php echo (int) $image[0]; ?>) + 'px',
 					height: Math.round(ry * <?php echo (int) $image[1]; ?>) + 'px',
 					marginLeft: '-' + Math.round(rx * coords.x) + 'px',

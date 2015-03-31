@@ -16,7 +16,7 @@
     <div id="header"><div class="container">
        <a href="http://drsusanblock.tv/main/"><img src="<?php echo get_option('UnsceneMusicLogo'); ?>"></a>
         <ul id="nav">
-        <li><a href="#" onclick="myFunction()">Open Player <i class="ico-publish"></i> </a></li>
+        <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')">Open Player <i class="ico-publish"></i> </a></li>
         <li style="width:100% !important; clear:both;"></li>
     </ul>
    </div></div>
@@ -32,10 +32,17 @@
             <h3>Need To Talk?</h3>
             <a href="tel:3105680066">Call Us (310) 568-0066</a><br>
         <ul class="actions">
-            <li>House Keeping
-            <div class="message">this is the info i want you to read.</div></li>
-            <li>Join Bonoboville
-            <div class="message">this is the info i want you to read.</div></li>
+            <li> <?php echo get_option('iTunesAuthorName'); ?>
+            <div class="message"><?php echo get_option('iTunesPodcastTitle'); ?><?php echo get_option('iTunesPodcastSummary'); ?><br>
+                <br><?php if( is_home() ) { echo get_bloginfo( 'title' ); }
+  elseif (is_category() ) { echo single_cat_title(); }
+  elseif (is_single() || is_page()) { the_title(); }
+  elseif (is_search()) { echo $s; }
+  elseif (is_404()) { echo "Sorry not found"; }
+  else {echo the_title();} ?>
+</div></li>
+            <li>Tracklisting
+            <div class="message"><?php echo get_option('iTunesPodcastImage'); ?></div></li>
             <li>Attend a Show
             <div class="message">this is the info i want you to read.</div></li>
             <li>Sponsors
@@ -108,16 +115,6 @@
     </div>
 
 </div>
-
-    
-
-    <div class="bonobo">
-    <iframe name="bonobo" frameborder="0" width="100%" height="100vh" src="1"></iframe></div>
-
-<div class="institute">
-<iframe name="insitute" frameborder="0" width="100%" height="100vh" src="1"></iframe></div>
-
-
 </div>
 <!--  end content -->
 
@@ -146,15 +143,10 @@
     // playlist for songs
     var urls = new Array();
     <?php $i = 0; ?>
-    <?php if (is_archive()) {
-        while( have_posts()) : the_post(); ?>
-           urls[<?php echo $i; ?>] = '<?php echo pg_enc().'\''; ?>;
-        <?php $i++; 
-        endwhile; 
-    } elseif (is_single()) {
-        while( have_posts()) : the_post(); ?>
-        urls[0] = '<?php pg_enc(); ?>';
-      <?php endwhile; } ?>
+    <?php while( have_posts()) : the_post(); ?>
+            urls[<?php echo $i; ?>] = '<?php pg_enc(); ?>';
+        <?php if (!is_single()) { $i++; } ?>
+    <?php endwhile; ?>
 
 
     // playlist for ads
@@ -202,8 +194,8 @@
         adUrls[40] = '<?php echo plugins_url( '/assets/songs/paul.mp3', dirname(__FILE__) )?>';    
 </script>
 <script>
-function myFunction() {
-    var myWindow = window.open("", "BonoboRadio", "width=640, height=240");
+function myFunction(which) {
+    var myWindow = window.open(which, "BonoboRadio", "width=640, height=240");
 }
 function artistLink(which) {
     var myWindow = window.open( which , 'theFrame');

@@ -1,0 +1,8 @@
+textarea.quick-chat-message {
+	@include border-radius($myrad);
+	background:#fff;
+	border:solid 2px $banana; margin-bottom: 20px;
+	&:active, &:focus {
+		border:solid 2px $green;
+	}
+}

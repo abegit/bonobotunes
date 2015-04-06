@@ -1,56 +1,58 @@
 <div class="clear"></div>
-</div> <!-- end buddyb wrap -->
+</div> <!-- end buddyb -->
 <?php global $bp; ?>
 <div class="col-md-12 footer">
-<?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
-<?php if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
-<?php if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
-<?php if (bp_is_home()) : echo 'bp_is_home'; endif; ?>
-<?php if (bp_is_front_page()) : echo 'bp_is_front_page'; endif; ?>
-<?php if (bp_is_activity_front_page()) : echo 'bp_is_activity_front_page'; endif; ?>
-<?php if (bp_is_directory()) : echo 'bp_is_directory'; endif; ?>
-<?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
-<?php if (bp_is_activity_component()) : echo 'bp_is_activity_component'; endif; ?>
-<?php if (bp_is_blogs_component()) : echo 'bp_is_blogs_component'; endif; ?>
-<?php if (bp_is_messages_component()) : echo 'bp_is_messages_component'; endif; ?>
-<?php if (bp_is_friends_component()) : echo 'bp_is_friends_component'; endif; ?>
-<?php if (bp_is_groups_component()) : echo 'bp_is_groups_component'; endif; ?>
-<?php if (bp_is_settings_component()) : echo 'bp_is_settings_component'; endif; ?>
-<?php if (bp_is_member()) : echo 'bp_is_member'; endif; ?>
-<?php if (bp_is_user_activity()) : echo 'bp_is_user_activity'; endif; ?>
-<?php if (bp_is_user_friends_activity()) : echo 'bp_is_user_friends_activity'; endif; ?>
-<?php if (bp_is_activity_permalink()) : echo 'bp_is_activity_permalink'; endif; ?>
-<?php if (bp_is_user_profile()) : echo 'bp_is_user_profile'; endif; ?>
-<?php if (bp_is_profile_edit()) : echo 'bp_is_profile_edit'; endif; ?>
-<?php if (bp_is_change_avatar()) : echo 'bp_is_change_avatar'; endif; ?>
-<?php if (bp_is_user_groups()) : echo 'bp_is_user_groups'; endif; ?>
-<?php if (bp_is_group()) : echo 'bp_is_group'; endif; ?>
-<?php if (bp_is_group_home()) : echo 'bp_is_group_home'; endif; ?>
-<?php if (bp_is_group_create()) : echo 'bp_is_group_create'; endif; ?>
-<?php if (bp_is_group_admin_page()) : echo 'bp_is_group_admin_page'; endif; ?>
-<?php if (bp_is_group_forum()) : echo 'bp_is_group_forum'; endif; ?>
-<?php if (bp_is_group_activity()) : echo 'bp_is_group_activity'; endif; ?>
-<?php if (bp_is_group_forum_topic()) : echo 'bp_is_group_forum_topic'; endif; ?>
-<?php if (bp_is_group_forum_topic_edit()) : echo 'bp_is_group_forum_topic_edit'; endif; ?>
-<?php if (bp_is_group_members()) : echo 'bp_is_group_members'; endif; ?>
-<?php if (bp_is_group_invites()) : echo 'bp_is_group_invites'; endif; ?>
-<?php if (bp_is_group_membership_request()) : echo 'bp_is_group_membership_request'; endif; ?>
-<?php if (bp_is_group_leave()) : echo 'bp_is_group_leave'; endif; ?>
-<?php if (bp_is_group_single()) : echo 'bp_is_group_single'; endif; ?>
-<?php if (bp_is_user_blogs()) : echo 'bp_is_user_blogs'; endif; ?>
-<?php if (bp_is_user_recent_posts()) : echo 'bp_is_user_recent_posts'; endif; ?>
-<?php if (bp_is_user_recent_commments()) : echo 'bp_is_user_recent_commments'; endif; ?>
-<?php if (bp_is_create_blog()) : echo 'bp_is_create_blog'; endif; ?>
-<?php if (bp_is_user_friends()) : echo 'bp_is_user_friends'; endif; ?>
-<?php if (bp_is_friend_requests()) : echo 'bp_is_friend_requests'; endif; ?>
-<?php if (bp_is_user_messages()) : echo 'bp_is_user_messages'; endif; ?>
-<?php if (bp_is_messages_inbox()) : echo 'bp_is_messages_inbox'; endif; ?>
-<?php if (bp_is_messages_sentbox()) : echo 'bp_is_messages_sentbox'; endif; ?>
-<?php if (bp_is_notices()) : echo 'bp_is_notices'; endif; ?>
-<?php if (bp_is_messages_compose_screen()) : echo 'bp_is_messages_compose_screen'; endif; ?>
-<?php if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
-<?php if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
-<?php if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
+	<div style="display:none;">
+<?php // if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
+<?php // if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
+<?php // if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
+<?php // if (bp_is_home()) : echo 'bp_is_home'; endif; ?>
+<?php // if (bp_is_front_page()) : echo 'bp_is_front_page'; endif; ?>
+<?php // if (bp_is_activity_front_page()) : echo 'bp_is_activity_front_page'; endif; ?>
+<?php // if (bp_is_directory()) : echo 'bp_is_directory'; endif; ?>
+<?php // if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
+<?php // if (bp_is_activity_component()) : echo 'bp_is_activity_component'; endif; ?>
+<?php // if (bp_is_blogs_component()) : echo 'bp_is_blogs_component'; endif; ?>
+<?php // if (bp_is_messages_component()) : echo 'bp_is_messages_component'; endif; ?>
+<?php // if (bp_is_friends_component()) : echo 'bp_is_friends_component'; endif; ?>
+<?php // if (bp_is_groups_component()) : echo 'bp_is_groups_component'; endif; ?>
+<?php // if (bp_is_settings_component()) : echo 'bp_is_settings_component'; endif; ?>
+<?php // if (bp_is_member()) : echo 'bp_is_member'; endif; ?>
+<?php // if (bp_is_user_activity()) : echo 'bp_is_user_activity'; endif; ?>
+<?php // if (bp_is_user_friends_activity()) : echo 'bp_is_user_friends_activity'; endif; ?>
+<?php // if (bp_is_activity_permalink()) : echo 'bp_is_activity_permalink'; endif; ?>
+<?php // if (bp_is_user_profile()) : echo 'bp_is_user_profile'; endif; ?>
+<?php // if (bp_is_profile_edit()) : echo 'bp_is_profile_edit'; endif; ?>
+<?php // if (bp_is_change_avatar()) : echo 'bp_is_change_avatar'; endif; ?>
+<?php // if (bp_is_user_groups()) : echo 'bp_is_user_groups'; endif; ?>
+<?php // if (bp_is_group()) : echo 'bp_is_group'; endif; ?>
+<?php // if (bp_is_group_home()) : echo 'bp_is_group_home'; endif; ?>
+<?php // if (bp_is_group_create()) : echo 'bp_is_group_create'; endif; ?>
+<?php // if (bp_is_group_admin_page()) : echo 'bp_is_group_admin_page'; endif; ?>
+<?php // if (bp_is_group_forum()) : echo 'bp_is_group_forum'; endif; ?>
+<?php // if (bp_is_group_activity()) : echo 'bp_is_group_activity'; endif; ?>
+<?php // if (bp_is_group_forum_topic()) : echo 'bp_is_group_forum_topic'; endif; ?>
+<?php // if (bp_is_group_forum_topic_edit()) : echo 'bp_is_group_forum_topic_edit'; endif; ?>
+<?php // if (bp_is_group_members()) : echo 'bp_is_group_members'; endif; ?>
+<?php // if (bp_is_group_invites()) : echo 'bp_is_group_invites'; endif; ?>
+<?php // if (bp_is_group_membership_request()) : echo 'bp_is_group_membership_request'; endif; ?>
+<?php // if (bp_is_group_leave()) : echo 'bp_is_group_leave'; endif; ?>
+<?php // if (bp_is_group_single()) : echo 'bp_is_group_single'; endif; ?>
+<?php // if (bp_is_user_blogs()) : echo 'bp_is_user_blogs'; endif; ?>
+<?php // if (bp_is_user_recent_posts()) : echo 'bp_is_user_recent_posts'; endif; ?>
+<?php // if (bp_is_user_recent_commments()) : echo 'bp_is_user_recent_commments'; endif; ?>
+<?php // if (bp_is_create_blog()) : echo 'bp_is_create_blog'; endif; ?>
+<?php // if (bp_is_user_friends()) : echo 'bp_is_user_friends'; endif; ?>
+<?php // if (bp_is_friend_requests()) : echo 'bp_is_friend_requests'; endif; ?>
+<?php // if (bp_is_user_messages()) : echo 'bp_is_user_messages'; endif; ?>
+<?php // if (bp_is_messages_inbox()) : echo 'bp_is_messages_inbox'; endif; ?>
+<?php // if (bp_is_messages_sentbox()) : echo 'bp_is_messages_sentbox'; endif; ?>
+<?php // if (bp_is_notices()) : echo 'bp_is_notices'; endif; ?>
+<?php // if (bp_is_messages_compose_screen()) : echo 'bp_is_messages_compose_screen'; endif; ?>
+<?php // if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
+<?php // if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
+<?php // if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
+</div>
 	<div class="alignright"><div class="navbar-brand title logo"></div></div>
 	<?php /* Primary navigation */
 			wp_nav_menu( array(
@@ -64,6 +66,7 @@
 			<div class="clear"></div>
 </div>
 </div> <!-- end wrap -->
+
 <!-- <div class="friends"><div class="row">
 <ul class="colum dropup">
   <li><a href="./sitemap" class="ui-link">Sitemap</a><ul class="dropdown-menu dropdown-menu-left" role="menu">
@@ -108,6 +111,18 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<?php if (is_page('46869')) {?>
+      <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jwplayer.js"></script>
+	  <script type="text/javascript">jwplayer.key="qLzynSodouEg2o+gukjzO+6P0dzyHYq1TqcHaUF9cJE=";</script>
+	  <script>
+		jwplayer("mediaPlayer").setup({
+			        height: 270,
+			        width: 448,
+			        title : 'Tune in Saturday Nights to Watch Live 10 to 12 pm PST',
+			        file: 'rtmp://cs2055.mojohost.com/streamtest/testing'
+			    });
+      </script>
+	 <?php } ?>
 
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/bootstrap.min.js"></script>
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/isotope.js"></script>
@@ -294,11 +309,9 @@ $navDropz(document).ready(function(){
 		var X=$navDropz(this).attr('data-uri');
 		if(X==1){
 			$navDropz(this).removeClass('open');
-			$navDropz(this).parent('.accordian').removeClass('opend').addClass('closed');
 			$navDropz(this).attr('data-uri', '0');
 		} else{
 			$navDropz(this).addClass('open');
-			$navDropz(this).parent('.accordian').addClass('opend').removeClass('closed');
 			$navDropz(this).attr('data-uri', '1');
 		}
 	});
@@ -467,12 +480,14 @@ mmberPostBlur(function() {
 
 
 <?php if (is_page_template('page-no-sidebar.php')) { ?>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jq-1.4.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 	<script>    
 
 var mmberPostBlur = jQuery.noConflict();
 mmberPostBlur(function() {
   // Change this value to adjust the amount of blur
-  var BLUR_RADIUS = 30;
+  var BLUR_RADIUS = 40;
 
   var canvas = document.querySelector('[data-canvas]');
   var canvasContext = canvas.getContext('2d');
@@ -495,6 +510,34 @@ mmberPostBlur(function() {
 </script>
 <?php }; ?>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61576092-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+ <!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=8171400; 
+var sc_invisible=1; 
+var sc_security="f4667f58"; 
+var sc_https=1; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="http://statcounter.com/free-hit-counter/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/8171400/0/f4667f58/1/"
+alt="hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->  
 
 </body>
 </html>

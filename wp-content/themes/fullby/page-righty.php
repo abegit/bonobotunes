@@ -3,9 +3,9 @@
 Template Name: Right Main
 */
 get_header(); ?>			
-		<div class="wrap">
-<div class="buddyb wrap">		
-	<div class="col-md-9 single col-md-push-3">
+		<div class="row">
+<div class="buddyb">		
+	<div class="col-md-9 single col-sm-8 col-sm-push-4 col-md-push-3">
 		<?php $video = get_post_meta($post->ID, 'fullby_video', true );
 				  
 				if($video != '') {?>
@@ -58,7 +58,7 @@ get_header(); ?>
 
 	</div>			
 
-	<div class="col-md-3 col-md-pull-9 sidebar">
+	<div class="col-md-3 col-md-pull-9 col-sm-4 col-sm-pull-8 sidebar">
 	<div class="well"> <?php get_sidebar( 'primary' ); ?></div>
 		    
 	</div>

@@ -2,7 +2,7 @@
 <?php get_header(); ?>	
 
         <div class="wrap">
-        <div class="wrap buddyb">
+        <div class="buddyb">
 
 	
 		<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 		
@@ -10,7 +10,7 @@
 				 					
 			<?php endwhile; endif; ?> 
 	       
-	<div class="col-md-3 sidebar">
+	<div class="col-md-3 col-sm-4 col-xs-12 sidebar collapse" id="sidebar">
 		<div class="well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 		

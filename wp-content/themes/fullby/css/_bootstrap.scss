@@ -2591,16 +2591,6 @@ input[type="button"].btn-block {
   border-bottom: 0 dotted;
   border-left: 4px solid transparent;
 }
-/*abeit*/
-.accordian {
-    overflow: hidden;
-    &> ul {
-    margin: 0;
-    max-height: 0;
-    @include trans(1s);}
-    &:hover > ul {
-    max-height: 400px;}
-}
 
 
 .dropdown {

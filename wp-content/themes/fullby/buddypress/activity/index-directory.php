@@ -1,6 +1,6 @@
 <?php get_header(); ?>
-<div class="wrap">
-<div class="wrap buddyb row" id="content">
+<div class="row">
+<div class="buddyb" id="content">
 	<div class="col-md-9 single">
 		<div class="col-md-9 single-in">
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 

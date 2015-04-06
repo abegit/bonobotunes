@@ -1,8 +1,8 @@
 <?php get_header('player'); ?>			
 		<div class="wrap">
 		<div class="wrap">
-	<div class="col-md-9 single">
-		<div class="col-md-9 single-in">
+	<div class="col-md-9 col-sm-8 single">
+		<div class="col-md-9 col-sm-8 single-in">
 			<audio autoplay controls="controls" src="<?php echo pg_enc(); ?>">
 				</audio>
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
@@ -91,7 +91,7 @@
 	        <?php endif; ?> 
 		</div>	
 		 
-		<div class="col-md-3 sidebar">
+		<div class="col-md-3 col-sm-4 sidebar">
 		
 			<div class="sec-sidebar well">
 
@@ -103,7 +103,7 @@
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
+	<div class="col-md-3 col-sm-4 sidebar">
 
 		<?php get_sidebar( 'primary' ); ?>	
 			    

@@ -3,9 +3,9 @@
 Template Name: Left Main
 */
 get_header(); ?>			
-		<div class="wrap">
-<div class="buddyb wrap">		
-	<div class="col-md-9 single">
+		<div class="row">
+<div class="buddyb">		
+	<div class="col-md-9 col-sm-8 single">
 		<?php $video = get_post_meta($post->ID, 'fullby_video', true );
 				  
 				if($video != '') {?>
@@ -60,7 +60,7 @@ get_header(); ?>
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
+	<div class="col-md-3 col-sm-4 sidebar">
 	<div class="well"> <?php get_sidebar( 'primary' ); ?></div>
 		    
 	</div>

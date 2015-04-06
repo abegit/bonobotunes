@@ -1,7 +1,7 @@
 <?php get_header(); ?>			
 		<div class="wrap">
 		<div class="wrap">
-	<div class="col-md-9 single">
+	<div class="col-md-9 col-sm-8 single">
 		<div class="col-md-12 single-in">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
@@ -101,7 +101,7 @@
 		</div>	
 	</div>			
 
-	<div class="col-md-3 sidebar">
+	<div class="col-md-3 col-sm-4 sidebar">
 		<div class="well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>

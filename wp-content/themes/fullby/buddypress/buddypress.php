@@ -1,8 +1,8 @@
 <?php get_header(); ?>			
 		<div class="wrap">
-		<div class="wrap buddyb">
-	<div class="col-md-9 single">
-		<div class="col-md-9 single-in open">
+		<div class="buddyb">
+	<div class="col-md-9 col-xs-12 col-sm-8 single">
+		<div class="single-in open">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 
@@ -47,14 +47,14 @@
 	        
 		</div>	
 		 
-		<div class="col-md-3 hidden sidebar">
+		<div class="col-md-3 hidden sidebar collapse" id="sidebar">
 			<div class="sec-sidebar well"> <?php get_sidebar( 'secondary' ); ?>
 		    </div>
 		 </div>
 
 	</div>			
 
-	<div class="col-md-3 sidebar">
+	<div class="col-md-3 col-xs-12 col-sm-4 sidebar">
 		<div class="well"> <?php get_sidebar( 'primary' ); ?> </div>
 	</div>
 <?php get_footer(); ?>

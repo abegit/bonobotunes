@@ -10,13 +10,15 @@
     #group-create-body .left-menu {width: 100%;}
     
     #whats-new-form {background: none repeat scroll 0 0 #ffffff; margin: 3% 5% 5% !important; position: relative; width: 90%;
-            @include box-shadow(0 28px 8px -22px #bdbdbd);
+            
             border: 2px solid #cdcdcd; 
-            @include border-radius($myrad); 
+            @include border-radius($myrad);
+            &:hover {
+              @include box-shadow(0 28px 8px -22px #bdbdbd);
+            }
         .activity-greeting, #whats-new-avatar {display: none;}
          #whats-new-content textarea {width: 100% !important; line-height: 32px; height: 50px; float: none; 
             @include border-radius($myrad);
-            border-bottom: 1px solid #d0d0d0;
             padding: 8px; resize:none;
                 &:focus {resize: vertical !important; border-color: $green !important; outline-color: $green;}
         }
@@ -27,7 +29,7 @@
             span.value {display: none;}
             dl {margin:0;}
             dt a {font-size: 0;}
-            dl dt:before {content: "";font-family:icomoon; display: block; font-size:.688em !important; text-align: center; line-height: 28px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
+            dl dt:before {content: "";font-family:$iconfont; display: block; font-size:.688em !important; text-align: center; line-height: 28px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
             .whats-new-post-in > dt {cursor:pointer; @include border-box; color:#777; display: inline-block; line-height: 0 !important; padding: 0 5px; width: 40px;
                 &:hover {color:#333;}
             }
@@ -50,7 +52,7 @@
         .bpfb_toolbar_container a  {
             &:first-child {@include border-radius(0 0 0 $myrad);}
             span {display: none;}
-            &:before {-moz-osx-font-smoothing: grayscale; border-right: 1px solid #cfcfcf; color: #7f7f7f; display: inline-block; float: left; font-family: icomoon; font-size:1.563rem; font-weight: lighter; line-height: 50px; margin: 0; text-align: center; width: 50px;}
+            &:before {-moz-osx-font-smoothing: grayscale; border-right: 1px solid #cfcfcf; color: #7f7f7f; display: inline-block; float: left; font-family: $iconfont; font-size:1.563rem; font-weight: lighter; line-height: 50px; margin: 0; text-align: center; width: 50px;}
             &:hover:before {color:$green;}
             &#bpfb_addPhotos:before {content:"";}
             &#bpfb_addLinks:before {content:"";}
@@ -65,7 +67,7 @@
         #whats-new-options {overflow:visible !important; pointer-events:none; position: absolute; bottom:0; right: 0; height:auto !important; margin:8px;}
         #whats-new-options, .bpfb_toolbar_container {display: table-cell; overflow: auto; width: auto !important;}
         #whats-new-submit {margin-top: 0 !important; 
-            input {color: $blue; background: #d6dcdf; display: unset !important; margin: 0 0 0 5px;}
+            input { margin: 0 0 0 5px;}
         }
         #whats-new-options #mpp-activity-upload-buttons {margin-top: 0;}
         #whats-new-textarea {display: inline-block; width: 100%;}
@@ -76,15 +78,17 @@
         &.show-me {background-color:#f7f7f7; border:none;
             #whats-new-options {pointer-events:auto;}
             #whats-new-submit {
-                input {color:#fff; background: $blue; @include box-shadow(0 -1px 0 rgba(255,255,255,.2));border-color:darken($blue,20%);}
+                input {@include btn($green,$myrad, #fff);}
+                input[disabled] {@include btn(#9d9d9d,$myrad, #fff);}
             }
+            &:hover {@include box-shadow(none)}
             #whats-new-post-in-box {opacity: 1;}
             textarea#whats-new {min-height: 130px; padding: 10px 10px 50px; line-height: 18px; border:2px solid #cdcdcd; margin-bottom: -51px;}
             .bpfb_toolbar_container {opacity: 1; position: relative; pointer-events:auto; }
         } /*end show-me*/
 
     } /*end whats new form*/
-#whats-new-form , #whats-new, .bpfb_toolbar_container, #whats-new-options {@include trans(400ms);}
+    #whats-new-form , #whats-new, .bpfb_toolbar_container, #whats-new-options {@include trans(400ms);}
 
     div.item-list-tabs.activity-type-tabs {
         @include tabs2($blue);
@@ -94,26 +98,27 @@
 
     div.item-list-tabs.no-ajax {
         @include tabs2($green);
-        .last {
-            .generic-button {float: right !important;}
-            .send-message, .mention {
-                @extend .btn;
-                @extend .btn-default;
-                font-size: 0;
-                &:before {
-                    font-size:0.875rem;
-                    font-family: icomoon;
-                }
-            }
-             .send-message:before {content: ""; }
-             .mention:before {content: ""; }
+        @include bp-small {
+            margin:0 -3%;
+            width: 107%;
         }
     } /* end whats new options*/
+    
+
+
+
 
      .item-list-tabs.no-ajax {width: unset !important;}
         #subnav li {line-height: 28px;}
         #subnav {height: 48px;
-            ul {margin:10px 0 0 10px !important;}
+            @include bp-small {
+                margin:0;
+            }
+            a {line-height: 48px;}
+            li.filter label:before {
+                content:$icon-filter;
+                font-family: $iconfont;
+            }
         }
 
     
@@ -145,7 +150,7 @@
     
 
 
-    .activity-list {border-top: none !important; margin-top: 20px !important;  margin-bottom: 50px !important;
+    .activity-list {border-top: none !important; margin-top: 20px !important;  margin-bottom: 50px !important; padding-bottom: 10px !important;
         &> li {background:#f4f4f4; @include border-radius($myrad); margin:0 5% 3% !important; overflow: unset !important;padding-bottom: 0 !important;
             .activity-content {margin:0;}
             .activity-avatar {margin-left:15px;}
@@ -192,7 +197,7 @@
     } /*end activity directory*/
     .activity-filter-by.selectwrap dl {display: none; }
     .selectwrap.activity-filter-by {
-        &:before {content: ""; font-family: icomoon; margin-right: 10px; pointer-events: none;}
+        &:before {content: ""; font-family: $iconfont; margin-right: 10px; pointer-events: none;}
         &:after {content: "Filter By"; pointer-events: none;}
     }
     #activity-filter-select {overflow: hidden; position: relative; margin-top: 0 !important; 
@@ -202,7 +207,7 @@
     #activity-filter-select div {background: transparent; @include border-radius(200px); display: block; padding: 0 20px; text-align: center; width: 100%;
         &:hover {background:#f4f4f4;@include box-shadow(0 0 0 2px $green inset);}
     }
-    
+    .load-more a * {pointer-events: none; }
     #subnav {float: right; height: 60px; margin: 0 0 -60px !important; padding: 14px 30px; display: none !important; position: relative; top: -60px;
         ul {margin:0 !important;}
         li {line-height: 35px;}}

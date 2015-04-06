@@ -45,7 +45,7 @@
 
 	<?php do_action( 'bp_before_member_home_content' ); ?>
 
-	<div class="col-md-9 single">
+	<div class="col-md-9 col-sm-8 col-xs-12 single">
 		<div id="item-header" role="complementary" class="panel widget">
 		<?php bp_get_template_part( 'members/single/member-header' ) ?>
 	</div><!-- #item-header -->

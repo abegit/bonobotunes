@@ -1,3 +1,19 @@
+<?php if (is_user_logged_in()) {
+  $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id());
+      if ( $notifications ) {
+        $counter = 0;
+        echo '<div class="widget"><h3>New notifications!</h3><ul>';
+        for ( $not3 = 0, $count = count( $notifications ); $not3  < $count; ++$not3 ) {
+          $alt = ( 0 == $counter % 2 ) ? ' class="alt"' : ''; ?>
+          <li <?php echo $alt ?>> <?php echo $notifications[$not3] ?> </li>
+          <?php $counter++;
+        } 
+        echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="icon-ellipsis"></i></a></li></ul></div>';
+      } else {}
+  } ?>
+
+<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Rotator') ) : ?>
+  <?php endif; ?>
 
   <?php if (!is_user_logged_in()) { ?>
     <div style="background:#000; padding:10px; margin:10px;" class="widget">      
@@ -22,7 +38,7 @@
       
       <div class="tab-pane fade in active" id="signin">
         <h3 style=" font-size: 22px; font-weight: 300; margin-bottom: 20px; text-align: center;">Sign In to Explore!</h3>
-  <form name="login-form" id="login-form" class="login-form" action=" <?php echo site_url( 'wp-login.php' ) ?>" method="post">
+  <form name="login-form" id="login-form" class="login-form" action=" <?php echo site_url() ?>" method="post">
 
 
                        <div class="input-group">
@@ -64,21 +80,9 @@ function myFunction() {
 </div>
 </div>
     <?php } ?>
-<?php if (is_user_logged_in()) {
-  $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id());
-if ( $notifications ) {
-        $counter = 0;
-        for ( $not3 = 0, $count = count( $notifications ); $not3  < $count; ++$not3 ) {
-          $alt = ( 0 == $counter % 2 ) ? ' class="alt"' : ''; ?>
 
-          <li <?php echo $alt ?>> <?php echo $notifications[$not3] ?> </li>
 
-          <?php $counter++;
-        } 
-        echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="icon-ellipsis"></i></a></li>';
-      } else {}
-  } ?>
-    <?php if (!bp_is_user_activity() && !bp_is_profile_component()) { ?>
+    <?php if (!bp_is_user_activity() && !bp_is_profile_component() && !is_user_logged_in()) { ?>
 <div class="widget widget-tabs">
 
     <!-- Nav tabs -->

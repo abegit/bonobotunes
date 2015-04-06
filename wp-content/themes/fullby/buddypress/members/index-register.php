@@ -6,10 +6,10 @@
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 	
-				
+				<?php if (bp_get_current_signup_step() !== 'completed-confirmation' ) { ?>
 				<div class="sing-tit-cont">
 					
-					<h3 class="sing-tit">SIgn In:</h3>
+					<h3 class="sing-tit">Sign In:</h3>
 
 				<?php echo do_shortcode('[wordpress_social_login]'); ?>
 				<form name="login-form" id="login-form" class="login-form" action=" <?php echo site_url( 'wp-login.php' ) ?>" method="post">
@@ -23,13 +23,19 @@
                        </div>
 
                        <input class="btn btn-primary pull-left" type="submit" name="wp-submit" id="wp-submit" value=" <?php _e( 'Log In', 'firmasite' ) ?>"/>
-                        <a href="<?php echo site_url( 'my-account/lost-password' ) ?>">Forgot Password?</a>
-                       <input type="hidden" name="redirect_to" value="<?php echo $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?>" />
-                       <input type="hidden" name="testcookie" value="1" />  </form>
+                        <a href="<?php echo site_url( 'wallet/update-password' ) ?>">Forgot Password?</a>
+                        <input type="hidden" name="testcookie" value="1" />
+                        <input type="hidden" name="redirect_to" value="<?php echo home_url().'/home' ?>" />
+                   </form>
 				</div>
 				<div class="sing-tit-cont">
 					<h3 class="sing-tit">or Sign Up!</h3>
 				</div>
+				<?php } else { ?>
+				<div class="sing-tit-cont">
+					<h3 class="sing-tit">One Last Step!</h3>
+				</div>
+				<?php } ?>
 				<div>
 					
 					<div class="sing-spacer">

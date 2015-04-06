@@ -71,10 +71,10 @@ jQone(document).ready(function() {
 		<?php if (isset($afil)) { ?>
 
  				if (helpa!=null && helpa!="") {
-				  	jQone(".field_1 input[type=text]").val(helpa);
+				  	jQone(".field_185 input[type=text]").val(helpa);
 				}		
 				if (helpa=="") {
-					var php_code = "<?php echo $afil; ?>";
+					var php_code = "<?php echo $ail; ?>";
 					setCookie("helper",php_code,30);
 				}
 				if (helpa=="0") {
@@ -85,7 +85,7 @@ jQone(document).ready(function() {
 		<?php } else { ?>
 
  				if (helpa!=null && helpa!="") {
-					jQone(".field_1 input[type=text]").val(helpa);
+					jQone(".field_185 input[type=text]").val(helpa);
 				}		
 				if (helpa=="") {
 					var php_code = "<?php echo bp_displayed_user_id(); ?>";

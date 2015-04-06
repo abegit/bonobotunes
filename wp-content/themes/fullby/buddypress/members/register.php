@@ -5,7 +5,7 @@
 	<div class="page" id="register-page">
 
 		<form action="" name="signup_form" id="signup_form" class="standard-form" method="post" enctype="multipart/form-data">
-
+<!-- Step #1 -->
 		<?php if ( 'registration-disabled' == bp_get_current_signup_step() ) : ?>
 			<?php do_action( 'template_notices' ); ?>
 			<?php do_action( 'bp_before_registration_disabled' ); ?>
@@ -14,7 +14,22 @@
 
 			<?php do_action( 'bp_after_registration_disabled' ); ?>
 		<?php endif; // registration-disabled signup setp ?>
+<!-- Step #2 -->
+		<?php if ( 'completed-confirmation' == bp_get_current_signup_step() ) : ?>
 
+			<?php do_action( 'template_notices' ); ?>
+			<?php do_action( 'bp_before_registration_confirmed' ); ?>
+
+			<?php if ( bp_registration_needs_activation() ) : ?>
+				<p><?php _e( 'You have successfully created your account! To begin using this site you will need to activate your account via the email we have just sent to your address.', 'buddypress' ); ?></p>
+			<?php else : ?>
+				<p><?php _e( 'You have successfully created your account! Please log in using the username and password you have just created.', 'buddypress' ); ?></p>
+			<?php endif; ?>
+
+			<?php do_action( 'bp_after_registration_confirmed' ); ?>
+
+		<?php endif; // completed-confirmation signup step ?>
+<!-- Step #3 -->
 		<?php if ( 'request-details' == bp_get_current_signup_step() ) : ?>
 
 			<?php do_action( 'template_notices' ); ?>
@@ -119,7 +134,7 @@
 				<?php do_action( 'bp_after_signup_profile_fields' ); ?>
 
 			<?php endif; ?>
-
+<!-- Step #4 -->
 			<?php if ( bp_get_blog_signup_allowed() ) : ?>
 
 				<?php do_action( 'bp_before_blog_details_fields' ); ?>
@@ -164,7 +179,7 @@
 			<?php endif; ?>
 			</div>
 			<?php do_action( 'bp_before_registration_submit_buttons' ); ?>
-
+<!-- Step #5 -->
 			<div class="submit">
 				<input type="submit" name="signup_submit" id="signup_submit" value="<?php esc_attr_e( 'Complete Sign Up', 'buddypress' ); ?>" class="btn btn-primary"/>
 			</div>
@@ -174,21 +189,6 @@
 			<?php wp_nonce_field( 'bp_new_signup' ); ?>
 
 		<?php endif; // request-details signup step ?>
-
-		<?php if ( 'completed-confirmation' == bp_get_current_signup_step() ) : ?>
-
-			<?php do_action( 'template_notices' ); ?>
-			<?php do_action( 'bp_before_registration_confirmed' ); ?>
-
-			<?php if ( bp_registration_needs_activation() ) : ?>
-				<p><?php _e( 'You have successfully created your account! To begin using this site you will need to activate your account via the email we have just sent to your address.', 'buddypress' ); ?></p>
-			<?php else : ?>
-				<p><?php _e( 'You have successfully created your account! Please log in using the username and password you have just created.', 'buddypress' ); ?></p>
-			<?php endif; ?>
-
-			<?php do_action( 'bp_after_registration_confirmed' ); ?>
-
-		<?php endif; // completed-confirmation signup step ?>
 
 		<?php do_action( 'bp_custom_signup_steps' ); ?>
 

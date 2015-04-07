@@ -6,9 +6,9 @@
 * #4 - Fullby CONTENT WIDTH & feedlinks 
 * #5 - Fullby REPLY comment script 
 * #6 - Fullby MENU 
-* #12 - uniqueCatcher - classifieds array checklist
 * #11 - AdRotate integration
-*
+* #12 - uniqueCatcher - classifieds array checklist
+* #13 - woocommerce support
 *
 *
 *
@@ -364,6 +364,7 @@ function is_tree( $pid ) {      // $pid = The ID of the page we're looking for p
     //is the $pid in the ancestors array
 }
 
+// #13 woocommerce support
 add_theme_support('woocommerce');
 
 

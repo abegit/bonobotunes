@@ -104,7 +104,22 @@
             </div> 
         </div>
 
-        
+        <script type="text/javascript">
+            var newcss=new gfeedfetcher("artist", "", "");
+            newcss.addFeed("Bloggamy", "http://bloggamy.com/category/shows?feed=listen") //Specify "label" plus URL to RSS feed
+            newcss.displayoptions("description") //show the specified additional fields
+            newcss.addregexp(/(\[CDATA\[)|(\]\])/g, '', 'descriptionfield')
+            newcss.definetemplate("<h1 id='hd'>{description}</h1><h2 id='dc'><div class='artistTXT' url='{url}'>{title}</div></h2><h2 id='dcc' style='display:none;'>{datetime}</h2><h3 id='ex'><a href='#' onClick='shuffle(urls)'>DSB Radio</a></h3>")
+            newcss.setentrycontainer("div", "item") //Display each entry as a DIV (div element)
+            newcss.filterfeed(20, "date") //Show 5 entries, sort by date
+            // newcss.onfeedload=function(){
+            //     alert("RSS Displayer has loaded!")
+            // }
+            newcss.init() //Always call this last 
+            </script>
+
+
+
 
 
         </div>
@@ -134,16 +149,9 @@
 </div>
 </div> <!-- end of footer -->
 
- <?php $i = 0; ?>
-<?php while( have_posts()) : the_post(); ?>
-    urls[<?php echo $i; ?>] = '<?php echo pg_enc(); ?>';
-    <?php if (!is_single()) { $i++; } ?>
-<?php endwhile; ?>
+
+
 </body>
-
-
-
-<?php wp_reset_query(); ?> 
 <script>
     // playlist for songs
     var urls = new Array();

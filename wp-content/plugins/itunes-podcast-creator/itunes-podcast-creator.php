@@ -120,6 +120,7 @@ class iTunesRSS extends SanityPluginFramework {
 					}
 				}
 			} // end pg_enc
+			
 
 	} // end if option UnsceneMusicPlayer = 1 aka yes
 }

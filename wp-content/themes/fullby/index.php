@@ -1,5 +1,5 @@
 <?php get_header(); ?>		
-<div class="wrap"><div class="wrap buddyb">
+<div class="row"><div class="buddyb">
 		<div class="col-md-9 cont-grid">
 		
 		<?php // if is home and is not paged show featured post

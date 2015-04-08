@@ -5,7 +5,7 @@ Template Name: Studio
 get_header(); ?>			
 		<div class="row">
 <div class="buddyb">		
-	<div class="col-md-9 col-sm-8 single">
+	<div class="col-md-12 single">
 
 		<?php $video = get_post_meta($post->ID, 'fullby_video', true );
 				  
@@ -32,7 +32,7 @@ get_header(); ?>
 					</div>
 					<div class="sing-cont">
 						<div class="sing-spacer">
-							 <div class="col-md-6 col-sm-12">
+							 <div class="col-md-7 col-sm-12">
 							 	<?php the_content('Leggi...');?>
 							 	<?php endwhile; ?>
 		        <?php else : ?>
@@ -40,8 +40,10 @@ get_header(); ?>
 		        <?php endif; ?> 
 								
 							</div> <!-- end colum 1 -->
-							<div class="col-md-6 col-sm-12">
+							<div class="col-md-5 col-sm-12">
 								
+								<h3 class="text-center">Lounge <a class="btn-tip alignright" href="/membership" title="Live Chatroom" data-url="/membership" data-text="Talk with your fellow bonobos and share a laugh."><i class="icon-info"></i></a></h3>
+
 								<?php echo do_shortcode('[quick-chat]'); ?>
 							</div> <!-- end column 2 -->
 						</div>
@@ -52,10 +54,5 @@ get_header(); ?>
 	 </div>
 
 	</div>			
-
-	<div class="col-md-3 col-sm-4 sidebar">
-	<div class="well"> <?php get_sidebar( 'primary' ); ?></div>
-		    
-	</div>
 		
 <?php get_footer(); ?>

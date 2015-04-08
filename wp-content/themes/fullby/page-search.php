@@ -15,7 +15,7 @@ foreach($query_args as $key => $string) {
 } // foreach
 
 $search = new WP_Query($search_query); ?>
-        <div class="wrap"><div class="wrap buddyb">
+        <div class="row"><div class="buddyb">
 	<div class="col-md-9 col-sm-8 single">
         <p class="result">Result for: <strong><i><?php echo $s ?></i></strong></p>
 

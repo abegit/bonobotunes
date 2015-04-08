@@ -1,15 +1,15 @@
 @charset "UTF-8";
 /*
 Theme Name: Bonoboville 
-Theme URI: 	http://bonoboville.com/unscene
+Theme URI: 	http://bonoboville.com/sirabr
 Description:Responsive Grid Wordpress Theme based on Boostrap 3, Font Awesome and Isotope.
 Version: 	1
 Author:		Abraham Perez
-Author URI:	http://bonoboville/tech
+Author URI:	http://github.com/madmansam
 Site: 		http://unscene.us
 Tags:		responsive-layout,custom-menu, featured-images, fluid-layout, full-width-template, left-sidebar, right-sidebar, theme-options
 
-Copyright (c) 2014 Bonoboville
+Copyright (c) 2015 Bonoboville
 http://bonoboville.com
 
 The software is provided "as is", without warranty of any kind,
@@ -5989,6 +5989,11 @@ img {
     color: #fff;
     background: transparent; }
 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  background: none; }
+
 body.init .navbar-inverse .navbar-nav > .active > a,
 body.init .navbar-inverse .navbar-nav > .active > a:hover,
 body.init .navbar-inverse .navbar-nav > .active > a:focus {
@@ -7237,10 +7242,12 @@ textarea {
   background-color: transparent !important;
   background-image: url("img/headers.jpg") !important;
   background-origin: padding-box !important;
-  background-position: center -150px;
+  background-position: center -152px;
   background-repeat: repeat !important;
+  background-size: cover;
   height: 115px;
-  line-height: 115px !important; }
+  line-height: 115px !important;
+  text-align: center; }
 .page-id-46869 .buddyb .sing-tit-cont h3 {
   line-height: 115px;
   color: #fff;
@@ -7252,16 +7259,45 @@ textarea {
     font-family: icomoon;
     margin-right: 10px; }
 .page-id-46869 .sing-cont {
-  background: none repeat scroll 0 0 #606060;
-  -webkit-box-shadow: 0 50px 140px #000000 inset, 0 -31px 50px #000000;
-  -moz-box-shadow: 0 50px 140px #000000 inset, 0 -31px 50px #000000;
-  box-shadow: 0 50px 140px #000000 inset, 0 -31px 50px #000000; }
+  background: none repeat scroll 0 0 #000000;
+  -webkit-box-shadow: 0 0 40px #202020 inset, 0 -31px 50px #000000;
+  -moz-box-shadow: 0 0 40px #202020 inset, 0 -31px 50px #000000;
+  box-shadow: 0 0 40px #202020 inset, 0 -31px 50px #000000; }
   .page-id-46869 .sing-cont:after {
     clear: both !important;
     content: "";
     display: block; }
 .page-id-46869 .sing-spacer > div {
   padding: 0; }
+.page-id-46869 .sing-spacer h3.text-center {
+  background: url("img/woodgrain.jpg") repeat scroll center bottom/cover transparent;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+  -webkit-box-shadow: 0 0 3px 2px rgba(255, 255, 255, 0.14) inset, 0 0 0 5px rgba(0, 0, 0, 0.65) inset;
+  -moz-box-shadow: 0 0 3px 2px rgba(255, 255, 255, 0.14) inset, 0 0 0 5px rgba(0, 0, 0, 0.65) inset;
+  box-shadow: 0 0 3px 2px rgba(255, 255, 255, 0.14) inset, 0 0 0 5px rgba(0, 0, 0, 0.65) inset;
+  color: #eca145;
+  display: block;
+  font-family: lato;
+  font-size: 1.2rem;
+  font-variant: small-caps !important;
+  letter-spacing: 0.5rem;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  line-height: 50px;
+  margin: 0;
+  padding: 0 20px;
+  text-align: left;
+  -webkit-text-shadow: 2px 2px 2px #000000, -4px 2px 2px #000000, 6px 1px 6px #e06000, -3px 1px 5px #e06000;
+  -moz-text-shadow: 2px 2px 2px #000000, -4px 2px 2px #000000, 6px 1px 6px #e06000, -3px 1px 5px #e06000;
+  text-shadow: 2px 2px 2px #000000, -4px 2px 2px #000000, 6px 1px 6px #e06000, -3px 1px 5px #e06000; }
+  .page-id-46869 .sing-spacer h3.text-center a {
+    color: #eca145; }
+  .page-id-46869 .sing-spacer h3.text-center:hover {
+    letter-spacing: .4rem; }
 .page-id-46869 .quick-chat-container {
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.27);
   padding: 4% !important; }
@@ -9622,9 +9658,44 @@ input.gsc-input {
       border: 1px solid #eab52e;
       text-decoration: none; }
 
+#btn-tip-main {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  -webkit-transition: all 800ms ease-in-out;
+  -moz-transition: all 800ms ease-in-out;
+  -o-transition: all 800ms ease-in-out;
+  transition: all 800ms ease-in-out; }
+  #btn-tip-main #btn-tip-close {
+    position: relative;
+    cursor: pointer; }
+  #btn-tip-main #btn-tip-box {
+    background: none repeat scroll 0 0 #ffffff;
+    color: #2f2f2f;
+    display: block;
+    margin: 15% auto 0;
+    max-width: 400px;
+    padding: 20px 10px 50px;
+    position: relative !important;
+    z-index: 9999 !important; }
+  #btn-tip-main.open {
+    opacity: 1;
+    pointer-events: auto; }
+
 /* #buddypress .comment-reply-link, #buddypress a.button, #buddypress button, #buddypress div.generic-button a, #buddypress input[type="button"], #buddypress input[type="reset"], #buddypress input[type="submit"], #buddypress ul.button-nav li a, a.bp-title-button {background: #ffff00 !important; border: medium none !important; box-shadow: 0 20px 30px rgba(255, 255, 255, 0.7) inset; font-size: .813em !important; padding: 10px 15px !important;}
 */
 /* #8 - chat */
+#mediaPlayer_wrapper {
+  width: 100% !important; }
+
 textarea.quick-chat-message {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

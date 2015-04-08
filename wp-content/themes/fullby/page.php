@@ -1,6 +1,6 @@
 <?php get_header(); ?>			
-		<div class="wrap">
-		<div class="wrap buddyb">
+		<div class="row">
+		<div class="buddyb">
 	<div class="col-md-9 single">
 	
 		<div class="col-md-9 single-in">

@@ -67,6 +67,18 @@
 </div>
 </div> <!-- end wrap -->
 
+
+<div id="btn-tip-main">
+	<div id="btn-tip-box">
+		<i id="btn-tip-close" class="icon-close"></i>
+		<div id="btn-info"></div>
+	</div>
+</div>
+
+
+
+
+
 <!-- <div class="friends"><div class="row">
 <ul class="colum dropup">
   <li><a href="./sitemap" class="ui-link">Sitemap</a><ul class="dropdown-menu dropdown-menu-left" role="menu">
@@ -116,8 +128,8 @@
 	  <script type="text/javascript">jwplayer.key="qLzynSodouEg2o+gukjzO+6P0dzyHYq1TqcHaUF9cJE=";</script>
 	  <script>
 		jwplayer("mediaPlayer").setup({
-			        height: 270,
-			        width: 448,
+			        height: 420,
+			        width: 700,
 			        title : 'Tune in Saturday Nights to Watch Live 10 to 12 pm PST',
 			        file: 'rtmp://cs2055.mojohost.com/streamtest/testing'
 			    });
@@ -315,6 +327,41 @@ $navDropz(document).ready(function(){
 			$navDropz(this).attr('data-uri', '1');
 		}
 	});
+
+
+
+// custom popup action by unscene.us
+	var $popbtn = $navDropz('.btn-tip');
+	var $popClose = $navDropz('#btn-tip-close');
+	var $popContainr = $navDropz('#btn-tip-main');
+	var $popBox = $navDropz('#btn-tip-box');
+	var $popInfo = $navDropz('#btn-info');
+	$popbtn.attr('href','#');
+
+	// start popup
+	$popbtn.click(function(){
+		var infoTXT=$navDropz(this).attr('data-text');
+		var infoURL=$navDropz(this).attr('data-url');
+		var infoTitle=$navDropz(this).attr('title');
+		if(infoTXT!==""){
+			$popContainr.addClass('open');
+			$popInfo.html(function() {
+				// return "<h4>" + infoTitle + "</h4><p>" + infoTXT + "</p>" + "<a href='" + infoURL + "'>Continue</a>";
+				return "<h4>" + infoTitle + "</h4><p>" + infoTXT + "</p>";
+				});
+		} else{
+			$popContainr.addClass('open');
+		    $popInfo.html(fixThisShit);
+		}
+	});
+
+
+	// end popup
+	$popClose.click(function(){
+		$popContainr.removeClass('open');
+	});
+
+
 
 	// var $butan =  $navDropz('.navbar-brand');
 	// $butan.click(function(){

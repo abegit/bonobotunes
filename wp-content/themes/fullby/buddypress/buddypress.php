@@ -1,5 +1,5 @@
 <?php get_header(); ?>			
-		<div class="wrap">
+		<div class="row">
 		<div class="buddyb">
 	<div class="col-md-9 col-xs-12 col-sm-8 single">
 		<div class="single-in open">

@@ -3,8 +3,8 @@
 Template Name: Boiler
 */
 get_header(); ?>			
-		<div class="wrap">
-<div class="buddyb wrap">		
+		<div class="row">
+<div class="buddyb">		
   <div class="col-md-12" id="map">
         <div class="layer" style="width:1920px; height:400px;" id="grid"> </div>
         <img src="http://placehold.it/200" class="layer">

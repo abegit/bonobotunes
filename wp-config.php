@@ -3,9 +3,9 @@
  * The base configurations of the WordPress.
  *
  * This file has the following configurations: MySQL settings, Table Prefix,
- * Secret Keys, WordPress Language, and ABSPATH. You can find more information
- * by visiting {@link http://codex.wordpress.org/Editing_wp-config.php Editing
- * wp-config.php} Codex page. You can get the MySQL settings from your web host.
+ * Secret Keys, and ABSPATH. You can find more information by visiting
+ * {@link http://codex.wordpress.org/Editing_wp-config.php Editing wp-config.php}
+ * Codex page. You can get the MySQL settings from your web host.
  *
  * This file is used by the wp-config.php creation script during the
  * installation. You don't have to use the web site, you can just copy this file
@@ -16,13 +16,13 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'bloggamybonob_wp');
+define('DB_NAME', 'bonobo');
 
 /** MySQL database username */
-define('DB_USER', 'minus');
+define('DB_USER', 'greg_mysql');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'minus');
+define('DB_PASSWORD', 'Mq9882cr');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -42,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'iEb8jp7CMZ8MA9SjGbeERTPQUDVwpJU0fXugOAq1oAybHPtfKf051aTjEGDhXuSelfaRg4ZaCAifZZCsflw9zvtl58zscDPB0Bvu');
-define('SECURE_AUTH_KEY',  'x5EsAcVr84eX9ZNINy9h7reA3fg5Z0xAObCjY8v34zYY2pJ8D6pOKSdZr69RTIPyWnPMeDlP7a9YNWuZQD8GRMaUZyDe5y7qOhND');
-define('LOGGED_IN_KEY',    'cZqxKQEtU5NEUq771oNT6fCCeL6LNlzmg9v4bI01YzkltELiD84jvDWcNXZxrrV25I06DsMW3u0I3ctm3jbjthIRyVDviPyfQEl8');
-define('NONCE_KEY',        'F2AV2jFj6bDU6HdQiLYxsG5zqOgjYH0tozgeq2zQ6ObxCyPdBvb6oPPQwPE46owm3ooZWZlK3sxsWpanacONI2o1806SOS5M9Msn');
-define('AUTH_SALT',        'jRPWh2ZgEnuvtQazBxaSXQsLvZrj8Z4yAtXCjmyUlckSbDvqYFcXSkYpMvv6BszzVKApFOqmh6dV7f0K1WCT364U1CviuJ0Hzbs3');
-define('SECURE_AUTH_SALT', 'wrSFrgFYZdf1Gqa28pHV3IFylW2C72TmHUAxZRtxhhN3UysLz0PFg2xvdAuavsQAxdHKVIejHLxwKUjKQVs4MoeGnsl3vHedDugW');
-define('LOGGED_IN_SALT',   'R7t6TKovzl5va6G3uPraDUms2U99nyNUArFmWiEZjOF8dh9LhW5n0Fh2HMsd7u43zURFYZMaqA2T17FXpRTLfH5f34ykeCaSHwwS');
-define('NONCE_SALT',       'xvH5tWis5vjdlgP8RjWAQPuR3XfaCPPFMaTfQ7COfFq80MV2IQSvuDN5wexPKtDAWYytLXtxVOnlMtYh76LHf7jwD8eqM63DXmer');
+define('AUTH_KEY',         'in4qDbypR=QS|HhD_lOeQ{z^7-vEGjp(nm86h4,7T=~`7[_:Cjl%.]d*>oZy9Vc-');
+define('SECURE_AUTH_KEY',  'Q.]FPl]71aEfq;meZ/Y4RE-{ia&/MWynnGtq2)Ap0pu;~h}/vYwZ0ki_qv-kKc=0');
+define('LOGGED_IN_KEY',    'J?-<<,|FlvgqrGz|=OL0$Q,|]j8An7XK@TR|CA]e-,NW1,q K8;[x:$F%omiJ#+l');
+define('NONCE_KEY',        '47b}{7-e::#nO9/|6XsVzmEV{#|K>!coIY~@zwVGX=+$ZX-{$J1]sp4|83LKm&:N');
+define('AUTH_SALT',        'b72O)l)k&!<.BW#rE7(A7K3|:|-[r< 1t%d^{Hwyd.+MqZAV;zY>j8Jr0c0H?-<q');
+define('SECURE_AUTH_SALT', 'm8Uh/?Bc}]L)YA!)B#;hIlqS5Q~NGHWj@]pd%FW#-z}+m~Yka-CR-7wtcJ)y$F&l');
+define('LOGGED_IN_SALT',   ']WF7%hEjTxH^6mr$j`d<eRof,-5H-uE?q79JnNG%(<@IyY)6MHS0M[Q(l?iTUE[@');
+define('NONCE_SALT',       'MB*zc{gj%|vY}z&[X9`Eped{;,ybP#HnMI(&BPe^S({=Nwu +YiB%`%DCw+lta/R');
 
 /**#@-*/
 
@@ -62,27 +62,13 @@ define('NONCE_SALT',       'xvH5tWis5vjdlgP8RjWAQPuR3XfaCPPFMaTfQ7COfFq80MV2IQSv
 $table_prefix  = 'wp_';
 
 /**
- * WordPress Localized Language, defaults to English.
- *
- * Change this to localize WordPress. A corresponding MO file for the chosen
- * language must be installed to wp-content/languages. For example, install
- * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
- * language support.
- */
-define('WPLANG', '');
-
-/**
  * For developers: WordPress debugging mode.
  *
  * Change this to true to enable the display of notices during development.
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-
 define('WP_DEBUG', false);
-// define( 'WP_MEMORY_LIMIT', '64M' );
-// define('WP_HOME','http://bonoboville.local');
-// define('WP_SITEURL','http://bonoboville.local');
 
 /* That's all, stop editing! Happy blogging. */
 
@@ -92,6 +78,8 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
-define('FTP_HOST', 'localhost');
-define('FTP_USER', 'bloggamyadmin');
-define('FTP_PASS', 'B&8bIB#@!&BO&*C*');
+
+require_once(ABSPATH . 'wp-settings.php');
+define('FTP_HOST', 'cs2055.mojohost.com');
+define('FTP_USER', 'blockent_ftp');
+define('FTP_PASS', 'j0eQ5tG9ABBIXuA5');

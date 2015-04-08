@@ -23,10 +23,11 @@
 <div id="item-header-content">
 
 	<?php if ( bp_is_active( 'activity' ) && bp_activity_do_mentions() ) : ?>
-		<h2 class="user-nicename">@<?php bp_displayed_user_mentionname(); ?></h2>
+		<h2 class="user-nicename"><?php bp_profile_field_data( 'field=Name&user_id='.bp_displayed_user_id() ) ?></h2>
 	<?php endif; ?>
 
-	<span class="activity"><?php bp_last_activity( bp_displayed_user_id() ); ?></span>
+	<span class="activity">@<?php bp_displayed_user_mentionname(); ?></span>
+	<span class="activity text-hide"><?php bp_last_activity( bp_displayed_user_id() ); ?></span>
 
 	<?php do_action( 'bp_before_member_header_meta' ); ?>
 

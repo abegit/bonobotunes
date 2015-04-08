@@ -1,9 +1,12 @@
-/*	table of le contents
- *	-iosslider
+/*!
+ *	table of le contents
+ *	-iosSlider
  *  -stackBlur
  *	-TV INITIATION
- *
- *
+ */
+
+
+/*!
  * iosSlider - http://iosscripts.com/iosslider/
  * 
  * Touch Enabled, Responsive jQuery Horizontal Content Slider/Carousel/Image Gallery Plugin

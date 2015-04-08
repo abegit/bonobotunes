@@ -12,8 +12,9 @@ get_header(); ?>
                 
                  <?php }  ?>
                  <img src="<?php echo $thumb_url;?>" data-canvas-image style="display:none;">
-                 <canvas id="backdrop" width="100%" height="100%" data-canvas style="width:100%; vertical-align:middle; position:absolute; height: 100% !important; z-index:0; opacity:0;"></canvas>
-<div class="wrap">		
+                 <canvas id="backdrop" width="100%" height="100%" data-canvas style="width:100%; vertical-align:middle; position:absolute; height: 100% !important; z-index:0;"></canvas>
+<div class="wrap">	
+<div class="wrap">	
 	<div class="col-md-12 single" style="background:url('<?php echo $thumb_url;?>'); background-size:cover; background-position:center top;" data-type="background" data-speed="2">
 	
 		<div class="col-md-12 single-in" style="float:none;">
@@ -33,7 +34,7 @@ get_header(); ?>
 					<div class="sing-spacer">
 					
 						<?php the_content('Leggi...');?>
-
+						<div class="clear"></div>
 					</div>
 
 				</div>	

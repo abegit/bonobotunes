@@ -81,13 +81,14 @@ function bpCustom_Header() {
 
 			if ( $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() ) ) { ?>
 			<span> <?php echo count( $notifications ) ?> </span>
-			<?php _e( 'Notes', 'buddypress' );  ?>
-			<?php } elseif ( !$notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() ) ) {
-				_e( 'Notes', 'buddypress' ); 
-			}
+			<i class="icon-bell"></i>
+			<?php } elseif ( !$notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() ) ) { ?>
+				<i class="icon-bell"></i>
+			<?php }
 
 			echo ' </a>';
 			echo ' <ul class=" dropdown-menu" role="menu">';
+			echo ' <li role="presentation" class="dropdown-header">Notifications</li> ';
 
 			if ( $notifications ) {
 				$counter = 0;
@@ -98,7 +99,7 @@ function bpCustom_Header() {
 
 					<?php $counter++;
 				} 
-				echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="fa-ellipsis-h"></i></a></li>';
+				echo '<li class="view"><a href="'.bp_loggedin_user_domain().'notifications"><i class="icon-ellipsis"></i></a></li>';
 			} else { ?>
 
 			<li> <a href=" <?php echo bp_loggedin_user_domain() ?>notifications"> <?php _e( 'No new notifications.', 'buddypress' ); ?> </a> </li>
@@ -117,15 +118,26 @@ endif;
 	function bpCustom_menu_item ( $items, $args ) {
 		if (is_user_logged_in() && $args->theme_location == 'primary') {
 			global $current_user;
-			return $items . '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle account" data-toggle="dropdown" href="#" title="My Account">@'.$current_user->user_login.'<span class="caret" style="display:none;"></span></a>
-			<ul class=" dropdown-menu" role="menu"><li class="bp-menu bp-profile-nav menu-item menu-item-type-custom menu-item-object-custom">
-			<a href="'.bp_loggedin_user_domain().'"><i class="icon-user"></i>my profile
-			'.get_avatar($current_user->ID).'</a></li><li class="bp-menu bp-profile-nav menu-item menu-item-type-custom menu-item-object-custom">
-			<a href="'.bp_loggedin_user_domain().'profile/edit"><i class="icon-edit"></i>edit profile</a></li>
-			<li class="bp-menu bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/my-account" title="Account"><i class="icon-cogs"></i>Account</a></li><li class="bp-menu bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Settings"><i class="icon-cogs"></i>Settings</a></li><li class="bp-menu bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.wp_logout_url(get_permalink()).'" title="Log Out"><i class="icon-sign-out"></i>log out</a></li></ul></li>';
+			return $items . '
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle account" data-toggle="dropdown" href="#" title="Hi, '.$current_user->user_login.'">@'.$current_user->user_login.'<span class="caret" style="display:none;"></span></a>
+				<ul class=" dropdown-menu" role="menu">
+				<li role="presentation" class="dropdown-header">Places:</li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom">'.bp_loggedin_user_avatar( 'type=thumb&width=50&height=50&url=true' ).'
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'messages" title="Messages"><i class="icon-mail2"></i>Post Office</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'friends" title="Friends"><i class="icon-mail2"></i>My Friends</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'groups" title="Groups"><i class="icon-mail2"></i>My Groups</a></li>
+				<li class="divider" role="presentation"></li>
+				<li role="presentation" class="dropdown-header">Wallet:</li>
+			    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'" title="My Profile"><i class="icon-user2"></i>My Profile</a></li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'profile/change-avatar"><i class="icon-pencil"></i>Edit Profile</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/membership" title="Citizenship"><i class="icon-gift"></i>Citizenship</a></li>
+				<li role="presentation" class="divider"></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/forum/support" title="Help and Support"><i class="icon-settings"></i>Tech Support</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Privacy Settings"><i class="icon-settings"></i>Privacy</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.wp_logout_url(get_permalink()).'" title="Log Out"><i class="icon-exit"></i>log out</a></li></ul></li>';
 		}
 		elseif (!is_user_logged_in() && $args->theme_location == 'primary') {
-			return $items . '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown" id="menu-item-152"><a href="../register" title="Register"><i class="icon-fire"></i>Register</a></li>';
+			return $items . '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown" id="menu-item-152"><a href="../register" title="Register"><i class="icon-signup"></i>Register</a></li>';
 		}
 		else {
 			return $items; 

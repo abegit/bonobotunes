@@ -1,4 +1,4 @@
-var adGapLength = 1000 * 20
+var adGapLength = 1000 * 200
 var adImgLength = 1000 * 13
 function loadPlayer() {
     var audioPlayer = new Audio();

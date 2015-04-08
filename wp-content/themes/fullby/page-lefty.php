@@ -3,11 +3,22 @@
 Template Name: Left Main
 */
 get_header(); ?>			
-		
-<div class="buddyb wrap">		
-	<div class="col-md-9 single">
+		<div class="row">
+<div class="buddyb">		
+	<div class="col-md-9 col-sm-8 single">
+		<?php $video = get_post_meta($post->ID, 'fullby_video', true );
+				  
+				if($video != '') {?>
 	
-		<div class="col-md-12 single-in">
+					<div class="videoWrapper">
+					 	<div class='video-container'><iframe title='YouTube video player' width='400' height='275' src='http://www.youtube.com/embed/<?php echo $video; ?>' frameborder='0' allowfullscreen></iframe></div>
+					</div>
+             	<?php } else if ( has_post_thumbnail() ) { ?>
+	                    <?php the_post_thumbnail('single', array('class' => 'sing-cop')); ?>
+                <?php } else { ?>
+                <?php }  ?>
+
+		<div class="single-in col-md-12">
 		
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 
@@ -49,8 +60,8 @@ get_header(); ?>
 
 	</div>			
 
-	<div class="col-md-3">
-	<div class="sidebar well"> <?php get_sidebar( 'primary' ); ?></div>
+	<div class="col-md-3 col-sm-4 sidebar">
+	<div class="well"> <?php get_sidebar( 'primary' ); ?></div>
 		    
 	</div>
 		

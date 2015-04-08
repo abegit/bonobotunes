@@ -1,57 +1,59 @@
 <div class="clear"></div>
+</div> <!-- end buddyb -->
+<?php global $bp; ?>
 <div class="col-md-12 footer">
-	<!--
-<?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
-<?php if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
-<?php if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
-<?php if (bp_is_home()) : echo 'bp_is_home'; endif; ?>
-<?php if (bp_is_front_page()) : echo 'bp_is_front_page'; endif; ?>
-<?php if (bp_is_activity_front_page()) : echo 'bp_is_activity_front_page'; endif; ?>
-<?php if (bp_is_directory()) : echo 'bp_is_directory'; endif; ?>
-<?php if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
-<?php if (bp_is_activity_component()) : echo 'bp_is_activity_component'; endif; ?>
-<?php if (bp_is_blogs_component()) : echo 'bp_is_blogs_component'; endif; ?>
-<?php if (bp_is_messages_component()) : echo 'bp_is_messages_component'; endif; ?>
-<?php if (bp_is_friends_component()) : echo 'bp_is_friends_component'; endif; ?>
-<?php if (bp_is_groups_component()) : echo 'bp_is_groups_component'; endif; ?>
-<?php if (bp_is_settings_component()) : echo 'bp_is_settings_component'; endif; ?>
-<?php if (bp_is_member()) : echo 'bp_is_member'; endif; ?>
-<?php if (bp_is_user_activity()) : echo 'bp_is_user_activity'; endif; ?>
-<?php if (bp_is_user_friends_activity()) : echo 'bp_is_user_friends_activity'; endif; ?>
-<?php if (bp_is_activity_permalink()) : echo 'bp_is_activity_permalink'; endif; ?>
-<?php if (bp_is_user_profile()) : echo 'bp_is_user_profile'; endif; ?>
-<?php if (bp_is_profile_edit()) : echo 'bp_is_profile_edit'; endif; ?>
-<?php if (bp_is_change_avatar()) : echo 'bp_is_change_avatar'; endif; ?>
-<?php if (bp_is_user_groups()) : echo 'bp_is_user_groups'; endif; ?>
-<?php if (bp_is_group()) : echo 'bp_is_group'; endif; ?>
-<?php if (bp_is_group_home()) : echo 'bp_is_group_home'; endif; ?>
-<?php if (bp_is_group_create()) : echo 'bp_is_group_create'; endif; ?>
-<?php if (bp_is_group_admin_page()) : echo 'bp_is_group_admin_page'; endif; ?>
-<?php if (bp_is_group_forum()) : echo 'bp_is_group_forum'; endif; ?>
-<?php if (bp_is_group_activity()) : echo 'bp_is_group_activity'; endif; ?>
-<?php if (bp_is_group_forum_topic()) : echo 'bp_is_group_forum_topic'; endif; ?>
-<?php if (bp_is_group_forum_topic_edit()) : echo 'bp_is_group_forum_topic_edit'; endif; ?>
-<?php if (bp_is_group_members()) : echo 'bp_is_group_members'; endif; ?>
-<?php if (bp_is_group_invites()) : echo 'bp_is_group_invites'; endif; ?>
-<?php if (bp_is_group_membership_request()) : echo 'bp_is_group_membership_request'; endif; ?>
-<?php if (bp_is_group_leave()) : echo 'bp_is_group_leave'; endif; ?>
-<?php if (bp_is_group_single()) : echo 'bp_is_group_single'; endif; ?>
-<?php if (bp_is_user_blogs()) : echo 'bp_is_user_blogs'; endif; ?>
-<?php if (bp_is_user_recent_posts()) : echo 'bp_is_user_recent_posts'; endif; ?>
-<?php if (bp_is_user_recent_commments()) : echo 'bp_is_user_recent_commments'; endif; ?>
-<?php if (bp_is_create_blog()) : echo 'bp_is_create_blog'; endif; ?>
-<?php if (bp_is_user_friends()) : echo 'bp_is_user_friends'; endif; ?>
-<?php if (bp_is_friend_requests()) : echo 'bp_is_friend_requests'; endif; ?>
-<?php if (bp_is_user_messages()) : echo 'bp_is_user_messages'; endif; ?>
-<?php if (bp_is_messages_inbox()) : echo 'bp_is_messages_inbox'; endif; ?>
-<?php if (bp_is_messages_sentbox()) : echo 'bp_is_messages_sentbox'; endif; ?>
-<?php if (bp_is_notices()) : echo 'bp_is_notices'; endif; ?>
-<?php if (bp_is_messages_compose_screen()) : echo 'bp_is_messages_compose_screen'; endif; ?>
-<?php if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
-<?php if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
-<?php if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
--->
-	<div cass="alignright"><a href="/"> <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-skinny-logo.png"></a></div>
+	<div style="display:none;">
+<?php // if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
+<?php // if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
+<?php // if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
+<?php // if (bp_is_home()) : echo 'bp_is_home'; endif; ?>
+<?php // if (bp_is_front_page()) : echo 'bp_is_front_page'; endif; ?>
+<?php // if (bp_is_activity_front_page()) : echo 'bp_is_activity_front_page'; endif; ?>
+<?php // if (bp_is_directory()) : echo 'bp_is_directory'; endif; ?>
+<?php // if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
+<?php // if (bp_is_activity_component()) : echo 'bp_is_activity_component'; endif; ?>
+<?php // if (bp_is_blogs_component()) : echo 'bp_is_blogs_component'; endif; ?>
+<?php // if (bp_is_messages_component()) : echo 'bp_is_messages_component'; endif; ?>
+<?php // if (bp_is_friends_component()) : echo 'bp_is_friends_component'; endif; ?>
+<?php // if (bp_is_groups_component()) : echo 'bp_is_groups_component'; endif; ?>
+<?php // if (bp_is_settings_component()) : echo 'bp_is_settings_component'; endif; ?>
+<?php // if (bp_is_member()) : echo 'bp_is_member'; endif; ?>
+<?php // if (bp_is_user_activity()) : echo 'bp_is_user_activity'; endif; ?>
+<?php // if (bp_is_user_friends_activity()) : echo 'bp_is_user_friends_activity'; endif; ?>
+<?php // if (bp_is_activity_permalink()) : echo 'bp_is_activity_permalink'; endif; ?>
+<?php // if (bp_is_user_profile()) : echo 'bp_is_user_profile'; endif; ?>
+<?php // if (bp_is_profile_edit()) : echo 'bp_is_profile_edit'; endif; ?>
+<?php // if (bp_is_change_avatar()) : echo 'bp_is_change_avatar'; endif; ?>
+<?php // if (bp_is_user_groups()) : echo 'bp_is_user_groups'; endif; ?>
+<?php // if (bp_is_group()) : echo 'bp_is_group'; endif; ?>
+<?php // if (bp_is_group_home()) : echo 'bp_is_group_home'; endif; ?>
+<?php // if (bp_is_group_create()) : echo 'bp_is_group_create'; endif; ?>
+<?php // if (bp_is_group_admin_page()) : echo 'bp_is_group_admin_page'; endif; ?>
+<?php // if (bp_is_group_forum()) : echo 'bp_is_group_forum'; endif; ?>
+<?php // if (bp_is_group_activity()) : echo 'bp_is_group_activity'; endif; ?>
+<?php // if (bp_is_group_forum_topic()) : echo 'bp_is_group_forum_topic'; endif; ?>
+<?php // if (bp_is_group_forum_topic_edit()) : echo 'bp_is_group_forum_topic_edit'; endif; ?>
+<?php // if (bp_is_group_members()) : echo 'bp_is_group_members'; endif; ?>
+<?php // if (bp_is_group_invites()) : echo 'bp_is_group_invites'; endif; ?>
+<?php // if (bp_is_group_membership_request()) : echo 'bp_is_group_membership_request'; endif; ?>
+<?php // if (bp_is_group_leave()) : echo 'bp_is_group_leave'; endif; ?>
+<?php // if (bp_is_group_single()) : echo 'bp_is_group_single'; endif; ?>
+<?php // if (bp_is_user_blogs()) : echo 'bp_is_user_blogs'; endif; ?>
+<?php // if (bp_is_user_recent_posts()) : echo 'bp_is_user_recent_posts'; endif; ?>
+<?php // if (bp_is_user_recent_commments()) : echo 'bp_is_user_recent_commments'; endif; ?>
+<?php // if (bp_is_create_blog()) : echo 'bp_is_create_blog'; endif; ?>
+<?php // if (bp_is_user_friends()) : echo 'bp_is_user_friends'; endif; ?>
+<?php // if (bp_is_friend_requests()) : echo 'bp_is_friend_requests'; endif; ?>
+<?php // if (bp_is_user_messages()) : echo 'bp_is_user_messages'; endif; ?>
+<?php // if (bp_is_messages_inbox()) : echo 'bp_is_messages_inbox'; endif; ?>
+<?php // if (bp_is_messages_sentbox()) : echo 'bp_is_messages_sentbox'; endif; ?>
+<?php // if (bp_is_notices()) : echo 'bp_is_notices'; endif; ?>
+<?php // if (bp_is_messages_compose_screen()) : echo 'bp_is_messages_compose_screen'; endif; ?>
+<?php // if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
+<?php // if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
+<?php // if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
+</div>
+	<div class="alignright"><div class="navbar-brand title logo"></div></div>
 	<?php /* Primary navigation */
 			wp_nav_menu( array(
 			  'theme_location' => 'footer',
@@ -61,8 +63,22 @@
 			  'walker' => new wp_bootstrap_navwalker())
 			);
 			?>
+			<div class="clear"></div>
 </div>
 </div> <!-- end wrap -->
+
+
+<div id="btn-tip-main">
+	<div id="btn-tip-box">
+		<i id="btn-tip-close" class="icon-close"></i>
+		<div id="btn-info"></div>
+	</div>
+</div>
+
+
+
+
+
 <!-- <div class="friends"><div class="row">
 <ul class="colum dropup">
   <li><a href="./sitemap" class="ui-link">Sitemap</a><ul class="dropdown-menu dropdown-menu-left" role="menu">
@@ -107,10 +123,22 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<?php if (is_page('46869')) {?>
+      <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jwplayer.js"></script>
+	  <script type="text/javascript">jwplayer.key="qLzynSodouEg2o+gukjzO+6P0dzyHYq1TqcHaUF9cJE=";</script>
+	  <script>
+		jwplayer("mediaPlayer").setup({
+			        height: 420,
+			        width: 700,
+			        title : 'Tune in Saturday Nights to Watch Live 10 to 12 pm PST',
+			        file: 'rtmp://cs2055.mojohost.com/streamtest/testing'
+			    });
+      </script>
+	 <?php } ?>
 
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/bootstrap.min.js"></script>
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/isotope.js"></script>
-
+	<?php $afil = $_GET["friend"]; ?>
 <script>
 function setCookie(c_name,value,expiredays){
 	var exdate=new Date();
@@ -132,67 +160,105 @@ function getCookie(c_name){
 	return "";
 }
 
+// start plugin
+var jQone = jQuery.noConflict();
+jQone(document).ready(function() {
+
+	/** Splash page stuff **/
+	jQone(window).load(function() {
+		
+		var helpa=getCookie("helper");
+
+
+		<?php global $bp; ?>
+		<?php if (isset($afil)) { ?>
+
+ 				if (helpa!=null && helpa!="") {
+					return false;
+				}		
+				if (helpa=="") {
+					var php_code = "<?php echo $afil; ?>";
+					setCookie("helper",php_code,30);
+				}
+				if (helpa=="0") {
+					var php_code = "<?php echo $afil; ?>";
+					setCookie("helper",php_code,30);
+				}
+
+		<?php } else { ?>
+
+ 				if (helpa!=null && helpa!="") {
+					return false;
+				}		
+				if (helpa=="") {
+					var php_code = "<?php echo bp_displayed_user_id(); ?>";
+					setCookie("helper",php_code,30);
+				}
+				if (helpa=="0") {
+					var php_code = "<?php echo bp_displayed_user_id(); ?>";
+					setCookie("helper",php_code,30);
+				}
+
+		<?php }; ?>
+
+
+
+	});		
+
+});
+</script>
+
+
+<script>
+
 var $mmbrCookie  = jQuery.noConflict();
 $mmbrCookie (document).ready(function() {
 	$mmbrCookie (window).load(function() {
 		
 		// If there's a warning cookie in place, fade out the mask.
-		var warn=getCookie("warn");
-		var warn2=getCookie("warn2");
-		var warn3=getCookie("warn3");
-		var warn4=getCookie("warn4");
+		
 		var hoverContain=$mmbrCookie ('.row.featured');
 		var vizibleInit=hoverContain.attr('visible', 1).removeClass('loading').addClass('animated');
 		
 			vizibleInit;
 
-		if (warn=null){
-			setCookie("warn",1,30);
-		}	
-		if (warn!=null && warn!=""){
-			setCookie("warn2",1,30);
-		}	
-		if (warn2!=null && warn2!=""){
-			setCookie("warn3",1,30);
-		}	
-		if (warn3!=null && warn3!=""){
-			setCookie("warn4",1,30);
-		}	
-		if (warn4!=null && warn4!=""){
-			setCookie("warn5",1,30);
+	
 			//Fade in the Popup
-			  $mmbrCookie ('.navbar-brand, .featured.row').hover(function(e){
-	    	 	 hoverContain.attr('visible', 1).addClass('animated').removeClass('ready');
-			  },
-			  function(e){
-			      hoverContain.addClass('ready');
-			  });
-		}		
+			  // $mmbrCookie ('.navbar-brand, .featured.row').hover(function(e){
+		   //  	 	 hoverContain.attr('visible', 1).addClass('animated').removeClass('ready');
+				 //  },
+				 //  function(e){
+				 //      hoverContain.addClass('ready');
+				 //  });	
 	});		
 });
 </script>
 
+ <?php wp_footer();?>
+
+
+
 <script>
 (function ($) {
-	var $container = $('.activity-lisdt'),
+	var $container = $('.grid'),
 	colWidth = function () {
 		var w = $container.width(), 
 		columnNum = 1,
 		columnWidth = 0;
 		if (w > 1200) {
-			columnNum  = 4;
+			columnNum  = 2;
 		}
 			  else if (w > 900) {
-					columnNum  = 4;
+					columnNum  = 2;
 		}
 			  else if (w > 600) {
-					columnNum  = 3;
+					columnNum  = 2;
 		}
 			  else if (w > 300) {
 					columnNum  = 2;
 		}
 		columnWidth = Math.floor(w/columnNum);
-		$container.find('.activity-itdem').each(function() {
+		$container.find('.item').each(function() {
 			var $item = $(this),
 			multiplier_w = $item.attr('class').match(/item-w(\d)/),
 			multiplier_h = $item.attr('class').match(/item-h(\d)/),
@@ -209,7 +275,7 @@ $mmbrCookie (document).ready(function() {
 		$container.imagesLoaded( function(){
 			$container.isotope({
 				resizable: false,
-				itemSelector: '.activity-item',
+				itemSelector: '.item',
 				masonry: {
 					columnWidth: colWidth(),
 					gutterWidth: 20
@@ -247,22 +313,55 @@ $mmbrCookie (document).ready(function() {
 
 </script>
 <script>
-// var $navDropz = jQuery.noConflict();
-// $navDropz(document).ready(function(){
-	// var $butan =  $navDropz('.netmenu');
-	// $butan.attr('href','#');
-	// $butan.click(function(){
-	// 	var X=$navDropz(this).attr('data-uri');
-	// 	if(X==1){
-	// 		$navDropz(this).removeClass('open');
-	// 		$navDropz('#details').removeClass('zoomIn animated').addClass('hidden');
-	// 		$navDropz(this).attr('data-uri', '0');
-	// 	} else{
-	// 		$navDropz(this).addClass('open');
-	// 		$navDropz('#details').removeClass('hidden').addClass('zoomIn animated');
-	// 		$navDropz(this).attr('data-uri', '1');
-	// 	}
-	// });
+var $navDropz = jQuery.noConflict();
+$navDropz(document).ready(function(){
+	var $butan =  $navDropz('.btn-drop');
+	$butan.attr('href','#');
+	$butan.click(function(){
+		var X=$navDropz(this).attr('data-uri');
+		if(X==1){
+			$navDropz(this).removeClass('open');
+			$navDropz(this).attr('data-uri', '0');
+		} else{
+			$navDropz(this).addClass('open');
+			$navDropz(this).attr('data-uri', '1');
+		}
+	});
+
+
+
+// custom popup action by unscene.us
+	var $popbtn = $navDropz('.btn-tip');
+	var $popClose = $navDropz('#btn-tip-close');
+	var $popContainr = $navDropz('#btn-tip-main');
+	var $popBox = $navDropz('#btn-tip-box');
+	var $popInfo = $navDropz('#btn-info');
+	$popbtn.attr('href','#');
+
+	// start popup
+	$popbtn.click(function(){
+		var infoTXT=$navDropz(this).attr('data-text');
+		var infoURL=$navDropz(this).attr('data-url');
+		var infoTitle=$navDropz(this).attr('title');
+		if(infoTXT!==""){
+			$popContainr.addClass('open');
+			$popInfo.html(function() {
+				// return "<h4>" + infoTitle + "</h4><p>" + infoTXT + "</p>" + "<a href='" + infoURL + "'>Continue</a>";
+				return "<h4>" + infoTitle + "</h4><p>" + infoTXT + "</p>";
+				});
+		} else{
+			$popContainr.addClass('open');
+		    $popInfo.html(fixThisShit);
+		}
+	});
+
+
+	// end popup
+	$popClose.click(function(){
+		$popContainr.removeClass('open');
+	});
+
+
 
 	// var $butan =  $navDropz('.navbar-brand');
 	// $butan.click(function(){
@@ -277,7 +376,7 @@ $mmbrCookie (document).ready(function() {
 	// 		$navDropz(this).attr('data-uri', '1');
 	// 	}
 	// });
-// });
+});
 </script>
 
 <?php if (is_buddypress()){ ?>
@@ -306,8 +405,93 @@ $navSidebarz(document).ready(function(){
 
 
 
+
+
+
+
+	<script>
+    var $finalInit = jQuery.noConflict();
+    var hght = $finalInit(".row.featured").height();
+    // $finalInit(".row.featured").hide();
+        $finalInit(window).load(function() {
+            $finalInit(".row.featured").delay(400).addClass('animate');
+            $finalInit("body").addClass('init');
+        });
+    </script>
+
+   
+
+
+
+
+<?php if (bp_is_activity_directory()) { ?>
+
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jq-1.4.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 
+
+<script>
+var $sliderInit = jQuery.noConflict();
+
+$sliderInit(window).load(function() {
+        	var arrayOfImages = new Array();
+				var bufferDistance = 0;
+				
+				$sliderInit('.row.featured').iosSlider({
+					desktopClickDrag: true,
+                    snapToChildren: true,
+                    keyboardControls: true,                
+                    onSlideComplete: slideComplete,
+                    onSliderLoaded: showMySlider,
+
+					autoSlide: false,
+					autoSlideTimer: 4000,
+					autoSlideTransTimer: 2000,
+					autoSlideHoverPause: true,
+					infiniteSlider: true,
+
+					navNextSelector: "span.prev",
+					navPrevSelector: "span.next",
+					onSlideChange: getSliderNumba
+				});
+			});
+
+
+	            function getSliderNumba() {
+	                $sliderInit('.item').addClass('ready');
+	            }
+
+	            function showMySlider() {
+	                $sliderInit('.item').addClass('ready');
+	            }
+
+	            function slideComplete(args) {
+	                	$sliderInit('span.next, span.prev').removeClass('unselectable');
+	                if(args.currentSlideNumber == 1) {
+	                    $sliderInit('span.prev').addClass('unselectable');
+	                } else if(args.currentSliderOffset == args.data.sliderMax) {
+	                    $sliderInit('span.next').addClass('unselectable');
+             	   }
+            	}
+</script>
+<?php }; ?>
+
+<?php if (is_page_template('page-boiler.php')) { ?>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/parallax.js"></script>
+
+<script>
+jQuery(document).ready(function()
+{
+    jQuery('.layer').parallax({
+		mouseport: jQuery(".row.featured")
+	});
+});
+</script>
+
+<?php } ?>
 
 <?php if (is_page('6')) { ?>
 	<script>    
@@ -342,15 +526,15 @@ mmberPostBlur(function() {
 
 
 
-
-
 <?php if (is_page_template('page-no-sidebar.php')) { ?>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jq-1.4.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/ioss.js"></script>
 	<script>    
 
 var mmberPostBlur = jQuery.noConflict();
 mmberPostBlur(function() {
   // Change this value to adjust the amount of blur
-  var BLUR_RADIUS = 30;
+  var BLUR_RADIUS = 40;
 
   var canvas = document.querySelector('[data-canvas]');
   var canvasContext = canvas.getContext('2d');
@@ -373,25 +557,35 @@ mmberPostBlur(function() {
 </script>
 <?php }; ?>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-61576092-1', 'auto');
+  ga('send', 'pageview');
 
+</script>
+ <!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=8171400; 
+var sc_invisible=1; 
+var sc_security="f4667f58"; 
+var sc_https=1; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="http://statcounter.com/free-hit-counter/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/8171400/0/f4667f58/1/"
+alt="hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->  
 
-<!-- <script src="http://www.google.com/jsapi"></script>
-<script src="./wp-content/plugins/google-custom-search/js/gsc.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script> -->
-
-
-	<script>
-    var $finalInit = jQuery.noConflict();
-    var hght = $finalInit(".row.featured").height();
-    $finalInit(".row.featured").hide();
-        $finalInit(window).load(function() {
-            $finalInit(".row.featured").delay(400).addClass('animate');
-            $finalInit("body").addClass('init');
-        });
-    </script>
-
-    <?php wp_footer();?>
 </body>
 </html>
 

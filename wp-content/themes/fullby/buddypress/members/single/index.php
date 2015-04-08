@@ -1,40 +1,17 @@
+
 <?php get_header(); ?>	
-				<div class="wrap buddyb">
+
+        <div class="wrap">
+        <div class="buddyb">
 
 	
 		<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 		
 									<?php the_content('Leggi...');?>
 				 					
 			<?php endwhile; endif; ?> 
-	        
-	
-	
-		<?php if ( bp_is_my_profile() && bp_is_profile_component() && bp_is_current_action( 'change-bg' )) : ?>
-		<form name="bpprofbpg_change" id="bpprofbpg_change" method="post" class="standard-form" enctype="multipart/form-data">
-		    
-		    <?php $image_url =  bppg_get_image();
-			    if(!empty($image_url)): ?>
-			    <div id="bg-delete-wrapper"> <a href='#' id='bppg-del-image'>Delete</a></div>
-			   <?php endif;?> 
-		    
-		    <label for="bprpgbp_upload">
-			<input type="file" name="file" id="bprpgbp_upload"  class="settings-input" />
-		</label>
-			<p>If you want to change your profile background, please upload a new image.
-		    </p>
-			
-		    	<br />
-		<?php wp_nonce_field("bp_upload_profile_bg");?>
-		    <input type="hidden" name="action" id="action" value="bp_upload_profile_bg" />
-		 <p class="submit"><input type="submit" id="bpprofbg_save_submit" name="bpprofbg_save_submit" class="button" value="<?php _e('Save','bppg') ?>" /></p>
-		</form>
-		<?php endif; ?>
-
-
-				
-
-	<div class="col-md-3">
-		<div class="sidebar well"> <?php get_sidebar( 'secondary' ); ?> </div>
+	       
+	<div class="col-md-3 col-sm-4 col-xs-12 sidebar collapse" id="sidebar">
+		<div class="well"> <?php get_sidebar( 'secondary' ); ?> </div>
 	</div>
 		
 <?php if (bp_is_activity_component() && bp_is_member() && bp_is_user_activity()){ ?>
@@ -44,36 +21,36 @@
     var mmbrContact = jQuery.noConflict();
     mmbrContact(window).load(function() {
      // ---------------------nav sticktop---------------------------
-   var scroll_div = mmbrContact('#item-header'); // the div that is going to be stuck on the top
-   var sticktop = mmbrContact('#item-header').offset().top + 200; // grab the initial top offset of the navigation
-   var socialtab = mmbrContact('#social-tabs');
-   var contacttab = mmbrContact('.slide-out-div .handle')
+   // var scroll_div = mmbrContact('#item-header'); // the div that is going to be stuck on the top
+   // var sticktop = mmbrContact('#item-header').offset().top + 200; // grab the initial top offset of the navigation
+   // var socialtab = mmbrContact('#social-tabs');
+   // var contacttab = mmbrContact('.slide-out-div .handle')
 
-    // our function that decides weather the navigation bar should have "fixed" css position or not.
-    var sticknav = function () {
-       var scroll_top = mmbrContact(window).scrollTop(); // our current vertical position from the top
+   //  // our function that decides weather the navigation bar should have "fixed" css position or not.
+   //  var sticknav = function () {
+   //     var scroll_top = mmbrContact(window).scrollTop(); // our current vertical position from the top
 
 
 
-            // if we've scrolled more than the navigation, change its position to fixed to stick to top,
-            // otherwise change it back to relative
-            if (scroll_top > sticktop) {
-                mmbrContact(scroll_div).addClass('sticktop');  
-            } else {
-                mmbrContact(scroll_div).removeClass('sticktop');
-                mmbrContact('.profile_header[data-type="background"]').each(function(){
-                    var $bgobj = mmbrContact(this); // assigning the object
-                    var $window = mmbrContact(window);
+   //          // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+   //          // otherwise change it back to relative
+   //          if (scroll_top > sticktop) {
+   //              mmbrContact(scroll_div).addClass('sticktop');  
+   //          } else {
+   //              mmbrContact(scroll_div).removeClass('sticktop');
+   //              mmbrContact('.profile_header[data-type="background"]').each(function(){
+   //                  var $bgobj = mmbrContact(this); // assigning the object
+   //                  var $window = mmbrContact(window);
 
-                      var yPos = -($window.scrollTop() / $bgobj.data('speed'));
+   //                    var yPos = -($window.scrollTop() / $bgobj.data('speed'));
 
-                        // Put together our final background position
-                        var round = '50% '+ yPos;
-                        var coords = round + 'px';
+   //                      // Put together our final background position
+   //                      var round = '50% '+ yPos;
+   //                      var coords = round + 'px';
 
-                        // Move the background
-                        $bgobj.css({ backgroundPosition: coords });
-            });
+   //                      // Move the background
+   //                      $bgobj.css({ backgroundPosition: coords });
+   //          });
             
          // ---------------------------------this is for after 200 pixels under the nav sticktop
          // if (scroll_top - 200 > sticktop) {
@@ -93,16 +70,16 @@
          // }
          
          
-        };
-    };
+   //      };
+   //  };
 
-    // run our function on load
-    sticknav();
+   //  // run our function on load
+   //  sticknav();
 
-   // and run it again every time you scroll
-   mmbrContact(window).scroll(function () {
-    sticknav();
-   });
+   // // and run it again every time you scroll
+   // mmbrContact(window).scroll(function () {
+   //  sticknav();
+   // });
 
 
 
@@ -113,17 +90,11 @@
 
 		   	
 <script>
-var $spl3ndid = jQuery.noConflict();
-
-$spl3ndid(window).load(function() {
-
-
-
-
-        var w = $spl3ndid(window).width();
+// var $spl3ndid = jQuery.noConflict();
+// $spl3ndid(window).load(function() {
+        // var w = $spl3ndid(window).width();
         // if(w>400) {
         // 	// parralax for profile fields
-            
         //   });
         // } else {
         // 	$spl3ndid('#item-header').iosSlider({
@@ -162,7 +133,7 @@ $spl3ndid(window).load(function() {
         // end
          
 
-    });
+    // });
 
 </script>
 

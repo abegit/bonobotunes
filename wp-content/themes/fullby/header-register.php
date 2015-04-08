@@ -13,7 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="<?php echo get_stylesheet_directory_uri(); ?>/css/bootstrap.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/font-awesome/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/font-awesome/css/font-awesome.min.css"> -->
 
     <!-- Custom styles for this template -->
     <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css?v=1" rel="stylesheet">
@@ -36,15 +36,20 @@
 	<?php if (get_option('fullby_analytics') <> "") { echo get_option('fullby_analytics'); } ?>
     
 	<?php wp_head(); ?> 
-	
 </head>
 <body <?php body_class(); ?>>
-
+<div class="spacer"></div>
+<div class="spacer"></div>
     <div class="navbar navbar-inverse text-center">
      <div class="row">
         <div class="navbar-header">
-          <a class="navbar-brand" href="<?php echo home_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/bonoboville-fat-stack.png"></a>
+          <a class="navbar-brand logo" href="<?php if (is_home()){
+                    echo '#';
+                    } else {
+                  echo home_url(); }; ?>">
+            </a>
         </div>
     </div>
 </div>	
+
 	

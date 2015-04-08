@@ -27,6 +27,7 @@ get_header(); ?>
 </script>
 <?php do_action( 'woocommerce_before_main_content' ); ?>
 	<div class="wrap">
+	<div class="wrap">
 	<div class="col-md-12 single">
 		<div class="col-md-12 single-in">
 		

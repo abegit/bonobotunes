@@ -1,28 +1,31 @@
 <?php do_action( 'bp_before_activity_loop' ); ?>
 
+<?php // if ( bp_has_activities( bp_ajax_querystring( 'activity' ).'&search_terms=bpfb_images' ) ) : ?>
 <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ) : ?>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
-		<div id="activity-stream" class="activity-list item-list list-group">
+		<ul id="activity-stream" class="activity-list item-list">
 
 	<?php endif; ?>
 
 	<?php while ( bp_activities() ) : bp_the_activity(); ?>
-	<?php bp_get_template_part( 'activity/entry' ); ?>
+
+		<?php bp_get_template_part( 'activity/entry' ); ?>
+
 	<?php endwhile; ?>
 
 	<?php if ( bp_activity_has_more_items() ) : ?>
 
-		<li class="load-more list-group-item">
-			<a href="<?php bp_activity_load_more_link() ?>"><?php _e( 'Load More', 'buddypress' ); ?></a>
+		<li class="load-more">
+			<a href="<?php bp_activity_load_more_link(); ?>"><?php _e( 'Load More', 'buddypress' ); ?></a>
 		</li>
 
 	<?php endif; ?>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
-		</div>
+		</ul>
 
 	<?php endif; ?>
 

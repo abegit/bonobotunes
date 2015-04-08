@@ -32,7 +32,7 @@
 	</div>
 
 	<?php do_action( 'bp_before_directory_groups_list' ); ?>
-
+	
 	<ul id="groups-list" class="item-list" role="main">
 
 	<?php while ( bp_groups() ) : bp_the_group(); ?>
@@ -103,9 +103,6 @@
 <script>
 	var $groupLst = jQuery.noConflict();
 	$groupLst(window).load(function() {
-			$groupLst("#groups-list").addClass('init');
-
-
         var w = $groupLst(window).width();
         if(w>400) {
         	// parralax for profile fields

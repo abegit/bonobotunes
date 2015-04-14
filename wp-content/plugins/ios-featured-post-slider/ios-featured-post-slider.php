@@ -6,6 +6,19 @@ Author: Abraham Perez
 Version: 1.0
 Author URI: http://unscene.us/about
 */
+// #1. - Create Post Type
+// #1.1 - technical options
+// #1.1 initialize iosPostType
+// #2 - create meta box sliderURL
+// #2.1 - Content for the sliderURL box
+// #2.2 - save sliderURL meta box
+// #3 - Create Options Page
+// #3.1 - Register Options
+// #4 - Define Image Sizes
+// #5 - create slider loop
+// #5.1 - add loop scripts in footer
+// #5.2 - add loop styles in head
+// #6 - wrap create shortcode
 
 
 // Derive the current path and load up Sanity
@@ -84,11 +97,11 @@ class iosSlider extends SanityPluginFramework {
 		// #1.1 initialize iosPostType
 		add_action( 'init', 'iosPostType', 0 );
 
-		// #2 - create meta boxes
+		// #2 - create meta box sliderURL
 		add_action( 'add_meta_boxes', 'meta_box_post' );
 		function meta_box_post( $post ) {
 		    add_meta_box(
-		            'sliderUrl', // ID, should be a string
+		            'sliderURL', // ID, should be a string
 		            'Slider URL', // Meta Box Title
 		            'meta_box_post_content', // Your call back function, this is where your form field will go
 		            'sliders', // The post type you want this to show up on, can be post, page, or custom post type
@@ -96,22 +109,22 @@ class iosSlider extends SanityPluginFramework {
 		            'high' // The priority in which this will be displayed
 		        );
 		}
-		// #2.1 - Content for the custom meta box
+		// #2.1 - Content for the sliderURL box
 		function meta_box_post_content() {
 			// info current post
 		    global $post;		    
 		    //metabox value if is saved
-		    $sliderUrl = get_post_meta($post->ID, 'sliderUrl', true);
+		    $sliderURL = get_post_meta($post->ID, 'sliderURL', true);
 		    // ADD here more custom field 	    
 		    // security check
 		    wp_nonce_field(__FILE__, 'ios_nonce');
 		    ?>
-		    <p>URL you want the slider to point to. <br/><input name="sliderUrl" id="sliderUrl" value="<?php echo $sliderUrl; ?>" style="border: 1px solid #ccc; margin: 10px 10px 0 0"/> <small>Example: ---> <strong>http://bonoboville.com</strong></small></p>
+		    <p>URL you want the slider to point to. <br/><input name="sliderURL" id="sliderURL" value="<?php echo $sliderURL; ?>" style="border: 1px solid #ccc; margin: 10px 10px 0 0"/> <small>Example: ---> <strong>http://bonoboville.com</strong></small></p>
 		    <!-- *** ADD here more custom field  *** -->	    
 		    <?php
 			
 		}
-		// #2.2 - save function only when save
+		// #2.2 - save sliderURL meta box
 		add_action('save_post', 'iosSaveResource');
 		function iosSaveResource(){
 		    global $post;
@@ -119,8 +132,8 @@ class iosSlider extends SanityPluginFramework {
 		        return;
 		    }
 		    if ($_POST && wp_verify_nonce($_POST['ios_nonce'], __FILE__) ) {
-		        if ( isset($_POST['sliderUrl']) ) {
-		            update_post_meta($post->ID, 'sliderUrl', $_POST['sliderUrl']);
+		        if ( isset($_POST['sliderURL']) ) {
+		            update_post_meta($post->ID, 'sliderURL', $_POST['sliderURL']);
 		            //ADD here more custom field 
 		        }
 		    }  
@@ -133,20 +146,12 @@ class iosSlider extends SanityPluginFramework {
 			$file = dirname(__FILE__) . '/ios-podcast-creator/';
 			$plugin_url = plugin_dir_url($file);
 			$iosPage = add_menu_page( 'iosSlider', 'iosSlider', 'manage_options', 'iosSlider', 'iosConfigPage', $plugin_url . 'templates/assets/images/icon-backend.png', 61);
-			add_action( 'admin_init', 'iosRegisterSettings' );
 		}
+
+		add_action( 'admin_init', 'iosRegisterSettings' );
 		// #3.1 - Register Options
 		function iosRegisterSettings() {
 			register_setting( 'iosStart', 'iosEnablejQuery');
-			// register_setting( 'iosStart', 'iosAuthorName');
-			// register_setting( 'iosStart', 'iosAuthorEmail');
-			// register_setting( 'iosStart', 'iosPodcastTitle');
-			// register_setting( 'iosStart', 'iosPodcastSummary');
-			// register_setting( 'iosStart', 'iosPodcastImage');
-			// register_setting( 'iosStart', 'iosExplicit');
-			// register_setting( 'iosStart', 'iosCategories');
-			// register_setting( 'iosStart', 'UnsceneMusicPlayer');
-			// register_setting( 'iosStart', 'UnsceneMusicLogo');
 		}
 
 		function iosConfigPage(){
@@ -157,122 +162,97 @@ class iosSlider extends SanityPluginFramework {
 		// #4 - Define Image Sizes
 		if ( function_exists( 'add_image_size' ) ) {
 			add_image_size( 'iosSlider-image', 650, 290, true );
-		}	
-		
+		}
 		
 		
 
-		function show_featured_posts($category,$numbers) {
+		// #5 - create slider loop
+		function show_featured_posts($numbers,$category,$post_type,$orderby) {
 			global $post;
 			//get $numbers of featured posts
-			$featured_posts_array = get_posts( 'post_type=any&orderby=rand&category_name='.$category.'&numberposts='.$numbers.'&post_status=publish');
-			
-			$output .= '<div id="featMenu"><span class="btn sliderNav btn-primary next" style="cursor: pointer;"><i class="icon-backward2"></i></span>';
-	        $output .= '<div class="row featured loading menu"> <div class="slider">';
-
+			$featured_posts_array = get_posts( 'post_type='.$post_type.'&orderby='.$orderby.'&category_name='.$category.'&numberposts='.$numbers.'&post_status=publish');
+			$output .= '<!-- Swiper -->';
+		    $output .= '<div class="swiper-container">';
+		    $output .= '<div class="swiper-wrapper">';
 			foreach ($featured_posts_array as $post) :  setup_postdata($post); 
-			$slider_title = "nivo".get_the_ID(); //assign the postID as title of the image
-				$output .= "<div class='item'>";
+				$slider_title = "swiper_title".get_the_ID(); //assign the postID as title of the image
+				$slider_attribute =  the_title_attribute( 'echo=0' );
 				if ( function_exists("has_post_thumbnail") && has_post_thumbnail() ) { 
-				$iosImage = get_the_post_thumbnail(get_the_ID(), array(650,290), array( "class" => "post_thumbnail", 'title' => $slider_title )); }
-				$output .= $iosImage."<div id='nivo".get_the_ID()."' class='nivo-html-caption'>";
-				$output .= "<h2><a href='".get_the_permalink()."'>".get_the_title()."</a></h2>".get_the_excerpt()."</div></div>";
-
+						$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
+						// $iosImage = get_the_post_thumbnail(get_the_ID(), 'full', array( "class" => "post_thumbnail", 'title' => $slider_attribute ));
+				}
+				$output .= "<div class='swiper-slide'"."style='background-image: url(".$image[0].")'>";
+				if ( get_post_meta($post->ID, 'sliderURL', true) !== "") {
+					$slider_url = get_post_meta($post->ID, 'sliderURL', true); } else { 
+					$slider_url = get_the_permalink(get_the_ID()); }; //assign the postID as title of the image
+				$output .= "<a href='".$slider_url."' title='".$slider_attribute."'></a><div id='nivo".get_the_ID()."' class='nivo-html-caption'>";
+				$output .= "<h2><a href='".$slider_url."'>".get_the_title()."</a></h2>".get_the_excerpt()."</div></div>";
 			endforeach;
-
-
-			$output .= '</div></div>';
-			$output .= '<span class="btn sliderNav btn-primary prev" style="cursor: pointer;"> <i class="icon-forward3"></i></span></div>';
+			$output .= '</div>';
+			$output .= '<!-- Add Pagination --><div class="swiper-pagination"></div>';
+			$output .= '<!-- Add Arrows --><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div>';
 			return $output;
 			//reset WP query
 			wp_reset_query();
-	}
-
-
+		}
 		
 		
+		    add_action('wp_footer', 'ios_functioncall');
+			function ios_functioncall() {
+				echo '<script src="'.plugins_url( 'ios-featured-post-slider/templates/assets/js/swiper.min.js', dirname(__FILE__) ).'"></script>';
+				echo "\n".'<!-- Initialize Swiper -->
+				    <script> 
+				    var swiper = new Swiper(".swiper-container", {
+				        pagination: ".swiper-pagination",
+				        effect: "coverflow",
+				        grabCursor: true,
+				        centeredSlides: true,
+				        slidesPerView: 1,
+				        autoplay: 2500,
+				        autoplayDisableOnInteraction: false,
+				        coverflow: {
+				            rotate: 50,
+				            stretch: 0,
+				            depth: 100,
+				            modifier: 1,
+				            slideShadows : true
+				        }
+				    });
+				    </script>'."\n";
+			}
+		// #5.2 - add loop styles in head
 		add_action('wp_print_styles', 'add_ios_stylesheets');
 		function add_ios_stylesheets() {
-			 wp_register_style('ios_theme_style', $plugin_path.'/themes/default/default.css');
-			 wp_register_style('ios_main_style', $plugin_path.'/js/ios-slider.css');
+			 wp_register_style('ios_theme_style', plugins_url( 'ios-featured-post-slider/templates/assets/css/swiper.min.css', dirname(__FILE__) ) );
 	         wp_enqueue_style( 'ios_theme_style');
-			 wp_enqueue_style( 'ios_main_style');
 	    }
-
-	    add_action('wp_footer', 'ios_functioncall');
-		function ios_functioncall() {
-		echo '<script src="'.plugins_url( 'ios-featured-post-slider/templates/assets/js/ioss.js', dirname(__FILE__) ).'"></script>';
-		echo '<script> var $sliderInit = jQuery.noConflict();
-				$sliderInit(window).load(function() {
-				var arrayOfImages = new Array();
-				var bufferDistance = 0;	
-					$sliderInit(".row.featured").iosSlider({
-						desktopClickDrag: true,
-				        snapToChildren: true,
-				        keyboardControls: true,                
-				        onSlideComplete: slideComplete,
-				        onSliderLoaded: showMySlider,
-
-						autoSlide: false,
-						autoSlideTimer: 4000,
-						autoSlideTransTimer: 2000,
-						autoSlideHoverPause: true,
-						infiniteSlider: true,
-
-						navNextSelector: "span.prev",
-						navPrevSelector: "span.next",
-						onSlideChange: getSliderNumba
-					});
-				});
-
-
-			    function getSliderNumba() {
-			        $sliderInit(".item").addClass("ready");
-			    }
-
-			    function showMySlider() {
-			        $sliderInit(".item").addClass("ready");
-			    }
-
-			    function slideComplete(args) {
-			        	$sliderInit("span.next, span.prev").removeClass("unselectable");
-			        if(args.currentSlideNumber == 1) {
-			            $sliderInit("span.prev").addClass("unselectable");
-			        } else if(args.currentSliderOffset == args.data.sliderMax) {
-			            $sliderInit("span.next").addClass("unselectable");
-			 	   }
-				}
-			</script>';}
-		
-		function tg_featured_posts($atts, $content = null) {
-			ob_start();
-			extract(shortcode_atts(array(
-				"numbers" => '5',
-				"category" => 'featured'
-			), $atts));
-			echo show_featured_posts($category,$numbers);
-		 	$result = ob_get_contents(); // get everything in to $result variable
-		    ob_end_clean();
-		    return $result;
-		}
-		add_shortcode('featured', 'tg_featured_posts');
-
-
-
-
-
-		// misc
+	    // #5.3 - option add jquery to footer
 		if ( get_option('iosEnablejQuery') == '1') { 
 			function include_ios_scripts() {
 				wp_deregister_script( 'jquery' );
 				wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js');
 				wp_enqueue_script( 'jquery' );
-			}    
+			}
 			 
 			add_action('wp_enqueue_scripts', 'include_ios_scripts');
 		}
+		
 
-
+		// #6 - wrap create shortcode
+		function tg_featured_posts($atts, $content = null) {
+			ob_start();
+			extract(shortcode_atts(array(
+				"numbers" => '5',
+				"category" => '',
+				"post_type" => 'any',
+				"orderby" => 'date',			
+			), $atts));
+			echo show_featured_posts($numbers,$category,$post_type,$orderby);
+		 	$result = ob_get_contents(); // get everything in to $result variable
+		    ob_end_clean();
+		    return $result;
+		}
+		add_shortcode('featured', 'tg_featured_posts');
 }
 	/*
 	*		Run during the activation of the plugin
@@ -284,13 +264,13 @@ class iosSlider extends SanityPluginFramework {
 	*		Run during the initialization of Wordpress
 	*/
 	function initialized() {
-
+		
 	}
 	
 	// abedit
+    
 	    var $admin_css = array('style' , 'fonts');
 		// var $admin_js = array('script');
-
 }
 
 

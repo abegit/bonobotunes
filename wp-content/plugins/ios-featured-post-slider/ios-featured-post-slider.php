@@ -167,26 +167,27 @@ class iosSlider extends SanityPluginFramework {
 		
 
 		// #5 - create slider loop
-		function show_featured_posts($numbers,$category,$post_type,$orderby) {
+		function show_featured_posts($numbers,$category,$post_type,$orderby,$type) {
 			global $post;
 			//get $numbers of featured posts
 			$featured_posts_array = get_posts( 'post_type='.$post_type.'&orderby='.$orderby.'&category_name='.$category.'&numberposts='.$numbers.'&post_status=publish');
+			$instance = 'swipe-'.uniqid();
 			$output .= '<!-- Swiper -->';
-		    $output .= '<div class="swiper-container">';
+		    $output .= '<div class="swiper-container" id="'.$instance.'">';
 		    $output .= '<div class="swiper-wrapper">';
 			foreach ($featured_posts_array as $post) :  setup_postdata($post); 
 				$slider_title = "swiper_title".get_the_ID(); //assign the postID as title of the image
 				$slider_attribute =  the_title_attribute( 'echo=0' );
 				if ( function_exists("has_post_thumbnail") && has_post_thumbnail() ) { 
-						$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
-						// $iosImage = get_the_post_thumbnail(get_the_ID(), 'full', array( "class" => "post_thumbnail", 'title' => $slider_attribute ));
+						// $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
+						$iosImage = get_the_post_thumbnail(get_the_ID(), 'full', array( "class" => "post_thumbnail", 'title' => $slider_attribute ));
 				}
 				$output .= "<div class='swiper-slide'"."style='background-image: url(".$image[0].")'>";
 				if ( get_post_meta($post->ID, 'sliderURL', true) !== "") {
 					$slider_url = get_post_meta($post->ID, 'sliderURL', true); } else { 
 					$slider_url = get_the_permalink(get_the_ID()); }; //assign the postID as title of the image
-				$output .= "<a href='".$slider_url."' title='".$slider_attribute."'></a><div id='nivo".get_the_ID()."' class='nivo-html-caption'>";
-				$output .= "<h2><a href='".$slider_url."'>".get_the_title()."</a></h2>".get_the_excerpt()."</div></div>";
+				$output .= "<a href='".$slider_url."' title='".$slider_attribute."'>".$iosImage."</a><div id='nivo".get_the_ID()."' class='nivo-html-caption'>";
+				$output .= "<h2><a href='".$slider_url."' title='".$slider_attribute."'>".get_the_title()."</a></h2>".get_the_excerpt()."</div></div>";
 			endforeach;
 			$output .= '</div>';
 			$output .= '<!-- Add Pagination --><div class="swiper-pagination"></div>';
@@ -196,30 +197,6 @@ class iosSlider extends SanityPluginFramework {
 			wp_reset_query();
 		}
 		
-		
-		    add_action('wp_footer', 'ios_functioncall');
-			function ios_functioncall() {
-				echo '<script src="'.plugins_url( 'ios-featured-post-slider/templates/assets/js/swiper.min.js', dirname(__FILE__) ).'"></script>';
-				echo "\n".'<!-- Initialize Swiper -->
-				    <script> 
-				    var swiper = new Swiper(".swiper-container", {
-				        pagination: ".swiper-pagination",
-				        effect: "coverflow",
-				        grabCursor: true,
-				        centeredSlides: true,
-				        slidesPerView: 1,
-				        autoplay: 2500,
-				        autoplayDisableOnInteraction: false,
-				        coverflow: {
-				            rotate: 50,
-				            stretch: 0,
-				            depth: 100,
-				            modifier: 1,
-				            slideShadows : true
-				        }
-				    });
-				    </script>'."\n";
-			}
 		// #5.2 - add loop styles in head
 		add_action('wp_print_styles', 'add_ios_stylesheets');
 		function add_ios_stylesheets() {
@@ -237,22 +214,108 @@ class iosSlider extends SanityPluginFramework {
 			add_action('wp_enqueue_scripts', 'include_ios_scripts');
 		}
 		
+		// 5.4 - add more variables
+		$type = "centeredAuto";
 
 		// #6 - wrap create shortcode
 		function tg_featured_posts($atts, $content = null) {
+			global $type;
 			ob_start();
 			extract(shortcode_atts(array(
 				"numbers" => '5',
 				"category" => '',
 				"post_type" => 'any',
-				"orderby" => 'date',			
+				"orderby" => 'date',
+				"type" => "centeredAuto",			
 			), $atts));
-			echo show_featured_posts($numbers,$category,$post_type,$orderby);
+			echo show_featured_posts($numbers,$category,$post_type,$orderby,$type);
 		 	$result = ob_get_contents(); // get everything in to $result variable
 		    ob_end_clean();
 		    return $result;
 		}
 		add_shortcode('featured', 'tg_featured_posts');
+
+			// #5.1 - add loop scripts in footer
+		add_action('wp_footer', 'ios_functioncall');
+		function ios_functioncall() {
+			global $type;
+			echo '<script src="'.plugins_url( 'ios-featured-post-slider/templates/assets/js/swiper.min.js', dirname(__FILE__) ).'"></script>';
+	        if ($type == "centeredAuto") {
+		        echo '<!-- Initialize Swiper -->
+			    <script> 
+			    var mySwiper = new Swiper(".swiper-container", {
+			        pagination: ".swiper-pagination",
+			        slidesPerView: "auto",
+			        centeredSlides: true,
+			        paginationClickable: true,
+			        spaceBetween: 30
+			    });
+				mySwiper.update();
+			    </script>'."\n";
+				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/centeredAuto.css', dirname(__FILE__) ).'">';
+
+	        } elseif ($type == "coverflow") {
+		        echo '<!-- Initialize Swiper -->
+			    <script> 
+			    var mySwiper = new Swiper(".swiper-container", {
+			        pagination: ".swiper-pagination",
+			        paginationClickable: ".swiper-pagination",
+			        nextButton: ".swiper-button-next",
+			        prevButton: ".swiper-button-prev",
+			        effect: "coverflow",
+			        grabCursor: true,
+			        centeredSlides: true,
+			        slidesPerView: 1,
+			        preloadImages: true,
+			        speed: 600,
+			        autoplay: 3000,
+			        autoplayDisableOnInteraction: false,
+			        coverflow: {
+			            rotate: 50,
+			            stretch: 0,
+			            depth: 100,
+			            modifier: 1,
+			            slideShadows : true
+			        }
+			    });
+				mySwiper.update();
+			    </script>';
+				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/coverflow.css', dirname(__FILE__) ).'">';
+	        } elseif ($type == "fade") {
+	        			        echo '<!-- Initialize Swiper -->
+			    <script> 
+			    var mySwiper = new Swiper(".swiper-container", {
+			        pagination: ".swiper-pagination",
+			        paginationClickable: ".swiper-pagination",
+			        nextButton: ".swiper-button-next",
+			        prevButton: ".swiper-button-prev",
+			        grabCursor: true,
+			        centeredSlides: true,
+			        slidesPerView: 1,
+			        preloadImages: true,
+			        speed: 600,
+			        autoplay: 3000,
+			        autoplayDisableOnInteraction: false,
+			        spaceBetween: 30,
+    				effect: "fade",
+			    });
+				mySwiper.update();
+			    </script>';
+				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/fade.css', dirname(__FILE__) ).'">';
+	        }
+		    echo ' <script>
+			    jQSwipe = jQuery.noConflict();
+			      jQSwipe(document).ready(function() {
+				     jQSwipe(window).load(function() {
+  						mySwiper.update();
+					});
+				});
+ 				</script>';
+		}
+
+			
+
+
 }
 	/*
 	*		Run during the activation of the plugin

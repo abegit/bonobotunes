@@ -186,7 +186,7 @@ class iosSlider extends SanityPluginFramework {
 				if ( get_post_meta($post->ID, 'sliderURL', true) !== "") {
 					$slider_url = get_post_meta($post->ID, 'sliderURL', true); } else { 
 					$slider_url = get_the_permalink(get_the_ID()); }; //assign the postID as title of the image
-				$output .= "<a href='".$slider_url."' title='".$slider_attribute."'>".$iosImage."</a><div id='nivo".get_the_ID()."' class='nivo-html-caption'>";
+				$output .= "<a href='".$slider_url."' title='".$slider_attribute."'>".$iosImage."</a><div id='nivo".get_the_ID()."' class='html-caption'>";
 				$output .= "<h2><a href='".$slider_url."' title='".$slider_attribute."'>".get_the_title()."</a></h2>".get_the_excerpt()."</div></div>";
 			endforeach;
 			$output .= '</div>';
@@ -245,10 +245,17 @@ class iosSlider extends SanityPluginFramework {
 			    <script> 
 			    var mySwiper = new Swiper(".swiper-container", {
 			        pagination: ".swiper-pagination",
+			        paginationClickable: ".swiper-pagination",
+			        nextButton: ".swiper-button-next",
+			        prevButton: ".swiper-button-prev",
 			        slidesPerView: "auto",
 			        centeredSlides: true,
 			        paginationClickable: true,
-			        spaceBetween: 30
+			        spaceBetween: 30,
+			        speed: 600,
+			        autoplay: 3000,
+			        autoplayDisableOnInteraction: false,
+			        loop: true,
 			    });
 				mySwiper.update();
 			    </script>'."\n";
@@ -282,7 +289,7 @@ class iosSlider extends SanityPluginFramework {
 			    </script>';
 				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/coverflow.css', dirname(__FILE__) ).'">';
 	        } elseif ($type == "fade") {
-	        			        echo '<!-- Initialize Swiper -->
+	        	echo '<!-- Initialize Swiper -->
 			    <script> 
 			    var mySwiper = new Swiper(".swiper-container", {
 			        pagination: ".swiper-pagination",
@@ -290,11 +297,12 @@ class iosSlider extends SanityPluginFramework {
 			        nextButton: ".swiper-button-next",
 			        prevButton: ".swiper-button-prev",
 			        grabCursor: true,
+			        loop: true,
 			        centeredSlides: true,
 			        slidesPerView: 1,
 			        preloadImages: true,
 			        speed: 600,
-			        autoplay: 3000,
+			        autoplay: 2000,
 			        autoplayDisableOnInteraction: false,
 			        spaceBetween: 30,
     				effect: "fade",

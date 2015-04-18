@@ -23,7 +23,8 @@
 </script>
 </head>
 
-<body onLoad="playPause()">
+<?php $afil = $_GET["autoplay"]; ?>
+<body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?>>
     <div id="header"><div class="container">
        <a href="http://drsusanblock.tv/main/"><img src="<?php echo get_option('UnsceneMusicLogo'); ?>"></a>
         <ul id="nav">
@@ -99,9 +100,21 @@
             <div id='more'><i class="ico-sharable"></i></div>
 
         </div>
-            <div class="playlist"> <div id="artist">
-                
-            </div> 
+            <div class="playlist"> 
+                <div id="artist">
+                <?php $i = 0; ?>
+<?php while( have_posts()) : the_post(); ?>
+    <div class="item" onClick="pickSong(<?php echo $i; ?>)">
+        <?php $textInfo = get_the_content(); ?>
+        <h1 id='hd'><?php echo strip_tags($textInfo); ?></h1>
+        <h2 id='dc'><div class='artistTXT'><?php the_title(); ?></div></h2>
+        <h2 id='dcc' style='display:none;'>{datetime}</h2>
+        <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
+    </div>
+    <?php if (!is_single()) { $i++; } ?>
+
+<?php endwhile; ?>
+                </div> 
         </div>
 
         
@@ -134,11 +147,8 @@
 </div>
 </div> <!-- end of footer -->
 
- <?php $i = 0; ?>
-<?php while( have_posts()) : the_post(); ?>
-    urls[<?php echo $i; ?>] = '<?php echo pg_enc(); ?>';
-    <?php if (!is_single()) { $i++; } ?>
-<?php endwhile; ?>
+
+
 </body>
 
 

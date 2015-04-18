@@ -186,7 +186,7 @@ class iosSlider extends SanityPluginFramework {
 				if ( get_post_meta($post->ID, 'sliderURL', true) !== "") {
 					$slider_url = get_post_meta($post->ID, 'sliderURL', true); } else { 
 					$slider_url = get_the_permalink(get_the_ID()); }; //assign the postID as title of the image
-				$output .= "<a href='".$slider_url."' title='".$slider_attribute."'>".$iosImage."</a><div id='nivo".get_the_ID()."' class='html-caption'>";
+				$output .= $iosImage."<div id='swipe".get_the_ID()."' class='html-caption'>";
 				$output .= "<h2><a href='".$slider_url."' title='".$slider_attribute."'>".get_the_title()."</a></h2>".get_the_excerpt()."</div></div>";
 			endforeach;
 			$output .= '</div>';
@@ -311,7 +311,7 @@ class iosSlider extends SanityPluginFramework {
 			    </script>';
 				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/fade.css', dirname(__FILE__) ).'">';
 	        }
-		    echo ' <script>
+		    echo '<script>
 			    jQSwipe = jQuery.noConflict();
 			      jQSwipe(document).ready(function() {
 				     jQSwipe(window).load(function() {

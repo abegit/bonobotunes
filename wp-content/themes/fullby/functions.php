@@ -104,11 +104,11 @@ function my_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt) {
 	if ( function_exists('add_theme_support') ) {
 		add_theme_support('post-thumbnails');
 	}
-	
+
 	if ( function_exists( 'add_image_size' ) ) { 
 		add_image_size( 'thumbnail', 400, 400, true ); //(cropped)
-		add_image_size( 'quad', 320, 240, true ); //(cropped)
-		add_image_size( 'single', 800, 494, true ); //(cropped)
+		add_image_size( 'quad', 410, 308, false ); //(cropped)
+		add_image_size( 'single', 800, 494, false ); //(cropped)
 		add_image_size( 'video', 800, 450, true ); //(cropped)
 		add_image_size( 'smallvideo', 400, 225, true ); //(cropped)
 	}

@@ -1,10 +1,9 @@
 <?php get_header(); ?>
-
+<?php $author_id = $post->post_author; ?>
 <div id="redfix"></div>
 <canvas id="backdrop" width="100%" height="615" data-canvas style="width:100%; top:0; vertical-align:middle; position:fixed; height: 100vh !important;"></canvas>
 <div class="wrap"><div class="wrap buddyb row" id="content">
 	<div class="col-md-12 single" style="margin:0 auto;">
-          <?php display_gsc_results(); ?>
 		<div class="col-md-12 single-in">
 			
 				<div class="sing-cont">
@@ -66,6 +65,11 @@
                         <?php bp_activity_action(); ?>
 
                     </div>
+                    <?php if (!is_user_logged_in()) { ?>
+                        <form><input onclick="location.href='http://bonoboville.com'" class="butten" value="Follow"></form>
+                   <?php } else {
+                        bp_add_friend_button( $author_id );
+                    } ?>
 
                 </div>
                 <?php do_action( 'bp_activity_entry_content' ); ?>

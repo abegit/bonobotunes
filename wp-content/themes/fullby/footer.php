@@ -1,3 +1,34 @@
+<?php if (bp_is_activity_directory()) { ?>
+<?php wp_reset_query(); ?> 
+<?php $nextNewPosts = new WP_Query();
+$nextNewPosts->query('category_name=news&showposts=3'); ?>
+
+<?php if ($nextNewPosts->have_posts()) : while($nextNewPosts->have_posts()) : $nextNewPosts->the_post(); ?>
+	<div class="col-sm-6 col-xs-6 col-md-4 bare">
+	<?php $externalPost = get_post_meta($post->ID, '_yoast_wpseo_redirect', true ); ?>		    	
+		<a href="<?php if($externalPost != '') { echo $externalPost.'" target="_new'; } else { the_permalink(); } ?>">
+			<?php $video = get_post_meta($post->ID, 'fullby_video', true );
+				if($video != '') {?>
+				 <img class="yt-featured" src="http://img.youtube.com/vi/<?php echo $video ?>/hqdefault.jpg" class="grid-cop"/>
+			<?php } else if ( has_post_thumbnail() ) { ?>
+				<?php the_post_thumbnail('quad', array('class' => 'quad')); ?>
+            <?php } ?>
+	    </a>
+	
+	</div>
+
+<?php endwhile; ?>
+<?php endif; ?>	
+<div class="col-sm-6 col-xs-6 col-md-4 bare sm-show">
+		<a href="/news" class="panel">
+				View More
+	    </a>	
+	</div>
+<?php } ?>
+
+
+
+
 <div class="clear"></div>
 </div> <!-- end buddyb -->
 <?php global $bp; ?>
@@ -67,7 +98,9 @@
 </div>
 </div> <!-- end wrap -->
 
-<!-- <div class="friends"><div class="row">
+
+
+<div id="friends" class="bar"><div class="row">
 <ul class="colum dropup">
   <li><a href="./sitemap" class="ui-link">Sitemap</a><ul class="dropdown-menu dropdown-menu-left" role="menu">
   	<li><a href="#">one</a></li>
@@ -105,12 +138,13 @@
 </div></div>
 
 
-</div></div> -->
+</div></div>
 
 <!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/popRocks.js"></script>
 	<?php if (is_page('46869')) {?>
       <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jwplayer.js"></script>
 	  <script type="text/javascript">jwplayer.key="qLzynSodouEg2o+gukjzO+6P0dzyHYq1TqcHaUF9cJE=";</script>
@@ -300,6 +334,8 @@ $mmbrCookie (document).ready(function() {
 
 
 </script>
+
+
 <script>
 var $navDropz = jQuery.noConflict();
 $navDropz(document).ready(function(){

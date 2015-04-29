@@ -48,10 +48,13 @@
 		.sing-cont {background:#fff; width:unset; margin-left:0;}
 	}
 	.sing-cop{width:100%;height:auto;}
-	.sing-tit-cont{padding: 3% 5% 1%; position: relative;}
+	.sing-tit-cont {height: 115px; text-align: center;
+    	line-height: 115px !important;
+        h3 {line-height: 115px;}
+    }
 	.sing-tit{margin:10px 0 20px 0;text-transform: uppercase;font-weight: 300; font-size: 2rem;}
 	.sing-spacer{padding:3% 6%;}
-	.sing-cont{position: relative;margin-left:10%;width:80%;font-size: 1rem;line-height: 26px;
+	.sing-cont{position: relative;width:100%;font-size: 1rem;line-height: 26px;
 		img {max-width: 100%; height: auto;}
 		.wp-caption.alignnone {max-width: 100%; }
 	}

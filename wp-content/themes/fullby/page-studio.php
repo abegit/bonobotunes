@@ -42,6 +42,9 @@ get_header(); ?>
 							</div> <!-- end colum 1 -->
 							<div class="col-md-6 col-sm-12">
 								
+
+								<h3 class="text-center">Lounge <a class="btn-tip alignright" href="/membership" title="Live Chatroom" data-url="/membership" data-text="Talk with your fellow bonobos and share a laugh."><i class="icon-info"></i></a>
+
 								<?php echo do_shortcode('[quick-chat]'); ?>
 							</div> <!-- end column 2 -->
 						</div>

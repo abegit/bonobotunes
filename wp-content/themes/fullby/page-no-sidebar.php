@@ -13,9 +13,9 @@ get_header(); ?>
                  <?php }  ?>
                  <img src="<?php echo $thumb_url;?>" data-canvas-image style="display:none;">
                  <canvas id="backdrop" width="100%" height="100%" data-canvas style="width:100%; vertical-align:middle; position:absolute; height: 100% !important; z-index:0;"></canvas>
-<div class="wrap">	
-<div class="wrap">	
-	<div class="col-md-12 single" style="background:url('<?php echo $thumb_url;?>'); background-size:cover; background-position:center top;" data-type="background" data-speed="2">
+<div class="row">	
+<div>	
+	<div class="col-md-12 single">
 	
 		<div class="col-md-12 single-in" style="float:none;">
 		
@@ -23,7 +23,7 @@ get_header(); ?>
 
 				
 				
-				<div class="sing-tit-cont" style="margin-top:0;">
+				<div class="sing-tit-cont" style="background:url('<?php echo $thumb_url;?>'); background-size:cover; background-position:center top;" data-type="background" data-speed="9">
 					
 					<h3 class="sing-tit"><?php the_title(); ?></h3>
 				

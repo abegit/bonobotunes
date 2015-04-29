@@ -23,7 +23,7 @@
 				position: absolute;top: 0; vertical-align: middle; width: 26px;  right: 62px; z-index: 1;
 				@include bp-medium { right: 0; }
 			}
-			i, .glyphicon {font-style: normal;font-size: 1rem; line-height: 1rem; font-family: $iconfont;-moz-osx-font-smoothing:grayscale;margin-right: 7px;}
+			i, .glyphicon {font-style: normal;font-size: 1rem; line-height: 1rem; font-family: $font-icon;-moz-osx-font-smoothing:grayscale;margin-right: 7px;}
 			.glyphicon {
 				&.members:before {content: $icon-members;}
 				&.groups:before {content: $icon-groups;}
@@ -74,9 +74,11 @@
 
 				#submenu {
 					width: 75%;
-
 					&> ul {width: 100%; margin:0;
-						&> li {width: 16.6%; float:left;}
+						&> li {float:left;width: 16.6%;}
+						@include bp-large {
+							&> li {width: auto;}
+						}
 					}
 
 					li a {line-height: 18px; position: relative; text-align: center; display: block;}

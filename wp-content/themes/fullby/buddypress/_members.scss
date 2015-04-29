@@ -9,7 +9,7 @@
         font-size: 0 !important;
         &:before {
             font-size:0.875rem !important;
-            font-family: $iconfont;
+            font-family: $font-icon;
         }
     }
      .send-message:before {content: ""; }
@@ -70,7 +70,7 @@
         
         #object-nav
         #subnav.item-list-tabs.no-ajax {@include tabs2($blue);}
-        #object-nav li > a::before {display: block; font-family: $iconfont; font-size: 2rem; }
+        #object-nav li > a::before {display: block; font-family: $font-icon; font-size: 2rem; }
         #xprofile-personal-li > a::before {content: "";}
         #friends-personal-li > a::before {content: ""; }
         #groups-personal-li > a::before {content: ""; }

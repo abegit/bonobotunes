@@ -8,27 +8,6 @@
 	
 				<?php if (bp_get_current_signup_step() !== 'completed-confirmation' ) { ?>
 				<div class="sing-tit-cont">
-					
-					<h3 class="sing-tit">Sign In:</h3>
-
-				<?php echo do_shortcode('[wordpress_social_login]'); ?>
-				<form name="login-form" id="login-form" class="login-form" action=" <?php echo site_url( 'wp-login.php' ) ?>" method="post">
-                       <div class="input-group">
-                           <span class="input-group-addon"> <i class="icon-user"> </i> </span>
-                           <input type="text" class="form-control" name="log" id="user_login" value="" placeholder=" <?php _e( 'Username', 'firmasite' ) ?>" />
-                       </div>
-                       <div class="input-group">
-                           <span class="input-group-addon"> <i class="icon-lock"> </i> </span>
-                           <input type="password" class="form-control" name="pwd" id="user_pass" value="" placeholder=" <?php _e( 'Password', 'firmasite' ) ?>" />
-                       </div>
-
-                       <input class="btn btn-primary pull-left" type="submit" name="wp-submit" id="wp-submit" value=" <?php _e( 'Log In', 'firmasite' ) ?>"/>
-                        <a href="<?php echo site_url( 'wallet/update-password' ) ?>">Forgot Password?</a>
-                        <input type="hidden" name="testcookie" value="1" />
-                        <input type="hidden" name="redirect_to" value="<?php echo home_url().'/home' ?>" />
-                   </form>
-				</div>
-				<div class="sing-tit-cont">
 					<h3 class="sing-tit">or Sign Up!</h3>
 				</div>
 				<?php } else { ?>

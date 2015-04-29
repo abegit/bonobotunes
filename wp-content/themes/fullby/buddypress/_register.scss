@@ -24,7 +24,7 @@ body.registration {
         margin: 0 1%;
         width: 31.333% !important;
         &:before {border-right: 1px solid rgba(255, 255, 255, 0.2); margin-right: 7px; padding-right: 7px; position: relative;
-            -moz-osx-font-smoothing: grayscale;  content: ""; font-family: $iconfont; 
+            -moz-osx-font-smoothing: grayscale;  content: ""; font-family: $font-icon; 
             @include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); top: -2px; vertical-align: middle; display: inline-block;}
         &:after {@include text-shadow(2px 1px 0 rgba(0, 0, 0, 0.1)); }
         &.wp-social-login-provider-facebook:after {content: " Use Facebook"; display: inline-block; }
@@ -38,7 +38,7 @@ body.registration {
     }
         .bblogin-dv:after {content: " Sign In with Facebook"; display: inline-block; }
         .bblogin-rq:after {content: " Sign In with Twitter"; display: inline-block; }
-        .bblogin-rq:before {-moz-osx-font-smoothing: grayscale; content: ""; display: inline-block; font-family: $iconfont; }
+        .bblogin-rq:before {-moz-osx-font-smoothing: grayscale; content: ""; display: inline-block; font-family: $font-icon; }
         .bblogin-rq {background: #51b6f7; color: #ffffff; }
         .bblogin-dv {background: #5b71ad; color: #ffffff; }
 

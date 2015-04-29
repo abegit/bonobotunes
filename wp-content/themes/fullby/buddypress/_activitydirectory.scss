@@ -29,7 +29,7 @@
             span.value {display: none;}
             dl {margin:0;}
             dt a {font-size: 0;}
-            dl dt:before {content: "";font-family:$iconfont; display: block; font-size:.688em !important; text-align: center; line-height: 28px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
+            dl dt:before {content: "";font-family:$font-icon; display: block; font-size:.688em !important; text-align: center; line-height: 28px !important; margin: 0 !important; position: relative; right: 0; top: 0; vertical-align: middle; -moz-osx-font-smoothing: grayscale;}
             .whats-new-post-in > dt {cursor:pointer; @include border-box; color:#777; display: inline-block; line-height: 0 !important; padding: 0 5px; width: 40px;
                 &:hover {color:#333;}
             }
@@ -52,7 +52,7 @@
         .bpfb_toolbar_container a  {
             &:first-child {@include border-radius(0 0 0 $myrad);}
             span {display: none;}
-            &:before {-moz-osx-font-smoothing: grayscale; border-right: 1px solid #cfcfcf; color: #7f7f7f; display: inline-block; float: left; font-family: $iconfont; font-size:1.563rem; font-weight: lighter; line-height: 50px; margin: 0; text-align: center; width: 50px;}
+            &:before {-moz-osx-font-smoothing: grayscale; border-right: 1px solid #cfcfcf; color: #7f7f7f; display: inline-block; float: left; font-family: $font-icon; font-size:1.563rem; font-weight: lighter; line-height: 50px; margin: 0; text-align: center; width: 50px;}
             &:hover:before {color:$green;}
             &#bpfb_addPhotos:before {content:"";}
             &#bpfb_addLinks:before {content:"";}
@@ -117,7 +117,7 @@
             a {line-height: 48px;}
             li.filter label:before {
                 content:$icon-filter;
-                font-family: $iconfont;
+                font-family: $font-icon;
             }
         }
 
@@ -197,7 +197,7 @@
     } /*end activity directory*/
     .activity-filter-by.selectwrap dl {display: none; }
     .selectwrap.activity-filter-by {
-        &:before {content: ""; font-family: $iconfont; margin-right: 10px; pointer-events: none;}
+        &:before {content: ""; font-family: $font-icon; margin-right: 10px; pointer-events: none;}
         &:after {content: "Filter By"; pointer-events: none;}
     }
     #activity-filter-select {overflow: hidden; position: relative; margin-top: 0 !important; 

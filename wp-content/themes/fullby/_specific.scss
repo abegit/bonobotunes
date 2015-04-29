@@ -1,16 +1,45 @@
 body {background-image: url("img/congruent_outline.png"); 
-	&.page-template-page-no-sidebar-php, &.registration {background: #e1e5e7; }
+	&.page-template-page-no-sidebar, &.page-template-page-promo-finish, &.registration {background: #e1e5e7; }
 }
-body.page-template-page-no-sidebar {.sing-tit-cont {background: transparent;margin-bottom: 0;text-align: center; h3 {margin-bottom: 0;display: inline-block; padding:16px 110px; @include box-shadow(0 1px 0px 0 rgba(0,0,0,0.24), 0 2px 0px 0 rgba(255,255,255,1.0), 0 3px 0px 0 rgba(0,0,0,0.24), 0 4px 0px 0 rgba(255,255,255,1.0))}
+body.page-template-page-no-sidebar, body.page-template-page-promo-finish {
+	.sing-tit-cont {text-align: center;
+		h3 {margin: 0; display: inline-block;}
+	}
+	.single-in {background-color: #fbfbfb;}
 }
-.fund {  margin: 30px auto 0; max-width: 480px; 
-	&> * {width: 46%; margin: 0px 2% 1%; height: 200px; float: left; text-align: center; background-color: rgba(245, 244, 245,0.9); @include border-radius($myrad * 2); padding: 20px 0px; border:solid 2px $banana;}
+body.page-template-page-no-sidebar {
+	.sing-tit-cont {height: 400px;
+    margin-bottom: -340px;}
 
-	&> *:hover {border-color:$green;}
-	input {max-width: 100%;}
+	.fund { margin: 30px auto 0; max-width: 480px;
+		&> * {width: 46%; margin: 0px 2% 1%; height: 200px; float: left; text-align: center; background-color: rgba(245, 244, 245,0.9); @include border-radius($myrad * 2); padding: 20px 0px; border:solid 2px $banana;}
+
+		&> *:hover {border-color:$green;}
+		input {max-width: 100%;}
+	}
+	.wrap .single {@include trans(1000ms); }
 }
-.wrap .single {@include trans(1000ms); }
+
+body.page-template-page-promo-finish {
+	h3 {font-family: Open Sans Condensed; font-size: 2.5rem; color:$go;}
+	.single {background:#fff;}
+	.sing-cont {@include box-shadow(0 -34px 50px -75px #000);}
+	.thanks .col-md-4 i {
+    background: none repeat scroll 0 0 #dddddd;
+    border-radius: 100px;
+    box-shadow: 0 0 0 3px #c0c0c0;
+    font-size: 2rem;
+    margin-right: 7px;
+    padding: 15px;
+	}
 }
+
+
+
+
+
+
+
 body.single-product {.kgvid_wrapper_inline_left {margin: 0; }
 .kgvid_wrapper {margin:0; line-height: 0}
 .kgvid_wrapper_inline_left video {height: auto; width: 100% !important; }
@@ -32,12 +61,18 @@ p {color: rgba(0, 0, 0, 0) !important; font-size: 0; margin: 0; }
 .item.ready:nth-child(5n+1) {clear: left !important; }
 #ex > a {display: none; }
 }
+
+
+
+/*partials*/
+.js {
 .btn-drop {position: relative; width: 100%; border-bottom: solid 1px #e0e0e0; h3 {cursor: pointer;}
-	&:before {content:$icon-plus; font-family:$iconfont; @include border-radius(100px); border:solid 1px $yale; float:left; font-size: 1rem; top:0; margin-right:10px;cursor:pointer; width:28px; height:28px; text-align: center;}
+	&:before {content:$icon-plus; font-family:$font-icon; @include border-radius(100px); border:solid 1px $yale; float:left; font-size: 1rem; top:0; margin-right:10px;cursor:pointer; width:28px; height:28px; text-align: center;}
 	&.open:before {content:$icon-minus;}
 	.accordian {max-height: 0px; overflow: hidden; 
 		&> ul {margin: 0;} }
 	&.open .accordian {max-height: 1000px;}
+}
 }
 .sticky {border-right:3px solid #eee;border-bottom: 3px solid #eee }
 .wp-caption {border: 1px solid #eee;text-align: center;padding: 10px;}
@@ -52,9 +87,10 @@ p {color: rgba(0, 0, 0, 0) !important; font-size: 0; margin: 0; }
 /* Search */ .result{margin-left:5px;text-transform: uppercase;}
 #srch-term{border:none;background:none;@include box-shadow(none);}
 .search-cont{padding:0;}
-.btn-default[type=submit]{border: none;background: none;}
-/*searchbar*/ .gsc-search-button {
-	&:before {color: #ffffff; content: $icon-search; font-family: $iconfont; font-size: 1.250rem; line-height: 30px; margin-top: 0 !important; position: absolute; text-align: center; width: 100%; z-index: 1; }
+.btn-default[type=submit]{@include btn(#ddd,#888,$myrad);}
+/*searchbar*/
+.gsc-search-button {
+	&:before {color: #ffffff; content: $icon-search; font-family: $font-icon; font-size: 1.250rem; line-height: 30px; margin-top: 0 !important; position: absolute; text-align: center; width: 100%; z-index: 1; }
 }
 .gsc-control-cse.gsc-control-cse-en {padding:0; border:none;}
 .gsc-results-wrapper-visible {padding:10px 0; margin-bottom:10px;}

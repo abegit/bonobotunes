@@ -39,7 +39,6 @@
 </head>
 <body <?php body_class(); ?>>
 <div class="spacer"></div>
-<div class="spacer"></div>
     <div class="navbar navbar-inverse text-center">
      <div class="row">
         <div class="navbar-header">
@@ -49,7 +48,39 @@
                   echo home_url(); }; ?>">
             </a>
         </div>
-    </div>
-</div>	
+        <div id="mainmenu" class="collapse col-md-3">
+<!-- <div id="hello" style="position:absolute;right:0; top:0; color:#fff; text-transform:uppercase; cursor:pointer; height:30px; line-height:30px; display:block;"><i class="icon-menu"></i> menu</div> -->
+          <div class="nav navbar-nav alignright">
+            <ul>
+              <li><a href="#"></a></li>
+            </ul>
+          </div>
 
+        </div>
+
+    </div>
+    <div class="btn-drop row">
+              <i class="icon-user btn"></i>
+              <div class="accordian">
+                
+            <?php echo do_shortcode('[wordpress_social_login]'); ?>
+                <form name="login-form" id="login-form" class="login-form" action=" <?php echo site_url( 'wp-login.php' ) ?>" method="post">
+                       <div class="input-group">
+                           <span class="input-group-addon"> <i class="icon-user"> </i> </span>
+                           <input type="text" class="form-control" name="log" id="user_login" value="" placeholder=" <?php _e( 'Username', 'firmasite' ) ?>" />
+                       </div>
+                       <div class="input-group">
+                           <span class="input-group-addon"> <i class="icon-lock"> </i> </span>
+                           <input type="password" class="form-control" name="pwd" id="user_pass" value="" placeholder=" <?php _e( 'Password', 'firmasite' ) ?>" />
+                       </div>
+
+                       <input class="btn btn-primary pull-left" type="submit" name="wp-submit" id="wp-submit" value=" <?php _e( 'Log In', 'firmasite' ) ?>"/>
+                        <a href="<?php echo site_url( 'wallet/update-password' ) ?>">Forgot Password?</a>
+                        <input type="hidden" name="testcookie" value="1" />
+                        <input type="hidden" name="redirect_to" value="<?php echo home_url().'/home' ?>" />
+                   </form>
+              </div>
+            </div>
+</div>
 	
+

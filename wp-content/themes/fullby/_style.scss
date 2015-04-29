@@ -38,7 +38,10 @@ other dealings in the software.
 */
 
 /*fonts sets*/
-$iconfont : "icomoon";
+$font-icon : "icomoon";
+$font-hd : "Lora", "Times New Roman", serif !important ;
+$font-link : "Lato", Arial, Helvetica !important;
+$myrad : 5px;
 
 /*main areas*/
 $icon-members: ""; /*users*/
@@ -69,6 +72,9 @@ $icon-filter : "";
 
 
 
+
+
+
 @import "../../../../partials";
 @import "css/bootstrap";
 
@@ -82,6 +88,13 @@ a{color:saturate($blue, 50% ); opacity: .94;
 }
 img {height: auto;max-width: 100%;}
 
+.butten {
+	@include btn($green, $myrad, #fff);
+}
+.bare {
+	padding:0; 
+	img {width: 100%; height:auto;}
+}
 
 /* #1 - nav */
 @import "navs";
@@ -127,6 +140,11 @@ img {height: auto;max-width: 100%;}
 	#submenu li a {padding: 10px 0 20px; margin-top: 10px;}
 }
 /*Small desktop large tablet*/
+
+@include bp-large {
+	#mainmenu > ul > li {width: 16.6%;}
+}
+
 @include bp-medium {
 	#mainmenu > ul {display: inline-block;	}
 	#mainmenu > ul {

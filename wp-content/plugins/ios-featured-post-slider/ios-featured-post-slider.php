@@ -164,7 +164,13 @@ class iosSlider extends SanityPluginFramework {
 			add_image_size( 'iosSlider-image', 650, 290, true );
 		}
 		
-		
+	
+		function ios_functionCorrection() {
+			wp_enqueue_style( 'style-name', get_stylesheet_uri() );
+			wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
+		}
+		add_action( 'wp_footer', 'ios_functioncall', 99999999999999 , 1 );
+
 
 		// #5 - create slider loop
 		function show_featured_posts($numbers,$category,$post_type,$orderby,$type) {
@@ -179,10 +185,9 @@ class iosSlider extends SanityPluginFramework {
 				$slider_title = "swiper_title".get_the_ID(); //assign the postID as title of the image
 				$slider_attribute =  the_title_attribute( 'echo=0' );
 				if ( function_exists("has_post_thumbnail") && has_post_thumbnail() ) { 
-						// $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
 						$iosImage = get_the_post_thumbnail(get_the_ID(), 'full', array( "class" => "post_thumbnail", 'title' => $slider_attribute ));
 				}
-				$output .= "<div class='swiper-slide'"."style='background-image: url(".$image[0].")'>";
+				$output .= "<div class='swiper-slide'"."style='background-image: url()'>";
 				if ( get_post_meta($post->ID, 'sliderURL', true) !== "") {
 					$slider_url = get_post_meta($post->ID, 'sliderURL', true); } else { 
 					$slider_url = get_the_permalink(get_the_ID()); }; //assign the postID as title of the image
@@ -235,93 +240,93 @@ class iosSlider extends SanityPluginFramework {
 		}
 		add_shortcode('featured', 'tg_featured_posts');
 
-			// #5.1 - add loop scripts in footer
-		add_action('wp_footer', 'ios_functioncall');
+
+	    // #5.1 - add loop scripts in footer
+		// add_action('wp_footer', 'ios_functioncall', 999999999999, 1 );
 		function ios_functioncall() {
 			global $type;
 			echo '<script src="'.plugins_url( 'ios-featured-post-slider/templates/assets/js/swiper.min.js', dirname(__FILE__) ).'"></script>';
 	        if ($type == "centeredAuto") {
-		        echo '<!-- Initialize Swiper -->
-			    <script> 
-			    var mySwiper = new Swiper(".swiper-container", {
-			        pagination: ".swiper-pagination",
-			        paginationClickable: ".swiper-pagination",
-			        nextButton: ".swiper-button-next",
-			        prevButton: ".swiper-button-prev",
-			        slidesPerView: "auto",
-			        centeredSlides: true,
-			        paginationClickable: true,
-			        spaceBetween: 30,
-			        speed: 600,
-			        autoplay: 3000,
-			        autoplayDisableOnInteraction: false,
-			        loop: true,
-			    });
-				mySwiper.update();
+		        echo "\n".'<!-- Initialize Swiper -->
+			    <script>
+				    var swiper = new Swiper(".swiper-container", {
+				        autoplay: 5000,
+				        autoplayDisableOnInteraction: false,
+				        centeredSlides: true,
+				        nextButton: ".swiper-button-next",
+				        pagination: ".swiper-pagination",
+				        paginationClickable: true,
+				        prevButton: ".swiper-button-prev",
+				        slidesPerView: 1,
+				        spaceBetween: 30,
+				        speed: 1000
+				    });
+					swiper.update();
+					swiper.startAutoplay(); //just in case
 			    </script>'."\n";
 				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/centeredAuto.css', dirname(__FILE__) ).'">';
 
 	        } elseif ($type == "coverflow") {
-		        echo '<!-- Initialize Swiper -->
-			    <script> 
-			    var mySwiper = new Swiper(".swiper-container", {
-			        pagination: ".swiper-pagination",
-			        paginationClickable: ".swiper-pagination",
-			        nextButton: ".swiper-button-next",
-			        prevButton: ".swiper-button-prev",
-			        effect: "coverflow",
-			        grabCursor: true,
-			        centeredSlides: true,
-			        slidesPerView: 1,
-			        preloadImages: true,
-			        speed: 600,
-			        autoplay: 3000,
-			        autoplayDisableOnInteraction: false,
-			        coverflow: {
-			            rotate: 50,
-			            stretch: 0,
-			            depth: 100,
-			            modifier: 1,
-			            slideShadows : true
-			        }
-			    });
-				mySwiper.update();
-			    </script>';
+		        echo "\n".'<!-- Initialize Swiper -->
+			    <script>
+				    var swiper = new Swiper(".swiper-container", {
+				        autoplay: 7000,
+				        autoplayDisableOnInteraction: false,
+				        centeredSlides: true,
+				        effect: "coverflow",
+				        grabCursor: true,
+				        lazyLoading:true,
+				        nextButton: ".swiper-button-next",
+				        pagination: ".swiper-pagination",
+				        paginationClickable: true,
+				        preloadImages: true,
+				        prevButton: ".swiper-button-prev",
+				        slidesPerView: 1,
+				        speed: 600,
+				        coverflow: {
+				            rotate: 50,
+				            stretch: 0,
+				            depth: 100,
+				            modifier: 1,
+				            slideShadows : true
+				        }
+			    	});
+					swiper.update();
+					swiper.startAutoplay(); //just in case
+			    </script>'."\n";
 				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/coverflow.css', dirname(__FILE__) ).'">';
 	        } elseif ($type == "fade") {
-	        	echo '<!-- Initialize Swiper -->
-			    <script> 
-			    var mySwiper = new Swiper(".swiper-container", {
-			        pagination: ".swiper-pagination",
-			        paginationClickable: ".swiper-pagination",
-			        nextButton: ".swiper-button-next",
-			        prevButton: ".swiper-button-prev",
-			        grabCursor: true,
-			        loop: true,
-			        centeredSlides: true,
-			        slidesPerView: 1,
-			        preloadImages: true,
-			        speed: 600,
-			        autoplay: 2000,
-			        autoplayDisableOnInteraction: false,
-			        spaceBetween: 30,
-    				effect: "fade",
-			    });
-				mySwiper.update();
-			    </script>';
+			  echo "\n".'<!-- Initialize Swiper -->
+			    <script>
+				    var swiper = new Swiper(".swiper-container", {
+				        autoplay: 4000,
+				        autoplayDisableOnInteraction: false,
+				        centeredSlides: true,
+				        effect: "fade",
+				        grabCursor: true,
+				        nextButton: ".swiper-button-next",
+				        pagination: ".swiper-pagination",
+				        paginationClickable: true,
+				        prevButton: ".swiper-button-prev",
+				        slidesPerView: 1,
+				        spaceBetween: 30,
+				        speed: 1000
+				    });
+					swiper.update();
+			    </script>'."\n";
 				echo '<link rel="stylesheet" href="'.plugins_url( 'ios-featured-post-slider/templates/assets/css/fade.css', dirname(__FILE__) ).'">';
 	        }
 		    echo '<script>
 			    jQSwipe = jQuery.noConflict();
 			      jQSwipe(document).ready(function() {
 				     jQSwipe(window).load(function() {
-  						mySwiper.update();
+  						// swiper.update();
+  						// swiper.swipeNext(true, true);
+						// swiper.startAutoplay(); //just in case
 					});
 				});
  				</script>';
 		}
-
-			
 
 
 }

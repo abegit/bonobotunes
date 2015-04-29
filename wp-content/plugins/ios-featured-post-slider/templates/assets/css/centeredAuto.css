@@ -23,3 +23,18 @@
         align-items: center;
     }
     .swiper-slide img {width: 100%;}
+.swiper-slide.swiper-slide-active::before {
+    background: none repeat scroll 0 0 rgba(255,255,255,0.5);
+    content: "";
+    transition: width 6s linear 0s !important;
+    width: 100%;
+    z-index: 2;
+}
+.swiper-slide::before {
+    content: "";
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}

@@ -20,8 +20,7 @@ function ms_image_editor_default_to_gd( $editors ) {
 add_filter( 'wp_image_editors', 'ms_image_editor_default_to_gd' );
 
 
-// hide adminbar
-add_filter('show_admin_bar', '__return_false');
+
 
 // custom header
 global $blog_id;
@@ -76,6 +75,11 @@ function bpCustom_Header() {
 			if ( !is_user_logged_in() )
 				return false;
 
+
+	if (current_user_can('manage_options')) {
+        // redirect them to the default place
+    	echo '<li class="menu-item menu-item-type-post_type menu-item-object-page"><a title="Bonoboville Admin" href="' . home_url() . '/wp-admin" target="_new">Admin</a></li>';
+      }
 			echo ' <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle notifications" data-toggle="dropdown" href="#" title="Notes">';
 					// _e( '<i class="fa-bell-o"></i>', 'buddypress' );
 
@@ -121,19 +125,19 @@ endif;
 			return $items . '
 			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle account" data-toggle="dropdown" href="#" title="Hi, '.$current_user->user_login.'">@'.$current_user->user_login.'<span class="caret" style="display:none;"></span></a>
 				<ul class=" dropdown-menu" role="menu">
-				<li role="presentation" class="dropdown-header">Places:</li>
+				<li role="presentation" class="dropdown-header">My Wallet:</li>
+			    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'" title="My Profile"><i class="icon-user2"></i>My Profile</a></li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'profile/change-avatar"><i class="icon-pencil"></i>Edit Profile</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/membership" title="Citizenship"><i class="icon-gift"></i>Citizenship</a></li>
+				<li role="presentation" class="divider"></li>
+				<li role="presentation" class="dropdown-header">Navigation:</li>
 				<li class="menu-item menu-item-type-custom menu-item-object-custom">'.bp_loggedin_user_avatar( 'type=thumb&width=50&height=50&url=true' ).'
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'messages" title="Messages"><i class="icon-mail2"></i>Post Office</a></li>
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'friends" title="Friends"><i class="icon-mail2"></i>My Friends</a></li>
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'groups" title="Groups"><i class="icon-mail2"></i>My Groups</a></li>
 				<li class="divider" role="presentation"></li>
-				<li role="presentation" class="dropdown-header">Wallet:</li>
-			    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'" title="My Profile"><i class="icon-user2"></i>My Profile</a></li>
-				<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'profile/change-avatar"><i class="icon-pencil"></i>Edit Profile</a></li>
-				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/membership" title="Citizenship"><i class="icon-gift"></i>Citizenship</a></li>
-				<li role="presentation" class="divider"></li>
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/forum/support" title="Help and Support"><i class="icon-settings"></i>Tech Support</a></li>
-				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Privacy Settings"><i class="icon-settings"></i>Privacy</a></li>
+				<!-- <li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Privacy Settings"><i class="icon-settings"></i>Privacy</a></li>-->
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.wp_logout_url(get_permalink()).'" title="Log Out"><i class="icon-exit"></i>log out</a></li></ul></li>';
 		}
 		elseif (!is_user_logged_in() && $args->theme_location == 'primary') {
@@ -143,4 +147,3 @@ endif;
 			return $items; 
 		}
 	}
-?>

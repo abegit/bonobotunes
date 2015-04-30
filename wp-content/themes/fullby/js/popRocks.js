@@ -1,3 +1,39 @@
+//   var $smartNav = jQuery.noConflict();
+//    $smartNav(window).load(function() {
+//      // ---------------------nav sticktop---------------------------
+//    var lock_nav = $smartNav('#header nav'); // the div that is going to be stuck on the top
+//    var lock_backtop = $smartNav('.back-top a'); // the div that is going to be stuck on the top
+//    var sticktop = $smartNav('#header nav').offset().top - 30; // grab the initial top offset of the navigation
+//    var new_stick = sticktop + 70; // grab the initial top offset of the navigation
+//    //  // our function that decides weather the navigation bar should have "fixed" css position or not.
+//     var sticknav = function () {
+//        		var scroll_top = $smartNav(window).scrollTop(); // our current vertical position from the top
+// 		// if we've scrolled more than the navigation, change its position to fixed to stick to top,
+//             // otherwise change it back to relative
+//             if (scroll_top > sticktop) {
+//                 lock_nav.addClass('sticktop');
+//             } else {
+//                 lock_nav.removeClass('sticktop');
+//             }
+
+//             if (scroll_top - 100 > sticktop) {
+//             	lock_backtop.addClass('show');  
+//             } else {
+//                 lock_backtop.removeClass('show');  
+//             }
+//         }
+//         // run our function on load
+//     sticknav();
+
+//    // and run it again every time you scroll
+//    $smartNav(window).scroll(function () {
+//     	sticknav();
+//    });
+
+// });
+
+
+
 var $popRocks = jQuery.noConflict();
 $popRocks(window).load(function(){
 	// custom popup action by unscene.us

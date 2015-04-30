@@ -2,7 +2,7 @@
 body.registration {
     .navbar-brand { display: inline-block;
     margin: 24px 0 !important;}
-    .navbar.navbar-inverse.navbar-fixed-top { }
+    .navbar {height: auto; }
     .navbar-header {}
     .navbar-header a {}
     .footer {background:transparent; text-align: center; border:none;padding-bottom:40px;

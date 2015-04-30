@@ -194,21 +194,16 @@ jQone(document).ready(function() {
 
 		<?php global $bp; ?>
 		<?php if (isset($afil)) { ?>
-
  				if (helpa!=null && helpa!="") {
 					return false;
 				}		
 				if (helpa=="") {
-					var php_code = "<?php echo $afil; ?>";
-					setCookie("helper",php_code,30);
+					setCookie("helper",<?php echo $afil; ?>,30);
 				}
 				if (helpa=="0") {
-					var php_code = "<?php echo $afil; ?>";
-					setCookie("helper",php_code,30);
+					setCookie("helper",<?php echo $afil; ?>,30);
 				}
-
 		<?php } else { ?>
-
  				if (helpa!=null && helpa!="") {
 					return false;
 				}		
@@ -220,7 +215,6 @@ jQone(document).ready(function() {
 					var php_code = "<?php echo bp_displayed_user_id(); ?>";
 					setCookie("helper",php_code,30);
 				}
-
 		<?php }; ?>
 
 
@@ -475,7 +469,7 @@ $sliderInit(window).load(function() {
 jQuery(document).ready(function()
 {
     jQuery('.layer').parallax({
-		mouseport: jQuery(".row.featured")
+		mouseport: jQuery(".row.featured");
 	});
 });
 </script>
@@ -545,6 +539,70 @@ mmberPostBlur(function() {
 
 </script>
 <?php }; ?>
+
+
+
+    <script>
+    var ourNav = jQuery.noConflict();
+    ourNav(window).load(function() {
+     // ---------------------nav sticktop---------------------------
+   var scroll_div = ourNav('.navbar.navbar-fixed-top'); // the div that is going to be stuck on the top
+   var sticktop = ourNav('.navbar.navbar-fixed-top').offset().top; // grab the initial top offset of the navigation
+   // var socialtab = ourNav('#social-tabs');
+   // var contacttab = ourNav('.slide-out-div .handle')
+
+    // our function that decides weather the navigation bar should have "fixed" css position or not.
+    var OurStickNav = function () {
+       var scroll_top = ourNav(window).scrollTop(); // our current vertical position from the top
+
+
+
+            // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+            // otherwise change it back to relative
+            if (scroll_top > sticktop) {
+                ourNav(scroll_div).addClass('sticktop');
+                ourNav('.spacer.sticknav').css('height', 90);
+            } else {
+                ourNav(scroll_div).removeClass('sticktop');
+                ourNav('.spacer.sticknav').css('height', 0);
+		         // // ---------------------------------this is for after 200 pixels under the nav sticktop
+		         // if (scroll_top - 200 > sticktop) {
+		         //    ourNav(socialtab).stop().animate({
+		         //        marginRight: 0,
+		         //    }, 150 );
+		         //    ourNav(contacttab).stop().animate({
+		         //        left: "-40px",
+		         //    }, 150 );
+		         // } else {
+		         //    ourNav(socialtab).stop().animate({
+		         //        marginRight: "34px",
+		         //    }, 150 );
+		         //    ourNav(contacttab).stop().animate({
+		         //        left: 0,
+		         //    }, 150 );
+		         // }
+		         
+         
+        };
+    };
+
+    // run our function on load
+    OurStickNav();
+
+   // and run it again every time you scroll
+   ourNav(window).scroll(function () {
+    OurStickNav();
+   });
+
+
+
+
+});
+</script>
+
+
+
+
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

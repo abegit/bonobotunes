@@ -282,7 +282,7 @@
 
 .logged-in {
     #mainmenu {
-        .navbar-nav > li:last-child > a {padding-right: 65px !important;}
+        .navbar-nav > li.current_user > a {padding-right: 65px !important;}
     }
 }
 

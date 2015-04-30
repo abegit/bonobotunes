@@ -37,30 +37,47 @@
     
 	<?php wp_head(); ?> 
 </head>
-<body <?php body_class(); ?>>
-<div class="spacer"></div>
+<body <?php body_class('registration'); ?>>
     <div class="navbar navbar-inverse text-center">
      <div class="row">
         <div class="navbar-header">
+          <div id="mainmenu" class="collapse col-md-3">
+<!-- <div id="hello" style="position:absolute;right:0; top:0; color:#fff; text-transform:uppercase; cursor:pointer; height:30px; line-height:30px; display:block;"><i class="icon-menu"></i> menu</div> -->
+          <ul id="togggle"> <li><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#submenu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button></li>
+          <li><button type="button" class="navbar-toggle for-submenu" data-toggle="collapse" data-target="#sidebar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button></li> </ul>
+          <?php /* Primary navigation */
+      wp_nav_menu( array(
+        'theme_location' => 'primary',
+        'container' => false,
+        'menu_class' => 'nav navbar-nav alignright',
+        //Process nav menu using our custom nav walker
+        'walker' => new wp_bootstrap_navwalker())
+      );
+      ?>
+
+        <div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
+          <?php // display_search_box(DISPLAY_RESULTS_CUSTOM); ?> 
+        </div>
+
+        </div>
           <a class="navbar-brand logo" href="<?php if (is_home()){
                     echo '#';
                     } else {
                   echo home_url(); }; ?>">
             </a>
         </div>
-        <div id="mainmenu" class="collapse col-md-3">
-<!-- <div id="hello" style="position:absolute;right:0; top:0; color:#fff; text-transform:uppercase; cursor:pointer; height:30px; line-height:30px; display:block;"><i class="icon-menu"></i> menu</div> -->
-          <div class="nav navbar-nav alignright">
-            <ul>
-              <li><a href="#"></a></li>
-            </ul>
-          </div>
-
-        </div>
-
     </div>
-    <div class="btn-drop row">
-              <i class="icon-user btn"></i>
+<?php $hey = $_GET["friend"]; ?>
+    <div class="btn-drop row<?php if (!isset($hey) && bp_is_register_page()) { ?> open<?php } ?>"<?php if (!isset($hey)) { ?> data-uri="1"<?php } ?>>
+              <i class="icon-user btn-drop-btn" style="background:red;width:auto;padding:10px;color:#fff"></i>
               <div class="accordian">
                 
             <?php echo do_shortcode('[wordpress_social_login]'); ?>
@@ -81,6 +98,10 @@
                    </form>
               </div>
             </div>
+</div>
+
+<div id="loader">
+  <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/ajax-loader.gif">
 </div>
 	
 

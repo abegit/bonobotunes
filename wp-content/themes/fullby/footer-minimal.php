@@ -29,7 +29,7 @@
 
 <script>
 var stateObj = { foo: "bar" };
-window.history.pushState(stateObj, "Register", "<?php echo $url; ?>");
+window.history.replaceState(stateObj, "Register", "<?php echo $url; ?>");
 </script>
 
 <?php $afil = $_GET["friend"]; ?>
@@ -93,24 +93,26 @@ jQone(document).ready(function() {
 });
 </script>
 <script>
-	var $navDropz = jQuery.noConflict();
-$navDropz(document).ready(function(){
-	var $butan =  $navDropz('.btn-drop');
+var $navDropz = jQuery.noConflict();
+	$navDropz(document).ready(function(){
+	var $butan =  $navDropz('.btn-drop-btn');
 	$butan.attr('href','#');
 	$butan.click(function(){
-		var X=$navDropz(this).attr('data-uri');
+		var X=$navDropz(this).parent('.btn-drop').attr('data-uri');
 		if(X==1){
-			$navDropz(this).removeClass('open');
-			$navDropz(this).attr('data-uri', '0');
+			$navDropz(this).parent('.btn-drop').removeClass('open');
+			$navDropz(this).parent('.btn-drop').attr('data-uri', '0');
 		} else{
-			$navDropz(this).addClass('open');
-			$navDropz(this).attr('data-uri', '1');
+			$navDropz(this).parent('.btn-drop').addClass('open');
+			$navDropz(this).parent('.btn-drop').attr('data-uri', '1');
 		}
 	});
 });
 
 </script>
-
+<script>
+	console.log(history.length);
+</script>
 
 <?php wp_footer();?>
 

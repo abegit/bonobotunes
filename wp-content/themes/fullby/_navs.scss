@@ -1,4 +1,5 @@
-.navbar {position: fixed;
+#friends.bar {display: none;}
+.navbar {position: relative;
 		top:0;
 		background-color: #343434;
 		background-image: url("img/hd.gif");
@@ -11,6 +12,7 @@
 		text-transform: uppercase;
 		@include trans(700ms);
 		width: 100%;
+		&.sticktop {position: fixed;}
 			@include bp-medium {
 				background-image:none;
 				background-color: #444;

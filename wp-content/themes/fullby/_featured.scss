@@ -58,6 +58,7 @@
 	#featMenu .item:hover .caption { height:65px;}
 
 	.spacer{height: 90px;
+		&.sticknav {height: 0;}
 		@media screen and (max-width: $mediumbreak) {
 			height: 44px;
 		}

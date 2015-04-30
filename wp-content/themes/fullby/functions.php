@@ -19,9 +19,39 @@
 *
 *
 *
-*
-*/
+ * Redirect user after successful login.
+ *
+ * @param string $redirect_to URL to redirect to.
+ * @param string $request URL the user is coming from.
+ * @param object $user Logged user's data.
+ * @return string
+ */
+function my_login_redirect( $redirect_to, $request, $user ) {
+	//is there a user to check?
+	global $user;
+	if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+		//check for admins
+		if ( in_array( 'administrator', $user->roles ) ) {
+			// redirect them to the default place
+			return $redirect_to;
+		} elseif ( in_array( 'author', $user->roles ) ) {
+			// redirect them to the default place
+			return $redirect_to;
+		} elseif ( in_array( 'customer', $user->roles ) ) {
+			// redirect them to the default place
+			return home_url().'/home';
+		} elseif ( in_array( 'subscriber', $user->roles ) ) {
+			// redirect them to the default place
+			return home_url().'/home';
+		} else {
+			return home_url().'/home';
+		}
+	} else {
+		return $redirect_to;
+	}
+}
 
+add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 // #1 - hide admin bar on front
 add_filter('show_admin_bar', '__return_false');
@@ -66,6 +96,35 @@ function my_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt) {
 }
 
 // #4 - Fullby CONTENT WIDTH & feedlinks 
+
+// /**
+//  * Login Redirect
+//  * @since 0.1
+//  * @version 1.0
+//  */
+// add_filter( 'login_redirect', 'mycred_pro_login_redirect', 10, 3 );
+// function mycred_pro_login_redirect( $redirect_to, $request, $user = NULL )
+// {
+// 	// Make sure myCRED is enabled
+// 	if ( ! function_exists( 'mycred_get_users_cred' ) ) return $redirect_to;
+
+// 	if ( is_object( $user ) )
+// 		$user_id = $user->ID;
+// 	else
+// 		$user_id = get_current_user_id();
+
+// 	// Page ID to redirect users to
+// 	$redirect_to_page = 99;
+
+// 	// Check for negative balances
+// 	if ( mycred_get_users_cred( $user_id ) <= 0 ) {
+// 		return get_permalink( $redirect_to_page );
+// 	}
+	
+// 	return $redirect_to;
+// }
+
+// CONTENT WIDTH & feedlinks 
 	
 	if ( ! isset( $content_width ) ) $content_width = 900;
 	add_theme_support( 'automatic-feed-links' );
@@ -287,7 +346,19 @@ function fullby_settings() {?>
 </div>
 <?php }
 
+// woo - Remove Main Product Image & Display Thumbnails	
+add_filter('add_to_cart_redirect', 'imageSlashVid');
+function imageSlashVid() {
+	// if (!wc_customer_bought_product( $current_user->user_email, $current_user->ID, $product->id)) {
+	// 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+	// }
+ 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+}
+add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_thumbnails', 20 );
 
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
 
 
@@ -318,25 +389,39 @@ function better_phpmailer_init( $phpmailer ){
 }
 
 
- //function add_post_content($content) {
-//	if(is_single()) {
-// 		$content .= '<p class="bitly-shortlink">Shortlink: <input type="text" value="' . wp_get_shortlink() . '" onclick="this.focus();this.select();" > <small>(click to copy)</small></p>';
-// 	}
- //	return $content;
- //}
- //add_filter('the_content', 'add_post_content', '0');
+ function add_post_content($content) {
+	if(is_single()) {
+		$content .= '<p class="bitly-shortlink">Shortlink: <input type="text" value="' . wp_get_shortlink() . '" onclick="this.focus();this.select();" > <small>(click to copy)</small></p>';
+	}
+ 	return $content;
+ }
+ add_filter('the_content', 'add_post_content', '0');
+
+
 
 // #10 - block users from backend
 function block_init_admin() {
-if (strpos(strtolower($_SERVER),'/wp-admin/') !== false) {
-	if ( !is_site_admin() ) {
-		wp_redirect( get_option('siteurl'), 302 );
+	if (strpos(strtolower($_SERVER),'/wp-admin/') !== false) {
+		if ( !is_site_admin() ) {
+			wp_redirect( get_option('siteurl'), 302 );
+		}
 	}
-}
 }
 add_action('init','block_init_admin',0);
 
 
+function bp_plugin_filter_latest_update( $update = '' ) {
+	if(function_exists('pmpro_hasMembershipLevel') && pmpro_hasMembershipLevel()) {
+	 	if( bp_is_user() && ! bp_get_member_user_id() ) {
+	        $user_id = bp_displayed_user_id();
+	    } else {
+	        $user_id = bp_get_member_user_id();
+	    }
+		$customNameHook = pmpro_getMembershipLevelForUser($user_id);
+}  
+
+add_filter( 'bp_before_member_header_meta', 'bp_plugin_filter_latest_update', 10, 1 );
+add_filter( 'bp_member_name', 'bp_plugin_filter_latest_update', 10, 1 );
 
 
 // #11 - AdRotate integration
@@ -344,9 +429,9 @@ require_once WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'adrotate' . DIRECTORY_SEPARA
 
 class fullbyRotator extends adrotate_widgets {
 
-function fullbyRotator() { // or just __construct if you're on PHP5
-    parent::WP_Widget(false, 'My not blocked AdRotate widget', array('description' => "Show unlimited ads in the sidebar.")); 
-    }
+	function fullbyRotator() { // or just __construct if you're on PHP5
+	    parent::WP_Widget(false, 'My not blocked AdRotate widget', array('description' => "Show unlimited ads in the sidebar."));
+	}
 }
 add_action('widgets_init', create_function('', 'return register_widget("fullbyRotator");'));
 
@@ -363,7 +448,7 @@ function is_tree( $pid ) {      // $pid = The ID of the page we're looking for p
     return ( isset($anc) && in_array( $pid , $anc ) ) ? true : false;
     //is the $pid in the ancestors array
 }
-
+ 
 // #13 woocommerce support
 add_theme_support('woocommerce');
 

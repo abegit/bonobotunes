@@ -43,7 +43,8 @@
 <?php if (is_tree( '83' )) {$uniqueCatcher = 'classifiedsindex'; } else {$uniqueCatcher = ''; } ?>
 <body <?php body_class($uniqueCatcher); ?>>
     <div class="spacer"></div>
-    <div class="navbar navbar-inverse">
+    <div class="spacer sticknav"></div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
     	<div id="details" class="hidden">
     		<div class="row">
 					<h2>Use This</h2>

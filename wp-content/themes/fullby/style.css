@@ -5896,8 +5896,11 @@ img {
     height: auto; }
 
 /* #1 - nav */
+#friends.bar {
+  display: none; }
+
 .navbar {
-  position: fixed;
+  position: relative;
   top: 0;
   background-color: #343434;
   background-image: url("img/hd.gif");
@@ -5914,6 +5917,8 @@ img {
   transition: all 700ms ease-in-out;
   width: 100%;
   /*end main*/ }
+  .navbar.sticktop {
+    position: fixed; }
   @media only screen and (max-width: 992px) {
     .navbar {
       background-image: none;
@@ -6320,6 +6325,8 @@ body.init .navbar-inverse .navbar-nav > .active > a:focus {
 
 .spacer {
   height: 90px; }
+  .spacer.sticknav {
+    height: 0; }
   @media screen and (max-width: 992px) {
     .spacer {
       height: 44px; } }
@@ -7506,7 +7513,7 @@ textarea {
   padding-bottom: 20px;
   padding-top: 20px; }
 
-.logged-in #mainmenu .navbar-nav > li:last-child > a {
+.logged-in #mainmenu .navbar-nav > li.current_user > a {
   padding-right: 65px !important; }
 
 .wpcf7-form {
@@ -8629,6 +8636,8 @@ body.activity-permalink .activity-meta a.button {
 body.registration .navbar-brand {
   display: inline-block;
   margin: 24px 0 !important; }
+body.registration .navbar {
+  height: auto; }
 body.registration .footer {
   background: transparent;
   text-align: center;
@@ -9372,7 +9381,33 @@ body.single-product .videoWrapper .button.alt {
   #blogroll #ex > a {
     display: none; }
 
+#loader {
+  background: none repeat scroll 0 0 #e1e5e7;
+  height: 100vh;
+  padding: 20% 0;
+  position: fixed;
+  text-align: center;
+  -webkit-transition: all 1000ms ease-in-out;
+  -moz-transition: all 1000ms ease-in-out;
+  -o-transition: all 1000ms ease-in-out;
+  transition: all 1000ms ease-in-out;
+  top: 0;
+  width: 100%;
+  opacity: 1;
+  z-index: 2; }
+  #loader img {
+    -webkit-transition: all 800ms ease-in-out;
+    -moz-transition: all 800ms ease-in-out;
+    -o-transition: all 800ms ease-in-out;
+    transition: all 800ms ease-in-out; }
+
 /*partials*/
+.btn-drop {
+  z-index: 1; }
+  .btn-drop .accordian {
+    max-height: 0px;
+    overflow: hidden; }
+
 .js .btn-drop {
   position: relative;
   width: 100%;
@@ -9403,6 +9438,13 @@ body.single-product .videoWrapper .button.alt {
       margin: 0; }
   .js .btn-drop.open .accordian {
     max-height: 1000px; }
+.js #loader {
+  opacity: 0;
+  padding: 0 0;
+  height: 0; }
+  .js #loader img {
+    opacity: 0;
+    width: 0; }
 
 .sticky {
   border-right: 3px solid #eee;

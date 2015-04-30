@@ -62,18 +62,35 @@ p {color: rgba(0, 0, 0, 0) !important; font-size: 0; margin: 0; }
 #ex > a {display: none; }
 }
 
-
+#loader {background: none repeat scroll 0 0 #e1e5e7;
+    height: 100vh;
+    padding: 20% 0;
+    position: fixed;
+    text-align: center;
+    @include trans(1000ms);
+    top: 0;
+    width: 100%;opacity: 1;
+    z-index: 2;
+    img {@include trans(800ms);}
+}
 
 /*partials*/
+.btn-drop {z-index: 1;
+.accordian {max-height: 0px; overflow: hidden; }
+}
 .js {
-.btn-drop {position: relative; width: 100%; border-bottom: solid 1px #e0e0e0; h3 {cursor: pointer;}
-	&:before {content:$icon-plus; font-family:$font-icon; @include border-radius(100px); border:solid 1px $yale; float:left; font-size: 1rem; top:0; margin-right:10px;cursor:pointer; width:28px; height:28px; text-align: center;}
-	&.open:before {content:$icon-minus;}
-	.accordian {max-height: 0px; overflow: hidden; 
-		&> ul {margin: 0;} }
-	&.open .accordian {max-height: 1000px;}
+	.btn-drop {position: relative; width: 100%; border-bottom: solid 1px #e0e0e0; h3 {cursor: pointer;}
+		&:before {content:$icon-plus; font-family:$font-icon; @include border-radius(100px); border:solid 1px $yale; float:left; font-size: 1rem; top:0; margin-right:10px;cursor:pointer; width:28px; height:28px; text-align: center;}
+		&.open:before {content:$icon-minus;}
+		.accordian {max-height: 0px; overflow: hidden; 
+			&> ul {margin: 0;} }
+		&.open .accordian {max-height: 1000px;}
+	}
+	#loader {opacity: 0; padding: 0 0; height: 0;
+		img {opacity: 0; width: 0;}
+	}
 }
-}
+
 .sticky {border-right:3px solid #eee;border-bottom: 3px solid #eee }
 .wp-caption {border: 1px solid #eee;text-align: center;padding: 10px;}
 .wp-caption img {margin: 0;padding: 0;border: 0 none;width:100%!important;height:auto;}

@@ -156,14 +156,12 @@
             <?php endwhile; ?>
             </ul>
 
-        <?php endif; ?>
-    </div>
-</div>
+                        <?php endif; ?>
+                </div>
+                </div>
 
-				</div>					 					
-			
-		</div>	
-        <div class="col-md-12 sidebar"> <div class=""></div></div>
+                    </div>
+                </div>
 	</div>			
 
 <script>    

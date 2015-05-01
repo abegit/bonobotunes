@@ -3,7 +3,7 @@
 <?php $nextNewPosts = new WP_Query();
 $nextNewPosts->query('category_name=news&showposts=3'); ?>
 
-<?php if ($nextNewPosts->have_posts()) : while($nextNewPosts->have_posts()) : $nextNewPosts->the_post(); ?>
+<?php if ($nextNewPosts->have_posts()) { while($nextNewPosts->have_posts()) { $nextNewPosts->the_post(); ?>
 	<div class="col-sm-6 col-xs-6 col-md-4 bare">
 	<?php $externalPost = get_post_meta($post->ID, '_yoast_wpseo_redirect', true ); ?>		    	
 		<a href="<?php if($externalPost != '') { echo $externalPost.'" target="_new'; } else { the_permalink(); } ?>">
@@ -17,8 +17,8 @@ $nextNewPosts->query('category_name=news&showposts=3'); ?>
 	
 	</div>
 
-<?php endwhile; ?>
-<?php endif; ?>	
+<?php } ?>
+<?php } ?>	
 <div class="col-sm-6 col-xs-6 col-md-4 bare sm-show">
 		<a href="/news" class="panel">
 				View More
@@ -33,57 +33,7 @@ $nextNewPosts->query('category_name=news&showposts=3'); ?>
 </div> <!-- end buddyb -->
 <?php global $bp; ?>
 <div class="col-md-12 footer">
-	<div style="display:none;">
-<?php // if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
-<?php // if (bp_is_blog_page()) : echo 'bp_is_blog_page'; endif; ?>
-<?php // if (bp_is_my_profile()) : echo 'bp_is_my_profile'; endif; ?>
-<?php // if (bp_is_home()) : echo 'bp_is_home'; endif; ?>
-<?php // if (bp_is_front_page()) : echo 'bp_is_front_page'; endif; ?>
-<?php // if (bp_is_activity_front_page()) : echo 'bp_is_activity_front_page'; endif; ?>
-<?php // if (bp_is_directory()) : echo 'bp_is_directory'; endif; ?>
-<?php // if (bp_is_profile_component()) : echo 'bp_is_profile_component'; endif; ?>
-<?php // if (bp_is_activity_component()) : echo 'bp_is_activity_component'; endif; ?>
-<?php // if (bp_is_blogs_component()) : echo 'bp_is_blogs_component'; endif; ?>
-<?php // if (bp_is_messages_component()) : echo 'bp_is_messages_component'; endif; ?>
-<?php // if (bp_is_friends_component()) : echo 'bp_is_friends_component'; endif; ?>
-<?php // if (bp_is_groups_component()) : echo 'bp_is_groups_component'; endif; ?>
-<?php // if (bp_is_settings_component()) : echo 'bp_is_settings_component'; endif; ?>
-<?php // if (bp_is_member()) : echo 'bp_is_member'; endif; ?>
-<?php // if (bp_is_user_activity()) : echo 'bp_is_user_activity'; endif; ?>
-<?php // if (bp_is_user_friends_activity()) : echo 'bp_is_user_friends_activity'; endif; ?>
-<?php // if (bp_is_activity_permalink()) : echo 'bp_is_activity_permalink'; endif; ?>
-<?php // if (bp_is_user_profile()) : echo 'bp_is_user_profile'; endif; ?>
-<?php // if (bp_is_profile_edit()) : echo 'bp_is_profile_edit'; endif; ?>
-<?php // if (bp_is_change_avatar()) : echo 'bp_is_change_avatar'; endif; ?>
-<?php // if (bp_is_user_groups()) : echo 'bp_is_user_groups'; endif; ?>
-<?php // if (bp_is_group()) : echo 'bp_is_group'; endif; ?>
-<?php // if (bp_is_group_home()) : echo 'bp_is_group_home'; endif; ?>
-<?php // if (bp_is_group_create()) : echo 'bp_is_group_create'; endif; ?>
-<?php // if (bp_is_group_admin_page()) : echo 'bp_is_group_admin_page'; endif; ?>
-<?php // if (bp_is_group_forum()) : echo 'bp_is_group_forum'; endif; ?>
-<?php // if (bp_is_group_activity()) : echo 'bp_is_group_activity'; endif; ?>
-<?php // if (bp_is_group_forum_topic()) : echo 'bp_is_group_forum_topic'; endif; ?>
-<?php // if (bp_is_group_forum_topic_edit()) : echo 'bp_is_group_forum_topic_edit'; endif; ?>
-<?php // if (bp_is_group_members()) : echo 'bp_is_group_members'; endif; ?>
-<?php // if (bp_is_group_invites()) : echo 'bp_is_group_invites'; endif; ?>
-<?php // if (bp_is_group_membership_request()) : echo 'bp_is_group_membership_request'; endif; ?>
-<?php // if (bp_is_group_leave()) : echo 'bp_is_group_leave'; endif; ?>
-<?php // if (bp_is_group_single()) : echo 'bp_is_group_single'; endif; ?>
-<?php // if (bp_is_user_blogs()) : echo 'bp_is_user_blogs'; endif; ?>
-<?php // if (bp_is_user_recent_posts()) : echo 'bp_is_user_recent_posts'; endif; ?>
-<?php // if (bp_is_user_recent_commments()) : echo 'bp_is_user_recent_commments'; endif; ?>
-<?php // if (bp_is_create_blog()) : echo 'bp_is_create_blog'; endif; ?>
-<?php // if (bp_is_user_friends()) : echo 'bp_is_user_friends'; endif; ?>
-<?php // if (bp_is_friend_requests()) : echo 'bp_is_friend_requests'; endif; ?>
-<?php // if (bp_is_user_messages()) : echo 'bp_is_user_messages'; endif; ?>
-<?php // if (bp_is_messages_inbox()) : echo 'bp_is_messages_inbox'; endif; ?>
-<?php // if (bp_is_messages_sentbox()) : echo 'bp_is_messages_sentbox'; endif; ?>
-<?php // if (bp_is_notices()) : echo 'bp_is_notices'; endif; ?>
-<?php // if (bp_is_messages_compose_screen()) : echo 'bp_is_messages_compose_screen'; endif; ?>
-<?php // if (bp_is_single_item()) : echo 'bp_is_single_item'; endif; ?>
-<?php // if (bp_is_activation_page()) : echo 'bp_is_activation_page'; endif; ?>
-<?php // if (bp_is_register_page()) : echo 'bp_is_register_page'; endif; ?>
-</div>
+	<div style="display:none;"></div>
 	<div class="alignright"><div class="navbar-brand title logo"></div></div>
 	<?php /* Primary navigation */
 			wp_nav_menu( array(

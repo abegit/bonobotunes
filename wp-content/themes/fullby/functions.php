@@ -177,21 +177,18 @@ function my_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt) {
 
 	if ( function_exists('register_sidebar') )
 		register_sidebar(array('name'=>'Primary Sidebar',
-		'id' => 1,
 		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	));
 	register_sidebar(array('name'=>'Secondary Sidebar',
-		'id' => 2,
 		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	));
 	register_sidebar(array('name'=>'Rotator',
-		'id' => 3,
 		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
@@ -423,13 +420,13 @@ function bp_plugin_filter_latest_update( $update = '' ) {
 
 		$customNameHook = pmpro_getMembershipLevelForUser($user_id);
 		if ($customNameHook->ID == 3) {
-			$update .= "*";
+			$update .= "-b";
 		} else if ($customNameHook->ID == 5) {
-			$update .= "*";
+			$update .= "-b";
 		} else if ($customNameHook->ID == 4) {
-			$update .= "*";
+			$update .= "-b";
 		} else if ($customNameHook->ID == 1) {
-			$update .= "*";
+			$update .= "-b";
 		}
 		return $update;
 	}

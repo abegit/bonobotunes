@@ -32,10 +32,9 @@
 	<?php do_action( 'bp_before_member_header_meta' ); ?>
 
 	<div id="item-meta">
-
-		<?php if ( $data = bp_get_profile_field_data( 'field=ccbillaffil&user_id='.$author_id ) ) : ?>
+		<div id="item-buttons"> <?php do_action( 'bp_member_header_actions' ); ?> </div><!-- #item-buttons -->
+		<?php if ( $data = bp_get_profile_field_data( 'field=Character Type&user_id='.bp_displayed_user_id() ) ) : ?>
 				<?php $buyLinkHref = 'http://refer.ccbill.com/cgi-bin/clicks.cgi?CA=900936-1000&PA='.$data.'&HTML='.site_url().'/register?friend='.$data;  ?>
-			
 		<?php echo $buyLinkHref;
 		endif; ?>
 
@@ -59,10 +58,6 @@
 <?php bp_get_displayed_user_nav(); ?>
 
 <?php do_action( 'bp_member_options_nav' ); ?>
-
-<li class="last">
-	<div id="item-buttons"> <?php do_action( 'bp_member_header_actions' ); ?> </div><!-- #item-buttons -->
-</li>
 
 </ul>
 </div>

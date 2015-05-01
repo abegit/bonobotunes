@@ -47,7 +47,7 @@
 					<?php bp_member_name(); ?>
 					<?php $user_id = bp_get_member_user_id(); ?>
 					<br>
-						<span class="update"> <?php bp_profile_field_data( 'field=Character Type&user_id='.$user_id ) ?><?php bp_profile_field_data( 'field=Membership Level&user_id='.$user_id ) ?></span>
+						<span class="update"> <?php bp_profile_field_data( 'field=Character Type&user_id='.$user_id ) ?></span>
 					<?php if ( bp_get_member_latest_update() ) : ?>
 						<span class="update text-hide"> <?php bp_member_latest_update(); ?></span>
 					<?php endif; ?>

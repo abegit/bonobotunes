@@ -104,6 +104,16 @@
         }
     } /* end whats new options*/
     
+    .dir-form > .item-list-tabs {background: none repeat scroll 0 0 #383838 !important; @include box-shadow(0 -4px 0 #444444 inset);
+        li{
+            &.selected a, &.current a {color:#fff !important;background: url("http://dev.bonoboville.com/wp-content/themes/fullby/img/nav2.gif") repeat scroll 0 0 / 100% 100% rgba(0, 0, 0, 0); padding:0 40px !important;}
+            a {color: #ffffff; font-size: 0.7rem; font-weight: bold; height: 32px; line-height: 32px; opacity: 0.8; padding: 0 20px !important; }
+            a:hover {@include box-shadow(0 -4px 0 #ecbd45 inset); }
+            
+        }
+    }
+
+
 
 
 

@@ -161,9 +161,7 @@ img {height: auto;max-width: 100%;}
 	}
 	.row.spacer {height: 60px;}
     
-	#submenu { background:#444444; left:0; position: fixed !important; bottom:0; display: block; width: 100% !important;
-		li .glyphicon {display: block; line-height: 40px; text-align: center;}
-	}
+	#submenu {clear:both; }
 	#submenu li a {padding: 0;}
 	.navbar {
 		.dropdown-menu > li > a > i, .glyphicon {font-size: 1.5rem; line-height: 2.6rem;}

@@ -177,18 +177,21 @@ function my_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt) {
 
 	if ( function_exists('register_sidebar') )
 		register_sidebar(array('name'=>'Primary Sidebar',
+		'id' => 1,
 		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	));
 	register_sidebar(array('name'=>'Secondary Sidebar',
+		'id' => 2,
 		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	));
 	register_sidebar(array('name'=>'Rotator',
+		'id' => 3,
 		'before_widget' => '<div id="%1$s" class="widget %2$s panel">',	
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
@@ -417,7 +420,19 @@ function bp_plugin_filter_latest_update( $update = '' ) {
 	    } else {
 	        $user_id = bp_get_member_user_id();
 	    }
+
 		$customNameHook = pmpro_getMembershipLevelForUser($user_id);
+		if ($customNameHook->ID == 3) {
+			$update .= "*";
+		} else if ($customNameHook->ID == 5) {
+			$update .= "*";
+		} else if ($customNameHook->ID == 4) {
+			$update .= "*";
+		} else if ($customNameHook->ID == 1) {
+			$update .= "*";
+		}
+		return $update;
+	}
 }  
 
 add_filter( 'bp_before_member_header_meta', 'bp_plugin_filter_latest_update', 10, 1 );
@@ -441,7 +456,7 @@ add_action('widgets_init', create_function('', 'return register_widget("fullbyRo
 function is_tree( $pid ) {      // $pid = The ID of the page we're looking for pages underneath
     global $post;               // load details about this page
 
-    if ( is_page($pid) )
+    if ( is_page($pid) ) 
         return true;            // we're at the page or at a sub page
 
     $anc = get_post_ancestors( $post->ID );

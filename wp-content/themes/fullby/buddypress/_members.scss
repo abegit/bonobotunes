@@ -70,6 +70,7 @@
         
         #object-nav
         #subnav.item-list-tabs.no-ajax {@include tabs2($blue);}
+        
         #object-nav li > a::before {display: block; font-family: $font-icon; font-size: 2rem; }
         #xprofile-personal-li > a::before {content: "";}
         #friends-personal-li > a::before {content: ""; }
@@ -99,7 +100,7 @@
         }
     }
     &.my-account.activity {
-        .edit_bg {z-index:9; position:relative; display: inline-block; opacity: 1; text-align: center;vertical-align: middle; margin: 10px 10px 0 0; float: right;}
+        .edit_bg {z-index:2; position:relative; display: inline-block; opacity: 1; text-align: center;vertical-align: middle; margin: 10px 10px 0 0; float: right;}
     }
     
     &.activity {

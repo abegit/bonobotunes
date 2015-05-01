@@ -3,7 +3,12 @@
     <?php while( mpp_have_media() ): mpp_the_media(); ?>
 
         <?php if( mpp_user_can_view_media( mpp_get_media_id() ) ) :?>
-
+			<?php if ( function_exists( 'mycred_get_users_cred' ) && mycred_get_users_cred( get_current_user_id() ) != 0  ) { ?>
+				<?php $author_id = $post->post_author; ?>
+				<?php $viewer_id = bp_loggedin_user_id(); ?>
+				<?php mycred_add( 'someone_viewed_group_photo', $author_id, 8, 'Someone Viewed Group Photo!', date( 'y' ) ); ?>
+				<?php mycred_add( 'viewing_group_photo', $viewer_id, -10, 'Viewing Group Photo!', date( 'y' ) ); ?>
+			<?php } ?>
 			<div class="<?php mpp_media_class( );?>" id="mpp-media-<?php mpp_media_id();?>">
 					
 					<?php do_action( 'mpp_before_single_media_item' ); ?>

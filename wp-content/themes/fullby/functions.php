@@ -456,11 +456,11 @@ function is_tree( $pid ) {      // $pid = The ID of the page we're looking for p
     if ( is_page($pid) ) 
         return true;            // we're at the page or at a sub page
 
-    $anc = get_post_ancestors( $post->ID );
-    return ( isset($anc) && in_array( $pid , $anc ) ) ? true : false;
-    //is the $pid in the ancestors array
-}
- 
+        $anc = get_post_ancestors( $post->ID );
+        return ( isset($anc) && in_array( $pid , $anc ) ) ? true : false;
+    	//is the $pid in the ancestors array
+    }
+    
 // #13 woocommerce support
 add_theme_support('woocommerce');
 

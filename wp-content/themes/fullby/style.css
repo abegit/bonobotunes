@@ -8656,23 +8656,23 @@ body.activity-permalink .activity-meta a.button {
 /* #7 Site Directory page */
 /* #8 Site Creation page */
 /* #9 Registration page */
-body.registration .navbar-brand {
+body.page-template-page-mini-single .navbar-brand {
   display: inline-block;
   margin: 24px 0 !important; }
-body.registration .navbar {
+body.page-template-page-mini-single .navbar {
   height: auto; }
-body.registration .footer {
+body.page-template-page-mini-single .footer {
   background: transparent;
   text-align: center;
   border: none;
   padding-bottom: 40px; }
-  body.registration .footer .navbar-nav {
+  body.page-template-page-mini-single .footer .navbar-nav {
     display: inline-block;
     float: none; }
-body.registration .single {
+body.page-template-page-mini-single .single {
   color: #fff;
   float: none; }
-body.registration .single-in {
+body.page-template-page-mini-single .single-in {
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.81);
   color: #404040;
   padding-bottom: 80px;
@@ -8680,32 +8680,32 @@ body.registration .single-in {
   float: none;
   margin: 0 auto !important;
   margin-bottom: 100px; }
-body.registration .sing-spacer {
+body.page-template-page-mini-single .sing-spacer {
   padding-top: 0; }
-body.registration .sing-cont {
+body.page-template-page-mini-single .sing-cont {
   margin-left: 5%;
   width: 90%; }
-body.registration .sing-tit-cont {
+body.page-template-page-mini-single .sing-tit-cont {
   margin: 0 auto;
   width: 100%;
   background: none;
   text-align: center; }
-body.registration .wp-social-login-widget {
+body.page-template-page-mini-single .wp-social-login-widget {
   display: block;
   width: 100%; }
-body.registration .wp-social-login-provider > img {
+body.page-template-page-mini-single .wp-social-login-provider > img {
   display: none; }
-body.registration .wp-social-login-provider-list {
+body.page-template-page-mini-single .wp-social-login-provider-list {
   display: table;
   padding: 10px 0;
   width: 100%; }
-body.registration .wp-social-login-provider {
+body.page-template-page-mini-single .wp-social-login-provider {
   float: left;
   font-size: 0.9rem;
   font-weight: normal;
   margin: 0 1%;
   width: 31.333% !important; }
-  body.registration .wp-social-login-provider:before {
+  body.page-template-page-mini-single .wp-social-login-provider:before {
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     margin-right: 7px;
     padding-right: 7px;
@@ -8719,27 +8719,27 @@ body.registration .wp-social-login-provider {
     top: -2px;
     vertical-align: middle;
     display: inline-block; }
-  body.registration .wp-social-login-provider:after {
+  body.page-template-page-mini-single .wp-social-login-provider:after {
     -webkit-text-shadow: 2px 1px 0 rgba(0, 0, 0, 0.1);
     -moz-text-shadow: 2px 1px 0 rgba(0, 0, 0, 0.1);
     text-shadow: 2px 1px 0 rgba(0, 0, 0, 0.1); }
-  body.registration .wp-social-login-provider.wp-social-login-provider-facebook:after {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-facebook:after {
     content: " Use Facebook";
     display: inline-block; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-twitter:after {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-twitter:after {
     content: " Use Twitter";
     display: inline-block; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-google:after {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-google:after {
     content: " Use Google+";
     display: inline-block; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-twitter:before {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-twitter:before {
     content: ""; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-google:before {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-google:before {
     -moz-osx-font-smoothing: initial;
     content: "";
     font-size: 1.2rem;
     line-height: 1rem; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-twitter {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-twitter {
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
     -o-transition: all 200ms ease-in-out;
@@ -8772,7 +8772,7 @@ body.registration .wp-social-login-provider {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-    body.registration .wp-social-login-provider.wp-social-login-provider-twitter:hover, body.registration .wp-social-login-provider.wp-social-login-provider-twitter:active {
+    body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-twitter:hover, body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-twitter:active {
       background: #3ab2ff !important;
       color: #fff !important;
       -webkit-box-shadow: 0 2px 0 #20a2f5;
@@ -8780,7 +8780,7 @@ body.registration .wp-social-login-provider {
       box-shadow: 0 2px 0 #20a2f5;
       border: 1px solid #39acf6;
       text-decoration: none; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-facebook {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-facebook {
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
     -o-transition: all 200ms ease-in-out;
@@ -8813,7 +8813,7 @@ body.registration .wp-social-login-provider {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-    body.registration .wp-social-login-provider.wp-social-login-provider-facebook:hover, body.registration .wp-social-login-provider.wp-social-login-provider-facebook:active {
+    body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-facebook:hover, body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-facebook:active {
       background: #345bc5 !important;
       color: #fff !important;
       -webkit-box-shadow: 0 2px 0 #475a8e;
@@ -8821,7 +8821,7 @@ body.registration .wp-social-login-provider {
       box-shadow: 0 2px 0 #475a8e;
       border: 1px solid #50659f;
       text-decoration: none; }
-  body.registration .wp-social-login-provider.wp-social-login-provider-google {
+  body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-google {
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
     -o-transition: all 200ms ease-in-out;
@@ -8854,7 +8854,7 @@ body.registration .wp-social-login-provider {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-    body.registration .wp-social-login-provider.wp-social-login-provider-google:hover, body.registration .wp-social-login-provider.wp-social-login-provider-google:active {
+    body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-google:hover, body.page-template-page-mini-single .wp-social-login-provider.wp-social-login-provider-google:active {
       background: #e03b10 !important;
       color: #fff !important;
       -webkit-box-shadow: 0 2px 0 #a54128;
@@ -8862,47 +8862,47 @@ body.registration .wp-social-login-provider {
       box-shadow: 0 2px 0 #a54128;
       border: 1px solid #ba4a2c;
       text-decoration: none; }
-body.registration .bblogin-dv:after {
+body.page-template-page-mini-single .bblogin-dv:after {
   content: " Sign In with Facebook";
   display: inline-block; }
-body.registration .bblogin-rq:after {
+body.page-template-page-mini-single .bblogin-rq:after {
   content: " Sign In with Twitter";
   display: inline-block; }
-body.registration .bblogin-rq:before {
+body.page-template-page-mini-single .bblogin-rq:before {
   -moz-osx-font-smoothing: grayscale;
   content: "";
   display: inline-block;
   font-family: "icomoon"; }
-body.registration .bblogin-rq {
+body.page-template-page-mini-single .bblogin-rq {
   background: #51b6f7;
   color: #ffffff; }
-body.registration .bblogin-dv {
+body.page-template-page-mini-single .bblogin-dv {
   background: #5b71ad;
   color: #ffffff; }
-body.registration #signup_form {
+body.page-template-page-mini-single #signup_form {
   background: transparent; }
-body.registration form .wp-social-login-widget {
+body.page-template-page-mini-single form .wp-social-login-widget {
   display: none; }
-body.registration #buddypress .standard-form #basic-details-section, body.registration #buddypress .standard-form #blog-details-section, body.registration #buddypress .standard-form #profile-details-section {
+body.page-template-page-mini-single #buddypress .standard-form #basic-details-section, body.page-template-page-mini-single #buddypress .standard-form #blog-details-section, body.page-template-page-mini-single #buddypress .standard-form #profile-details-section {
   display: table-cell;
   padding: 0 10px;
   float: none;
   vertical-align: top; }
-body.registration #pass-strength-result {
+body.page-template-page-mini-single #pass-strength-result {
   margin: 0;
   overflow: hidden;
   padding: 0 !important;
   width: 100%; }
-body.registration #pass-strength-result.short {
+body.page-template-page-mini-single #pass-strength-result.short {
   width: 1; }
-body.registration .password-entry, body.registration .password-entry-confirm {
+body.page-template-page-mini-single .password-entry, body.page-template-page-mini-single .password-entry-confirm {
   width: 90% !important;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
-body.registration input {
+body.page-template-page-mini-single input {
   width: 100% !important; }
-body.registration #signup_submit {
+body.page-template-page-mini-single #signup_submit {
   font-size: 1.063em !important;
   padding: 10px !important; }
 
@@ -9258,7 +9258,7 @@ body.registration #signup_submit {
 /* #7 - specifics */
 body {
   background-image: url("img/congruent_outline.png"); }
-  body.page-template-page-no-sidebar, body.page-template-page-promo-finish, body.registration {
+  body.page-template-page-no-sidebar, body.page-template-page-promo-finish, body.page-template-page-mini-single {
     background: #e1e5e7; }
 
 body.page-template-page-no-sidebar .sing-tit-cont, body.page-template-page-promo-finish .sing-tit-cont {
@@ -9314,6 +9314,38 @@ body.page-template-page-promo-finish .thanks .col-md-4 i {
   font-size: 2rem;
   margin-right: 7px;
   padding: 15px; }
+
+body.page-template-page-mini-single .navbar {
+  background-image: none;
+  background-color: transparent;
+  margin-top: 10px;
+  height: 70px;
+  text-align: center; }
+body.page-template-page-mini-single .navbar-inverse .navbar-brand {
+  background: url("img/ms-logo.png") no-repeat scroll 0 0 transparent;
+  background-size: contain;
+  float: none;
+  height: 60px;
+  margin: 0 !important;
+  width: 143px; }
+body.page-template-page-mini-single .navbar .row {
+  height: 70px;
+  max-width: 50%;
+  padding: 0 20px; }
+body.page-template-page-mini-single .navbar #mainmenu {
+  display: inline-block;
+  float: none;
+  width: auto; }
+  body.page-template-page-mini-single .navbar #mainmenu .menu-item.notifications {
+    display: none; }
+  body.page-template-page-mini-single .navbar #mainmenu > ul {
+    background: none repeat scroll 0 0 transparent;
+    text-align: left; }
+    body.page-template-page-mini-single .navbar #mainmenu > ul > li a {
+      color: #8d8d8d;
+      text-shadow: none; }
+      body.page-template-page-mini-single .navbar #mainmenu > ul > li a:hover {
+        color: #0e4c92; }
 
 body.single-product .kgvid_wrapper_inline_left {
   margin: 0; }
@@ -9463,8 +9495,9 @@ body.single-product .videoWrapper .button.alt {
     max-height: 1000px; }
 .js #loader {
   opacity: 0;
-  padding: 0 0;
-  height: 0; }
+  padding: 0;
+  pointer-events: none;
+  z-index: 0; }
   .js #loader img {
     opacity: 0;
     width: 0; }

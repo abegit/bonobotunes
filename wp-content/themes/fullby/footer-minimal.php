@@ -1,4 +1,4 @@
-</div>
+	</div>
 <div class="col-md-12 footer">
 
 	<div>	<?php /* Primary navigation */
@@ -19,20 +19,23 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+	<?php if (bp_is_register_page()){ ?>
+	<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $url = strtok($actual_link, '?');
-
     // The value of the variable name is found    ?>
-
+	<script>
+	var stateObj = { foo: "bar" };
+	window.history.replaceState(stateObj, "Register", "<?php echo $url; ?>");
+	</script>
+	<?php } ?>
 	
 	<!-- feature -->
 
-<script>
-var stateObj = { foo: "bar" };
-window.history.replaceState(stateObj, "Register", "<?php echo $url; ?>");
-</script>
-
-<?php $afil = $_GET["friend"]; ?>
+	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/popRocks.js"></script>
+	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/bootstrap.min.js"></script>
+	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/isotope.js"></script>
+	<?php $afil = $_GET["friend"]; ?>
 <script>
 function setCookie(c_name,value,expiredays){
 	var exdate=new Date();
@@ -54,7 +57,6 @@ function getCookie(c_name){
 	return "";
 }
 
-
 // start plugin
 var jQone = jQuery.noConflict();
 jQone(document).ready(function() {
@@ -64,21 +66,22 @@ jQone(document).ready(function() {
 		
 		// If there's a warning cookie in place, fade out the mask.
 		var helpa=getCookie("helper");
+
+
+		<?php global $bp; ?>
 		<?php if (isset($afil)) { ?>
  				if (helpa!=null && helpa!="") {
-				  	jQone(".field_185 input[type=text]").val(helpa);
+					return false;
 				}		
 				if (helpa=="") {
-					var php_code = "<?php echo $ail; ?>";
-					setCookie("helper",php_code,30);
+					setCookie("helper",<?php echo $afil; ?>,30);
 				}
 				if (helpa=="0") {
-					var php_code = "<?php echo $afil; ?>";
-					setCookie("helper",php_code,30);
+					setCookie("helper",<?php echo $afil; ?>,30);
 				}
 		<?php } else { ?>
  				if (helpa!=null && helpa!="") {
-					jQone(".field_185 input[type=text]").val(helpa);
+					return false;
 				}		
 				if (helpa=="") {
 					var php_code = "<?php echo bp_displayed_user_id(); ?>";
@@ -89,12 +92,19 @@ jQone(document).ready(function() {
 					setCookie("helper",php_code,30);
 				}
 		<?php }; ?>
+
+
+
 	});		
+
 });
 </script>
+
+ <?php wp_footer();?>
+
 <script>
 var $navDropz = jQuery.noConflict();
-	$navDropz(document).ready(function(){
+$navDropz(document).ready(function(){
 	var $butan =  $navDropz('.btn-drop-btn');
 	$butan.attr('href','#');
 	$butan.click(function(){
@@ -110,11 +120,17 @@ var $navDropz = jQuery.noConflict();
 });
 
 </script>
-<script>
+	<script>
 	console.log(history.length);
-</script>
+    var $finalInit = jQuery.noConflict();
+    var hght = $finalInit(".row.featured").height();
+    // $finalInit(".row.featured").hide();
+        $finalInit(window).load(function() {
+            $finalInit(".row.featured").delay(400).addClass('animate');
+            $finalInit("body").addClass('init');
+        });
+    </script>
 
-<?php wp_footer();?>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -147,4 +163,3 @@ alt="hit counter"></a></div></noscript>
 
 </body>
 </html>
-

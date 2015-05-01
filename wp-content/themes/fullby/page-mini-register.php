@@ -1,8 +1,8 @@
 <?php 
 /*
-Template Name: Mini Single
+Template Name: Mini Register
 */
-get_header('minimal'); ?>			
+get_header('register'); ?>			
 <?php if ( has_post_thumbnail() ) {
 						$thumb_id = get_post_thumbnail_id();
 						$thumb_url_array = wp_get_attachment_image_src($thumb_id, 'full', true);
@@ -17,7 +17,7 @@ get_header('minimal'); ?>
 			<?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?> 
 	
 				<div class="sing-tit-cont">
-					<h3 class="sing-tit"><?php the_title(); ?></h3>
+					<h3 class="sing-tit">Login to Begin.</h3>
 				</div>
 				<div>
 					<div class="sing-spacer">

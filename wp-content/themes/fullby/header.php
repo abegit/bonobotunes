@@ -45,11 +45,7 @@
     <!-- <div class="spacer"></div> -->
     <div class="spacer sticknav"></div>
     <div class="navbar navbar-inverse navbar-fixed-top">
-    	<div id="details" class="hidden">
-    		<div class="row">
-					<h2>Use This</h2>
-		</div>
-</div>
+    	
      <div class="row">
         <div class="navbar-header">
         	<div id="mainmenu" class="collapse col-md-3">
@@ -181,12 +177,10 @@
 			// );
 			?>
 				<div class="search-cont col-md-3 alignright" style="clear:both; max-height:30px;">
-					<?php // display_search_box(DISPLAY_RESULTS_CUSTOM); ?>	
 				</div>
 
         </div>
 
-
-        </div>
+	        </div>
 	</div>
 	</div> -->

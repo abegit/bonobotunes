@@ -66,7 +66,8 @@
 
                     </div>
                     <?php if (!is_user_logged_in()) { ?>
-                        <form><input onclick="location.href='http://bonoboville.com'" class="butten" value="Follow"></form>
+                        <?php $user_affil = bp_displayed_user_id(); ?>    
+                        <form><input onclick="location.href='<?php echo bp_signup_page(); if($user_affil != '') { echo '?friend='.$user_affil; }; ?>'" value="Follow & Sign Up" class="btn btn-primary" type="button"></form>
                    <?php } else {
                         bp_add_friend_button( $author_id );
                     } ?>
@@ -162,7 +163,7 @@
 
                     </div>
                 </div>
-	</div>			
+		</div>	
 
 <script>    
 

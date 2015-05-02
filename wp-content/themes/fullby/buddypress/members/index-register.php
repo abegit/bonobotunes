@@ -1,4 +1,4 @@
-<?php get_header('register'); ?>			
+<?php get_header('minimal'); ?>			
 
 <?php $hey = $_GET["friend"]; ?>
 <?php if (isset($hey)){ ?>

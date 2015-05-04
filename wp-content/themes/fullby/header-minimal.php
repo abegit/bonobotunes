@@ -90,6 +90,21 @@
 
 
 
+<?php $hey = $_GET["sdfs"]; ?>
+<?php $user_id = $_GET["friend"];
+$new_value = 1;
+
+// will return false if the previous value is the same as $new_value
+// update_user_meta( $user_id, 'handshake', $new_value );
+// update_user_meta( $user_id, 'handshake', $new_value );
+$countar = bp_get_profile_field_data( 'field=Handshake&user_id='.$user_id );
+// so check and make sure the stored value matches $new_value
+if ( $countar != 0 ) {
+  $countar++;
+  xprofile_set_field_data( 'handshake', $user_id, $countar );
+}
+
+?>
 
 <div class="btn-drop row<?php if (!isset($hey) && bp_is_register_page()) { ?> open<?php } ?>"<?php if (!isset($hey)) { ?> data-uri="1"<?php } ?>>
         <i class="icon-user btn-drop-btn" style="background:red;width:auto;padding:10px;color:#fff"></i>

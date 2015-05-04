@@ -95,7 +95,7 @@ class iTunesRSS extends SanityPluginFramework {
 			}
 
 
-			function pg_enc() {
+			function Cus_enc() {
 
 				foreach ( (array) get_post_custom() as $key => $val) {
 					if ($key == 'enclosure') {
@@ -114,7 +114,7 @@ class iTunesRSS extends SanityPluginFramework {
 							 * @param string $html_link_tag The HTML link tag with a URI and other attributes.
 							 */
 							$enclosure[0] = rtrim($enclosure[0]);
-							echo apply_filters( 'pg_enc', $enclosure[0] );
+							echo apply_filters( 'Cus_enc', $enclosure[0] );
 							
 						}
 					}

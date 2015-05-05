@@ -337,6 +337,30 @@ if (strpos(strtolower($_SERVER),'/wp-admin/') !== false) {
 add_action('init','block_init_admin',0);
 
 
+function bp_plugin_filter_latest_update( $update = '' ) {
+	if(function_exists('pmpro_hasMembershipLevel') && pmpro_hasMembershipLevel()) {
+	 	if( bp_is_user() && ! bp_get_member_user_id() ) {
+	        $user_id = bp_displayed_user_id();
+	    } else {
+	        $user_id = bp_get_member_user_id();
+	    }
+
+		$customNameHook = pmpro_getMembershipLevelForUser($user_id);
+		if ($customNameHook->ID == 3) {
+			$update .= "-b";
+		} else if ($customNameHook->ID == 5) {
+			$update .= "-b";
+		} else if ($customNameHook->ID == 4) {
+			$update .= "-b";
+		} else if ($customNameHook->ID == 1) {
+			$update .= "-b";
+		}
+		return $update;
+	}
+}  
+
+add_filter( 'bp_before_member_header_meta', 'bp_plugin_filter_latest_update', 10, 1 );
+add_filter( 'bp_member_name', 'bp_plugin_filter_latest_update', 10, 1 );
 
 
 // #11 - AdRotate integration

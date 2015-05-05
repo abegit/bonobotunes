@@ -46,6 +46,7 @@ function loadPlayer() {
     audioPlayer.addEventListener('error',errorFallback,true);
     document.getElementById('player').appendChild(audioPlayer);
     nextSong();
+    changeImge();
 }
 
 // Start Search for next playable song
@@ -77,6 +78,13 @@ function nextSong() {
         }
     } else {
         alert('the end!');
+    }
+}
+function changeImge() {
+    if(trackImgs[next]!=undefined) {
+        var audioPlayer = document.getElementById('imd');
+        audioPlayer.src=trackImgs[next];
+        console.log(trackImgs[next]);
     }
 }
 
@@ -136,6 +144,7 @@ function resSong() {
 function pickSong(num) {
     next = num;
     nextSong();
+    changeImge();
 }
 
 // Start toggle advertisement
@@ -239,11 +248,6 @@ var next = 0;
 var q = jQuery.noConflict();
 q(document).ready(function(){
 
-
-
-
-    
-
     /*! share mode popup */
     q("#more").click(function(){
         var X=q(this).attr('data-uri');
@@ -319,6 +323,10 @@ q(document).ready(function(){
         });
     });  // end sites
 }); 
+
+
+
+
 
              // outLink();
              // function outLink() {

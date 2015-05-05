@@ -73,7 +73,7 @@
             <div id="artwork" style="position:relative; display:inline-block;">
                 <a href="#" onclick="playPause()" id="play"><i class="ico-play"></i></a>
                 
-                <div id="img" style="background:url('http://bloggamy.com/wp-content/uploads/2014/09/Sex-Craft_Amor_DrSuzy-Tv-180x180.jpg') no-repeat scroll center center / cover; "></div>
+                <div id="img" style="background:url('') no-repeat scroll center center / cover; "><img src="" id="imd"></div>
                 <div id="advertisement" style="background:url('') repeat scroll center center / contain  rgba(0, 0, 0, 0);height:100%;width:100%;"></div>
                 <div id="warningGradientOuterBarG">
                     <div id="warningGradientFrontBarG" class="warningGradientAnimationG">
@@ -102,24 +102,47 @@
             <div id='more'><i class="ico-sharable"></i></div>
 
         </div>
-            <div class="playlist swiper-container"> 
-                <div id="artist swiper-wrapper">
-        <?php if(have_posts()) : $i = 0; ?>
-        <?php while(have_posts()) : the_post(); ?>
-    <div class="item swiper-slide" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" data-mp3="<?php Cus_enc(); ?>">
-        <?php $textInfo = get_the_content(); ?>
-        <h1 id='hd'><?php echo strip_tags($textInfo); ?></h1>
-        <h2 id='dc'><div class='artistTXT'><?php the_title(); ?></div></h2>
-        <h2 id='dcc' style='display:none;'>{datetime}</h2>
-        <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
-    </div>
-    <?php if (!is_single()) { $i++; } ?>
-<?php endwhile; ?>
-<?php endif; ?>
+            <div class="swiper-container tracks"> 
+                <div class="swiper-wrapper">
+                    <?php if(have_posts()) : $i = 0; ?>
+                    <?php while(have_posts()) : the_post(); ?>
+                    <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+                <div class="swiper-slide" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $image[0]; ?>">
+                    <?php $textInfo = get_the_content(); ?>
+                    <h1 id='hd'><?php the_title(); ?></h1>
+                    <?php $author_id = $post->post_author; ?>
+                    <?php echo get_avatar( $author_id, 32 ); ?>
+                    <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
+                    <h2 id='dcc' style='display:none;'>{datetime}</h2>
+                    <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
+                </div>
+                <?php if (!is_single()) { $i++; } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
                 </div> 
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div><div class="swiper-button-prev"></div>
         </div>
-
         
+        <div class="swiper-container playlist">
+            <div class="swiper-wrapper">
+                <?php wp_reset_query(); ?>
+                <?php if(have_posts()) : $i = 0; ?>
+                    <?php while(have_posts()) : the_post(); ?>
+                <div class="swiper-slide" onClick="ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');">
+                    <?php $textInfo = get_the_content(); ?>
+                    <h1 id='hd'><?php echo strip_tags($textInfo); ?></h1>
+                    <h2 id='dc'><?php the_title(); ?></h2>
+                    <h2 id='dcc' style='display:none;'>{datetime}</h2>
+                    <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
+                </div>
+                <?php if (!is_single()) { $i++; } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
+            </div>
+        </div>
 
 
         </div>
@@ -160,20 +183,29 @@
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/jquery-1.9.1.min.js', dirname(__FILE__) );?>"></script>
 <script>
 var urls = new Array();
-$(".item").each(function(){
+var trackImgs = new Array();
+$(".swiper-slide").each(function(){
    if($.inArray($(this).data('mp3')) == -1) // check if not in array
        urls.push($(this).data('mp3'))
+   if($.inArray($(this).data('image')) == -1) // check if not in array
+       trackImgs.push($(this).data('image'))
 });
 
 var sticknav = function (){
     var h = $(window).height();
-    if(h>141) {
-        $("body").addClass('bp-lg').removeClass('bp-sm bp-md');
-    } if(h<141) {
-        $("body").addClass('bp-md').removeClass('bp-sm bp-lg');
-    } if(h<91) {
-        $("body").addClass('bp-sm').removeClass('bp-lg bp-md');
-    } 
+    var w = $(window).width();
+
+    if(w>480) {
+        if(h>141) {
+            $("body").addClass('bp-lg').removeClass('bp-sm bp-md phone');
+        } if(h<141) {
+            $("body").addClass('bp-md').removeClass('bp-sm bp-lg phone');
+        } if(h<91) {
+            $("body").addClass('bp-sm').removeClass('bp-lg bp-md phone');
+        } 
+    } else {
+        $("body").addClass('bp-lg phone').removeClass('bp-sm bp-md');
+    }
 }
 
 
@@ -245,32 +277,47 @@ function artistLink(which) {
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/script.js', dirname(__FILE__) );?>"></script>
 <script src="<?php echo plugins_url( 'assets/js/swiper.min.js', dirname(__FILE__) ); ?>"></script>
 <script> 
-var mySwiper = new Swiper(".swiper-container", {
-    pagination: ".swiper-pagination",
-    paginationClickable: ".swiper-pagination",
+var swiper = new Swiper(".playlist", {
     nextButton: ".swiper-button-next",
+    pagination: ".swiper-pagination",
     prevButton: ".swiper-button-prev",
-    grabCursor: true,
-    loop: true,
-    centeredSlides: true,
     slidesPerView: "auto",
-    preloadImages: true,
-    speed: 600,
-    autoplay: 2000,
-    autoplayDisableOnInteraction: false,
-    spaceBetween: 30,
-    effect: "fade"
+    paginationClickable: true,
+    centeredSlides: true,
+    spaceBetween: 5,
+    slideToClickedSlide: true,
+    touchRatio: 0.2
 });
-mySwiper.update();
+
+var swiper2 = new Swiper(".tracks", {
+    centeredSlides: true,
+    effect: "fade",
+    virtualTranslate: true,
+    grabCursor: true,
+    nextButton: ".swiper-button-next",
+    pagination: ".swiper-pagination",
+    paginationClickable: true,
+    prevButton: ".swiper-button-prev",
+    slidesPerView: 1,
+    spaceBetween: 5
+});
+swiper.update();
+swiper2.update();
+
+swiper2.params.control = swiper;
+swiper.params.control = swiper2;
+
 </script>
 <script>
     jQSwipe = jQuery.noConflict();
       jQSwipe(document).ready(function() {
          jQSwipe(window).load(function() {
-            mySwiper.update();
+            swiper.update();
+            swiper2.update();
         });
          jQSwipe(window).resize(function() {
-            mySwiper.update();
+            swiper.update();
+            swiper2.update();
         });
     });
 </script>

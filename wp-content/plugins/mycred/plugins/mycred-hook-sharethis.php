@@ -141,9 +141,9 @@ jQuery(function($) {
 
 	stLight.options({ publisher : '<?php echo get_option( 'st_pubid' ); ?>' });
 
-	function mycred_detect_share_<?php echo $this->mycred_type; ?>( event,service ) {
-		console.log( 'Event: ' + event );
-		console.log( 'Service: ' + service );
+	function mycred_detect_share_<?php echo sanitize_key( $this->mycred_type ); ?>( event,service ) {
+		//console.log( 'Event: ' + event );
+		//console.log( 'Service: ' + service );
 
 		$.ajax({
 			type     : "POST",
@@ -161,7 +161,7 @@ jQuery(function($) {
 		});
 	}
 	
-	stLight.subscribe( 'click', mycred_detect_share_<?php echo $this->mycred_type; ?> );
+	stLight.subscribe( 'click', mycred_detect_share_<?php echo sanitize_key( $this->mycred_type ); ?> );
 
 });
 </script>
@@ -197,6 +197,9 @@ jQuery(function($) {
 				$data = array( 'ref_type' => 'post', 'service' => $service );
 				if ( $this->core->has_entry( 'share', $post_id, $user_id, $data, $this->mycred_type ) ) wp_send_json( 'HAS ENTRY' );
 
+				// Limit
+				if ( $this->over_hook_limit( $service, 'share' ) ) wp_send_json( 'LIMIT' );
+
 				// Execute
 				$this->core->add_creds(
 					'share',
@@ -213,9 +216,9 @@ jQuery(function($) {
 			}
 
 			/**
-			 * Preferences for Contact Form 7 Hook
+			 * Preferences for ShareThis Hook
 			 * @since 0.1
-			 * @version 1.0.1
+			 * @version 1.1
 			 */
 			public function preferences() {
 				$prefs = $this->prefs;
@@ -252,8 +255,12 @@ jQuery(function($) {
 						if ( ! isset( $this->prefs[ $service ] ) )
 							$this->prefs[ $service ] = array(
 								'creds' => 0,
-								'log'   => '%plural% for sharing %link_with_title% on %service%'
+								'log'   => '%plural% for sharing %link_with_title% on %service%',
+								'limit' => '0/x'
 							);
+
+						if ( ! isset( $this->prefs[ $service ]['limit'] ) )
+							$this->prefs[ $service ]['limit'] = '0/x';
 
 						if ( isset( $names[ $service ] ) )
 							$service_name = $names[ $service ];
@@ -267,6 +274,10 @@ jQuery(function($) {
 	<li>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( $service, 'creds' ) ); ?>" id="<?php echo $this->field_id( array( $service, 'creds' ) ); ?>" value="<?php echo $this->core->number( $this->prefs[ $service ]['creds'] ); ?>" size="8" /></div>
 	</li>
+	<li>
+		<label for="<?php echo $this->field_id( array( $service, 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( $service, 'limit' ) ), $this->field_id( array( $service, 'limit' ) ), $prefs[ $service ]['limit'] ); ?>
+	</li>
 	<li class="empty">&nbsp;</li>
 	<li>
 		<label for="<?php echo $this->field_id( array( $service, 'log' ) ); ?>"><?php _e( 'Log template', 'mycred' ); ?></label>
@@ -278,6 +289,38 @@ jQuery(function($) {
 					}
 
 				endif;
+			}
+			
+			/**
+			 * Sanitise Preferences
+			 * @since 1.6
+			 * @version 1.0.1
+			 */
+			function sanitise_preferences( $data ) {
+
+				$st_services = get_option( 'st_services', false );
+
+				// Loop though selected services
+				$services = explode( ',', $st_services );
+
+				// Add facebook unlike to facebook like.
+				if ( in_array( 'fblike', $services ) )
+					$services[] = 'fbunlike';
+
+				foreach ( $services as $service ) {
+					$service = str_replace( ' ', '', $service );
+
+					if ( isset( $data[ $service ]['limit'] ) && isset( $data[ $service ]['limit_by'] ) ) {
+						$limit = sanitize_text_field( $data[ $service ]['limit'] );
+						if ( $limit == '' ) $limit = 0;
+						$data[ $service ]['limit'] = $limit . '/' . $data[ $service ]['limit_by'];
+						unset( $data[ $service ]['limit_by'] );
+					}
+
+				}
+
+				return $data;
+
 			}
 		}
 	}

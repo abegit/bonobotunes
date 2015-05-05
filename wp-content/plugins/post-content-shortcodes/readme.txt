@@ -219,11 +219,6 @@ There is a known issue where HTML (especially [caption] shortcodes) within the e
 
 == Changelog ==
 
-= 0.4.1 =
-
-* Fix [strict standards warning](https://wordpress.org/support/topic/many-strict-standards-errors) about widget methods - h/t [ux4341](https://wordpress.org/support/profile/ux4341)
-* Special thanks also to [spivurno](https://wordpress.org/support/profile/spivurno) for assistance in identifying the strict standards warnings
-
 = 0.4 =
 
 * Test for 4.0 compatibility
@@ -296,11 +291,6 @@ There is a known issue where HTML (especially [caption] shortcodes) within the e
 This is the first version of this plugin
 
 == Upgrade Notice ==
-
-= 0.4.1 =
-
-* Fixes warnings that appear when PHP is in strict standards mode
-* No new functionality added
 
 = 0.3.4.1 =
 

@@ -2,8 +2,8 @@
 Contributors: designbymerovingi
 Tags:points, tokens, credit, management, reward, charge, community, contest, buddypress, jetpack, bbpress, simple press, woocommerce, marketpress, wp e-commerce, gravity forms, share-this
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.5.4
+Tested up to: 4.1.1
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,10 +11,11 @@ myCRED is an adaptive points management system that lets you award / charge your
 
 == Description ==
 
-> #### Plugin Support
-> Free support is offered Monday - Friday 9 - 5 (UTC+1). Please note that myCRED has it's own [support forum](http://mycred.me/support/forums/) which is prioritised over the wordpress.org support forum!
+> #### Read before updating to 1.6
+> Version 1.6 brings some major core changes for your point type settings and hooks. Please read [this guide](http://codex.mycred.me/updating-to-mycred-1-6/) before updating! 
 
-**If you are using [YOOtheme's Radience Theme](http://yootheme.com/component/blog/2012/04/02/radiance-theme), please make sure you backup your database before installing myCRED.**
+> #### Plugin Support
+> Free support is offered Monday - Friday 9 - 5 (UTC+1) via the [myCRED support forum](http://mycred.me/support/forums/).
 
 I felt that todays WordPress community lacks a flexible points management system. Existing system often feel restrictive, stale or lack support for popular plugins.
 
@@ -105,8 +106,8 @@ myCRED supports importing, exporting, inline editing and manual deletion of log 
 
 == Upgrade Notice ==
 
-= 1.5.4 =
-WooCommerce 2.2 support, BuddyPress 2.1 support, Balance widget update and bug fixes.
+= 1.6.3 =
+Translation updates with proper escaping, adjusted log module, badge module and buyCRED module.
 
 
 == Other Notes ==
@@ -123,29 +124,41 @@ WooCommerce 2.2 support, BuddyPress 2.1 support, Balance widget update and bug f
 * Persian - Mani Akhtar
 * Spanish - Robert Rowshan [Website](http://robertrowshan.com)
 * Russian - Skladchik
-* Chinese - Changmeng Hu
+* Chinese - suifengtec [Website](http://coolwp.com)
 * Portuguese (Brazil) - Guilherme
 
 
 == Changelog ==
 
-= 1.5.4 =
-* UPDATE - Added support for WooCommerce 2.2 and refunds.
-* TWEAK - The WooCommerce points rewards are now paid out when an order is paid and no longer depends on the order status.
-* TWEAK - The Balance widget no longer shows the leaderboard position and has now built in support for rank name and rank logo in the balance template field.
-* FIX - Fixed PHP notice for banking add-on.
-* FIX - Excluded users balances are not deleted when a user is added to exclude list manually.
-* TWEAK - Added new badge action hooks: mycred_before_users_badges and mycred_after_users_badges to adjust badge displays in BuddyPress and bbPress.
-* FIX - When using single point types and creating / editing badges, the point type is not visible.
-* TWEAK - Adjusted requirements explanation to make translations easier.
-* TWEAK - Adjusted post ID collection for the ShareThis hook.
-* FIX - Network blocking of sites no longer working with the given filter hook.
-* TWEAK - Adjusted the leaderboard shortcode to exclude users with zero balances.
-* NEW - Added new mycred_is_site_blocked function for network blocking.
-* UPDATE - Updated about page.
-* UPDATE - Added support for BuddyPress 2.1.
-* NEW - Added support for Events Manager Multibooking feature.
+= 1.6.3 =
+FIX - Coupons min- or max- requirement is not enforced.
+FIX - mycred_my_badges shortcode is using a bad loop.
+FIX - WooCommerce refunds fails when refunding an order paid with points.
+FIX - Banking add-ons recurring payout service is using a bad SQL query when decimals are used.
+FIX - Fixed error in mycred_hook_table shortcode when looping through hooks.
+FIX - Fixed bad logic for mycred_translate_limit_code.
+FIX - over_hook_limit() should also take into account the point type.
+FIX - Added missing table cell classes for order display function in buyCRED.
+TWEAK - Adjusted exclude_user() to always handle a user ID even if nothing is passed to the function.
+TWEAK - Cleaned up the affiliate hook and replaced the built in hook limit with the new 1.6 system.
+TWEAK - Wrapped myCRED scripts in anonymous functions.
+TWEAK - Improved the transfer.js script.
+TWEAK - Added <br> element to allowed html.
+UPDATE - Updated plugin credit page.
+NEW - Added new mycred_my_badge filter to adjust how each badge is presented when viewing a users earned badges.
+NEW - Query Log class now also accepts username/login/email filtering instead of just ID.
 
+= 1.6.2 = 
+http://mycred.me/support/changelog/
+
+= 1.6.1 =
+http://mycred.me/support/changelog/
+
+= 1.6 =
+http://mycred.me/support/changelog/
+
+= 1.5.4 =
+http://mycred.me/support/changelog/
 
 = 1.5.3 =
 http://mycred.me/support/changelog/

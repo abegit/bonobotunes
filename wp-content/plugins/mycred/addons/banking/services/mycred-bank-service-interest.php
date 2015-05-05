@@ -568,15 +568,15 @@ if ( ! class_exists( 'myCRED_Banking_Service_Interest' ) ) :
 		/**
 		 * Save User Override
 		 * @since 1.5.2
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		function save_user_override() {
 
-			$ctype = sanitize_key( $_GET['ctype'] );
-			$user_id = absint( $_GET['user_id'] );
-
 			// Save interest rate
 			if ( isset( $_POST['mycred_adjust_users_interest_rate_run'] ) && isset( $_POST['mycred_adjust_users_interest_rate'] ) ) {
+
+				$ctype = sanitize_key( $_GET['ctype'] );
+				$user_id = absint( $_GET['user_id'] );
 
 				$rate = $_POST['mycred_adjust_users_interest_rate'];
 				if ( $rate != '' ) {
@@ -598,6 +598,9 @@ if ( ! class_exists( 'myCRED_Banking_Service_Interest' ) ) :
 
 			// Exclude
 			elseif ( isset( $_POST['mycred_exclude_users_interest_rate'] ) ) {
+
+				$ctype = sanitize_key( $_GET['ctype'] );
+				$user_id = absint( $_GET['user_id'] );
 
 				$excluded = explode( ',', $this->prefs['exclude_ids'] );
 				$clean_ids = array();
@@ -627,6 +630,9 @@ if ( ! class_exists( 'myCRED_Banking_Service_Interest' ) ) :
 
 			// Include
 			elseif ( isset( $_POST['mycred_include_users_interest_rate'] ) ) {
+
+				$ctype = sanitize_key( $_GET['ctype'] );
+				$user_id = absint( $_GET['user_id'] );
 
 				$excluded = explode( ',', $this->prefs['exclude_ids'] );
 				if ( ! empty( $excluded ) ) {

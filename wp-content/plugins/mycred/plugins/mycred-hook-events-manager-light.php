@@ -3,7 +3,7 @@
 /**
  * Events Manager
  * @since 1.1
- * @version 1.2
+ * @version 1.3
  */
 if ( defined( 'myCRED_VERSION' ) ) {
 
@@ -25,7 +25,7 @@ if ( defined( 'myCRED_VERSION' ) ) {
 	/**
 	 * Events Manager Hook
 	 * @since 1.1
-	 * @version 1.2
+	 * @version 1.3
 	 */
 	if ( ! class_exists( 'myCRED_Hook_Events_Manager' ) && class_exists( 'myCRED_Hook' ) ) {
 		class myCRED_Hook_Events_Manager extends myCRED_Hook {
@@ -39,7 +39,8 @@ if ( defined( 'myCRED_VERSION' ) ) {
 					'defaults' => array(
 						'attend' => array(
 							'creds' => 1,
-							'log'   => '%plural% for attending an event'
+							'log'   => '%plural% for attending an event',
+							'limit' => '0/x'
 						),
 						'cancel' => array(
 							'creds' => 1,
@@ -69,7 +70,7 @@ if ( defined( 'myCRED_VERSION' ) ) {
 			 * New Booking
 			 * When users can make their own bookings.
 			 * @since 1.1
-			 * @version 1.2
+			 * @version 1.3
 			 */
 			public function new_booking( $result, $booking ) {
 				// If bookings get automatically approved and booking was successfully added, add points
@@ -78,16 +79,17 @@ if ( defined( 'myCRED_VERSION' ) ) {
 					// Check for exclusion
 					if ( $this->core->exclude_user( $booking->person_id ) ) return $result;
 
-					// Successfull Booking
-					$this->core->add_creds(
-						'event_booking',
-						$booking->person_id,
-						$this->prefs['attend']['creds'],
-						$this->prefs['attend']['log'],
-						$booking->event->post_id,
-						array( 'ref_type' => 'post' ),
-						$this->mycred_type
-					);
+					// Limit
+					if ( ! $this->over_hook_limit( 'attend', 'event_booking', $booking->person_id ) )
+						$this->core->add_creds(
+							'event_booking',
+							$booking->person_id,
+							$this->prefs['attend']['creds'],
+							$this->prefs['attend']['log'],
+							$booking->event->post_id,
+							array( 'ref_type' => 'post' ),
+							$this->mycred_type
+						);
 
 				}
 
@@ -97,7 +99,7 @@ if ( defined( 'myCRED_VERSION' ) ) {
 			/**
 			 * New Multiple Bookings
 			 * @since 1.5.4
-			 * @version 1.0
+			 * @version 1.1
 			 */
 			public function multiple_bookings( $bookings ) {
 
@@ -106,16 +108,17 @@ if ( defined( 'myCRED_VERSION' ) ) {
 					// Check for exclusion
 					if ( $this->core->exclude_user( $EM_Booking->person_id ) ) continue;
 
-					// Successfull Booking
-					$this->core->add_creds(
-						'event_booking',
-						$EM_Booking->person_id,
-						$this->prefs['attend']['creds'],
-						$this->prefs['attend']['log'],
-						$EM_Booking->event->post_id,
-						array( 'ref_type' => 'post' ),
-						$this->mycred_type
-					);
+					// Limit
+					if ( ! $this->over_hook_limit( 'attend', 'event_booking', $EM_Booking->person_id ) )
+						$this->core->add_creds(
+							'event_booking',
+							$EM_Booking->person_id,
+							$this->prefs['attend']['creds'],
+							$this->prefs['attend']['log'],
+							$EM_Booking->event->post_id,
+							array( 'ref_type' => 'post' ),
+							$this->mycred_type
+						);
 
 				}
 
@@ -138,16 +141,17 @@ if ( defined( 'myCRED_VERSION' ) ) {
 					// If we do not award points for attending an event bail now
 					if ( $this->prefs['attend']['creds'] == 0 ) return $result;
 
-					// Execute
-					$this->core->add_creds(
-						'event_attendance',
-						$booking->person_id,
-						$this->prefs['attend']['creds'],
-						$this->prefs['attend']['log'],
-						$booking->event->post_id,
-						array( 'ref_type' => 'post' ),
-						$this->mycred_type
-					);
+					// Limit
+					if ( ! $this->over_hook_limit( 'attend', 'event_attendance', $booking->person_id ) )
+						$this->core->add_creds(
+							'event_attendance',
+							$booking->person_id,
+							$this->prefs['attend']['creds'],
+							$this->prefs['attend']['log'],
+							$booking->event->post_id,
+							array( 'ref_type' => 'post' ),
+							$this->mycred_type
+						);
 				}
 
 				// Else if status got changed from previously 'approved', remove points given
@@ -184,6 +188,10 @@ if ( defined( 'myCRED_VERSION' ) ) {
 	<li>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'attend' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'attend' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['attend']['creds'] ); ?>" size="8" /></div>
 	</li>
+	<li>
+		<label for="<?php echo $this->field_id( array( 'attend', 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'attend', 'limit' ) ), $this->field_id( array( 'attend', 'limit' ) ), $prefs['attend']['limit'] ); ?>
+	</li>
 </ol>
 <label class="subheader" for="<?php echo $this->field_id( array( 'attend' => 'log' ) ); ?>"><?php _e( 'Log Template', 'mycred' ); ?></label>
 <ol>
@@ -206,6 +214,24 @@ if ( defined( 'myCRED_VERSION' ) ) {
 	</li>
 </ol>
 <?php
+			}
+			
+			/**
+			 * Sanitise Preferences
+			 * @since 1.6
+			 * @version 1.0
+			 */
+			function sanitise_preferences( $data ) {
+
+				if ( isset( $data['attend']['limit'] ) && isset( $data['attend']['limit_by'] ) ) {
+					$limit = sanitize_text_field( $data['attend']['limit'] );
+					if ( $limit == '' ) $limit = 0;
+					$data['attend']['limit'] = $limit . '/' . $data['attend']['limit_by'];
+					unset( $data['attend']['limit_by'] );
+				}
+
+				return $data;
+
 			}
 		}
 	}

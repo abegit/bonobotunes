@@ -520,12 +520,16 @@ if ( ! class_exists( 'myCRED_Service' ) ) {
 		 * Returns an array of user IDs that are not excluded
 		 * from this service.
 		 * @since 1.5.2
-		 * @version 1.0
+		 * @version 1.1
 		 */
 		public function get_eligeble_users() {
 
 			global $wpdb;
 			$joins = $wheres = array();
+
+			$format = '%d';
+			if ( $this->core->format['decimals'] > 0 )
+				$format = '%f';
 
 			// Minimum Balance
 			if ( isset( $this->prefs['min_balance'] ) && $this->prefs['min_balance'] != '' && $this->prefs['min_balance'] != 0 ) {
@@ -534,8 +538,8 @@ if ( ! class_exists( 'myCRED_Service' ) ) {
 				if ( is_multisite() && $GLOBALS['blog_id'] > 1 && ! $this->core->use_central_logging )
 					$balance_key .= '_' . $GLOBALS['blog_id'];
 
-				$joins[] = "INNER JOIN {$wpdb->usermeta} balance ON ( users.ID = balance.user_id AND balance.meta_key = '{$balance_key}' )";
-				$wheres[] = "balance.meta_value > " . $this->prefs['min_balance'];
+				$joins[] = $wpdb->prepare( "INNER JOIN {$wpdb->usermeta} balance ON ( users.ID = balance.user_id AND balance.meta_key = %s )", $balance_key );
+				$wheres[] = $wpdb->prepare( "balance.meta_value > {$format}", $this->prefs['min_balance'] );
 
 			}
 
@@ -571,7 +575,7 @@ if ( ! class_exists( 'myCRED_Service' ) ) {
 			if ( isset( $this->prefs['exclude_roles'] ) && ! empty( $this->prefs['exclude_roles'] ) ) {
 				$cap_id = $wpdb->prefix . 'capabilities';
 				
-				$joins[] = "INNER JOIN {$wpdb->usermeta} role ON ( users.ID = role.user_id AND role.meta_key = '{$cap_id}' )";
+				$joins[] = $wpdb->prepare( "INNER JOIN {$wpdb->usermeta} role ON ( users.ID = role.user_id AND role.meta_key = %s )", $cap_id );
 				
 				$excluded_roles = array();
 				foreach ( $this->prefs['exclude_roles'] as $role_id )

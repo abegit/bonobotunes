@@ -4,15 +4,16 @@ if ( ! defined( 'myCRED_VERSION' ) ) exit;
 /**
  * myCRED_Hooks_Module class
  * @since 0.1
- * @version 1.2
+ * @version 1.2.1
  */
-if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
+if ( ! class_exists( 'myCRED_Hooks_Module' ) ) :
 	class myCRED_Hooks_Module extends myCRED_Module {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $type = 'mycred_default' ) {
+
 			parent::__construct( 'myCRED_Hooks_Module', array(
 				'module_name' => 'hooks',
 				'option_id'   => 'mycred_pref_hooks',
@@ -30,6 +31,7 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 				'accordion'   => true,
 				'menu_pos'    => 20
 			), $type );
+
 		}
 
 		/**
@@ -38,13 +40,19 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 		 * @version 1.0
 		 */
 		public function module_init() {
+
 			if ( ! empty( $this->installed ) ) {
+
 				foreach ( $this->installed as $key => $gdata ) {
+
 					if ( $this->is_active( $key ) && isset( $gdata['callback'] ) ) {
 						$this->call( 'run', $gdata['callback'] );
 					}
+
 				}
+
 			}
+
 		}
 
 		/**
@@ -54,25 +62,35 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 		 * @version 1.1
 		 */
 		public function call( $call, $callback, $return = NULL ) {
+
 			// Class
 			if ( is_array( $callback ) && class_exists( $callback[0] ) ) {
+
 				$class = $callback[0];
 				$methods = get_class_methods( $class );
 				if ( in_array( $call, $methods ) ) {
+
 					$new = new $class( ( isset( $this->hook_prefs ) ) ? $this->hook_prefs : array(), $this->mycred_type );
 					return $new->$call( $return );
+
 				}
+
 			}
 
 			// Function
 			elseif ( ! is_array( $callback ) ) {
+
 				if ( function_exists( $callback ) ) {
+
 					if ( $return !== NULL )
 						return call_user_func( $callback, $return, $this );
 					else
 						return call_user_func( $callback, $this );
+
 				}
+
 			}
+
 		}
 
 		/**
@@ -81,7 +99,9 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 		 * @version 1.1.1
 		 */
 		public function get( $save = false ) {
+
 			$installed = array();
+
 			// Registrations
 			$installed['registration'] = array(
 				'title'        => __( '%plural% for registrations', 'mycred' ),
@@ -158,6 +178,7 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 
 			$this->installed = $installed;
 			return $installed;
+
 		}
 
 		/**
@@ -166,30 +187,35 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 		 * @version 1.1
 		 */
 		public function admin_page() {
+
 			// Security
 			if ( ! $this->core->can_edit_creds() )
 				wp_die( __( 'Access Denied', 'mycred' ) );
 
 			// Get installed
-			$installed = $this->get( true ); ?>
-
+			$installed = $this->get();
+?>
 <div class="wrap" id="myCRED-wrap">
 	<h2><?php echo sprintf( __( '%s Hooks', 'mycred' ), mycred_label() ); ?></h2>
+
 	<?php $this->update_notice(); ?>
 
 	<p><?php echo $this->core->template_tags_general( __( 'Hooks are instances where %_plural% are awarded or deducted from a user, depending on their actions around your website.', 'mycred' ) ); ?></p>
-	<form method="post" action="options.php">
+	<form method="post" action="options.php" name="mycred-hooks-setup-form" novalidate>
+
 		<?php settings_fields( $this->settings_name ); ?>
 
 		<!-- Loop though Hooks -->
 		<div class="list-items expandable-li" id="accordion">
 <?php
+
 			// If we have hooks
 			if ( ! empty( $installed ) ) {
 
 				// Loop though them
-				foreach ( $installed as $key => $data ) { ?>
+				foreach ( $installed as $key => $data ) {
 
+?>
 			<h4><div class="icon icon-<?php if ( $this->is_active( $key ) ) echo 'active'; else echo 'inactive'; echo ' ' . $key; ?>"></div><label><?php echo $this->core->template_tags_general( $data['title'] ); ?></label></h4>
 			<div class="body" style="display:none;">
 				<p><?php echo nl2br( $this->core->template_tags_general( $data['description'] ) ); ?></p>
@@ -202,17 +228,35 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 				<?php echo $this->call( 'preferences', $data['callback'] ); ?>
 
 			</div>
-
 <?php
-				}
-			} ?>
 
+				}
+
+			}
+
+?>
 		</div>
+
 		<?php submit_button( __( 'Update Changes', 'mycred' ), 'primary large', 'submit', false ); ?>
 
 	</form>
 </div>
+<script type="text/javascript">
+jQuery(function($) {
+
+	$( 'select.limit-toggle' ).change(function(){
+
+		if ( $(this).find( ':selected' ).val() != 'x' )
+			$(this).prev().attr( 'type', 'text' ).val( 0 );
+		else
+			$(this).prev().attr( 'type', 'hidden' ).val( 0 );
+
+	});
+
+});
+</script>
 <?php
+
 		}
 
 		/**
@@ -221,6 +265,7 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 		 * @version 1.2
 		 */
 		public function sanitize_settings( $post ) {
+
 			// Loop though all installed hooks
 			$installed = $this->get();
 
@@ -232,29 +277,37 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 			$new_post['active'] = $post['active'];
 
 			if ( ! empty( $installed ) ) {
+
 				foreach ( $installed as $key => $data ) {
+
 					if ( isset( $data['callback'] ) && isset( $post['hook_prefs'][ $key ] ) ) {
+
 						// Old settings
 						$old_settings = $post['hook_prefs'][ $key ];
-						
+
 						// New settings
 						$new_settings = $this->call( 'sanitise_preferences', $data['callback'], $old_settings );
-						
+
 						// If something went wrong use the old settings
 						if ( empty( $new_settings ) || $new_settings === NULL || ! is_array( $new_settings ) )
 							$new_post['hook_prefs'][ $key ] = $old_settings;
+
 						// Else we got ourselves new settings
 						else
 							$new_post['hook_prefs'][ $key ] = $new_settings;
-						
+
 						// Handle de-activation
 						if ( ! isset( $this->active ) ) continue;
+
 						if ( in_array( $key, (array) $this->active ) && ! in_array( $key, $new_post['active'] ) )
 							$this->call( 'deactivate', $data['callback'], $new_post['hook_prefs'][ $key ] );
 
 						// Next item
+
 					}
+
 				}
+
 			}
 
 			// 1.4 Update flag
@@ -262,22 +315,25 @@ if ( ! class_exists( 'myCRED_Hooks_Module' ) ) {
 
 			$installed = NULL;
 			return $new_post;
+
 		}
+
 	}
-}
+endif;
 
 /**
  * Hook for registrations
  * @since 0.1
- * @version 1.1
+ * @version 1.2
  */
-if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Registration' ) ) :
 	class myCRED_Hook_Registration extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'registration',
 				'defaults' => array(
@@ -285,18 +341,21 @@ if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
 					'log'     => '%plural% for becoming a member'
 				)
 			), $hook_prefs, $type );
+
 		}
 
 		/**
 		 * Run
 		 * @since 0.1
-		 * @version 1.1
+		 * @version 1.2
 		 */
 		public function run() {
+
 			if ( function_exists( 'buddypress' ) && apply_filters( 'bp_core_signup_send_activation_key', true ) )
 				add_action( 'bp_core_activated_user', array( $this, 'verified_signup' ) );
-			else
-				add_action( 'user_register', array( $this, 'registration' ) );
+
+			add_action( 'user_register', array( $this, 'registration' ) );
+
 		}
 
 		/**
@@ -306,7 +365,9 @@ if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
 		 * @version 1.0
 		 */
 		public function verified_signup( $user_id ) {
+
 			$this->registration( $user_id );
+
 		}
 
 		/**
@@ -315,6 +376,7 @@ if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
 		 * @version 1.1
 		 */
 		public function registration( $user_id ) {
+
 			// Make sure user is not excluded
 			if ( $this->core->exclude_user( $user_id ) === true ) return;
 
@@ -333,6 +395,7 @@ if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
 				$data,
 				$this->mycred_type
 			);
+
 		}
 
 		/**
@@ -341,8 +404,10 @@ if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
 		 * @version 1.0.1
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->plural(); ?></label>
 <ol>
 	<li>
@@ -357,22 +422,25 @@ if ( ! class_exists( 'myCRED_Hook_Registration' ) ) {
 	</li>
 </ol>
 <?php
+
 		}
+
 	}
-}
+endif;
 
 /**
  * Hook for site visits
  * @since 1.5
- * @version 1.0
+ * @version 1.1
  */
-if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) :
 	class myCRED_Hook_Site_Visits extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'site_visit',
 				'defaults' => array(
@@ -380,32 +448,38 @@ if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) {
 					'log'     => '%plural% for site visit'
 				)
 			), $hook_prefs, $type );
+
 		}
 
 		/**
 		 * Run
 		 * @since 1.5
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 */
 		public function run() {
+
 			// Make sure user is logged in. Also to prevent unneccery db queries we
 			// check to make sure the user does not have the cookie.
 			if ( is_user_logged_in() && ! isset( $_COOKIE['mycred_site_visit'] ) )
-				$this->site_visit();
+				add_action( 'wp_head', array( $this, 'site_visit' ) );
+
 		}
 
 		/**
 		 * Visit Hook
 		 * @since 1.5
-		 * @version 1.1
+		 * @version 1.1.1
 		 */
 		public function site_visit() {
+
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) return;
+
 			// Current User ID
 			$user_id = get_current_user_id();
 
 			// Set cookie to prevent db queries again today.
 			$lifespan = (int) ( 24*3600 ) - ( date_i18n( 'H' ) * 3600 + date_i18n( 'i' ) * 60 + date_i18n( 's' ) );
-			if ( ! headers_sent() ) setcookie( 'mycred_site_visit', 1, $lifespan );
+			if ( ! headers_sent() ) setcookie( 'mycred_site_visit', 1, $lifespan, '/' );
 
 			// Make sure user is not excluded
 			if ( $this->core->exclude_user( $user_id ) ) return;
@@ -427,6 +501,7 @@ if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) {
 				$data,
 				$this->mycred_type
 			);
+
 		}
 
 		/**
@@ -435,8 +510,10 @@ if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) {
 		 * @version 1.0
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->plural(); ?></label>
 <ol>
 	<li>
@@ -451,36 +528,43 @@ if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) {
 	</li>
 </ol>
 <?php
+
 		}
+
 	}
-}
+endif;
 
 /**
  * Hook for viewing content
  * @since 1.5.1
- * @version 1.0
+ * @version 1.1
  */
-if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
+if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) :
 	class myCRED_Hook_View_Contents extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			$defaults = array(
 				'post'    => array(
 					'creds'   => 1,
 					'log'     => '%plural% for viewing a post',
 					'acreds'  => 1,
+					'limit'   => '0/x',
 					'alog'    => '%plural% for view of your post',
-					'visitor' => 0
+					'visitor' => 0,
+					'alimit'  => '0/x'
 				),
 				'page'    => array(
 					'creds'   => 1,
 					'log'     => '%plural% for viewing a page',
 					'acreds'  => 1,
+					'limit'   => '0/x',
 					'alog'    => '%plural% for view of your page',
-					'visitor' => 0
+					'visitor' => 0,
+					'alimit'  => '0/x'
 				)
 			);
 
@@ -491,6 +575,7 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
 				'id'       => 'view_contents',
 				'defaults' => $defaults
 			), $hook_prefs, $type );
+
 		}
 
 		/**
@@ -499,99 +584,100 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
 		 * @version 1.0
 		 */
 		public function run() {
+
 			if ( is_user_logged_in() )
-				add_action( 'wp_footer', array( $this, 'content_loaded' ) );
+				add_filter( 'the_content', array( $this, 'content_loaded' ) );
+
 		}
 
 		/**
 		 * Content Loaded
 		 * @since 1.5.1
-		 * @version 1.0
+		 * @version 1.1.1
 		 */
-		public function content_loaded() {
+		public function content_loaded( $content ) {
+
 			// Only applicable on single post type view
-			if ( ! is_single() && ! is_page() ) return;
+			if ( ! is_singular() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || is_admin() ) return $content;
 
 			global $post;
+
+			$user_id = get_current_user_id();
+			if ( $post->post_author == $user_id ) return $content;
 
 			// Make sure this post type award points. Any amount but zero.
 			if ( isset( $this->prefs[ $post->post_type ]['creds'] ) && $this->prefs[ $post->post_type ]['creds'] != 0 && apply_filters( 'mycred_view_content', true, $this ) === true ) {
 
-				$user_id = get_current_user_id();
-
 				// No payout for viewing our own content
-				if ( $post->post_author != $user_id ) {
+				if ( ! $this->core->exclude_user( $user_id ) ) {
 
-					// Make sure user is not excluded
-					if ( $this->core->exclude_user( $user_id ) === true ) return;
-
-					// Prep data
-					$data = array( 'ref_type' => 'post' );
-
-					// Make sure this is unique
-					if ( ! $this->core->has_entry( 'view_content', $post->ID, $user_id, $data, $this->mycred_type ) )
+					// Limit
+					if ( ! $this->over_hook_limit( $post->post_type, 'view_content', $user_id ) )
 						$this->core->add_creds(
 							'view_content',
 							$user_id,
 							$this->prefs[ $post->post_type ]['creds'],
 							$this->prefs[ $post->post_type ]['log'],
 							$post->ID,
-							$data,
+							array( 'ref_type' => 'post' ),
 							$this->mycred_type
 						);
 
 				}
 
 			}
-			
+
 			// Make sure this post type award points to the author. Any amount but zero.
 			if ( isset( $this->prefs[ $post->post_type ]['acreds'] ) && $this->prefs[ $post->post_type ]['acreds'] != 0 && apply_filters( 'mycred_view_content_author', true, $this ) === true ) {
 
-				$user_id = $post->post_author;
-
 				// No payout for viewing our own content
-				if ( get_current_user_id() != $user_id ) {
+				if ( ! $this->core->exclude_user( $post->post_author ) ) {
 
-					// Make sure user is not excluded
-					if ( $this->core->exclude_user( $user_id ) === true ) return;
-
-					// Prep data
-					$data = array( 'ref_type' => 'post', 'cui' => get_current_user_id() );
-
-					// Make sure this is unique
-					if ( ! $this->core->has_entry( 'view_content_author', $post->ID, $user_id, $data, $this->mycred_type ) )
+					// Limit
+					if ( ! $this->over_hook_limit( $post->post_type, 'view_content_author', $post->post_author ) )
 						$this->core->add_creds(
 							'view_content_author',
-							$user_id,
+							$post->post_author,
 							$this->prefs[ $post->post_type ]['acreds'],
 							$this->prefs[ $post->post_type ]['alog'],
 							$post->ID,
-							$data,
+							array( 'ref_type' => 'post', 'cui' => $user_id ),
 							$this->mycred_type
 						);
 
 				}
 
 			}
+
+			return $content;
+
 		}
 
 		/**
 		 * Preference for read content hook
 		 * @since 1.5.1
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->template_tags_general( __( '%plural% for viewing Posts', 'mycred' ) ); ?></label>
 <ol class="inline">
-	<li>
+	<li style="min-width: 200px;">
 		<label for="<?php echo $this->field_id( array( 'post' => 'creds' ) ); ?>"><?php _e( 'Member', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'post' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'post' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['post']['creds'] ); ?>" size="8" /></div>
+
+		<label for="<?php echo $this->field_id( array( 'post', 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'post', 'limit' ) ), $this->field_id( array( 'post', 'limit' ) ), $prefs['post']['limit'] ); ?>
 	</li>
 	<li>
 		<label for="<?php echo $this->field_id( array( 'post' => 'acreds' ) ); ?>"><?php _e( 'Content Author', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'post' => 'acreds' ) ); ?>" id="<?php echo $this->field_id( array( 'post' => 'acreds' ) ); ?>" value="<?php echo $this->core->number( $prefs['post']['acreds'] ); ?>" size="8" /></div>
+
+		<label for="<?php echo $this->field_id( array( 'post', 'alimit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'post', 'alimit' ) ), $this->field_id( array( 'post', 'alimit' ) ), $prefs['post']['alimit'] ); ?>
 	</li>
 </ol>
 <label class="subheader"><?php _e( 'Log template', 'mycred' ); ?></label>
@@ -610,13 +696,19 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
 </ol>
 <label class="subheader"><?php echo $this->core->template_tags_general( __( '%plural% for viewing Pages', 'mycred' ) ); ?></label>
 <ol class="inline">
-	<li>
+	<li style="min-width: 200px;">
 		<label for="<?php echo $this->field_id( array( 'page' => 'creds' ) ); ?>"><?php _e( 'Member', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'page' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'page' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['page']['creds'] ); ?>" size="8" /></div>
+
+		<label for="<?php echo $this->field_id( array( 'page', 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'page', 'limit' ) ), $this->field_id( array( 'page', 'limit' ) ), $prefs['page']['limit'] ); ?>
 	</li>
 	<li>
 		<label for="<?php echo $this->field_id( array( 'page' => 'acreds' ) ); ?>"><?php _e( 'Content Author', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'page' => 'acreds' ) ); ?>" id="<?php echo $this->field_id( array( 'page' => 'acreds' ) ); ?>" value="<?php echo $this->core->number( $prefs['page']['acreds'] ); ?>" size="8" /></div>
+
+		<label for="<?php echo $this->field_id( array( 'page', 'alimit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'page', 'alimit' ) ), $this->field_id( array( 'page', 'alimit' ) ), $prefs['page']['alimit'] ); ?>
 	</li>
 </ol>
 <label class="subheader"><?php _e( 'Log template', 'mycred' ); ?></label>
@@ -634,18 +726,26 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
 	</li>
 </ol>
 <?php
+
 			// Get all not built-in post types (excludes posts, pages, media)
 			$post_type_args = array(
 				'public'   => true,
 				'_builtin' => false
 			);
 			$post_types = get_post_types( $post_type_args, 'objects', 'and' ); 
+
 			foreach ( $post_types as $post_type ) {
+
 				// Points to award/deduct
 				if ( isset( $prefs[ $post_type->name ]['creds'] ) )
 					$_creds = $prefs[ $post_type->name ]['creds'];
 				else
 					$_creds = 0;
+
+				if ( isset( $prefs[ $post_type->name ]['limit'] ) )
+					$limit = $prefs[ $post_type->name ]['limit'];
+				else
+					$limit = '0/x';
 
 				// Log template
 				if ( isset( $prefs[ $post_type->name ]['log'] ) )
@@ -659,26 +759,33 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
 				else
 					$_acreds = 0;
 
+				if ( isset( $prefs[ $post_type->name ]['alimit'] ) )
+					$alimit = $prefs[ $post_type->name ]['alimit'];
+				else
+					$alimit = '0/x';
+
 				// Log template
 				if ( isset( $prefs[ $post_type->name ]['alog'] ) )
 					$_alog = $prefs[ $post_type->name ]['alog'];
 				else
 					$_alog = '%plural% for view of your ' . $post_type->labels->name;
 
-				if ( isset( $prefs[ $post_type->name ]['visitor'] ) )
-					$visitor = (int) $prefs[ $post_type->name ]['visitor'];
-				else
-					$visitor = 0; ?>
-
+?>
 <label class="subheader"><?php echo sprintf( $this->core->template_tags_general( __( '%plural% for viewing %s', 'mycred' ) ),  $post_type->labels->name ); ?></label>
 <ol class="inline">
-	<li>
+	<li style="min-width: 200px;">
 		<label for="<?php echo $this->field_id( array( $post_type->name => 'creds' ) ); ?>"><?php _e( 'Member', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( $post_type->name => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( $post_type->name => 'creds' ) ); ?>" value="<?php echo $this->core->number( $_creds ); ?>" size="8" /></div>
+
+		<label for="<?php echo $this->field_id( array( $post_type->name, 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( $post_type->name, 'limit' ) ), $this->field_id( array( $post_type->name, 'limit' ) ), $limit ); ?>
 	</li>
 	<li>
 		<label for="<?php echo $this->field_id( array( $post_type->name => 'acreds' ) ); ?>"><?php _e( 'Content Author', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( $post_type->name => 'acreds' ) ); ?>" id="<?php echo $this->field_id( array( $post_type->name => 'acreds' ) ); ?>" value="<?php echo $this->core->number( $_acreds ); ?>" size="8" /></div>
+
+		<label for="<?php echo $this->field_id( array( $post_type->name, 'alimit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( $post_type->name, 'alimit' ) ), $this->field_id( array( $post_type->name, 'alimit' ) ), $alimit ); ?>
 	</li>
 </ol>
 <label class="subheader"><?php _e( 'Log template', 'mycred' ); ?></label>
@@ -696,31 +803,99 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) {
 	</li>
 </ol>
 <?php
+
 			}
+
 		}
+
+		/**
+		 * Sanitise Preferences
+		 * @since 1.6
+		 * @version 1.0.1
+		 */
+		function sanitise_preferences( $data ) {
+
+			if ( isset( $data['post']['limit'] ) && isset( $data['post']['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['post']['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['post']['limit'] = $limit . '/' . $data['post']['limit_by'];
+				unset( $data['post']['limit_by'] );
+			}
+
+			if ( isset( $data['post']['alimit'] ) && isset( $data['post']['alimit_by'] ) ) {
+				$limit = sanitize_text_field( $data['post']['alimit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['post']['alimit'] = $limit . '/' . $data['post']['alimit_by'];
+				unset( $data['post']['alimit_by'] );
+			}
+
+			if ( isset( $data['page']['limit'] ) && isset( $data['page']['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['page']['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['page']['limit'] = $limit . '/' . $data['page']['limit_by'];
+				unset( $data['page']['limit_by'] );
+			}
+
+			if ( isset( $data['page']['alimit'] ) && isset( $data['page']['alimit_by'] ) ) {
+				$limit = sanitize_text_field( $data['page']['alimit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['page']['alimit'] = $limit . '/' . $data['page']['alimit_by'];
+				unset( $data['page']['alimit_by'] );
+			}
+
+			$post_type_args = array(
+				'public'   => true,
+				'_builtin' => false
+			);
+			$post_types = get_post_types( $post_type_args, 'objects', 'and' ); 
+
+			foreach ( $post_types as $post_type ) {
+
+				if ( isset( $data[ $post_type->name ]['limit'] ) && isset( $data[ $post_type->name ]['limit_by'] ) ) {
+					$limit = sanitize_text_field( $data[ $post_type->name ]['limit'] );
+					if ( $limit == '' ) $limit = 0;
+					$data[ $post_type->name ]['limit'] = $limit . '/' . $data[ $post_type->name ]['limit_by'];
+					unset( $data[ $post_type->name ]['limit_by'] );
+				}
+
+				if ( isset( $data[ $post_type->name ]['alimit'] ) && isset( $data[ $post_type->name ]['alimit_by'] ) ) {
+					$limit = sanitize_text_field( $data[ $post_type->name ]['alimit'] );
+					if ( $limit == '' ) $limit = 0;
+					$data[ $post_type->name ]['alimit'] = $limit . '/' . $data[ $post_type->name ]['alimit_by'];
+					unset( $data[ $post_type->name ]['alimit_by'] );
+				}
+
+			}
+
+			return $data;
+
+		}
+
 	}
-}
+endif;
 
 /**
  * Hook for loggins
  * @since 0.1
  * @version 1.1
  */
-if ( ! class_exists( 'myCRED_Hook_Logging_In' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Logging_In' ) ) :
 	class myCRED_Hook_Logging_In extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'logging_in',
 				'defaults' => array(
 					'creds'   => 1,
 					'log'     => '%plural% for logging in',
-					'limit'   => 'daily'
+					'limit'   => '1/d'
 				)
 			), $hook_prefs, $type );
+
 		}
 
 		/**
@@ -729,154 +904,97 @@ if ( ! class_exists( 'myCRED_Hook_Logging_In' ) ) {
 		 * @version 1.1
 		 */
 		public function run() {
+
 			// Social Connect
 			if ( function_exists( 'sc_social_connect_process_login' ) )
 				add_action( 'social_connect_login', array( $this, 'social_login' ) );
 
 			// WordPress
 			add_action( 'wp_login', array( $this, 'logging_in' ), 10, 2 );
+
 		}
 
 		/**
 		 * Social Login
 		 * Adds support for Social Connect plugin
 		 * @since 1.4
-		 * @version 1.0
+		 * @version 1.1
 		 */
 		public function social_login( $user_login = 0 ) {
+
 			// Get user
 			$user = get_user_by( 'login', $user_login );
-			if ( ! isset( $user->ID ) ) return;
-
-			// Check for exclusion
-			if ( $this->core->exclude_user( $user->ID ) === true ) return;
-
-			// Check if we should reward
-			if ( ! $this->reward_login( $user->ID ) ) return;
-
-			// Execute
-			$this->core->add_creds(
-				'logging_in',
-				$user->ID,
-				$this->prefs['creds'],
-				$this->prefs['log'],
-				0,
-				'',
-				$this->mycred_type
-			);
-		}
-
-		/**
-		 * Login Hook
-		 * @since 0.1
-		 * @version 1.2
-		 */
-		public function logging_in( $user_login, $user = '' ) {
-			// In case the user object is not past along
-			if ( ! is_object( $user ) ) {
-				$user = get_user_by( 'login', $user_login );
+			if ( ! isset( $user->ID ) ) {
+				// In case we use emails for login instead of username
+				$user = get_user_by( 'email', $user_login );
 				if ( ! is_object( $user ) ) return;
 			}
 
 			// Check for exclusion
 			if ( $this->core->exclude_user( $user->ID ) === true ) return;
 
-			// Check if we should reward
-			if ( ! $this->reward_login( $user->ID ) ) return;
+			// Limit
+			if ( ! $this->over_hook_limit( '', 'logging_in', $user->ID ) )
+				$this->core->add_creds(
+					'logging_in',
+					$user->ID,
+					$this->prefs['creds'],
+					$this->prefs['log'],
+					0,
+					'',
+					$this->mycred_type
+				);
 
-			// Execute
-			$this->core->add_creds(
-				'logging_in',
-				$user->ID,
-				$this->prefs['creds'],
-				$this->prefs['log'],
-				0,
-				'',
-				$this->mycred_type
-			);
 		}
 
 		/**
-		 * Reward Login Check
-		 * Checks to see if the given user id should be rewarded for logging in.
-		 * @returns true or false
-		 * @since 1.0.6
-		 * @version 1.2
+		 * Login Hook
+		 * @since 0.1
+		 * @version 1.3
 		 */
-		protected function reward_login( $user_id ) {
-			$now = date_i18n( 'U' );
-			$today = date_i18n( 'Y-m-d' );
-			$limit = apply_filters( 'mycred_hook_login_min_limit', 60 );
+		public function logging_in( $user_login, $user = '' ) {
 
-			if ( ! $this->is_main_type )
-				$past = mycred_get_user_meta( $user_id, 'mycred_last_login_' . $this->mycred_type, '', true );
-			else
-				$past = mycred_get_user_meta( $user_id, 'mycred_last_login', '', true );
+			// In case the user object is not past along
+			if ( ! is_object( $user ) ) {
 
-			if ( $past == '' )
-				$past = $now-$limit;
+				$user = get_user_by( 'login', $user_login );
+				if ( ! is_object( $user ) ) {
 
-			// Even if there is no limit set we will always impose a 1 min limit
-			// to prevent users from just logging in and out for points.
-			if ( $past > $now-$limit ) return false;
+					// In case we use emails for login instead of username
+					$user = get_user_by( 'email', $user_login );
+					if ( ! is_object( $user ) ) return;
 
-			// If limit is set
-			if ( ! empty( $this->prefs['limit'] ) ) {
-				// If logged in before
-				if ( ! empty( $past ) ) {
-					// 24 hours
-					if ( $this->prefs['limit'] == 'twentyfour' ) {
-						$mark = 86400;
-						$next = $past+$mark;
-
-						if ( $next > $now ) return false;
-					}
-
-					// 12 Hours
-					elseif ( $this->prefs['limit'] == 'twelve' ) {
-						$mark = 43200;
-						$next = $past+$mark;
-
-						if ( $next > $now ) return false;
-					}
-
-					// Seven Days
-					elseif ( $this->prefs['limit'] == 'sevendays' ) {
-						$mark = 604800;
-						$next = $past+$mark;
-
-						if ( $next > $now ) return false;
-					}
-
-					// Daily
-					elseif ( $this->prefs['limit'] == 'daily' ) {
-						if ( $today == $past ) return false;
-					}
 				}
+
 			}
 
-			// Update new login time
-			if ( $this->prefs['limit'] == 'daily' )
-				$new_timestamp = $today;
-			else
-				$new_timestamp = $now;
+			// Check for exclusion
+			if ( $this->core->exclude_user( $user->ID ) ) return;
 
-			if ( ! $this->is_main_type )
-				mycred_update_user_meta( $user_id, 'mycred_last_login_' . $this->mycred_type, '', $new_timestamp );
-			else
-				mycred_update_user_meta( $user_id, 'mycred_last_login', '', $new_timestamp );
+			// Limit
+			if ( ! $this->over_hook_limit( '', 'logging_in', $user->ID ) )
+				$this->core->add_creds(
+					'logging_in',
+					$user->ID,
+					$this->prefs['creds'],
+					$this->prefs['log'],
+					0,
+					'',
+					$this->mycred_type
+				);
 
-			return true;
 		}
 
 		/**
 		 * Preference for Login Hook
 		 * @since 0.1
-		 * @version 1.0.1
+		 * @version 1.1
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->plural(); ?></label>
 <ol>
 	<li>
@@ -893,35 +1011,57 @@ if ( ! class_exists( 'myCRED_Hook_Logging_In' ) ) {
 <label class="subheader"><?php _e( 'Limit', 'mycred' ); ?></label>
 <ol>
 	<li>
-		<?php $this->impose_limits_dropdown( 'limit' ); ?>
-
+		<?php echo $this->hook_limit_setting( $this->field_name( 'limit' ), $this->field_id( 'limit' ), $prefs['limit'] ); ?>
 	</li>
 </ol>
 <?php
+
 		}
+
+		/**
+		 * Sanitise Preferences
+		 * @since 1.6
+		 * @version 1.0
+		 */
+		function sanitise_preferences( $data ) {
+
+			if ( isset( $data['limit'] ) && isset( $data['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['limit'] = $limit . '/' . $data['limit_by'];
+				unset( $data['limit_by'] );
+			}
+
+			return $data;
+
+		}
+
 	}
-}
+endif;
 
 /**
  * Hook for publishing content
  * @since 0.1
- * @version 1.1
+ * @version 1.2
  */
-if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) :
 	class myCRED_Hook_Publishing_Content extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			$defaults = array(
 				'post'    => array(
 					'creds'  => 1,
-					'log'    => '%plural% for new Post'
+					'log'    => '%plural% for new Post',
+					'limit'  => '0/x'
 				),
 				'page'    => array(
 					'creds'  => 1,
-					'log'    => '%plural% for new Page'
+					'log'    => '%plural% for new Page',
+					'limit'  => '0/x'
 				)
 			);
 
@@ -932,6 +1072,7 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 				'id'       => 'publishing_content',
 				'defaults' => $defaults
 			), $hook_prefs, $type );
+
 		}
 
 		/**
@@ -940,15 +1081,18 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 		 * @version 1.0
 		 */
 		public function run() {
+
 			add_action( 'transition_post_status', array( $this, 'publishing_content' ), 10, 3 );
+
 		}
 
 		/**
 		 * Publish Content Hook
 		 * @since 0.1
-		 * @version 1.0
+		 * @version 1.1.1
 		 */
 		public function publishing_content( $new_status, $old_status, $post ) {
+
 			$user_id = $post->post_author;
 
 			// Check for exclusions
@@ -962,7 +1106,7 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 			if ( empty( $this->prefs[ $post_type ]['creds'] ) || $this->prefs[ $post_type ]['creds'] == 0 ) return;
 
 			// We want to fire when content get published or when it gets privatly published
-			$status = apply_filters( 'mycred_publish_hook_old', array( 'new', 'auto-draft', 'draft', 'private', 'pending' ) );
+			$status = apply_filters( 'mycred_publish_hook_old', array( 'new', 'auto-draft', 'draft', 'private', 'pending', 'future' ) );
 			$publish_status = apply_filters( 'mycred_publish_hook_new', array( 'publish', 'private' ) );
 
 			if ( in_array( $old_status, $status ) && in_array( $new_status, $publish_status ) && array_key_exists( $post_type, $this->prefs ) ) {
@@ -974,31 +1118,40 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 				// Make sure this is unique
 				if ( $this->core->has_entry( 'publishing_content', $post_id, $user_id, $data, $this->mycred_type ) ) return;
 
-				// Add Creds
-				$this->core->add_creds(
-					'publishing_content',
-					$user_id,
-					$this->prefs[ $post_type ]['creds'],
-					$entry,
-					$post_id,
-					$data,
-					$this->mycred_type
-				);
+				// Check limit
+				if ( ! $this->over_hook_limit( $post_type, 'publishing_content', $user_id ) )
+					$this->core->add_creds(
+						'publishing_content',
+						$user_id,
+						$this->prefs[ $post_type ]['creds'],
+						$entry,
+						$post_id,
+						$data,
+						$this->mycred_type
+					);
+
 			}
+
 		}
 
 		/**
 		 * Preference for Publish Content Hook
 		 * @since 0.1
-		 * @version 1.0.1
+		 * @version 1.1
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->template_tags_general( __( '%plural% for Posts', 'mycred' ) ); ?></label>
 <ol>
 	<li>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'post' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'post' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['post']['creds'] ); ?>" size="8" /></div>
+	</li>
+	<li>
+		<label for="<?php echo $this->field_id( array( 'post' => 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'post' => 'limit' ) ), $this->field_id( array( 'post' => 'limit' ) ), $prefs['post']['limit'] ); ?>
 	</li>
 </ol>
 <label class="subheader"><?php _e( 'Log template', 'mycred' ); ?></label>
@@ -1013,6 +1166,10 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 	<li>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'page' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'page' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['page']['creds'] ); ?>" size="8" /></div>
 	</li>
+	<li>
+		<label for="<?php echo $this->field_id( array( 'page' => 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'page' => 'limit' ) ), $this->field_id( array( 'page' => 'limit' ) ), $prefs['page']['limit'] ); ?>
+	</li>
 </ol>
 <label class="subheader"><?php _e( 'Log template', 'mycred' ); ?></label>
 <ol>
@@ -1022,13 +1179,16 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 	</li>
 </ol>
 <?php
+
 			// Get all not built-in post types (excludes posts, pages, media)
 			$post_type_args = array(
 				'public'   => true,
 				'_builtin' => false
 			);
 			$post_types = get_post_types( $post_type_args, 'objects', 'and' ); 
+
 			foreach ( $post_types as $post_type ) {
+
 				// Start by checking if this post type should be excluded
 				if ( ! $this->include_post_type( $post_type->name ) ) continue;
 
@@ -1042,12 +1202,22 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 				if ( isset( $prefs[ $post_type->name ]['log'] ) )
 					$_log = $prefs[ $post_type->name ]['log'];
 				else
-					$_log = ''; ?>
+					$_log = '';
 
+				if ( isset( $prefs[ $post_type->name ]['limit'] ) )
+					$_limit = $prefs[ $post_type->name ]['limit'];
+				else
+					$_limit = '0/x';
+
+?>
 <label class="subheader"><?php echo sprintf( $this->core->template_tags_general( __( '%plural% for %s', 'mycred' ) ),  $post_type->labels->name ); ?></label>
 <ol>
 	<li>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( $post_type->name => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( $post_type->name => 'creds' ) ); ?>" value="<?php echo $this->core->number( $_creds ); ?>" size="8" /></div>
+	</li>
+	<li>
+		<label for="<?php echo $this->field_id( array( $post_type->name => 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( $post_type->name => 'limit' ) ), $this->field_id( array( $post_type->name => 'limit' ) ), $_limit ); ?>
 	</li>
 </ol>
 <label class="subheader"><?php _e( 'Log template', 'mycred' ); ?></label>
@@ -1058,7 +1228,9 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 	</li>
 </ol>
 <?php
+
 			}
+
 		}
 
 		/**
@@ -1068,26 +1240,77 @@ if ( ! class_exists( 'myCRED_Hook_Publishing_Content' ) ) {
 		 * @version 1.1
 		 */
 		protected function include_post_type( $post_type ) {
+
 			// Exclude Core
 			$excludes = array( 'post', 'page' );
 			if ( in_array( $post_type, apply_filters( 'mycred_post_type_excludes', $excludes ) ) ) return false;
+
 			return true;
+
 		}
+
+		/**
+		 * Sanitise Preferences
+		 * @since 1.6
+		 * @version 1.0
+		 */
+		function sanitise_preferences( $data ) {
+
+			if ( isset( $data['post']['limit'] ) && isset( $data['post']['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['post']['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['post']['limit'] = $limit . '/' . $data['post']['limit_by'];
+				unset( $data['post']['limit_by'] );
+			}
+
+			if ( isset( $data['page']['limit'] ) && isset( $data['page']['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['page']['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['page']['limit'] = $limit . '/' . $data['page']['limit_by'];
+				unset( $data['page']['limit_by'] );
+			}
+
+			// Get all not built-in post types (excludes posts, pages, media)
+			$post_type_args = array(
+				'public'   => true,
+				'_builtin' => false
+			);
+			$post_types = get_post_types( $post_type_args, 'objects', 'and' ); 
+
+			foreach ( $post_types as $post_type ) {
+
+				// Start by checking if this post type should be excluded
+				if ( ! $this->include_post_type( $post_type->name ) ) continue;
+
+				if ( isset( $data[ $post_type->name ]['limit'] ) && isset( $data[ $post_type->name ]['limit_by'] ) ) {
+					$limit = sanitize_text_field( $data[ $post_type->name ]['limit'] );
+					if ( $limit == '' ) $limit = 0;
+					$data[ $post_type->name ]['limit'] = $limit . '/' . $data[ $post_type->name ]['limit_by'];
+					unset( $data[ $post_type->name ]['limit_by'] );
+				}
+
+			}
+
+			return $data;
+
+		}
+
 	}
-}
+endif;
 
 /**
  * Hook for comments
  * @since 0.1
  * @version 1.3
  */
-if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Comments' ) ) :
 	class myCRED_Hook_Comments extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'comments',
 				'defaults' => array(
@@ -1113,6 +1336,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 					)
 				)
 			), $hook_prefs, $type );
+
 		}
 
 		/**
@@ -1121,6 +1345,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 		 * @version 1.2
 		 */
 		public function run() {
+
 			if ( ! function_exists( 'dsq_is_installed' ) ) {
 				add_action( 'comment_post',              array( $this, 'new_comment' ), 99, 2 );
 				add_action( 'transition_comment_status', array( $this, 'comment_transitions' ), 99, 3 );
@@ -1128,6 +1353,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 			else {
 				add_action( 'wp_insert_comment',         array( $this, 'disqus' ), 99, 2 );
 			}
+
 		}
 
 		/**
@@ -1138,13 +1364,15 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 		 * @version 1.2.1
 		 */
 		public function new_comment( $comment_id, $comment_status ) {
+
 			// Marked SPAM
 			if ( $comment_status == 'spam' )
 				$this->comment_transitions( 'spam', 'unapproved', $comment_id );
 
 			// Approved comment
-			elseif ( $comment_status == '1' )
+			elseif ( $comment_status == 1 )
 				$this->comment_transitions( 'approved', 'unapproved', $comment_id );
+
 		}
 
 		/**
@@ -1153,35 +1381,39 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 		 * @version 1.0
 		 */
 		function disqus( $id, $comment ) {
+
 			// Attempt to get a comment authors ID
 			if ( $comment->user_id == 0 ) {
+
 				$email = get_user_by( 'email', $comment->comment_author_email );
 				// Failed to find author, can not award points
 				if ( $email === false ) return;
 				$comment->user_id = $email->ID;
+
 			}
 
-			// let the hook do the work
+			$new_status = 'spam';
 			if ( $comment->comment_approved == 1 )
 				$new_status = 'approved';
+
 			elseif ( $comment->comment_approved == 0 )
 				$new_status = 'unapproved';
-			else
-				$new_status = 'spam';
 
 			$this->comment_transitions( $new_status, 'unapproved', $comment );
+
 		}
 
 		/**
 		 * Comment Transitions
 		 * @since 1.1.2
-		 * @version 1.4
+		 * @version 1.5
 		 */
 		public function comment_transitions( $new_status, $old_status, $comment ) {
+
 			// Passing an integer instead of an object means we need to grab the comment object ourselves
 			if ( ! is_object( $comment ) )
 				$comment = get_comment( $comment );
-			
+
 			// No comment object so lets bail
 			if ( $comment === NULL ) return;
 
@@ -1191,22 +1423,24 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 			// Logged out users miss out
 			if ( $comment->user_id == 0 ) return;
 
+			if ( apply_filters( 'mycred_comment_gets_cred', true, $comment, $new_status, $old_status ) === false ) return;
+
 			// Get comment author
 			$comment_author = $comment->user_id;
-			
+
 			// Get content author
 			$content_author = NULL;
 			if ( isset( $comment->comment_post_ID ) || $comment->comment_post_ID != '' ) {
 				$post = get_post( (int) $comment->comment_post_ID );
 				$content_author = $post->post_author;
 			}
-			
+
 			$comment_author_points = $this->core->zero();
 			$content_author_points = $this->core->zero();
-			
+
 			$reference = '';
 			$log = '';
-			
+
 			// Approved Comments
 			if ( $new_status == 'approved' ) {
 				$reference = 'approved_comment';
@@ -1217,22 +1451,24 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 					// Comment author
 					if ( ! $this->user_exceeds_limit( $comment_author, $comment->comment_post_ID ) )
 						$comment_author_points = $this->prefs['approved']['creds'];
-					
+
 					// Content author
 					$content_author_points = $this->prefs['approved']['author'];
 				}
+
 				// From being marked as spam
 				elseif ( $old_status == 'spam' ) {
 					$comment_author_points = abs( $this->prefs['spam']['creds'] );
 					$content_author_points = abs( $this->prefs['spam']['author'] );
 				}
+
 				// From being in trash
 				elseif ( $old_status == 'trash' ) {
 					$comment_author_points = abs( $this->prefs['trash']['creds'] );
 					$content_author_points = abs( $this->prefs['trash']['author'] );
 				}
 			}
-			
+
 			// Unapproved Comments
 			elseif ( $new_status == 'unapproved' && $old_status == 'approved' ) {
 				$reference = 'unapproved_comment';
@@ -1243,13 +1479,14 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 					$comment_author_points = abs( $this->prefs['approved']['creds'] );
 					$content_author_points = abs( $this->prefs['approved']['author'] );
 				}
+
 				// Else use what we have set
 				else {
 					$comment_author_points = $this->prefs['trash']['creds'];
 					$content_author_points = $this->prefs['trash']['author'];
 				}
 			}
-			
+
 			// Marked as SPAM
 			elseif ( $new_status == 'spam' ) {
 				$reference = 'spam_comment';
@@ -1258,7 +1495,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 				$comment_author_points = $this->prefs['spam']['creds'];
 				$content_author_points = $this->prefs['spam']['author'];
 			}
-			
+
 			// Trashed Comments
 			elseif ( $new_status == 'trash' ) {
 				$reference = 'deleted_comment';
@@ -1267,7 +1504,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 				$comment_author_points = $this->prefs['trash']['creds'];
 				$content_author_points = $this->prefs['trash']['author'];
 			}
-			
+
 			// Comment Author
 			if ( ! $this->core->exclude_user( $comment_author ) && $comment_author_points != $this->core->zero() ) {
 
@@ -1316,6 +1553,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 					$this->mycred_type
 				);
 			}
+
 		}
 
 		/**
@@ -1324,6 +1562,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 		 * @version 1.1
 		 */
 		public function user_exceeds_limit( $user_id = NULL, $post_id = NULL ) {
+
 			if ( ! isset( $this->prefs['limits'] ) ) return false;
 
 			// Prep
@@ -1398,6 +1637,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 			}
 
 			return false;
+
 		}
 
 		/**
@@ -1406,6 +1646,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 		 * @version 1.1
 		 */
 		public function preferences() {
+
 			$prefs = $this->prefs;
 
 			if ( ! isset( $prefs['limits'] ) )
@@ -1414,13 +1655,14 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 					'per_post'   => 10,
 					'per_day'    => 0
 				);
-			
-			if ( function_exists( 'dsq_is_installed' ) )
-				echo '<p>' . $this->core->template_tags_general( __( '%plural% are only awarded when your website has been synced with the Disqus server!', 'mycred' ) ) . '</p>'; ?>
 
+			if ( function_exists( 'dsq_is_installed' ) )
+				echo '<p>' . $this->core->template_tags_general( __( '%plural% are only awarded when your website has been synced with the Disqus server!', 'mycred' ) ) . '</p>';
+
+?>
 <label class="subheader"><?php _e( 'Approved Comment', 'mycred' ); ?></label>
 <ol class="inline">
-	<li>
+	<li style="min-width: 200px;">
 		<label for="<?php echo $this->field_id( array( 'approved' => 'creds' ) ); ?>"><?php _e( 'Comment Author', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'approved' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'approved' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['approved']['creds'] ); ?>" size="8" /></div>
 	</li>
@@ -1437,7 +1679,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 </ol>
 <label class="subheader"><?php _e( 'Comment Marked SPAM', 'mycred' ); ?></label>
 <ol class="inline">
-	<li>
+	<li style="min-width: 200px;">
 		<label for="<?php echo $this->field_id( array( 'spam' => 'creds' ) ); ?>"><?php _e( 'Comment Author', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'spam' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'spam' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['spam']['creds'] ); ?>" size="8" /></div>
 	</li>
@@ -1454,7 +1696,7 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 </ol>
 <label class="subheader"><?php _e( 'Trashed / Unapproved Comments', 'mycred' ); ?></label>
 <ol class="inline">
-	<li>
+	<li style="min-width: 200px;">
 		<label for="<?php echo $this->field_id( array( 'trash' => 'creds' ) ); ?>"><?php _e( 'Comment Author', 'mycred' ); ?></label>
 		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'trash' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'trash' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['trash']['creds'] ); ?>" size="8" /></div>
 	</li>
@@ -1489,37 +1731,42 @@ if ( ! class_exists( 'myCRED_Hook_Comments' ) ) {
 	</li>
 </ol>
 <?php
+
 		}
-		
+
 		/**
 		 * Sanitise Preference
 		 * @since 1.1.1
 		 * @version 1.0
 		 */
 		function sanitise_preferences( $data ) {
+
 			$new_data = $data;
 
-			$new_data['limits']['per_post'] = ( !empty( $data['limits']['per_post'] ) ) ? abs( $data['limits']['per_post'] ) : 0;
-			$new_data['limits']['per_day'] = ( !empty( $data['limits']['per_day'] ) ) ? abs( $data['limits']['per_day'] ) : 0;
+			$new_data['limits']['per_post'] = ( ! empty( $data['limits']['per_post'] ) ) ? abs( $data['limits']['per_post'] ) : 0;
+			$new_data['limits']['per_day'] = ( ! empty( $data['limits']['per_day'] ) ) ? abs( $data['limits']['per_day'] ) : 0;
 			$new_data['limits']['self_reply'] = ( isset( $data['limits']['self_reply'] ) ) ? $data['limits']['self_reply'] : 0;
 
 			return $new_data;
+
 		}
+
 	}
-}
+endif;
 
 /**
  * Hooks for Clicking on Links
  * @since 1.1
  * @version 1.1
  */
-if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) :
 	class myCRED_Hook_Click_Links extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'link_click',
 				'defaults' => array(
@@ -1528,6 +1775,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 					'log'      => '%plural% for clicking on link to: %url%'
 				)
 			), $hook_prefs, $type );
+
 		}
 
 		/**
@@ -1536,6 +1784,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.0
 		 */
 		public function run() {
+
 			global $mycred_link_points;
 			$mycred_link_points = false;
 
@@ -1546,6 +1795,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 			add_action( 'wp_ajax_mycred-click-points', array( $this, 'ajax_call_link_points' ) );
 
 			add_filter( 'mycred_parse_tags_link',      array( $this, 'parse_custom_tags' ), 10, 2 );
+
 		}
 
 		/**
@@ -1554,11 +1804,13 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.0
 		 */
 		public function custom_limit() {
+
 			return array(
 				'none' => __( 'No limit', 'mycred' ),
 				'url'  => __( 'Once for each unique URL', 'mycred' ),
 				'id'   => __( 'Once for each unique link id', 'mycred' )
 			);
+
 		}
 
 		/**
@@ -1567,6 +1819,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.1.1
 		 */
 		public function parse_custom_tags( $content, $log_entry ) {
+
 			$data = maybe_unserialize( $log_entry->data );
 			$content = str_replace( '%url%', $data['link_url'], $content );
 			$content = str_replace( '%id%',  $data['link_id'], $content );
@@ -1574,6 +1827,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 				$content = str_replace( '%title%',  $data['link_title'], $content );
 
 			return $content;
+
 		}
 
 		/**
@@ -1582,6 +1836,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.0
 		 */
 		public function register_script() {
+
 			wp_register_script(
 				'mycred-link-points',
 				plugins_url( 'assets/js/links.js', myCRED_THIS ),
@@ -1589,6 +1844,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 				myCRED_VERSION . '.1',
 				true
 			);
+
 		}
 
 		/**
@@ -1597,8 +1853,11 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.0
 		 */
 		public function footer() {
+
 			global $mycred_link_points;
+
 			if ( $mycred_link_points === true ) {
+
 				wp_localize_script(
 					'mycred-link-points',
 					'myCREDlink',
@@ -1608,7 +1867,9 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 					)
 				);
 				wp_enqueue_script( 'mycred-link-points' );
+
 			}
+
 		}
 
 		/**
@@ -1617,6 +1878,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.1.1
 		 */
 		public function has_entry( $action = '', $reference = '', $user_id = '', $data = '', $type = '' ) {
+
 			global $wpdb;
 
 			if ( $this->prefs['limit_by'] == 'url' ) {
@@ -1633,6 +1895,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 			if ( $wpdb->num_rows > 0 ) return true;
 
 			return false;
+
 		}
 
 		/**
@@ -1641,6 +1904,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.4
 		 */
 		public function ajax_call_link_points() {
+
 			// We must be logged in
 			if ( ! is_user_logged_in() ) die( json_encode( 100 ) );
 
@@ -1669,7 +1933,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 				$amount = $this->prefs['creds'];
 			else
 				$amount = $this->core->number( $amount );
-			
+
 			if ( $amount == 0 || $amount == $this->core->zero() ) die( json_encode( 400 ) );
 
 			$data = array(
@@ -1701,6 +1965,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 
 			// Report the good news
 			wp_send_json( 'done' );
+
 		}
 
 		/**
@@ -1711,6 +1976,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.0
 		 */
 		public function has_clicked( $user_id = NULL, $by = '', $check = '' ) {
+
 			global $wpdb;
 
 			$rows = $wpdb->get_results( $wpdb->prepare( "
@@ -1736,6 +2002,7 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 			$wpdb->flush();
 
 			return $reply;
+
 		}
 
 		/**
@@ -1744,8 +2011,10 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 		 * @version 1.0.2
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->plural(); ?></label>
 <ol>
 	<li>
@@ -1764,9 +2033,11 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 <ol>
 	<li>
 <?php 
-			add_filter( 'mycred_hook_impose_limits', array( $this, 'custom_limit' ) );				
-			$this->impose_limits_dropdown( 'limit_by', false ); ?>
 
+			add_filter( 'mycred_hook_impose_limits', array( $this, 'custom_limit' ) );
+			$this->impose_limits_dropdown( 'limit_by', false );
+
+?>
 	</li>
 	<li><strong><?php _e( 'Note!', 'mycred' ); ?></strong> <?php echo $this->core->template_tags_general( __( 'If no ID is set when using the mycred_link shortcode, the shortcode will generate one automatically based on the value set under href. If you are using this feature for "sharing" content, it is recommended that you limit by ID.', 'mycred' ) ); ?></li>
 </ol>
@@ -1775,22 +2046,25 @@ if ( ! class_exists( 'myCRED_Hook_Click_Links' ) ) {
 	<li><a href="http://codex.mycred.me/shortcodes/mycred_link/" target="_blank">[mycred_link]</a></li>
 </ol>
 <?php
+
 		}
+
 	}
-}
+endif;
 
 /**
  * Hooks for Viewing Videos
  * @since 1.2
  * @version 1.0
  */
-if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) :
 	class myCRED_Hook_Video_Views extends myCRED_Hook {
 
 		/**
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'video_view',
 				'defaults' => array(
@@ -1801,19 +2075,27 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 					'leniency' => 10
 				)
 			), $hook_prefs, $type );
+
 		}
 
 		/**
 		 * Run
 		 * @since 1.2
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function run() {
-			add_shortcode( 'mycred_video', 'mycred_render_shortcode_video' );
+
+			global $mycred_video_points;
+
+			$mycred_video_points = array();
+
+			if ( ! shortcode_exists( 'mycred_video' ) )
+				add_shortcode( 'mycred_video', 'mycred_render_shortcode_video' );
 
 			add_action( 'mycred_front_enqueue',          array( $this, 'register_script' ) );
 			add_action( 'wp_ajax_mycred-viewing-videos', array( $this, 'ajax_call_video_points' ) );
 			add_action( 'wp_footer',                     array( $this, 'footer' ) );
+
 		}
 
 		/**
@@ -1822,6 +2104,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 		 * @version 1.1
 		 */
 		public function register_script() {
+
 			wp_register_script(
 				'mycred-video-points',
 				plugins_url( 'assets/js/video.js', myCRED_THIS ),
@@ -1849,54 +2132,60 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 				myCRED_VERSION . '.1',
 				true
 			);
+
 		}
 
 		/**
 		 * Load Scripts in Footer
 		 * @since 1.3.3
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function footer() {
+
 			global $mycred_video_points;
-	
-			if ( isset( $mycred_video_points ) ) {
-				// If youtube videos are used
-				if ( in_array( 'youtube', $mycred_video_points ) )
-					wp_enqueue_script( 'mycred-video-youtube' );
-			}
+
+			// If youtube videos are used
+			if ( in_array( 'youtube', (array) $mycred_video_points ) )
+				wp_enqueue_script( 'mycred-video-youtube' );
+
 		}
 
 		/**
 		 * AJAX Call Handler
 		 * @since 1.2
-		 * @version 1.1.1
+		 * @version 1.2.1
 		 */
 		public function ajax_call_video_points() {
+
 			// We must be logged in
-			if ( ! is_user_logged_in() ) die();
+			if ( ! is_user_logged_in() ) die;
 
 			// Security
 			check_ajax_referer( 'mycred-video-points', 'token' );
 
+			// We are only interested in handling our own point type
+			// We can not die here since then the hook will not fire for the correct point type.
+			if ( ! isset( $_POST['type'] ) || $this->mycred_type != sanitize_key( $_POST['type'] ) ) return;
+
 			// Get user id
 			$user_id = get_current_user_id();
-			
+
 			// Decode the key giving us the video shortcode setup
 			// This will prevent users from manipulating the shortcode output
 			$setup = mycred_verify_token( $_POST['setup'], 5 );
-			if ( $setup === false ) die();
+			if ( $setup === false ) die;
 
 			list ( $source, $video_id, $amount, $logic, $interval ) = $setup;
 
 			// Required
-			if ( empty( $source ) || empty( $video_id ) ) die();
+			if ( empty( $source ) || empty( $video_id ) ) die;
 
 			// Prep
 			$amount = $this->core->number( $amount );
 			$interval = abs( $interval / 1000 );
 
 			// Get playback details
-			$actions = trim( $_POST['video_a'] );
+			$actions = sanitize_text_field( $_POST['video_a'] );
 			$seconds = abs( $_POST['video_b'] );
 			$duration = abs( $_POST['video_c'] );
 			$state = absint( $_POST['video_d'] );
@@ -1921,7 +2210,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 								$user_id,
 								$amount,
 								$this->prefs['log'],
-								'',
+								0,
 								$video_id,
 								$this->mycred_type
 							);
@@ -1948,7 +2237,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 									$user_id,
 									$amount,
 									$this->prefs['log'],
-									'',
+									0,
 									$video_id,
 									$this->mycred_type
 								);
@@ -1981,7 +2270,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 							$user_id,
 							$amount,
 							$this->prefs['log'],
-							'',
+							0,
 							$video_id,
 							$this->mycred_type
 						);
@@ -2018,7 +2307,6 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 								mycred_add_new_notice( array( 'user_id' => $user_id, 'message' => $message, 'color' => $color ) );
 						}
 					}
-						
 
 				break;
 			}
@@ -2035,6 +2323,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 				'logic'    => $logic,
 				'interval' => $interval
 			) );
+
 		}
 
 		/**
@@ -2044,10 +2333,12 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 		 * @version 1.0.1
 		 */
 		public function get_users_video_log( $video_id, $user_id ) {
+
 			global $wpdb;
 
 			$sql = "SELECT * FROM {$this->core->log_table} WHERE user_id = %d AND data = %s AND ctype = %s;";
 			return $wpdb->get_row( $wpdb->prepare( $sql, $user_id, $video_id, $this->mycred_type ) );
+
 		}
 
 		/**
@@ -2056,20 +2347,24 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 		 * @version 1.1
 		 */
 		public function update_creds( $row_id, $user_id, $amount ) {
+
 			// Prep format
 			if ( ! isset( $this->core->format['decimals'] ) )
 				$decimals = $this->core->core['format']['decimals'];
+
 			else
 				$decimals = $this->core->format['decimals'];
 
 			if ( $decimals > 0 )
 				$format = '%f';
+
 			else
 				$format = '%d';
 
 			$amount = $this->core->number( $amount );
 
 			global $wpdb;
+
 			$wpdb->update(
 				$this->core->log_table,
 				array( 'creds' => $amount ),
@@ -2077,6 +2372,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 				array( $format ),
 				array( '%d' )
 			);
+
 		}
 
 		/**
@@ -2085,8 +2381,10 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 		 * @version 1.1
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php echo $this->core->plural(); ?></label>
 <ol>
 	<li>
@@ -2133,7 +2431,9 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) {
 </ol>
 <script type="text/javascript">
 jQuery(function($){
-	$('input[name="<?php echo $this->field_name( 'logic' ); ?>"]').change(function(){
+
+	$( 'input[name="<?php echo $this->field_name( 'logic' ); ?>"]' ).change(function(){
+
 		if ( $(this).val() == 'interval' ) {
 			$('#video-interval').show();
 			$('#video-leniency').show();
@@ -2146,20 +2446,24 @@ jQuery(function($){
 			$('#video-interval').hide();
 			$('#video-leniency').hide();
 		}
+
 	});
+
 });
 </script>
 <?php
+
 		}
+
 	}
-}
+endif;
 
 /**
  * Hook for affiliations
  * @since 1.4
- * @version 1.3
+ * @version 1.3.1
  */
-if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
+if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) :
 	class myCRED_Hook_Affiliate extends myCRED_Hook {
 
 		public $ref_key = '';
@@ -2169,6 +2473,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * Construct
 		 */
 		function __construct( $hook_prefs, $type = 'mycred_default' ) {
+
 			parent::__construct( array(
 				'id'       => 'affiliate',
 				'defaults' => array(
@@ -2205,8 +2510,9 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 
 			// Let others play with the ref key
 			$this->ref_key = apply_filters( 'mycred_affiliate_key', 'mref', $this );
-			
+
 			add_filter( 'mycred_parse_log_entry_signup_referral', array( $this, 'parse_log_entry' ), 10, 2 );
+
 		}
 
 		/**
@@ -2215,6 +2521,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.2.1
 		 */
 		public function run() {
+
 			// Insert into BuddyPress profile
 			if ( function_exists( 'bp_is_active' ) && bp_is_active( 'xprofile' ) && $this->prefs['buddypress']['profile'] )
 				add_action( 'bp_after_profile_loop_content', array( $this, 'buddypress_profile' ), $this->prefs['buddypress']['priority'] );
@@ -2249,8 +2556,10 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.0
 		 */
 		public function parse_log_entry( $content, $entry ) {
+
 			$user_id = absint( $entry->ref_id );
 			return $this->core->template_tags_user( $content, $user_id );
+
 		}
 
 		/**
@@ -2259,11 +2568,14 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.0
 		 */
 		public function add_key( $keys ) {
+
 			if ( ! isset( $_GET[ $this->ref_key ] ) ) return $keys;
 
 			if ( ! in_array( $this->ref_key, $keys ) )
 				$keys[] = $this->ref_key;
+
 			return $keys;
+
 		}
 
 		/**
@@ -2273,17 +2585,27 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * the set URL is returned. If this is not set, the shortcode
 		 * will return an empty string.
 		 * @since 1.4
-		 * @version 1.0.1
+		 * @version 1.1
 		 */
 		public function shortcode_affiliate_link( $content = '', $atts ) {
+
 			extract( shortcode_atts( array(
-				'url' => ''
+				'url'     => 0,
+				'user_id' => '',
+				'post_id' => ''
 			), $atts ) );
 
-			if ( ! is_user_logged_in() )
+			if ( ! is_user_logged_in() && $user_id == '' )
 				return $url;
 
-			return $this->get_ref_link( get_current_user_id(), $url );
+			if ( $user_id == '' )
+				$user_id = get_current_user_id();
+
+			if ( $post_id != '' )
+				$url = get_permalink( $post_id );
+
+			return $this->get_ref_link( $user_id, $url );
+
 		}
 
 		/**
@@ -2291,15 +2613,28 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * Returns the current users affiliate ID. Returns an empty
 		 * string if the user is not logged in.
 		 * @since 1.4
-		 * @version 1.0.1
+		 * @version 1.1
 		 */
 		public function shortcode_affiliate_id( $content = '', $atts ) {
-			if ( ! is_user_logged_in() )
-				$ref_id = '';
-			else
-				$ref_id = $this->get_ref_id( get_current_user_id() );
 
-			return apply_filters( 'mycred_affiliate_id', $ref_id );
+			extract( shortcode_atts( array(
+				'user_id' => ''
+			), $atts ) );
+
+			if ( ! is_user_logged_in() && $user_id == '' )
+				$ref_id = '';
+
+			else {
+
+				if ( $user_id == '' )
+					$user_id = get_current_user_id();
+
+				$ref_id = $this->get_ref_id( $user_id );
+
+			}
+
+			return apply_filters( 'mycred_affiliate_id', $ref_id, $atts, $this );
+
 		}
 
 		/**
@@ -2308,6 +2643,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.1
 		 */
 		public function buddypress_profile() {
+
 			// Prep
 			$output = '';
 			$user_id = bp_displayed_user_id();
@@ -2349,6 +2685,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 
 			$output = do_shortcode( $output );
 			echo apply_filters( 'mycred_affiliate_bp_profile', $output, $user_id, $users_ref_link, $this );
+
 		}
 
 		/**
@@ -2357,6 +2694,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.3
 		 */
 		public function site_visits() {
+
 			// Required
 			if ( ! isset( $_GET[ $this->ref_key ] ) || empty( $_GET[ $this->ref_key ] ) || isset( $_COOKIE[ 'mycred_ref' . $this->mycred_type ] ) ) return;
 
@@ -2403,6 +2741,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.2
 		 */
 		public function site_signup( $new_user_id ) {
+
 			// Requirement
 			$ref = false;
 			$key = '';
@@ -2470,6 +2809,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.0
 		 */
 		public function verified_signup( $user_id ) {
+
 			// Check if there is a referral
 			$referred_by = mycred_get_user_meta( $user_id, 'referred_by', '', true );
 			$referred_by_IP = mycred_get_user_meta( $user_id, 'referred_by_IP', '', true );
@@ -2493,6 +2833,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 			mycred_delete_user_meta( $user_id, 'referred_by' );
 			mycred_delete_user_meta( $user_id, 'referred_by_IP' );
 			mycred_delete_user_meta( $user_id, 'referred_by_type' );
+
 		}
 
 		/**
@@ -2502,6 +2843,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.0
 		 */
 		public function get_ref_link( $user_id = '', $url = '' ) {
+
 			// User ID is required
 			if ( empty( $user_id ) ) return '';
 
@@ -2517,6 +2859,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 				$link = add_query_arg( array( $this->ref_key => $ref_id ) );
 
 			return apply_filters( 'mycred_affiliate_get_ref_link', $link, $user_id, $url, $this );
+
 		}
 
 		/**
@@ -2526,8 +2869,10 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.0
 		 */
 		public function get_ref_id( $user_id ) {
+
 			// Link format
 			switch ( $this->prefs['setup']['links'] ) {
+
 				case 'username' :
 
 					$user = get_userdata( $user_id );
@@ -2535,6 +2880,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 					else $ref_id = urlencode( $user->user_login );
 
 				break;
+
 				case 'numeric' :
 
 					$ref_id = mycred_get_user_meta( $user_id, 'mycred_affiliate_link', '', true );
@@ -2547,9 +2893,11 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 					}
 
 				break;
+
 			}
 
 			return apply_filters( 'mycred_affiliate_get_ref_id', $ref_id, $user_id, $this );
+
 		}
 
 		/**
@@ -2558,10 +2906,12 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		 * @version 1.0
 		 */
 		public function get_user_id_from_ref_id( $string = '' ) {
+
 			global $wpdb;
 
 			$user_id = NULL;
 			switch ( $this->prefs['setup']['links'] ) {
+
 				case 'username' :
 
 					$ref_id = trim( urldecode( $string ) );
@@ -2571,6 +2921,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 						WHERE user_login = %s;", $ref_id ) );
 
 				break;
+
 				case 'numeric' :
 
 					$ref_id = absint( $string );
@@ -2581,18 +2932,21 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 							AND meta_value = %d;", 'mycred_affiliate_link', $ref_id ) );
 
 				break;
+
 			}
 
 			return apply_filters( 'mycred_affiliate_get_user_id', $user_id, $string, $this );
+
 		}
 
 		/**
 		 * Ref Counts
 		 * Checks to see if this referral counts.
 		 * @since 1.4
-		 * @version 1.1
+		 * @version 1.1.1
 		 */
 		public function ref_counts( $user_id, $IP = '', $instance = 'visit' ) {
+
 			global $wpdb;
 
 			// Prep
@@ -2611,59 +2965,32 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 					SELECT COUNT(*) 
 					FROM {$this->core->log_table} 
 					WHERE ref = %s 
-						AND data = %s
-						AND ctype = %s;", $ref, $IP, $this->mycred_type ) );
+					AND data = %s
+					AND ctype = %s;", $ref, $IP, $this->mycred_type ) );
 
 				if ( $count === false || $count >= $this->prefs['setup']['IP'] )
 					$reply = false;
 
 			}
 
-			// If reply is still true and limit is set for this instance, check this limit next
-			if ( $reply !== false && $this->prefs[ $instance ]['limit'] > 0 ) {
-
-				// Prep limit
-				$limit = absint( $this->prefs[ $instance ]['limit'] );
-
-				// Limit by total
-				if ( $this->prefs[ $instance ]['limit_by'] == 'total' )
-					$count = $wpdb->get_var( $wpdb->prepare( "
-						SELECT COUNT(*) 
-						FROM {$this->core->log_table} 
-						WHERE ref = %s 
-							AND user_id = %d 
-							AND ctype = %s;", $ref, $user_id, $this->mycred_type ) );
-
-				// Limit by day
-				elseif ( $this->prefs[ $instance ]['limit_by'] == 'daily' ) {
-					$today = date_i18n( 'U', strtotime( 'today midnight' ) );
-					$now = date_i18n( 'U' );
-					$count = $wpdb->get_var( $wpdb->prepare( "
-						SELECT COUNT(*) 
-						FROM {$this->core->log_table} 
-						WHERE ref = %s 
-							AND user_id = %d 
-							AND ctype = %s
-							AND time BETWEEN %d AND %d;", $ref, $user_id, $this->mycred_type, $today, $now ) );
-				}
-
-				// Check if we surpassed or reached the limit
-				if ( $count === false || $count >= $limit )
-					$reply = false;
-
-			}
+			// If reply is still true we check limit
+			if ( $reply !== false && $this->over_hook_limit( $instance, $ref, $user_id ) )
+				$reply = false;
 
 			return apply_filters( 'mycred_affiliate_ref_counts', $reply, $this );
+
 		}
 
 		/**
 		 * Preference for Affiliate Hook
 		 * @since 1.4
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 */
 		public function preferences() {
-			$prefs = $this->prefs; ?>
 
+			$prefs = $this->prefs;
+
+?>
 <label class="subheader"><?php _e( 'Referring Visitors', 'mycred' ); ?></label>
 <ol>
 	<li>
@@ -2678,17 +3005,8 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 	</li>
 	<li class="empty">&nbsp;</li>
 	<li>
-		<label><?php _e( 'Limit', 'mycred' ); ?></label><br />
-		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'visit' => 'limit' ) ); ?>" id="<?php echo $this->field_id( array( 'visit' => 'limit' ) ); ?>" value="<?php echo $prefs['visit']['limit']; ?>" class="short" size="4" /><select name="<?php echo $this->field_name( array( 'visit' => 'limit_by' ) ); ?>" id="<?php echo $this->field_id( array( 'visit' => 'limit_by' ) ); ?>"><?php
-
-			foreach ( (array) $this->limit_by as $limit => $limit_label ) {
-				echo '<option value="' . $limit . '"';
-				if ( $prefs['visit']['limit_by'] == $limit ) echo ' selected="selected"';
-				echo '>' . $limit_label . '</option>';
-			}
-
-?></select></div>
-		<span class="description"><?php _e( 'The number of referrals each member can make. Use zero for unlimited.', 'mycred' ); ?></span>
+		<label for="<?php echo $this->field_id( array( 'visit' => 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'visit' => 'limit' ) ), $this->field_id( array( 'visit' => 'limit' ) ), $prefs['visit']['limit'] ); ?>
 	</li>
 </ol>
 <?php if ( get_option( 'users_can_register' ) ) : ?>
@@ -2707,17 +3025,8 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 	</li>
 	<li class="empty">&nbsp;</li>
 	<li>
-		<label><?php _e( 'Limit', 'mycred' ); ?></label><br />
-		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'signup' => 'limit' ) ); ?>" id="<?php echo $this->field_id( array( 'signup' => 'limit' ) ); ?>" value="<?php echo $prefs['signup']['limit']; ?>" class="short" size="4" /><select name="<?php echo $this->field_name( array( 'signup' => 'limit_by' ) ); ?>" id="<?php echo $this->field_id( array( 'signup' => 'limit_by' ) ); ?>"><?php
-
-			foreach ( (array) $this->limit_by as $limit => $limit_label ) {
-				echo '<option value="' . $limit . '"';
-				if ( $prefs['signup']['limit_by'] == $limit ) echo ' selected="selected"';
-				echo '>' . $limit_label . '</option>';
-			}
-
-?></select></div>
-		<span class="description"><?php _e( 'The number of referrals each member can make. Use zero for unlimited.', 'mycred' ); ?></span>
+		<label for="<?php echo $this->field_id( array( 'signup' => 'limit' ) ); ?>"><?php _e( 'Limit', 'mycred' ); ?></label>
+		<?php echo $this->hook_limit_setting( $this->field_name( array( 'signup' => 'limit' ) ), $this->field_id( array( 'signup' => 'limit' ) ), $prefs['signup']['limit'] ); ?>
 	</li>
 </ol>
 <?php else : ?>
@@ -2769,13 +3078,15 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 		<label><?php _e( 'Description', 'mycred' ); ?></label><br />
 		<span class="description"><?php _e( 'Optional description to insert under the link.', 'mycred' ); ?></span><br /><br />
 <?php
-			// Description editor
-			wp_editor( $prefs['buddypress']['desc'], $this->field_id( array( 'buddypress' => 'desc' ) ), array(
-			'textarea_name' => $this->field_name( array( 'buddypress' => 'desc' ) ),
-			'textarea_rows' => 10
-		) );
-?>
 
+			// Description editor
+			$id = str_replace( '-', '', $this->field_id( array( 'buddypress' => 'desc' ) ) );
+			wp_editor( $prefs['buddypress']['desc'], $id, array(
+				'textarea_name' => $this->field_name( array( 'buddypress' => 'desc' ) ),
+				'textarea_rows' => 10
+			) );
+
+?>
 	</li>
 	<li class="empty">&nbsp;</li>
 	<li>
@@ -2801,19 +3112,38 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) {
 	<li><a href="http://codex.mycred.me/shortcodes/mycred_affiliate_link/" target="_blank">[mycred_affiliate_link]</a> and <a href="http://codex.mycred.me/shortcodes/mycred_affiliate_id/" target="_blank">[mycred_affiliate_id]</a>.</li>
 </ol>
 <?php
+
 			do_action( 'mycred_affiliate_prefs', $prefs, $this );
+
 		}
 
 		/**
 		 * Sanitise Preference
 		 * @since 1.4
-		 * @version 1.0
+		 * @version 1.1
 		 */
 		function sanitise_preferences( $data ) {
-			$new_data = $data;
-			$new_data['buddypress']['profile'] = ( isset( $data['buddypress']['profile'] ) ) ? $data['buddypress']['profile'] : 0;
-			return apply_filters( 'mycred_affiliate_save_pref', $new_data );
+
+			$data['buddypress']['profile'] = ( isset( $data['buddypress']['profile'] ) ) ? $data['buddypress']['profile'] : 0;
+
+			if ( isset( $data['visit']['limit'] ) && isset( $data['visit']['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['visit']['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['visit']['limit'] = $limit . '/' . $data['visit']['limit_by'];
+				unset( $data['visit']['limit_by'] );
+			}
+
+			if ( isset( $data['signup']['limit'] ) && isset( $data['signup']['limit_by'] ) ) {
+				$limit = sanitize_text_field( $data['signup']['limit'] );
+				if ( $limit == '' ) $limit = 0;
+				$data['signup']['limit'] = $limit . '/' . $data['signup']['limit_by'];
+				unset( $data['signup']['limit_by'] );
+			}
+
+			return apply_filters( 'mycred_affiliate_save_pref', $data );
+
 		}
 	}
-}
+endif;
+
 ?>

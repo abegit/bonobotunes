@@ -63,7 +63,7 @@ if ( ! class_exists( 'myCRED_Admin' ) ) {
 		/**
 		 * Profile Actions
 		 * @since 1.5
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 */
 		public function edit_profile_actions() {
 
@@ -392,7 +392,9 @@ if ( ! class_exists( 'myCRED_Admin' ) ) {
 
 			// Show total
 			$total = mycred_query_users_total( $user_id, $column_name );
-			$balance .= '<small style="display:block;">' . sprintf( __( 'Total: %s', 'mycred' ), $mycred->format_number( $total ) ) . '</small>';
+			$balance .= '<small style="display:block;">' . sprintf( '<strong>%s</strong>: %s', __( 'Total', 'mycred' ), $mycred->format_number( $total ) ) . '</small>';
+
+			$balance = apply_filters( 'mycred_users_balance_column', $balance, $user_id, $column_name );
 
 			$page = 'myCRED';
 			if ( $column_name != 'mycred_default' )
@@ -535,7 +537,7 @@ ul#profile-nav li a:hover, ul#profile-nav li.nav-tab-active a {text-decoration: 
 		/**
 		 * Edit Profile Screen
 		 * @since 1.5
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function edit_profile_screen() {
 			if ( ! isset( $_GET['user_id'] ) ) return;
@@ -619,7 +621,7 @@ div#edit-balance-page.wrap form#your-profile h3 { margin-top: 3em; }
 	<script type="text/javascript">
 jQuery(function($) {
 	$( 'a#mycred-exclude-this-user' ).click(function(){
-		if ( ! confirm( '<?php _e( 'Warning! Excluding this user will result in their balance being deleted along with any entries currently in your log! This can not be undone!', 'mycred' ); ?>' ) )
+		if ( ! confirm( '<?php echo esc_js( esc_attr__( 'Warning! Excluding this user will result in their balance being deleted along with any entries currently in your log! This can not be undone!', 'mycred' ) ); ?>' ) )
 			return false;
 	});
 });
@@ -687,7 +689,7 @@ jQuery(function($) {
 		/**
 		 * Adjust Users Balance
 		 * @since 0.1
-		 * @version 1.2
+		 * @version 1.2.1
 		 */
 		public function adjust_users_balance( $user ) {
 			if ( ! isset( $_GET['ctype'] ) )
@@ -797,11 +799,12 @@ jQuery(function($) {
 						);
 					}
 
-					$tabs = apply_filters( 'mycred_edit_profile_tabs_bp', $tabs );
+					$user = get_userdata( $user_id );
+					$tabs = apply_filters( 'mycred_edit_profile_tabs_bp', $tabs, $user );
 
 					$output = '';
 					foreach ( $tabs as $tab )
-						$output .= '<a class="' . $tab['classes'] . '" href="' . $tab['url'] . '">' . $tab['label'] . '</a>';
+						$output .= '<a class="' . $tab['classes'] . '" href="' . $tab['url'] . '">' . esc_attr( $tab['label'] ) . '</a>';
 
 					ob_start();
 

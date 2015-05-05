@@ -37,7 +37,7 @@ if ( ! class_exists( 'myCRED_Banking_Service_Central' ) ) :
 		/**
 		 * Add
 		 * @since 1.5.2
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function mycred_add( $reply, $request, $mycred ) {
 			// Make sure we are in the correct point type
@@ -47,7 +47,7 @@ if ( ! class_exists( 'myCRED_Banking_Service_Central' ) ) :
 			if ( isset( $this->prefs['ignore_manual'] ) && $this->prefs['ignore_manual'] == 0 && $request['ref'] == 'manual' ) return $reply;
 
 			// Instances to ignore
-			$ignore = apply_filters( 'mycred_central_banking_ignore', array( 'interest', 'recurring_payout' ), $this );
+			$ignore = apply_filters( 'mycred_central_banking_ignore', array( 'interest', 'recurring_payout', 'transfer' ), $this );
 			if ( in_array( $request['ref'], $ignore ) ) return $reply;
 
 			extract( $request );

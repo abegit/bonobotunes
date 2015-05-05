@@ -8,7 +8,7 @@ if ( ! defined( 'myCRED_VERSION' ) ) exit;
  * @since 0.1
  * @version 1.1.1
  */
-if ( ! class_exists( 'myCRED_Install' ) ) {
+if ( ! class_exists( 'myCRED_Install' ) ) :
 	class myCRED_Install {
 
 		public $core;
@@ -98,15 +98,17 @@ if ( ! class_exists( 'myCRED_Install' ) ) {
 		/**
 		 * Re-activation
 		 * @since 0.1
-		 * @version 1.3
+		 * @version 1.3.1
 		 */
 		public function reactivate() {
-			do_action( 'mycred_reactivation' );
+
+			do_action( 'mycred_reactivation', $this->ver );
 
 			if ( isset( $_GET['activate-multi'] ) )
 				return;
 
 			set_transient( '_mycred_activation_redirect', true, 60 );
+
 		}
 
 		/**
@@ -115,7 +117,7 @@ if ( ! class_exists( 'myCRED_Install' ) ) {
 		 * settings and data once the core is gone.
 		 * @filter 'mycred_uninstall_this'
 		 * @since 0.1
-		 * @version 1.4.1
+		 * @version 1.4.2
 		 */
 		public function uninstall() {
 			// Everyone should use this filter to delete everything else they have created before returning the option ids.
@@ -158,6 +160,7 @@ if ( ! class_exists( 'myCRED_Install' ) ) {
 			wp_clear_scheduled_hook( 'mycred_banking_do_compound_batch' );
 			wp_clear_scheduled_hook( 'mycred_banking_interest_payout' );
 			wp_clear_scheduled_hook( 'mycred_banking_interest_do_batch' );
+			wp_clear_scheduled_hook( 'mycred_send_email_notices' );
 
 			global $wpdb;
 
@@ -182,10 +185,14 @@ if ( ! class_exists( 'myCRED_Install' ) ) {
 				delete_site_option( 'mycred_network' );
 			
 			// Delete custom post types
-			$post_types = apply_filters( 'mycred_custom_post_types', array( 'mycred_rank', 'mycred_email_notice', 'mycred_badge' ) );
+			$post_types = array( 'mycred_rank', 'mycred_email_notice', 'mycred_badge', 'buycred_payment' );
 			if ( is_array( $post_types ) || ! empty( $post_types ) )
 				$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ('" . implode( "','", $post_types ) . "');" );
-			
+
+			// Delete custom post type meta
+			$post_meta = array( 'myCRED_sell_content', 'mycred_rank_min', 'mycred_rank_max', 'badge_requirements', 'mycred_email_instance', 'mycred_email_settings', 'mycred_email_ctype', 'mycred_email_styling', 'ctype' );
+			$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('" . implode( "','", $post_meta ) . "');" );
+
 			// Delete all point type balances and settings
 			$mycred_types = mycred_get_types();
 			foreach ( $mycred_types as $type => $label ) {
@@ -194,10 +201,17 @@ if ( ! class_exists( 'myCRED_Install' ) ) {
 				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s;", $type . '_total' ) );
 			}
 
+			// Delete Badge Connections
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE %s;", 'mycred_badge%' ) );
+
+			// Delete Rank Connections
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->usermeta} WHERE meta_key IN ( %s, %s );", 'mycred_rank%', 'mycred_rank' ) );
+
 			// Good bye.
 		}
 	}
-}
+endif;
+
 /**
  * myCRED_Setup class
  *
@@ -206,7 +220,7 @@ if ( ! class_exists( 'myCRED_Install' ) ) {
  * @since 0.1
  * @version 1.0
  */
-if ( ! class_exists( 'myCRED_Setup' ) ) {
+if ( ! class_exists( 'myCRED_Setup' ) ) :
 	class myCRED_Setup {
 
 		public $step;
@@ -491,7 +505,7 @@ if ( ! class_exists( 'myCRED_Setup' ) ) {
 		<li>
 			<label><?php _e( 'Decimals', 'mycred' ); ?></label>
 			<h2><input type="text" name="myCRED-format-dec" id="myCRED-format-dec" value="<?php echo $default_decimals; ?>" size="6" /></h2>
-			<span class="description"><?php _e( 'Use zero for no decimals.', 'mycred' ); ?></span>
+			<span class="description"><?php _e( 'Use zero for no decimals or maximum 20.', 'mycred' ); ?></span>
 		</li>
 	</ol>
 	<h2 class="shadow"><?php _e( 'Presentation', 'mycred' ); ?></h2>
@@ -564,7 +578,7 @@ if ( ! class_exists( 'myCRED_Setup' ) ) {
 		<li class="block">
 			<label for="myCRED-max"><?php echo $mycred->template_tags_general( __( 'Maximum %plural% payouts', 'mycred' ) ); ?></label>
 			<div class="h2"><input type="text" name="myCRED-max" id="myCRED-max" value="<?php echo $max; ?>" size="8" /></div>
-			<div class="description"><?php _e( 'As an added security, you can set the maximum amount a user can gain or loose in a single instance. If used, make sure this is the maximum amount a user would be able to transfer, buy, or spend in your store. Use zero to disable.', 'mycred' ); ?></div>
+			<span class="description"><?php _e( 'As an added security, you can set the maximum amount a user can gain or loose in a single instance. If used, make sure this is the maximum amount a user would be able to transfer, buy, or spend in your store. Use zero to disable.', 'mycred' ); ?></span>
 		</li>
 	</ol>
 	<h2><?php _e( 'Excludes', 'mycred' ); ?></h2>
@@ -614,5 +628,6 @@ if ( ! class_exists( 'myCRED_Setup' ) ) {
 <?php
 		}
 	}
-}
+endif;
+
 ?>

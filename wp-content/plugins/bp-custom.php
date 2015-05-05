@@ -20,8 +20,7 @@ function ms_image_editor_default_to_gd( $editors ) {
 add_filter( 'wp_image_editors', 'ms_image_editor_default_to_gd' );
 
 
-// hide adminbar
-add_filter('show_admin_bar', '__return_false');
+
 
 // custom header
 global $blog_id;
@@ -76,8 +75,12 @@ function bpCustom_Header() {
 			if ( !is_user_logged_in() )
 				return false;
 
-			echo ' <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle notifications" data-toggle="dropdown" href="#" title="Notes">';
-					// _e( '<i class="fa-bell-o"></i>', 'buddypress' );
+
+	if (current_user_can('manage_options')) {
+        // redirect them to the default place
+    	echo '<li class="menu-item menu-item-type-post_type menu-item-object-page"><a title="Bonoboville Admin" href="' . home_url() . '/wp-admin" target="_new">Admin</a></li>';
+      }
+			echo ' <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown notifications"><a class="dropdown-toggle" data-toggle="dropdown" href="#" title="Notes">';
 
 			if ( $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() ) ) { ?>
 			<span> <?php echo count( $notifications ) ?> </span>
@@ -119,21 +122,21 @@ endif;
 		if (is_user_logged_in() && $args->theme_location == 'primary') {
 			global $current_user;
 			return $items . '
-			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown"><a class="dropdown-toggle account" data-toggle="dropdown" href="#" title="Hi, '.$current_user->user_login.'">@'.$current_user->user_login.'<span class="caret" style="display:none;"></span></a>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown current_user"><a class="dropdown-toggle account" data-toggle="dropdown" href="#" title="Hi, '.$current_user->user_login.'">@'.$current_user->user_login.'<span class="caret" style="display:none;"></span></a>
 				<ul class=" dropdown-menu" role="menu">
-				<li role="presentation" class="dropdown-header">Places:</li>
+				<li role="presentation" class="dropdown-header">My Wallet:</li>
+			    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'" title="My Profile"><i class="icon-user2"></i>My Profile</a></li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'profile/change-avatar"><i class="icon-pencil"></i>Edit Profile</a></li>
+				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/membership" title="Citizenship"><i class="icon-gift"></i>Citizenship</a></li>
+				<li role="presentation" class="divider"></li>
+				<li role="presentation" class="dropdown-header">Navigation:</li>
 				<li class="menu-item menu-item-type-custom menu-item-object-custom">'.bp_loggedin_user_avatar( 'type=thumb&width=50&height=50&url=true' ).'
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'messages" title="Messages"><i class="icon-mail2"></i>Post Office</a></li>
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'friends" title="Friends"><i class="icon-mail2"></i>My Friends</a></li>
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'groups" title="Groups"><i class="icon-mail2"></i>My Groups</a></li>
 				<li class="divider" role="presentation"></li>
-				<li role="presentation" class="dropdown-header">Wallet:</li>
-			    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'" title="My Profile"><i class="icon-user2"></i>My Profile</a></li>
-				<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'profile/change-avatar"><i class="icon-pencil"></i>Edit Profile</a></li>
-				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/membership" title="Citizenship"><i class="icon-gift"></i>Citizenship</a></li>
-				<li role="presentation" class="divider"></li>
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="/forum/support" title="Help and Support"><i class="icon-settings"></i>Tech Support</a></li>
-				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Privacy Settings"><i class="icon-settings"></i>Privacy</a></li>
+				<!-- <li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.bp_loggedin_user_domain().'settings" title="Privacy Settings"><i class="icon-settings"></i>Privacy</a></li>-->
 				<li class="bp-logout-nav menu-item menu-item-type-custom menu-item-object-custom"><a href="'.wp_logout_url(get_permalink()).'" title="Log Out"><i class="icon-exit"></i>log out</a></li></ul></li>';
 		}
 		elseif (!is_user_logged_in() && $args->theme_location == 'primary') {
@@ -143,4 +146,96 @@ endif;
 			return $items; 
 		}
 	}
-?>
+
+
+
+/**
+ * Promote Based on Balance
+ * Changes a users role based on their myCRED balance.
+ * @version 1.0.3
+ */
+add_filter( 'mycred_add', 'check_for_role_change', 99, 3 );
+function check_for_role_change( $reply, $request, $mycred ) {
+	// Make sure that if any other filter has declined this we also decline
+	if ( $reply === false ) return $reply;
+ 
+	// Exclude admins
+	if ( user_can( $request['user_id'], 'manage_options' ) ) return $reply;
+ 
+	extract( $request );
+ 
+	// Minimum balance requirement for each role
+	$thresholds = array(
+		'contributor'   => 100,
+		'author'        => 1000,
+		'editor'        => 10000,
+		'administrator' => 100000
+	);
+ 
+    	// Get users current balance
+	$current_balance = $mycred->get_users_balance( $user_id, $type );
+	$current_balance = $current_balance + $amount;
+ 
+	// Check if the users current balance awards a new role
+	$new_role = false;
+	foreach ( $thresholds as $role => $min ) {
+		if ( $current_balance > $min )
+			$new_role = $role;
+	}
+ 
+	// Change users role if we have one
+	if ( $new_role !== false )
+		wp_update_user( array(
+			'ID'   => $user_id,
+			'role' => $new_role
+		) );
+ 
+	return $reply;
+}
+
+
+
+
+// add_filter( 'mycred_add', 'charge_bank_account', 10, 3 );
+// function charge_bank_account( $reply, $request, $mycred )
+// {
+// 	if ( $reply === false ) return $reply;
+
+// 	extract( $request );
+
+// 	// Bank ID. Change this to the user ID of your choice
+// 	$bank_id = 228;
+// 	$bank_balance = $mycred->get_users_cred( $bank_id, $type );
+
+// 	// Make sure that the request is not for our bank account
+// 	if ( $user_id == $bank_id ) return $reply;
+
+// 	// User is to lose points
+// 	if ( $amount < 0 ) {
+//  		// Add the points getting deducted to our bank account
+//  		// Don't forget to turn our negative value into a positive one!
+//  		$mycred->update_users_balance( $bank_id, abs( $amount ), $type );
+
+// 		// Log event
+// 		$mycred->add_to_log( $ref, $bank_id, abs( $amount ), $entry, $ref_id, $data, $type );
+// 	}
+// 	// User is to gain points
+// 	else {
+// 		// First make sure the bank is not bust
+// 		if ( $bank_balance <= 0 ) return false;
+
+// 		// Second we check if the bank is solvent
+// 		if ( $bank_balance-$amount <= 0 ) return false;
+
+// 		// If we have come this far, the bank has sufficient funds so lets deduct
+//  		$mycred->update_users_balance( $bank_id, 0-$amount, $type );
+
+// 		// Log event
+// 		$mycred->add_to_log( $ref, $bank_id, 0-$amount, $entry, $ref_id, $data, $type );
+// 	}
+
+// 	// Return the result
+// 	return $reply;
+// }
+
+	

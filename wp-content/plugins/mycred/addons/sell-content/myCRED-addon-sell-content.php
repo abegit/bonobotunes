@@ -368,8 +368,8 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 					'myCREDsell',
 					array(
 						'ajaxurl' => admin_url( 'admin-ajax.php' ),
-						'working' => __( 'Processing...', 'mycred' ),
-						'error'   => __( 'Error. Try Again', 'mycred' ),
+						'working' => esc_attr__( 'Processing...', 'mycred' ),
+						'error'   => esc_attr__( 'Error. Try Again', 'mycred' ),
 						'token'   => wp_create_nonce( 'mycred-buy-content-ajax' )
 					)
 				);
@@ -380,9 +380,9 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 		/**
 		 * Settings Page
 		 * @since 0.1
-		 * @version 1.2
+		 * @version 1.3
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred ) {
 			$sell_content = $this->sell_content;
 			if ( ! isset( $sell_content['defaults']['expire'] ) )
 				$sell_content['defaults']['expire'] = 0;
@@ -396,7 +396,7 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 			);
 			$available_payees = apply_filters( 'mycred_sell_content_payees', $payees, $sell_content );
 			
-			$mycred_types = mycred_get_types(); ?>
+?>
 
 <h4><div class="icon icon-active"></div><?php _e( 'Sell Content', 'mycred' ); ?></h4>
 <div class="body" style="display:none;">
@@ -407,7 +407,7 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 			<span class="description"><?php _e( 'Comma separated list of post types that can be sold.', 'mycred' ); ?></span>
 		</li>
 	</ol>
-	<?php if ( count( $mycred_types ) > 1 ) : ?>
+	<?php if ( count( $this->point_types ) > 1 ) : ?>
 	<label class="subheader" for="<?php echo $this->field_id( 'type' ); ?>"><?php _e( 'Point Type', 'mycred' ); ?></label>
 	<ol id="myCRED-buy-point-type">
 		<li>
@@ -474,30 +474,45 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 	<ol id="myCRED-buy-template-visitors">
 		<li>
 			<p><strong><?php _e( 'For Visitors', 'mycred' ); ?></strong></p>
-			<?php wp_editor( $sell_content['templates']['visitors'], $this->field_id( array( 'templates' => 'visitors' ) ), array(
-						'textarea_name' => $this->field_name( array( 'templates' => 'visitors' ) ),
-						'textarea_rows' => 6
-					) ); ?>
+<?php
+
+			$id = str_replace( '-', '', $this->field_id( array( 'templates' => 'visitors' ) ) );
+			wp_editor( $sell_content['templates']['visitors'], $id, array(
+				'textarea_name' => $this->field_name( array( 'templates' => 'visitors' ) ),
+				'textarea_rows' => 6
+			) );
+
+?>
 			<span class="description"><?php _e( 'Do <strong>not</strong> use the %buy_button% in this template as a user must be logged in to buy content!', 'mycred' ); ?><br />
 			<?php echo $this->core->available_template_tags( array( 'general', 'post' ), '%price%' ); ?></span>
 		</li>
 		<li class="empty">&nbsp;</li>
 		<li>
 			<p><strong><?php _e( 'For Members', 'mycred' ); ?></strong></p>
-			<?php wp_editor( $sell_content['templates']['members'], $this->field_id( array( 'templates' => 'members' ) ), array(
-						'textarea_name' => $this->field_name( array( 'templates' => 'members' ) ),
-						'textarea_rows' => 6
-					) ); ?>
+<?php
+
+			$id = str_replace( '-', '', $this->field_id( array( 'templates' => 'members' ) ) );
+			wp_editor( $sell_content['templates']['members'], $id, array(
+				'textarea_name' => $this->field_name( array( 'templates' => 'members' ) ),
+				'textarea_rows' => 6
+			) );
+
+?>
 			<span class="description"><?php _e( 'Your template must contain the %buy_button% tag for purchases to work!', 'mycred' ); ?><br />
 			<?php echo $this->core->available_template_tags( array( 'general', 'post' ), '%buy_button%, %price%' ); ?></span>
 		</li>
 		<li class="empty">&nbsp;</li>
 		<li>
 			<p><strong><?php _e( 'For members that can not afford to buy', 'mycred' ); ?></strong></p>
-			<?php wp_editor( $sell_content['templates']['cantafford'], $this->field_id( array( 'templates' => 'cantafford' ) ), array(
-						'textarea_name' => $this->field_name( array( 'templates' => 'cantafford' ) ),
-						'textarea_rows' => 6
-					) ); ?>
+<?php
+
+			$id = str_replace( '-', '', $this->field_id( array( 'templates' => 'cantafford' ) ) );
+			wp_editor( $sell_content['templates']['cantafford'], $id, array(
+				'textarea_name' => $this->field_name( array( 'templates' => 'cantafford' ) ),
+				'textarea_rows' => 6
+			) );
+
+?>
 			<span class="description"><?php _e( 'Your template must contain the %buy_button% tag for purchases to work!', 'mycred' ); ?><br />
 			<?php echo $this->core->available_template_tags( array( 'general', 'post' ), '%buy_button%, %price%' ); ?></span>
 		</li>
@@ -523,7 +538,7 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 		/**
 		 * Sanitize & Save Settings
 		 * @since 0.1
-		 * @version 1.2
+		 * @version 1.3
 		 */
 		public function sanitize_extra_settings( $new_data, $data, $general ) {
 			// Post Types
@@ -542,9 +557,10 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 			$new_data['sell_content']['defaults']['overwrite_buttonlabel'] = ( isset( $settings['defaults']['overwrite_buttonlabel'] ) ) ? 1 : 0;
 			$new_data['sell_content']['defaults']['expire'] = abs( $settings['defaults']['expire'] );
 
-			$new_data['sell_content']['templates']['members'] = trim( $settings['templates']['members'] );
-			$new_data['sell_content']['templates']['visitors'] = trim( $settings['templates']['visitors'] );
-			$new_data['sell_content']['templates']['cantafford'] = trim( $settings['templates']['cantafford'] );
+			$allowed_tags = $this->core->allowed_html_tags();
+			$new_data['sell_content']['templates']['members'] = wp_kses( $settings['templates']['members'], $allowed_tags );
+			$new_data['sell_content']['templates']['visitors'] = wp_kses( $settings['templates']['visitors'], $allowed_tags );
+			$new_data['sell_content']['templates']['cantafford'] = wp_kses( $settings['templates']['cantafford'], $allowed_tags );
 
 			$new_data['sell_content']['logs']['buy'] = sanitize_text_field( $settings['logs']['buy'] );
 			$new_data['sell_content']['logs']['sell'] = sanitize_text_field( $settings['logs']['sell'] );
@@ -611,7 +627,7 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 		/**
 		 * Sell Meta Box
 		 * @since 0.1
-		 * @version 1.1
+		 * @version 1.2
 		 */
 		public function metabox( $post ) {
 			// Make sure add-on has been setup
@@ -651,8 +667,8 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 <style type="text/css">
 #mycred_sell_content .inside { margin: 0; padding: 0; }
 #mycred_sell_content .inside p { padding: 0 12px; }
-#mycred_sell_content .inside ul { margin: 12px 0 0 0; border-top: 1px solid #ccc; }
-#mycred_sell_content .inside ul li { padding: 8px 12px 12px 12px; border-bottom: 1px solid #ccc; margin: 0 0 0 0; }
+#mycred_sell_content .inside ul { margin: 0; padding: 0 0 12px 0; background-color: #F5F5F5; border-top: 1px solid #ccc; }
+#mycred_sell_content .inside ul li { padding: 8px 12px 0 12px; margin: 0 0 0 0; }
 #mycred_sell_content .inside ul li label { font-weight: bold; display: block; }
 #mycred_sell_content .inside ul li.disabled { color: #ccc; }
 input[name="myCRED_sell_content[button_label]"] { width: 100%; }
@@ -677,12 +693,12 @@ input[name="myCRED_sell_content[button_label]"] { width: 100%; }
 	</ul>
 </div>
 <div class="clear"></div>
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
 jQuery(function($) {
 	$( '#mycred-sell-this' ).click(function(){
 		$( '#mycred-sale-settings' ).toggle();
 	});
-});//]]>
+});
 </script>
 <?php
 		}
@@ -1180,11 +1196,12 @@ jQuery(function($) {
 		 * Render Sales History Shortcode
 		 * @see http://mycred.me/shortcodes/mycred_sales_history/
 		 * @since 1.0.9
-		 * @version 1.2
+		 * @version 1.3
 		 */
 		public function render_sales_history( $atts ) {
 			extract( shortcode_atts( array(
 				'login'        => NULL,
+				'user_id'      => NULL,
 				'title'        => '',
 				'title_el'     => 'h1',
 				'title_class'  => '',
@@ -1193,7 +1210,7 @@ jQuery(function($) {
 			), $atts ) );
 			
 			// Not logged in
-			if ( ! is_user_logged_in() ) {
+			if ( $user_id === NULL && ! is_user_logged_in() ) {
 				if ( $login != NULL )
 					return '<div class="mycred-not-logged-in">' . $login . '</div>';
 
@@ -1202,7 +1219,9 @@ jQuery(function($) {
 
 			// Prep
 			$output = '<div class="mycred-sales-history-wrapper">';
-			$user_id = get_current_user_id();
+
+			if ( $user_id === NULL )
+				$user_id = get_current_user_id();
 	
 			global $wpdb;
 	

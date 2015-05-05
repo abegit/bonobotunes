@@ -5,7 +5,7 @@ if ( ! defined( 'myCRED_VERSION' ) ) exit;
  * myCRED_Payment_Gateway class
  * @see http://mycred.me/add-ons/mycred_payment_gateway/
  * @since 0.1
- * @version 1.2
+ * @version 1.2.1
  */
 if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 	abstract class myCRED_Payment_Gateway {
@@ -211,7 +211,7 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 		/**
 		 * Get Pending Payment
 		 * @since 1.5
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		function get_pending_payment( $post_id = '' ) {
 
@@ -222,7 +222,7 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 				$post = get_page_by_title( $post_id, OBJECT, 'buycred_payment' );
 
 			if ( isset( $post->ID ) && $post->post_type == 'buycred_payment' ) {
-				$pending_payment = array();
+				$pending_payment = array( 'ID' => $post->ID );
 				$pending_payment['to'] =       (int) get_post_meta( $post->ID, 'to', true );
 				$pending_payment['from'] =     (int) get_post_meta( $post->ID, 'from', true );
 				$pending_payment['amount'] =   get_post_meta( $post->ID, 'amount', true );
@@ -554,6 +554,31 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 		}
 
 		/**
+		 * Get Buyers Name
+		 * @since 1.6
+		 * @version 1.0
+		 */
+		public function get_buyers_name( $user_id = NULL ) {
+
+			if ( $user_id === NULL ) return '';
+
+			$user = get_userdata( $user_id );
+			if ( ! isset( $user->ID ) ) return $user_id;
+
+			if ( ! empty( $user->first_name ) && ! empty( $user->last_name ) )
+				$name = $user->first_name . ' ' . $user->last_name;
+
+			elseif ( class_exists( 'WooCommerce' ) )
+				$name = get_user_meta( $user_id, 'billing_first_name', true ) . ' ' . get_user_meta( $user_id, 'billing_last_name', true );
+
+			else
+				$name = $user->display_name;
+
+			return $name;
+
+		}
+
+		/**
 		 * Get Order
 		 * @since 1.0
 		 * @version 1.0
@@ -571,9 +596,9 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 	</thead>
 	<tbody>
 		<tr>
-			<td class=""><?php echo $order_name; ?></td>
-			<td class=""><?php echo $amount; ?></td>
-			<td class=""><?php echo $cost; ?> <?php if ( isset( $this->prefs['currency'] ) ) echo $this->prefs['currency']; else echo 'USD'; ?></td>
+			<td class="order-item"><?php echo $order_name; ?></td>
+			<td class="order-amount"><?php echo $amount; ?></td>
+			<td class="order-cost"><?php echo $cost; ?> <?php if ( isset( $this->prefs['currency'] ) ) echo $this->prefs['currency']; else echo 'USD'; ?></td>
 		</tr>
 	</tbody>
 </table>
@@ -711,29 +736,33 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 		/**
 		 * Get Thank You Page
 		 * @since 0.1
-		 * @version 1.0
+		 * @version 1.1
 		 */
 		function get_thankyou() {
+
+			$url = get_bloginfo( 'url' );
 			if ( $this->core->buy_creds['thankyou']['use'] == 'page' ) {
-				if ( empty( $this->core->buy_creds['thankyou']['page'] ) )
-					return get_bloginfo( 'url' );
-				else
-					return get_permalink( $this->core->buy_creds['thankyou']['page'] );
+				if ( ! empty( $this->core->buy_creds['thankyou']['page'] ) )
+					$url = get_permalink( $this->core->buy_creds['thankyou']['page'] );
+			}
+			else {
+				$url = get_bloginfo( 'url' ) . '/' . $this->core->buy_creds['thankyou']['custom'];
 			}
 
-			return get_bloginfo( 'url' ) . '/' . $this->core->buy_creds['thankyou']['custom'];
+			return apply_filters( 'mycred_buycred_thankyou_url', $url, $this );
+
 		}
 
 		/**
 		 * Get Cancelled Page
 		 * @since 0.1
-		 * @version 1.2
+		 * @version 1.3.1
 		 */
-		function get_cancelled( $title = '' ) {
+		function get_cancelled( $cancel_token = '' ) {
+
+			$base = get_bloginfo( 'url' );
 			if ( $this->core->buy_creds['cancelled']['use'] == 'page' ) {
-				if ( empty( $this->core->buy_creds['cancelled']['page'] ) )
-					$base = get_bloginfo( 'url' );
-				else
+				if ( ! empty( $this->core->buy_creds['cancelled']['page'] ) )
 					$base = get_permalink( $this->core->buy_creds['cancelled']['page'] );
 			}
 			else {
@@ -741,12 +770,15 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 			}
 
 			if ( isset( $_REQUEST['return_to'] ) )
-				$base = $_REQUEST['return_to'];
+				$base = sanitize_text_field( $_REQUEST['return_to'] );
 
-			if ( $title != '' )
-				return add_query_arg( array( 'buycred_cancel' => $title ), $base );
+			if ( $cancel_token != '' )
+				$url = add_query_arg( array( 'buycred_cancel' => $cancel_token ), $base );
 			else
-				return $base;
+				$url = $base;
+
+			return apply_filters( 'mycred_buycred_cancel_url', $url, $cancel_token, $this );
+
 		}
 
 		/**
@@ -1519,12 +1551,12 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 
 			$point_type = $pending_payment['ctype'];
 			$mycred = mycred( $point_type );
-			$data = array( 'ref_type' => 'user', 'txt_id' => $transaction_id, 'sales_data' => implode( '|', $sales_data ) );
+			$data = array( 'ref_type' => 'user', 'txn_id' => $transaction_id, 'sales_data' => implode( '|', $sales_data ) );
 
 			$reply = false;
 
 			if ( ! $mycred->has_entry( $reference, $pending_payment['from'], $pending_payment['to'], $data, $pending_payment['ctype'] ) ) {
-				add_filter( 'mycred_get_email_events', array( $this, 'email_notice' ), 10, 3 );
+				add_filter( 'mycred_get_email_events', array( $this, 'email_notice' ), 10, 2 );
 				$reply = $mycred->add_creds(
 					$reference,
 					$pending_payment['to'],

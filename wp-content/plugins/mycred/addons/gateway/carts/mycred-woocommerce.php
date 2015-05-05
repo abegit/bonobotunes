@@ -7,18 +7,14 @@ if ( ! defined( 'myCRED_VERSION' ) ) exit;
  * Custom Payment Gateway for WooCommerce.
  * @see http://docs.woothemes.com/document/payment-gateway-api/
  * @since 0.1
- * @version 1.4
+ * @version 1.4.2
  */
-if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
-	/**
-	 * Construct Gateway
-	 * @since 0.1
-	 * @version 1.4
-	 */
-	add_action( 'after_setup_theme', 'mycred_init_woo_gateway' );
-	function mycred_init_woo_gateway()
-	{
-		if ( ! class_exists( 'WC_Payment_Gateway' ) ) return;
+add_action( 'after_setup_theme', 'mycred_init_woo_gateway' );
+if ( ! function_exists( 'mycred_init_woo_gateway' ) ) :
+	function mycred_init_woo_gateway() {
+
+		if ( ! class_exists( 'WC_Payment_Gateway' ) || class_exists( 'WC_Gateway_myCRED' ) ) return;
+
 		class WC_Gateway_myCRED extends WC_Payment_Gateway {
 
 			public $mycred;
@@ -27,6 +23,7 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			 * Constructor
 			 */
 			public function __construct() {
+
 				$this->id				  = 'mycred';
 				$this->icon 	          = '';
 				$this->has_fields 		  = false;
@@ -48,8 +45,9 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 				$this->init_settings();
 
 				// Define user set variables
-				$this->title 		 = $this->get_option( 'title' );
-				$this->description   = $this->get_option( 'description' );
+				$this->title 		             = $this->get_option( 'title' );
+				$this->description               = $this->get_option( 'description' );
+
 				if ( $this->use_exchange() )
 					$exchange_rate = (float) $this->get_option( 'exchange_rate' );
 				else
@@ -63,15 +61,16 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 				$this->log_template_refund       = $this->get_option( 'log_template_refund' );
 				$this->profit_sharing_refund_log = $this->get_option( 'profit_sharing_refund_log' );
 
-				$this->show_total = $this->get_option( 'show_total' );
-				$this->total_label = $this->get_option( 'total_label' );
+				$this->show_total                = $this->get_option( 'show_total' );
+				$this->total_label               = $this->get_option( 'total_label' );
 
-				$this->profit_sharing_percent = $this->get_option( 'profit_sharing_percent' );
-				$this->profit_sharing_log = $this->get_option( 'profit_sharing_log' );
+				$this->profit_sharing_percent    = $this->get_option( 'profit_sharing_percent' );
+				$this->profit_sharing_log        = $this->get_option( 'profit_sharing_log' );
 
 				// Actions
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 				add_action( 'woocommerce_thankyou_mycred',                              array( $this, 'thankyou_page' ) );
+
 			}
 
 			/**
@@ -80,6 +79,7 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			 * @version 1.4
 			 */
 			function init_form_fields() {
+
 				// Fields
 				$fields['enabled'] = array(
 					'title'   => __( 'Enable/Disable', 'mycred' ),
@@ -186,6 +186,7 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 				);
 				
 				$this->form_fields = apply_filters( 'mycred_woo_fields', $fields, $this );
+
 			}
 
 			/**
@@ -195,9 +196,11 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			 * @version 1.0
 			 */
 			function use_exchange() {
+
 				$currency = get_woocommerce_currency();
 				if ( $currency == 'MYC' ) return false;
 				return true;
+
 			}
 
 			/**
@@ -205,25 +208,30 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			 * @since 0.1
 			 * @version 1.0
 			 */
-			public function admin_options() { ?>
+			public function admin_options() {
 
+?>
 		<h3><?php _e( 'myCRED Payment', 'mycred' ); ?></h3>
 		<p><?php echo $this->mycred->template_tags_general( __( 'Allows users to pay using their myCRED %_singular% balance. Please note that users with insufficient funds and users who are not logged in will not see this payment gateway on the checkout page.', 'mycred' ) ); ?></p>
 		<table class="form-table">
 <?php
-				// Generate the HTML For the settings form.
-				$this->generate_settings_html(); ?>
 
+				// Generate the HTML For the settings form.
+				$this->generate_settings_html();
+
+?>
 		</table>
 <?php
+
 			}
 
 			/**
 			 * Process Payment
 			 * @since 0.1
-			 * @version 1.4
+			 * @version 1.4.2
 			 */
 			function process_payment( $order_id ) {
+
 				global $woocommerce;
 				$cui = get_current_user_id();
 
@@ -240,14 +248,11 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 				}
 
 				// Grab Order
-				if ( function_exists( 'wc_get_order' ) )
-					$order = wc_get_order( $order_id );
-				else
-					$order = new WC_Order( $order_id );
+				$order = wc_get_order( $order_id );
 
 				// Cost
 				if ( $this->use_exchange() )
-					$cost = $this->mycred->apply_exchange_rate( $order->order_total, $this->exchange_rate );
+					$cost = $this->mycred->number( ( $order->order_total / $this->exchange_rate ) );
 				else
 					$cost = $order->order_total;
 
@@ -292,8 +297,10 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 						if ( $product === NULL || $product->post_author == $cui ) continue;
 
 						// Calculate Share
-						// by: Leonie Heinle
-						$share = ( $this->profit_sharing_percent / 100 ) * $item['line_total'];
+						$percentage = apply_filters( 'mycred_woo_profit_share', $this->profit_sharing_percent, $order, $product, $this );
+						if ( $percentage == 0 ) continue;
+
+						$share = ( $percentage / 100 ) * $item['line_total'];
 
 						// Payout
 						$this->mycred->add_creds(
@@ -316,18 +323,19 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 					'result'   => 'success',
 					'redirect' => $this->get_return_url( $order )
 				);
+
 			}
 
 			/**
 			 * Process Refunds
 			 * @since 1.5.4
-			 * @version 1.0
+			 * @version 1.0.1
 			 */
 			public function process_refund( $order_id, $amount = null, $reason = '' ) {
 
 				$order = wc_get_order( $order_id );
 
-				if ( ! $order || ! $order->get_transaction_id() ) {
+				if ( ! isset( $order->order_total ) ) {
 					return false;
 				}
 
@@ -335,13 +343,13 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 					$amount = $order->order_total;
 
 				if ( $this->use_exchange() )
-					$refund = $this->exchange_rate * $amount;
+					$refund = $amount / $this->exchange_rate;
 				else
 					$refund = $amount;
 
 				$this->mycred->add_creds(
 					'woocommerce_refund',
-					$cui,
+					$order->user_id,
 					$refund,
 					$this->log_template_refund,
 					$order_id,
@@ -349,8 +357,11 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 					$this->mycred_type
 				);
 
+				$order->add_order_note( sprintf( _x( 'Refunded %s', '%s = Point amount formatted', 'mycred' ), $this->mycred->format_creds( $refund ) ) );
+
 				// Profit Sharing
 				if ( $this->profit_sharing_percent > 0 ) {
+
 					// Get Items
 					$items = $order->get_items();
 
@@ -377,10 +388,13 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 							$this->mycred_type
 						);
 					}
+
 				}
 
 				// Let others play
 				do_action( 'mycred_refunded_for_woo', $order, $amount, $reason, $this );
+
+				return true;
 
 			}
 
@@ -390,19 +404,27 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			 * @version 1.0
 			 */
 			function thankyou_page() {
-				echo __( 'Your account has successfully been charged.', 'mycred' );
-			}
-		}
-	}
 
-	/**
-	 * Log Entry: Payment
-	 * @since 0.1
-	 * @version 1.3
-	 */
-	add_filter( 'mycred_parse_log_entry_woocommerce_payment', 'mycred_woo_log_entry_payment', 90, 2 );
-	function mycred_woo_log_entry_payment( $content, $log_entry )
-	{
+				echo __( 'Your account has successfully been charged.', 'mycred' );
+
+			}
+
+		}
+
+	}
+endif;
+
+/**
+ * Log Entry: Payment
+ * @since 0.1
+ * @version 1.3.1
+ */
+add_filter( 'mycred_parse_log_entry_woocommerce_payment', 'mycred_woo_log_entry_payment', 90, 2 );
+if ( ! function_exists( 'mycred_woo_log_entry_payment' ) ) :
+	function mycred_woo_log_entry_payment( $content, $log_entry ) {
+
+		if ( ! class_exists( 'WC_Payment_Gateway' ) ) return $content;
+
 		// Prep
 		$type = 'mycred_default';
 		if ( isset( $log_entry->ctype ) )
@@ -430,16 +452,19 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 		}
 
 		return $content;
-	}
 
-	/**
-	 * Log Entry: Refund
-	 * @since 1.5.4
-	 * @version 1.0
-	 */
-	add_filter( 'mycred_parse_log_entry_woocommerce_refund', 'mycred_woo_log_entry_refunds', 90, 2 );
-	function mycred_woo_log_entry_refunds( $content, $log_entry )
-	{
+	}
+endif;
+
+/**
+ * Log Entry: Refund
+ * @since 1.5.4
+ * @version 1.0
+ */
+add_filter( 'mycred_parse_log_entry_woocommerce_refund', 'mycred_woo_log_entry_refunds', 90, 2 );
+if ( ! function_exists( 'mycred_woo_log_entry_refunds' ) ) :
+	function mycred_woo_log_entry_refunds( $content, $log_entry ) {
+
 		$content = mycred_woo_log_entry_payment( $content, $log_entry );
 
 		$data = maybe_unserialize( $log_entry->data );
@@ -450,16 +475,19 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 		$content = str_replace( '%reason%', $reason, $content );
 
 		return $content;
-	}
 
-	/**
-	 * Log Entry: Profit Share Refund
-	 * @since 1.5.4
-	 * @version 1.0
-	 */
-	add_filter( 'mycred_parse_log_entry_store_sale_refund', 'mycred_woo_log_entry_profit_refund', 90, 2 );
-	function mycred_woo_log_entry_profit_refund( $content, $log_entry )
-	{
+	}
+endif;
+
+/**
+ * Log Entry: Profit Share Refund
+ * @since 1.5.4
+ * @version 1.0
+ */
+add_filter( 'mycred_parse_log_entry_store_sale_refund', 'mycred_woo_log_entry_profit_refund', 90, 2 );
+if ( ! function_exists( 'mycred_woo_log_entry_profit_refund' ) ) :
+	function mycred_woo_log_entry_profit_refund( $content, $log_entry ) {
+
 		$data = maybe_unserialize( $log_entry->data );
 		
 		$order_id = '';
@@ -475,17 +503,20 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 		$content = str_replace( '%reason%', $reason, $content );
 
 		return $content;
-	}
 
-	/**
-	 * Parse Email Notice
-	 * @since 1.2.2
-	 * @version 1.0.1
-	 */
-	add_filter( 'mycred_email_before_send', 'mycred_woo_parse_email' );
-	function mycred_woo_parse_email( $email )
-	{
-		if ( $email['request']['ref'] == 'woocommerce_payment' ) {
+	}
+endif;
+
+/**
+ * Parse Email Notice
+ * @since 1.2.2
+ * @version 1.0.1
+ */
+add_filter( 'mycred_email_before_send', 'mycred_woo_parse_email' );
+if ( ! function_exists( 'mycred_woo_parse_email' ) ) :
+	function mycred_woo_parse_email( $email ) {
+
+		if ( $email['request']['ref'] == 'woocommerce_payment' && function_exists( 'woocommerce_get_page_id' ) ) {
 			
 			if ( function_exists( 'wc_get_order' ) )
 				$order = wc_get_order( (int) $email['request']['ref_id'] );
@@ -498,36 +529,46 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 				$content = str_replace( '%order_id%', $order->id, $email['request']['entry'] );
 				$email['request']['entry'] = str_replace( '%order_link%', '<a href="' . $url . '">#' . $order->id . '</a>', $content );
 			}
+
 		}
 		return $email;
-	}
 
-	/**
-	 * Register Gateway
-	 * @since 0.1
-	 * @version 1.0
-	 */
-	add_filter( 'woocommerce_payment_gateways', 'mycred_register_woo_gateway' );
-	function mycred_register_woo_gateway( $methods )
-	{
+	}
+endif;
+
+/**
+ * Register Gateway
+ * @since 0.1
+ * @version 1.0
+ */
+add_filter( 'woocommerce_payment_gateways', 'mycred_register_woo_gateway' );
+if ( ! function_exists( 'mycred_register_woo_gateway' ) ) :
+	function mycred_register_woo_gateway( $methods ) {
+
 		$methods[] = 'WC_Gateway_myCRED';
 		return $methods;
-	}
 
-	/**
-	 * Available Gateways
-	 * "Removes" this gateway as a payment option if:
-	 * - User is not logged in
-	 * - User is excluded
-	 * - Users balance is too low
-	 *
-	 * @since 0.1
-	 * @version 1.2
-	 */
-	add_filter( 'woocommerce_available_payment_gateways', 'mycred_woo_available_gateways' );
-	function mycred_woo_available_gateways( $gateways )
-	{
+	}
+endif;
+
+/**
+ * Available Gateways
+ * "Removes" this gateway as a payment option if:
+ * - User is not logged in
+ * - User is excluded
+ * - Users balance is too low
+ *
+ * @since 0.1
+ * @version 1.2.1
+ */
+add_filter( 'woocommerce_available_payment_gateways', 'mycred_woo_available_gateways' );
+if ( ! function_exists( 'mycred_woo_available_gateways' ) ) :
+	function mycred_woo_available_gateways( $gateways ) {
+
 		if ( ! isset( $gateways['mycred'] ) ) return $gateways;
+
+		// Easy override
+		if ( defined( 'SHOW_MYCRED_IN_WOOCOMMERCE' ) && SHOW_MYCRED_IN_WOOCOMMERCE ) return $gateways;
 
 		// Check if we are logged in
 		if ( ! is_user_logged_in() ) {
@@ -569,17 +610,20 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 		// Clean up and return
 		unset( $mycred );
 		return $gateways;
-	}
 
-	/**
-	 * Add Currency
-	 * Adds myCRED as one form of currency.
-	 * @since 0.1
-	 * @version 1.1
-	 */
-	add_filter( 'woocommerce_currencies', 'mycred_woo_add_currency' );
-	function mycred_woo_add_currency( $currencies )
-	{
+	}
+endif;
+
+/**
+ * Add Currency
+ * Adds myCRED as one form of currency.
+ * @since 0.1
+ * @version 1.1
+ */
+add_filter( 'woocommerce_currencies', 'mycred_woo_add_currency' );
+if ( ! function_exists( 'mycred_woo_add_currency' ) ) :
+	function mycred_woo_add_currency( $currencies ) {
+
 		$settings = get_option( 'woocommerce_mycred_settings', false );
 		if ( $settings === false ) return $currencies;
 
@@ -592,17 +636,20 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 
 		unset( $mycred );
 		return $currencies;
-	}
 
-	/**
-	 * Currency Symbol
-	 * Appends the myCRED prefix or suffix to the amount.
-	 * @since 0.1
-	 * @version 1.1
-	 */
-	add_filter( 'woocommerce_currency_symbol', 'mycred_woo_currency', 10, 2 );
-	function mycred_woo_currency( $currency_symbol, $currency )
-	{
+	}
+endif;
+
+/**
+ * Currency Symbol
+ * Appends the myCRED prefix or suffix to the amount.
+ * @since 0.1
+ * @version 1.1
+ */
+add_filter( 'woocommerce_currency_symbol', 'mycred_woo_currency', 10, 2 );
+if ( ! function_exists( 'mycred_woo_currency' ) ) :
+	function mycred_woo_currency( $currency_symbol, $currency ) {
+
 		$settings = get_option( 'woocommerce_mycred_settings', false );
 		if ( $settings === false ) return $currency_symbol;
 		
@@ -620,18 +667,21 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			break;
 		}
 		return $currency_symbol;
-	}
 
-	/**
-	 * Add CRED Cost
-	 * Appends the cost in myCRED format.
-	 * @since 0.1
-	 * @version 1.2
-	 */
-	add_action( 'woocommerce_review_order_after_order_total', 'mycred_woo_after_order_total' );
-	add_action( 'woocommerce_cart_totals_after_order_total', 'mycred_woo_after_order_total' );
-	function mycred_woo_after_order_total()
-	{
+	}
+endif;
+
+/**
+ * Add CRED Cost
+ * Appends the cost in myCRED format.
+ * @since 0.1
+ * @version 1.2.1
+ */
+add_action( 'woocommerce_review_order_after_order_total', 'mycred_woo_after_order_total' );
+add_action( 'woocommerce_cart_totals_after_order_total', 'mycred_woo_after_order_total' );
+if ( ! function_exists( 'mycred_woo_after_order_total' ) ) :
+	function mycred_woo_after_order_total() {
+
 		if ( ! is_user_logged_in() ) return;
 
 		// Only available for logged in non-excluded users
@@ -660,7 +710,7 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 		if ( $currency != 'MYC' ) {
 
 			// Apply Exchange Rate
-			$cost = $mycred->apply_exchange_rate( $woocommerce->cart->total, $available_gateways['mycred']->get_option( 'exchange_rate' ) );
+			$cost = $mycred->number( ( $woocommerce->cart->total / $available_gateways['mycred']->get_option( 'exchange_rate' ) ) );
 
 			$cost = apply_filters( 'mycred_woo_order_cost', $cost, $woocommerce->cart, true, $mycred ); ?>
 
@@ -693,9 +743,11 @@ if ( ! function_exists( 'mycred_init_woo_gateway' ) ) {
 			</tr>
 <?php
 			unset( $available_gateways );
+
 		}
 
 		unset( $mycred );
+
 	}
-}
+endif;
 ?>

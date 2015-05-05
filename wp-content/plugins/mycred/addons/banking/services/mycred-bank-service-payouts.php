@@ -123,7 +123,8 @@ if ( ! class_exists( 'myCRED_Banking_Service_Payouts' ) ) :
 		public function do_masspayout() {
 
 			$work_marker = 'MYCRED_BANK_RECPAY_' . $this->mycred_type;
-			define( $work_marker, time() );
+			if ( ! defined( $work_marker ) )
+				define( $work_marker, time() );
 
 			$option_id = 'mycred_bank_recurring_pay' . $this->mycred_type;
 			$current_work = mycred_get_option( $option_id, false );

@@ -1,0 +1,211 @@
+/*Layouts*/
+$maxsmall: 480px;
+$maxmedium: 768px;
+$maxlarge: 1280px;
+
+
+
+/*Border radius*/
+$frame:3px;
+$butt:6px;
+$maxw:1100px;
+
+
+
+/*$grn : #5cc898;*/
+$grnn: #06af0f;
+$grn: #626262;
+$next: #ffefc4;
+/*$grn: #307734;
+$grnn: #06af0f;*/
+$secc: #028fc3;
+$seccd: darken($secc, 10);
+
+$ihome:"";
+$ichat:"";
+$istudio:"";
+$itown:"";
+$ievents:"";
+$ibrowse:"";
+$imail:"";
+$iradio:"";
+$iinvite:"";
+$ipuzzle:"";
+$iclassifieds:"";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@mixin border-box {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+@mixin border-radius($num) {-webkit-border-radius: $num; -moz-border-radius: $num; border-radius: $num; }
+@mixin box-shadow($shadow1, $shadow2:false, $shadow3:false, $shadow4:false, $shadow5:false, $shadow6:false) {
+ $params: $shadow1;
+  @if $shadow2 
+    { $params: $shadow1, $shadow2; }
+    @if $shadow3 != false
+      { $params: $shadow1, $shadow2, $shadow3; }
+      @if $shadow4 != false
+        { $params: $shadow1, $shadow2, $shadow3, $shadow4; }
+        @if $shadow5 != false
+          { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5; }
+          @if $shadow6 != false
+          { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5, $shadow6; }
+  -webkit-box-shadow: $params;
+  -moz-box-shadow: $params;
+  box-shadow: $params;
+}
+
+@mixin text-shadow($txtsd1, $txtsd2:false, $txtsd3:false, $txtsd4:false, $txtsd5:false) {
+ $params: $txtsd1;
+  @if $txtsd2 
+    { $params: $txtsd1, $txtsd2; }
+    @if $txtsd3 != false
+      { $params: $txtsd1, $txtsd2, $txtsd3; }
+      @if $txtsd4 != false
+        { $params: $txtsd1, $txtsd2, $txtsd3, $txtsd4; }
+        @if $txtsd5 != false
+          { $params: $txtsd1, $txtsd2, $txtsd3, $txtsd4, $txtsd5; }
+  -webkit-text-shadow: $params;
+  -moz-text-shadow: $params;
+  text-shadow: $params;
+}
+
+@mixin stext-shadow($color) {
+     text-shadow: 1px 1px 0 $color, 2px 2px 0 $color, 3px 3px 0 $color, 4px 4px 0 $color, 5px 5px 0 $color, 6px 6px 0 $color, 7px 7px 0 $color, 8px 8px 0 $color, 9px 9px 0 $color, 10px 10px 0 $color, 11px 11px 0 $color, 12px 12px 0 $color, 13px 13px 0 $color, 14px 14px 0 $color, 15px 15px 0 $color, 16px 16px 0 $color, 17px 17px 0 $color, 18px 18px 0 $color, 19px 19px 0 $color, 20px 20px 0 $color, 21px 21px 0 $color, 22px 22px 0 $color, 23px 23px 0 $color, 24px 24px 0 $color, 25px 25px 0 $color, 26px 26px 0 $color, 27px 27px 0 $color, 28px 28px 0 $color, 29px 29px 0 $color, 30px 30px 0 $color, 31px 31px 0 $color, 32px 32px 0 $color, 33px 33px 0 $color, 34px 34px 0 $color, 35px 35px 0 $color, 36px 36px 0 $color, 37px 37px 0 $color, 38px 38px 0 $color, 39px 39px 0 $color, 40px 40px 0 $color, 41px 41px 0 $color, 42px 42px 0 $color, 43px 43px 0 $color, 44px 44px 0 $color, 45px 45px 0 $color, 46px 46px 0 $color, 47px 47px 0 $color, 48px 48px 0 $color, 49px 49px 0 $color, 50px 50px 0 $color;
+}
+
+
+@mixin ani($time){
+  -webkit-transition: all $time ease-in-out;
+     -moz-transition: all $time ease-in-out;
+       -o-transition: all $time ease-in-out;
+          transition: all $time ease-in-out;
+}
+
+
+
+@mixin btn($cds,$col){
+  @include ani(200ms);
+  background: darken($cds,8%) !important;
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 1px rgba(0, 0, 0, 0.1) inset);
+  @include border-radius($col);
+  border:2px solid darken($cds,8%);
+  font-family: lato;
+  color:darken($cds,60%);
+  font-variant: small-caps;
+  @include text-shadow(none !important);
+  &:hover {background: darken($cds,10%);
+    border:2px solid darken($cds,30%); text-decoration: none;}
+}
+
+@-webkit-keyframes rotateThis {0% {-webkit-transform-origin: center center; -webkit-transform: rotate(0); } 100% {-webkit-transform-origin: center center; -webkit-transform: rotate(360deg); } } @-moz-keyframes rotateThis {0% {-moz-transform-origin: center center; -moz-transform: rotate(0); } 100% {-moz-transform-origin: center center; -moz-transform: rotate(360deg); } } @-o-keyframes rotateThis {0% {-o-transform-origin: center center; -o-transform: rotate(0); } 100% {-o-transform-origin: center center; -o-transform: rotate(360deg); } } @keyframes rotateThis {0% {transform-origin: center center; transform: rotate(0); } 100% {transform-origin: center center; transform: rotate(360deg); } }
+@-webkit-keyframes animatedBackground {0% {background-position: 0 0; } 100% {background-position: 100% 0; } } @-moz-keyframes animatedBackground {0% {background-position: 0 0; } 100% {background-position: 100% 0; } } @-o-keyframes animatedBackground {0% {background-position: 0 0; } 100% {background-position: 100% 0; } } @keyframes animatedBackground {0% {background-position: 0 0; } 100% {background-position: 100% 0; } }
+@-webkit-keyframes fadee {0% {opacity: 0; } 100% {opacity: 1; } } @-moz-keyframes fadee {0% {opacity: 0; } 100% {opacity: 1; } } @-o-keyframes fadee {0% {opacity: 0; } 100% {opacity: 1; } } @keyframes fadee {0% {opacity: 0; } 100% {opacity: 1; } }
+@-webkit-keyframes loadd {0% {opacity: 0; } 100% {opacity: 1; } } @-moz-keyframes loadd {0% {opacity: 0; } 100% {opacity: 1; } } @-o-keyframes loadd {0% {opacity: 0; } 100% {opacity: 1; } } @keyframes loadd {0% {opacity: 0; } 100% {opacity: 1; } }
+
+@mixin werd($words) {
+  &:before {@include border-box;
+    content: $words;
+    @include border-radius(10px);
+    background: none repeat scroll 0 0 rgb(255, 255, 255);
+    @include box-shadow(0 0 2px rgba(0, 0, 0, 0.3), 0 0 32px #ffffff);
+    display: inline-block;
+    height: auto;
+    padding: 13px 10px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    width: auto;
+    z-index: 70;}
+  &:after {border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgb(255, 255, 255);
+      border-style: solid;
+      border-width: 16px;
+      content: " ";
+      display: block;
+      pointer-events: none;
+      position: absolute;
+      right: 2px;
+      bottom: 5px;
+      z-index: 69;}
+}
+
+@mixin radial-bg($one, $two) {
+  background:$one; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: -moz-radial-gradient(center, ellipse cover, $one 0%, $two 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,$one), color-stop(100%,$two)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, $one 0%,$two 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover, $one 0%,$two 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover, $one 0%,$two 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, $one 0%,$two 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$one', endColorstr='$two',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+}
+
+
+
+
+
+
+
+
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300|Alegreya+Sans:300,900,400|Source+Sans+Pro:400,300,200|Archivo+Narrow|Raleway|Playfair+Display+SC:900italic,900,400italic,700italic,700,400|Exo:400,900|Source+Code+Pro:400,300|Lato:100,200,300,400,50,600,700,800,900|Lora:400,700");
+
+
+@font-face {font-family: 'NoveBold';
+    src: url('fnts/novecentowide-bold-webfont.eot');
+    src: url('fnts/novecentowide-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fnts/novecentowide-bold-webfont.woff') format('woff'),
+         url('fnts/novecentowide-bold-webfont.ttf') format('truetype'),
+         url('fnts/novecentowide-bold-webfont.svg#NoveBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    -moz-font-feature-settings: "calt=0,liga=0";
+}
+
+
+
+.ani, .anis * {
+  @include ani(800ms);
+}
+
+
+$headerfont : "lato", arial, sans-serif ;
+@mixin header {
+  font-family: $headerfont;
+  font-size: 36px;
+  font-weight:300;
+}
+
+@mixin middle {
+  font-family: $headerfont;
+  font-variant: small-caps;
+  font-weight: 700 !important;
+}
+@mixin style {
+  font-family: oldd;
+  font-weight: lighter !important;
+}
+
+@mixin body {
+  font-family: $headerfont;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 21px;
+}
+@mixin link {
+  font-family: $headerfont;
+  font-size: 16px;
+  font-weight: 300 !important;
+}

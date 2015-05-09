@@ -1,0 +1,15 @@
+.swiper-container.coverflow {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+}
+.coverflow .swiper-slide {
+    background-position: center;
+    background-size: contain !important;
+    width: 200px;
+    height: 200px;
+
+}
+@media screen and (max-width: 420px) {
+
+}

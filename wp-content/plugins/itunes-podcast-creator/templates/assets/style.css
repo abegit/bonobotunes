@@ -345,54 +345,46 @@ p {
   overflow: hidden;
   width: 100%; }
 
-.swiper-container {
-  float: left;
-  height: 200px !important;
-  width: 74.8% !important;
-  margin-left: 200px !important; }
-  .swiper-container .swiper-wrapper {
-    text-align: left;
-    width: 100%; }
-    .swiper-container .swiper-wrapper h2 {
-      width: 2000px; }
-    .swiper-container .swiper-wrapper h2:hover, .swiper-container .swiper-wrapper h3:hover {
-      text-decoration: underline; }
-    .swiper-container .swiper-wrapper h1 {
-      -moz-osx-font-smoothing: grayscale;
-      color: #6a6a6a;
-      font-family: "Open Sans Condensed" !important;
-      font-size: 36px;
-      font-weight: 700 !important;
-      letter-spacing: -2px;
-      text-transform: uppercase; }
-    .swiper-container .swiper-wrapper h2 {
-      -moz-osx-font-smoothing: grayscale;
-      color: #ffffff;
-      font-family: "PT Sans Caption",sans-serif;
-      font-size: 20px;
-      line-height: 30px; }
-    .swiper-container .swiper-wrapper h3 {
-      -moz-osx-font-smoothing: grayscale;
-      color: #ffffff;
-      font-family: "Paytone One",sans-serif;
-      font-weight: lighter !important;
-      text-transform: uppercase; }
-    .swiper-container .swiper-wrapper .fadeed {
-      opacity: 0; }
-    .swiper-container .swiper-wrapper .swiper-slide {
-      padding: 20px;
-      background: #dddddd; }
-    .swiper-container .swiper-wrapper .swiper-slide img {
-      height: auto;
-      width: 100%; }
-    .swiper-container .swiper-wrapper .swiper-slide a {
-      font-size: 13px;
-      font-weight: normal !important;
-      text-align: left !important;
-      text-decoration: none; }
-    .swiper-container .swiper-wrapper .avatar.avatar-32.photo.avatar-default {
-      float: right;
-      width: unset; }
+.swiper-container .swiper-wrapper h2 {
+  width: 2000px; }
+.swiper-container .swiper-wrapper h2:hover, .swiper-container .swiper-wrapper h3:hover {
+  text-decoration: underline; }
+.swiper-container .swiper-wrapper h1 {
+  -moz-osx-font-smoothing: grayscale;
+  color: #6a6a6a;
+  font-family: "Open Sans Condensed" !important;
+  font-size: 36px;
+  font-weight: 700 !important;
+  letter-spacing: -2px;
+  text-transform: uppercase; }
+.swiper-container .swiper-wrapper h2 {
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  font-family: "PT Sans Caption",sans-serif;
+  font-size: 20px;
+  line-height: 30px; }
+.swiper-container .swiper-wrapper h3 {
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  font-family: "Paytone One",sans-serif;
+  font-weight: lighter !important;
+  text-transform: uppercase; }
+.swiper-container .swiper-wrapper .fadeed {
+  opacity: 0; }
+.swiper-container .swiper-wrapper .swiper-slide {
+  padding: 20px;
+  background-color: #dddddd; }
+.swiper-container .swiper-wrapper .swiper-slide img {
+  height: auto;
+  width: 100%; }
+.swiper-container .swiper-wrapper .swiper-slide a {
+  font-size: 13px;
+  font-weight: normal !important;
+  text-align: left !important;
+  text-decoration: none; }
+.swiper-container .swiper-wrapper .avatar.avatar-32.photo.avatar-default {
+  float: right;
+  width: unset; }
 
 .swiper-container.playlist {
   margin: 0 !important;
@@ -456,12 +448,35 @@ p {
   width: 58% !important; }
   .bp-lg #artwork #img {
     height: 480px; }
-.bp-lg .tracks {
-  height: 480px !important;
-  margin-left: 58% !important;
-  width: 42% !important; }
+.bp-lg .fade {
+  height: 480px !important; }
 .bp-lg.phone #artwork {
   width: 100%; }
+.bp-lg .playlist {
+  float: left;
+  left: 0;
+  margin: 0 !important;
+  height: 480px;
+  top: 0;
+  width: 25% !important; }
+  .bp-lg .playlist strong {
+    font-family: arial, sans-serif;
+    font-size: .9rem; }
+  .bp-lg .playlist .swiper-slide {
+    height: 40px;
+    width: 100%;
+    -webkit-box-shadow: 1px 0 1px #aaa !important;
+    -moz-box-shadow: 1px 0 1px #aaa !important;
+    box-shadow: 1px 0 1px #aaa !important;
+    overflow: hidden;
+    display: table-row; }
+    .bp-lg .playlist .swiper-slide.swiper-slide-active {
+      background: red; }
+    .bp-lg .playlist .swiper-slide.swiper-slide-next {
+      background: blue; }
+.bp-lg .coverflow, .bp-lg .fade {
+  float: right;
+  width: 74.8% !important; }
 
 .bp-sm .swiper-container, .bp-md .swiper-container {
   height: 140px;

@@ -1,20 +1,15 @@
-.swiper-container {
-    height: auto;  /* The Fallback */
-    padding-bottom: 50px;
-    max-width: 1920px !important;
-    display: block;
-    width: 100%;
+.swiper-container.coverflow {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
 }
-@media screen and (max-width: 420px) {
+.coverflow .swiper-slide {
+    background-position: center;
+    background-size: contain !important;
+    width: 200px;
+    height: 200px;
 
 }
-.swiper-slide {
-    background-position: center center !important;
-    background-repeat: no-repeat;
-    background-size: contain !important;
-    height: auto;
-    text-align: center;
-    max-width: 100% !important;
-    width: 300px;
+@media screen and (max-width: 420px) {
 
 }

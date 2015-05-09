@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="<?php echo plugins_url( '/assets/icos.css', dirname(__FILE__) );?>">
 <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/swiper.min.css', dirname(__FILE__) ); ?>">
 <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/fade.css', dirname(__FILE__) ); ?>">
+<link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/coverflow.css', dirname(__FILE__) ); ?>">
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/gfeedfetcher.js', dirname(__FILE__) );?>"></script>
 <script>
@@ -87,12 +88,16 @@
                 </div>
                 <div style="clear:both"></div>
             </div>
-            <!-- <div id="artist">
-                <h1 id="hd">Listen Now</h1>
-                <h2 id="dc"><a href="http://bloggamy.com" target="_new">Sky Dive Sex!</a></h2>
-                <h2 id="dcc" style="display:none;"></h2>
+            <div id="artist">
+                <strong id="hd">Listen Now</strong>
+                <p id="dc"><a href="http://bloggamy.com" target="_new">Sky Dive Sex!</a></p>
+                <span id="dcc" style="display:none;"></span>
                 <h3 id="ex"><a href="http://bloggamy.com" target="_new">DSB Radio</a></h3>
-                     </div> -->
+            </div>
+            <form id="searchform" style="position:absolute; top:100px; right:0;z-index: 999;">
+                <input type="text" value="" id="s">
+                <input type="submit" value="Submit">
+            </form>
                  <div id="embedcode"  style="display:none;">
                     <h1>Embed Code</h1>
                     <textarea readonly style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="http://drsusanblock.tv/hey/player.html"></iframe></textarea></div>
@@ -102,23 +107,40 @@
             <div id='more'><i class="ico-sharable"></i></div>
 
         </div>
-            <div class="swiper-container tracks"> 
+        <div class="swiper-container playlist">
+            <div class="swiper-wrapper" id="playlisttracks">
+                
+            </div>
+            <div class="swiper-pagination2" style="display: none;"></div>
+        </div>
+        <div class="swiper-container coverflow" dir="rtl">
+            <div class="swiper-wrapper" id="albumstack">
+            </div>
+            
+        </div>
+
+            <div class="swiper-container fade" dir="rtl">
                 <div class="swiper-wrapper">
-                    <?php if(have_posts()) : $i = 0; ?>
-                    <?php while(have_posts()) : the_post(); ?>
-                    <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
-                <div class="swiper-slide" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $image[0]; ?>">
+                    <?php
+                        // The Loop
+                        $i = 0;
+                        query_posts('posts_per_page=99');
+                            if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                    <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                          $thumbdumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
+                <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-title="<?php the_title(); ?>" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $image[0]; ?>" data-thumb="<?php echo $thumbdumb[0]; ?>">
                     <?php $textInfo = get_the_content(); ?>
-                    <h1 id='hd'><?php the_title(); ?></h1>
+                    <h1><?php the_title(); ?></h1>
                     <?php $author_id = $post->post_author; ?>
                     <?php echo get_avatar( $author_id, 32 ); ?>
                     <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
-                    <h2 id='dcc' style='display:none;'>{datetime}</h2>
                     <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
+                    <p><?php echo strip_tags($textInfo); ?></p>
+
                 </div>
                 <?php if (!is_single()) { $i++; } ?>
-            <?php endwhile; ?>
-            <?php endif; ?>
+            <?php endwhile;
+                    endif; ?>
                 </div> 
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
@@ -126,23 +148,7 @@
             <div class="swiper-button-next"></div><div class="swiper-button-prev"></div>
         </div>
         
-        <div class="swiper-container playlist">
-            <div class="swiper-wrapper">
-                <?php wp_reset_query(); ?>
-                <?php if(have_posts()) : $i = 0; ?>
-                    <?php while(have_posts()) : the_post(); ?>
-                <div class="swiper-slide" onClick="ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');">
-                    <?php $textInfo = get_the_content(); ?>
-                    <h1 id='hd'><?php echo strip_tags($textInfo); ?></h1>
-                    <h2 id='dc'><?php the_title(); ?></h2>
-                    <h2 id='dcc' style='display:none;'>{datetime}</h2>
-                    <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
-                </div>
-                <?php if (!is_single()) { $i++; } ?>
-            <?php endwhile; ?>
-            <?php endif; ?>
-            </div>
-        </div>
+        
 
 
         </div>
@@ -184,12 +190,40 @@
 <script>
 var urls = new Array();
 var trackImgs = new Array();
+var trackThumb = new Array();
+var trackTitles = new Array();
 $(".swiper-slide").each(function(){
    if($.inArray($(this).data('mp3')) == -1) // check if not in array
        urls.push($(this).data('mp3'))
    if($.inArray($(this).data('image')) == -1) // check if not in array
        trackImgs.push($(this).data('image'))
+   if($.inArray($(this).data('thumb')) == -1) // check if not in array
+       trackThumb.push($(this).data('thumb'))
+   if($.inArray($(this).data('title')) == -1) // check if not in array
+       trackTitles.push($(this).data('title'))
 });
+
+
+var ixt;
+document.write('<style>');
+for (ixt = 0; ixt < trackImgs.length; ++ixt) {
+    var currentIndex = ixt;
+    // console.log(trackImgs[ixt]);
+    document.write('.swiper-slide.swiper-slide-'+ currentIndex +' {background: url("'+trackImgs[ixt]+'") no-repeat 0 0; }')
+    document.write('.swiper-slide .swiper-thumb-'+ currentIndex +' {background: url("'+trackThumb[ixt]+'") no-repeat 0 0; }')
+}
+document.write('</style>');
+
+
+var ixx;
+for (ixx = 0; ixx < trackTitles.length; ++ixx) {
+    var currentIndex = ixx;
+    var currentIndexPlus = ixx + 1;
+    // console.log(trackTitles[ixx]);
+    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><strong>'+trackTitles[currentIndex]+'</strong></div>';
+    document.getElementById('playlisttracks').innerHTML += '<div class="swiper-slide"><strong>'+trackTitles[currentIndex]+'</strong><div onClick="pickSong('+currentIndex+');">play</div></div>';
+}
+
 
 var sticknav = function (){
     var h = $(window).height();
@@ -277,35 +311,51 @@ function artistLink(which) {
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/script.js', dirname(__FILE__) );?>"></script>
 <script src="<?php echo plugins_url( 'assets/js/swiper.min.js', dirname(__FILE__) ); ?>"></script>
 <script> 
-var swiper = new Swiper(".playlist", {
-    nextButton: ".swiper-button-next",
-    pagination: ".swiper-pagination",
-    prevButton: ".swiper-button-prev",
-    slidesPerView: "auto",
-    paginationClickable: true,
-    centeredSlides: true,
-    spaceBetween: 5,
-    slideToClickedSlide: true,
-    touchRatio: 0.2
-});
+var swiper = new Swiper('.swiper-container.playlist', {
+        pagination: '.swiper-pagination2',
+        paginationClickable: true,
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        slideToClickedSlide: true,
+    });
 
-var swiper2 = new Swiper(".tracks", {
+var swiper2 = new Swiper('.fade', {
     centeredSlides: true,
-    effect: "fade",
-    virtualTranslate: true,
     grabCursor: true,
-    nextButton: ".swiper-button-next",
-    pagination: ".swiper-pagination",
+    effect: 'slide',
+    nextButton: '.swiper-button-next',
+    pagination: '.swiper-pagination',
     paginationClickable: true,
-    prevButton: ".swiper-button-prev",
+    prevButton: '.swiper-button-prev',
     slidesPerView: 1,
-    spaceBetween: 5
+    spaceBetween: 5,
+    // paginationBulletRender: function (index, className) {
+    //     return '<span class="' + className + '">' + (index + 1) + '</span>';
+    // }
+});
+var swiper3 = new Swiper('.coverflow', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    touchRatio: 0.2,
+    slideToClickedSlide: true,
+    coverflow: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows : true
+    }
 });
 swiper.update();
 swiper2.update();
+swiper3.update();
 
-swiper2.params.control = swiper;
-swiper.params.control = swiper2;
+swiper3.params.control = swiper2;
+swiper2.params.control = swiper3;
+// swiper.params.control = swiper1;
+
 
 </script>
 <script>
@@ -314,11 +364,39 @@ swiper.params.control = swiper2;
          jQSwipe(window).load(function() {
             swiper.update();
             swiper2.update();
+            swiper3.update();
         });
          jQSwipe(window).resize(function() {
             swiper.update();
             swiper2.update();
+            swiper3.update();
         });
     });
+</script>
+<script>
+    // Bind the submit event for your form
+$('#searchform').submit(function( e ){ 
+
+    // Stop the form from submitting
+    e.preventDefault();
+
+    // Get the search term
+    var term = $('#s').val();
+
+    // Make sure the user searched for something
+    if ( term ){
+
+        $.get( '/', { s: term }, function( data ){
+
+            // Place the fetched results inside the #content element
+            $('.fade').html( $(data).find('#feed') );
+
+        });
+        swiper2.update();
+        swiper3.update();
+
+    }
+
+});
 </script>
 </html>

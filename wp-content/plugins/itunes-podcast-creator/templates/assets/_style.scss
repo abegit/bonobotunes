@@ -66,15 +66,16 @@ p {text-align: left; }
 
 
 .clear {clear: both; display: block; height: 1px; overflow: hidden; width: 100%; }
-.swiper-container {float: left; height: 200px !important; width: 74.8% !important; margin-left: 200px !important;
-    .swiper-wrapper {text-align: left; width: 100%;
+
+.swiper-container {
+    .swiper-wrapper {
         h2 {width: 2000px; }
         h2:hover, h3:hover {text-decoration: underline; }
         h1 {-moz-osx-font-smoothing: grayscale; color: #6a6a6a; font-family: "Open Sans Condensed" !important; font-size: 36px; font-weight: 700 !important; letter-spacing: -2px; text-transform: uppercase; }
         h2 {-moz-osx-font-smoothing: grayscale; color: #ffffff; font-family: "PT Sans Caption",sans-serif; font-size: 20px; line-height: 30px; }
         h3 {-moz-osx-font-smoothing: grayscale; color: #ffffff; font-family: "Paytone One",sans-serif; font-weight: lighter !important; text-transform: uppercase; }
         .fadeed {opacity: 0; }
-        .swiper-slide { padding: 20px; background:#dddddd;}
+        .swiper-slide { padding: 20px; background-color:#dddddd;}
         .swiper-slide img {height: auto; width: 100%; }
         .swiper-slide a {font-size: 13px; font-weight: normal !important; text-align: left !important; text-decoration: none; }
         .avatar.avatar-32.photo.avatar-default {
@@ -105,10 +106,23 @@ p {text-align: left; }
 .bp-lg {
     #artwork {height: 480px; width: 58% !important;
     #img {height: 480px; }}
-    .tracks {height: 480px !important; margin-left: 58% !important; width: 42% !important; }
+    .fade {height: 480px !important; }
     &.phone {
         #artwork {width: 100%;}
     }
+    .playlist {float: left;
+        left: 0;
+        margin: 0 !important;
+        height: 480px;
+        top: 0;
+        width: 25% !important;
+        strong {font-family: arial, sans-serif; font-size:.9rem; }
+        .swiper-slide {height: 40px; width: 100%; @include box-shadow(1px 0 1px #aaa !important); overflow: hidden; display:table-row;
+            &.swiper-slide-active {background:red;}
+            &.swiper-slide-next {background:blue;}
+        }
+    }
+    .coverflow, .fade {float: right; width: 74.8% !important;}
 }
 .bp-sm, .bp-md {
     .swiper-container {height: 140px; margin-left: 140px;}

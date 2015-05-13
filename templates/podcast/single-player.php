@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
-    <title>RadioSuzy1</title>
+    <title><?php echo get_option('iTunesPodcastTitle'); ?></title>
     <meta name="viewport" content="width=device-width" />
-    
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|PT+Sans+Caption|Paytone+One' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="<?php echo plugins_url( '/assets/style.css', dirname(__FILE__) );?>">
-<link rel="stylesheet" href="<?php echo plugins_url( '/assets/icos.css', dirname(__FILE__) );?>">
-<link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/swiper.min.css', dirname(__FILE__) ); ?>">
-<link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/fade.css', dirname(__FILE__) ); ?>">
-<link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/coverflow.css', dirname(__FILE__) ); ?>">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|PT+Sans+Caption|Paytone+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/style.css', dirname(__FILE__) );?>">
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/icos.css', dirname(__FILE__) );?>">
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/swiper.min.css', dirname(__FILE__) ); ?>">
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/fade.css', dirname(__FILE__) ); ?>">
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/coverflow.css', dirname(__FILE__) ); ?>">
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/gfeedfetcher.js', dirname(__FILE__) );?>"></script>
 <script>
@@ -27,9 +25,16 @@
 </head>
 
 <?php $afil = $_GET["autoplay"]; ?>
-<body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?> class="bp-sm">
+<body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?> class="bp-sm loading">
+<div class="overlay"><div class="pulse">woah</div></div>
     <div id="header"><div class="container">
-       <a href="http://drsusanblock.tv/main/"><img src="<?php echo get_option('UnsceneMusicLogo'); ?>"></a>
+        <?php $logoImg = get_option('iTunesPodcastImage'); ?>
+       <a href="#"><?php if (isset($logoImg)) { ?>
+        <img height="11" src="<?php echo $logoImg; ?>">
+        <?php } else { ?>
+        BonoboRadio
+        <?php }?>
+        </a>
         <ul id="nav">
 
         <li><a href="#">Something Else <i class="ico-publish"></i> </a></li>
@@ -71,10 +76,25 @@
     <div class="radio">
     <div class="container">
         <div id="info">
-            <div id="artwork" style="position:relative; display:inline-block;">
+            <div id="nowplay">
+                "<span id="track">Nothing Playing</span>" by
+                <strong id="artist">One Mic</strong> 
+            </div>
+            <form id="searchform" style="position:absolute; top:100px; right:0;z-index: 999;">
+                <input type="text" value="" id="s">
+                <input type="submit" value="Submit">
+            </form>
+                 <div id="embedcode"  style="display:none;">
+                    <h1>Embed Code</h1>
+                    <textarea readonly style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"></iframe></textarea></div>
+        <div class='nav'>        
+            <div class='next'><i class="ico-next"></i></div>
+            <div class='prev unselectable'><i class="ico-previous"></i></div>
+            <div id='more'><div id="thumb"><img src=""></div></div>
+        </div>
+        <div id="artwork" style="position:relative; display:inline-block;">
                 <a href="#" onclick="playPause()" id="play"><i class="ico-play"></i></a>
-                
-                <div id="img" style="background:url('') no-repeat scroll center center / cover; "><img src="" id="imd"></div>
+                <div id="img"><img src="" id="megaAlbum"></div>
                 <div id="advertisement" style="background:url('') repeat scroll center center / contain  rgba(0, 0, 0, 0);height:100%;width:100%;"></div>
                 <div id="warningGradientOuterBarG">
                     <div id="warningGradientFrontBarG" class="warningGradientAnimationG">
@@ -87,67 +107,87 @@
                     </div>
                 </div>
                 <div style="clear:both"></div>
-            </div>
-            <div id="artist">
-                <strong id="hd">Listen Now</strong>
-                <p id="dc"><a href="http://bloggamy.com" target="_new">Sky Dive Sex!</a></p>
-                <span id="dcc" style="display:none;"></span>
-                <h3 id="ex"><a href="http://bloggamy.com" target="_new">DSB Radio</a></h3>
-            </div>
-            <form id="searchform" style="position:absolute; top:100px; right:0;z-index: 999;">
-                <input type="text" value="" id="s">
-                <input type="submit" value="Submit">
-            </form>
-                 <div id="embedcode"  style="display:none;">
-                    <h1>Embed Code</h1>
-                    <textarea readonly style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="http://drsusanblock.tv/hey/player.html"></iframe></textarea></div>
-            <div class='nav'>        
-            <div class='next'><i class="ico-next"></i></div>
-            <div class='prev unselectable'><i class="ico-previous"></i></div>
-            <div id='more'><i class="ico-sharable"></i></div>
-
         </div>
-        <div class="swiper-container playlist">
-            <div class="swiper-wrapper" id="playlisttracks">
+        <div class="on" id="tracklist"><div class="swiper-container playlist">
+            <div class="swiper-wrapper" id="tracks">
                 
             </div>
             <div class="swiper-pagination2" style="display: none;"></div>
-        </div>
-        <div class="swiper-container coverflow" dir="rtl">
-            <div class="swiper-wrapper" id="albumstack">
+        </div></div> <!-- end panel -->
+        <div id="brief">
+            <div id="back" onClick="goBack()" style="line-height:35px; font-family:Arial, sans serif; display:block; background:#fff;"><- Go Back to Tracklist</div>
+            <div class="swiper-container coverflow" dir="rtl">
+                <div class="swiper-wrapper" id="albumstack"></div>
             </div>
-            
-        </div>
 
-            <div class="swiper-container fade" dir="rtl">
-                <div class="swiper-wrapper">
-                    <?php
-                        // The Loop
-                        $i = 0;
-                        query_posts('posts_per_page=99');
-                            if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-                          $thumbdumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' ); ?>
-                <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-title="<?php the_title(); ?>" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $image[0]; ?>" data-thumb="<?php echo $thumbdumb[0]; ?>">
-                    <?php $textInfo = get_the_content(); ?>
-                    <h1><?php the_title(); ?></h1>
-                    <?php $author_id = $post->post_author; ?>
-                    <?php echo get_avatar( $author_id, 32 ); ?>
-                    <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
-                    <h3 id='ex'><a href='<?php the_permalink(); ?>' target="_new">DSB Radio</a></h3>
-                    <p><?php echo strip_tags($textInfo); ?></p>
+                <div class="swiper-container fade" dir="rtl">
+                    <div class="swiper-wrapper">
+                            <!-- Do other stuff... -->
+                         <?php // The Loop
+                            $i = 0; ?>
+                            <?php global $post;
+                            $numTracks = $_GET["tracks"];
+                                if (!isset($numTracks)) {
+                                    $numTracks = 999;
+                                }
+                            $args = array( 'numberposts' => $numTracks);
+                            $myposts = get_posts( $args );
+                            foreach( $myposts as $post ) :
+                              setup_postdata($post);
+                          $do_not_duplicate = $post->ID; ?>
 
-                </div>
-                <?php if (!is_single()) { $i++; } ?>
-            <?php endwhile;
-                    endif; ?>
-                </div> 
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-            <!-- Add Arrows -->
-            <div class="swiper-button-next"></div><div class="swiper-button-prev"></div>
-        </div>
-        
+                        <?php $albumFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                              $albumThumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+                              $artistName = get_the_author(); ?>
+                    <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php the_title(); ?>" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
+                        <?php $textInfo = get_the_content(); ?>
+                        <h1><?php the_title(); ?></h1>
+                        <?php $author_id = $post->post_author;
+                        echo $artistName;
+                        echo get_avatar( $author_id, 32 ); ?>
+                        <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
+                        <?php echo get_option('iTunesPodcastTitle'); ?>
+                        <p><?php echo $textInfo; ?></p>
+
+                    </div>
+                    <?php if (!is_single()) { $i++; } ?>
+                            <!-- Do stuff... -->
+                        <?php endforeach; 
+                            wp_reset_postdata(); ?>
+<?php query_posts( array( 'post__not_in' => $do_not_duplicate) );
+if ( have_posts() ) : while ( have_posts() ) : the_post(); ?> 
+
+                        <?php $albumFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                              $albumThumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+                              $artistName = get_the_author(); ?>
+                    <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php the_title(); ?>" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
+                        <?php $textInfo = get_the_content(); ?>
+                        <h1><?php the_title(); ?></h1>
+                        <?php $author_id = $post->post_author;
+                        echo $artistName;
+                        echo get_avatar( $author_id, 32 ); ?>
+                        <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
+                        <?php echo get_option('iTunesPodcastTitle'); ?>
+                        <p><?php echo $textInfo; ?></p>
+
+                    </div>
+                    <?php $i++;?>
+                <!-- Do stuff... -->
+
+    <!-- Do stuff... -->
+<?php endwhile; ?>
+
+<?php endif; ?>
+
+
+
+                    </div> 
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div><div class="swiper-button-prev"></div>
+            </div> <!-- end fade swiper -->
+        </div> <!-- end panel -->
         
 
 
@@ -192,15 +232,23 @@ var urls = new Array();
 var trackImgs = new Array();
 var trackThumb = new Array();
 var trackTitles = new Array();
-$(".swiper-slide").each(function(){
+var trackAuthor = new Array();
+$(".fade .swiper-slide").each(function(){
    if($.inArray($(this).data('mp3')) == -1) // check if not in array
-       urls.push($(this).data('mp3'))
+       urls.push($(this).data('mp3'));
+       $(this).removeAttr('data-mp3');
    if($.inArray($(this).data('image')) == -1) // check if not in array
-       trackImgs.push($(this).data('image'))
+       trackImgs.push($(this).data('image'));
+       $(this).removeAttr('data-image');
    if($.inArray($(this).data('thumb')) == -1) // check if not in array
-       trackThumb.push($(this).data('thumb'))
+       trackThumb.push($(this).data('thumb'));
+       $(this).removeAttr('data-thumb');
    if($.inArray($(this).data('title')) == -1) // check if not in array
-       trackTitles.push($(this).data('title'))
+       trackTitles.push($(this).data('title'));
+       $(this).removeAttr('data-title');
+   if($.inArray($(this).data('author')) == -1) // check if not in array
+       trackAuthor.push($(this).data('author'));
+       $(this).removeAttr('data-author');
 });
 
 
@@ -209,8 +257,8 @@ document.write('<style>');
 for (ixt = 0; ixt < trackImgs.length; ++ixt) {
     var currentIndex = ixt;
     // console.log(trackImgs[ixt]);
-    document.write('.swiper-slide.swiper-slide-'+ currentIndex +' {background: url("'+trackImgs[ixt]+'") no-repeat 0 0; }')
-    document.write('.swiper-slide .swiper-thumb-'+ currentIndex +' {background: url("'+trackThumb[ixt]+'") no-repeat 0 0; }')
+    document.write('.swiper-slide.swiper-slide-'+ currentIndex +' .album {background: url("'+trackImgs[ixt]+'") no-repeat 0 0; }')
+    document.write('.swiper-slide.swiper-slide-'+ currentIndex +' .thumb {background: url("'+trackThumb[ixt]+'") no-repeat 0 0; }')
 }
 document.write('</style>');
 
@@ -220,8 +268,8 @@ for (ixx = 0; ixx < trackTitles.length; ++ixx) {
     var currentIndex = ixx;
     var currentIndexPlus = ixx + 1;
     // console.log(trackTitles[ixx]);
-    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><strong>'+trackTitles[currentIndex]+'</strong></div>';
-    document.getElementById('playlisttracks').innerHTML += '<div class="swiper-slide"><strong>'+trackTitles[currentIndex]+'</strong><div onClick="pickSong('+currentIndex+');">play</div></div>';
+    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><strong>'+trackTitles[currentIndex]+'</strong><div class="album"></div></div>';
+    document.getElementById('tracks').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div class="thumb"></div><strong class="view" data-view="'+currentIndex+'">'+trackTitles[currentIndex]+'</strong><div class="view" data-view="'+currentIndex+'" onClick="pickSong('+currentIndex+');">play</div></div>';
 }
 
 
@@ -305,7 +353,7 @@ function myFunction(which) {
     var myWindow = window.open(which, "BonoboRadio", "width=800, height=600");
 }
 function artistLink(which) {
-    var myWindow = window.open( which , 'theFrame');
+    var myWindow = window.open(which, "Confirmation for Purchase", "width=300, height=600");
 }
 </script>
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/script.js', dirname(__FILE__) );?>"></script>
@@ -338,7 +386,7 @@ var swiper3 = new Swiper('.coverflow', {
     grabCursor: true,
     centeredSlides: true,
     slidesPerView: 'auto',
-    touchRatio: 0.2,
+    touchRatio: 1,
     slideToClickedSlide: true,
     coverflow: {
         rotate: 50,
@@ -361,16 +409,27 @@ swiper2.params.control = swiper3;
 <script>
     jQSwipe = jQuery.noConflict();
       jQSwipe(document).ready(function() {
-         jQSwipe(window).load(function() {
+        jQSwipe(window).load(function() {
             swiper.update();
             swiper2.update();
             swiper3.update();
+            jQSwipe('body').removeClass('loading');
+            jQSwipe('.overlay').fadeOut().hide();
+            jQSwipe("#tracks .swiper-slide .view").click(function(){
+                var index=jQSwipe(this).data('view');
+                swiper2.slideTo(index);
+                swiper3.slideTo(index);
+                jQSwipe("#tracklist").delay( 300 ).removeClass('on');
+                jQSwipe("#brief").delay( 300 ).addClass('on');                    
+            });
         });
          jQSwipe(window).resize(function() {
             swiper.update();
             swiper2.update();
             swiper3.update();
         });
+        
+
     });
 </script>
 <script>
@@ -382,21 +441,19 @@ $('#searchform').submit(function( e ){
 
     // Get the search term
     var term = $('#s').val();
+    var person = {s: term, embed: 1}; 
 
     // Make sure the user searched for something
     if ( term ){
 
-        $.get( '/', { s: term }, function( data ){
-
+        $.get( '/', person, function( data ){
             // Place the fetched results inside the #content element
             $('.fade').html( $(data).find('#feed') );
 
         });
         swiper2.update();
         swiper3.update();
-
     }
-
 });
 </script>
 </html>

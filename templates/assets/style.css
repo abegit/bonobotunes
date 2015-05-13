@@ -1,3 +1,56 @@
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
+.pulse {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: pulse;
+  animation-name: pulse; }
+
+@-webkit-keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1); }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1); }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1); }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1); }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
 @-webkit-keyframes animatedBackground {
   0% {
     background-position: 0 0; }
@@ -146,6 +199,15 @@ a {
     margin-left: -38px; }
   100% {
     margin-left: 0; } }
+#header, #content, #footer {
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out; }
+
+.loading #header, .loading #content, .loading #footer {
+  opacity: 0; }
+
 /*header*/
 #header {
   -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.4) inset;
@@ -177,6 +239,11 @@ a {
   text-align: right;
   top: 15px; }
 
+#nowplay {
+  height: 35px;
+  line-height: 35px;
+  font-family: Arial; }
+
 /*content-player*/
 .container {
   margin: 0 auto;
@@ -207,7 +274,7 @@ a {
 #content .selected.radio, #content .radio, #content .selected.home, #content .home {
   height: 100vh;
   overflow: auto;
-  padding: 0 3px 0; }
+  padding: 0; }
 
 #content > .radio {
   display: block; }
@@ -239,6 +306,18 @@ a {
   border-radius: 10px;
   padding: 5px;
   text-decoration: none !important; }
+
+/*panels*/
+#tracklist, #brief {
+  bottom: 0;
+  height: 480px;
+  left: 0;
+  max-width: 320px !important;
+  position: absolute;
+  z-index: 1;
+  background: #303030; }
+  #tracklist.on, #brief.on {
+    z-index: 2; }
 
 .descriptionfield img {
   float: left !important;
@@ -278,7 +357,8 @@ p {
 #info {
   display: block;
   margin: 0 auto;
-  max-width: 960px;
+  max-width: 800px;
+  height: 599px;
   overflow: hidden;
   position: relative;
   width: 100%; }
@@ -345,10 +425,6 @@ p {
   overflow: hidden;
   width: 100%; }
 
-.swiper-container .swiper-wrapper h2 {
-  width: 2000px; }
-.swiper-container .swiper-wrapper h2:hover, .swiper-container .swiper-wrapper h3:hover {
-  text-decoration: underline; }
 .swiper-container .swiper-wrapper h1 {
   -moz-osx-font-smoothing: grayscale;
   color: #6a6a6a;
@@ -392,6 +468,54 @@ p {
   .swiper-container.playlist .swiper-slide {
     width: 170px;
     padding: 3px; }
+  .swiper-container.playlist .swiper-slide > strong {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: table-cell;
+    font-family: arial,sans-serif;
+    font-size: 0.9rem;
+    height: 40px;
+    max-height: 40px;
+    overflow: hidden;
+    padding-left: 48px;
+    text-align: left;
+    vertical-align: middle;
+    width: 320px; }
+    .swiper-container.playlist .swiper-slide > strong:active, .swiper-container.playlist .swiper-slide > strong:focus, .swiper-container.playlist .swiper-slide > strong:hover {
+      background: #fff; }
+  .swiper-container.playlist .swiper-slide > div {
+    background-color: #ffffff;
+    float: right;
+    font-family: lato;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 19px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    cursor: pointer; }
+    .swiper-container.playlist .swiper-slide > div:active, .swiper-container.playlist .swiper-slide > div:focus, .swiper-container.playlist .swiper-slide > div:hover {
+      background-color: #afeeee; }
+  .swiper-container.playlist .swiper-slide .thumb {
+    background-size: contain !important;
+    display: table-cell;
+    height: 40px !important;
+    left: 0;
+    right: auto;
+    width: 40px; }
+
+.coverflow .swiper-slide {
+  background: transparent; }
+  .coverflow .swiper-slide .album {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-size: contain !important; }
 
 .nav {
   height: 90px;
@@ -445,9 +569,16 @@ p {
 /*small*/
 .bp-lg #artwork {
   height: 480px;
-  width: 58% !important; }
+  width: 480px !important;
+  bottom: 0 !important;
+  left: auto;
+  position: absolute;
+  right: 0 !important;
+  top: auto;
+  z-index: 999; }
   .bp-lg #artwork #img {
-    height: 480px; }
+    height: 480px;
+    width: 480px; }
 .bp-lg .fade {
   height: 480px !important; }
 .bp-lg.phone #artwork {
@@ -457,11 +588,7 @@ p {
   left: 0;
   margin: 0 !important;
   height: 480px;
-  top: 0;
-  width: 25% !important; }
-  .bp-lg .playlist strong {
-    font-family: arial, sans-serif;
-    font-size: .9rem; }
+  top: 0; }
   .bp-lg .playlist .swiper-slide {
     height: 40px;
     width: 100%;
@@ -475,8 +602,7 @@ p {
     .bp-lg .playlist .swiper-slide.swiper-slide-next {
       background: blue; }
 .bp-lg .coverflow, .bp-lg .fade {
-  float: right;
-  width: 74.8% !important; }
+  float: right; }
 
 .bp-sm .swiper-container, .bp-md .swiper-container {
   height: 140px;
@@ -495,6 +621,22 @@ p {
 
 /*medium*/
 /*large*/
+/*temp*/
+.overlay {
+  text-align: center;
+  padding: 15% 0; }
+
+.pulse {
+  background: #fff;
+  display: inline-block;
+  margin: 0 auto !important;
+  float: none;
+  position: relative !important;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px; }
+
 @media only screen and (max-width: 480px) {
   #play {
     line-height: 40vh; }

@@ -46,7 +46,6 @@ function loadPlayer() {
     audioPlayer.addEventListener('error',errorFallback,true);
     document.getElementById('player').appendChild(audioPlayer);
     nextSong();
-    changeImge();
 }
 
 // Start Search for next playable song
@@ -54,9 +53,16 @@ function nextSong() {
     if(urls[next]!=undefined) {
         var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
         if(audioPlayer!=undefined) {
-            var songTitle = document.getElementById("dc").innerHTML
-            var songTitleTarget = document.getElementById("dcc").innerHTML
+            var songArtist = document.getElementById("artist");
+            var songThumb = document.getElementById("thumb");
+            var songTitle = document.getElementById("track");
+            var megaAlbum = document.getElementById('megaAlbum');
+        
             audioPlayer.src=urls[next];
+            songTitle.innerHTML=trackTitles[next];
+            songArtist.innerHTML=trackAuthor[next];
+            songThumb.getElementsByTagName('img')[0].src=trackThumb[next];
+            megaAlbum.src=trackImgs[next];
             audioPlayer.load();
             audioPlayer.play();
             document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
@@ -65,8 +71,6 @@ function nextSong() {
             document.getElementById('play').setAttribute('className', 'notfadeed'); //IE
             document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
             document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
-            document.getElementById("dcc").innerHTML = document.getElementById("dc").innerHTML;
-            document.getElementById('hd').innerHTML = 'Now Playing';
             next++;
             // if( screen.availWidth >= 100 ) {
                 setTimeout(function (){ nextAd() }, 6000);  
@@ -77,16 +81,10 @@ function nextSong() {
             loadPlayer();
         }
     } else {
-        alert('the end!');
+        pickSong(0);
     }
 }
-function changeImge() {
-    if(trackImgs[next]!=undefined) {
-        var audioPlayer = document.getElementById('imd');
-        audioPlayer.src=trackImgs[next];
-        console.log(trackImgs[next]);
-    }
-}
+
 
 // Initialize Ad with listeners
 function loadAd() {
@@ -120,7 +118,8 @@ function nextAd() {
         }
     }
     else {
-        alert('the end!');
+       next=0;
+       nextSong();
     }
 }
 
@@ -144,17 +143,30 @@ function resSong() {
 function pickSong(num) {
     next = num;
     nextSong();
-    changeImge();
+    var panelTracks = document.getElementById("tracklist");
+    var panelBrief = document.getElementById("brief");
+    panelTracks.removeAttribute('class', 'on'); //browsers
+    panelTracks.removeAttribute('className', 'on'); //IE 
+    panelBrief.setAttribute('class', 'on'); //browsers
+    panelBrief.setAttribute('className', 'on'); //IE
+}
+function goBack() {
+    var panelTracks = document.getElementById("tracklist");
+    var panelBrief = document.getElementById("brief");
+    panelBrief.removeAttribute('class', 'on'); //browsers
+    panelBrief.removeAttribute('className', 'on'); //IE 
+    panelTracks.setAttribute('class', 'on'); //browsers
+    panelTracks.setAttribute('className', 'on'); //IE
 }
 
 // Start toggle advertisement
 function adOn() {
     var bgContent = document.getElementById('advertisement');
-    document.getElementById("dc").innerHTML = 'a word from our sponsors'
+    document.getElementById("artist").innerHTML = 'a word from our sponsors';
     bgContent.setAttribute('class', 'fadeed'); //browsers
     bgContent.setAttribute('className', 'fadeed'); //IE
-    document.getElementById('hd').setAttribute('class', 'fadeed'); //browsers
-    document.getElementById('hd').setAttribute('className', 'fadeed'); //IE
+    // document.getElementById('hd').setAttribute('class', 'fadeed'); //browsers
+    // document.getElementById('hd').setAttribute('className', 'fadeed'); //IE
     document.getElementById('warningGradientOuterBarG').removeAttribute('class', 'fadeed'); //browsers
     document.getElementById('warningGradientOuterBarG').removeAttribute('className', 'fadeed'); //IE 
     document.getElementById('play').setAttribute('class', 'fadeed'); //browsers
@@ -323,21 +335,3 @@ q(document).ready(function(){
         });
     });  // end sites
 }); 
-
-
-
-
-
-             // outLink();
-             // function outLink() {
-                 // var bae = jQuery.noConflict();
-            //     bae('.item').each( function() {
-            //             var FINALurl = bae(this).find('.artistTXT').attr('url');
-            //             bae(this).attr( 'onClick', function() {
-            //             return "artistLink('" + FINALurl + "')";
-            //         });
-            //     });
-                 // bae('.item a').attr('target','_new');
-            //     bae('.item a').attr('target','');
-             // }
-

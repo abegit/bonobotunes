@@ -42,14 +42,14 @@ class iTunesRSS extends SanityPluginFramework {
 		}
 		
 		function iTunesRegisterSettings() {
-			register_setting( 'iTunesFeedStart', 'iTunesFeedSync');
-			register_setting( 'iTunesFeedStart', 'iTunesAuthorName');
-			register_setting( 'iTunesFeedStart', 'iTunesAuthorEmail');
-			register_setting( 'iTunesFeedStart', 'iTunesPodcastTitle');
-			register_setting( 'iTunesFeedStart', 'iTunesPodcastSummary');
-			register_setting( 'iTunesFeedStart', 'iTunesPodcastImage');
-			register_setting( 'iTunesFeedStart', 'iTunesExplicit');
-			register_setting( 'iTunesFeedStart', 'iTunesCategories');
+			register_setting( 'bonoboFeedStart', 'bonoboFeedSync');
+			register_setting( 'bonoboFeedStart', 'bonoboAuthorName');
+			register_setting( 'bonoboFeedStart', 'bonoboAuthorEmail');
+			register_setting( 'bonoboFeedStart', 'bonoboTitle');
+			register_setting( 'bonoboFeedStart', 'bonoboPodcastSummary');
+			register_setting( 'bonoboFeedStart', 'bonoboPodcastImage');
+			register_setting( 'bonoboFeedStart', 'bonoboExplicit');
+			register_setting( 'bonoboFeedStart', 'bonoboCategories');
 			register_setting( 'iTunesFeedStart', 'UnsceneMusicPlayer');
 			register_setting( 'iTunesFeedStart', 'UnsceneMusicLogo');
 		}

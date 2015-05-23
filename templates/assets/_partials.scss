@@ -7,8 +7,9 @@ $maxmedium: 768px;
 $maxlarge: 1280px;
 
 $butt: 5px;
-
-
+/*$color: #032a5c;*/
+$color: #4a035c;
+$color2: lighten(saturate($color,50%),77%);
 
 
 
@@ -139,6 +140,42 @@ animation-iteration-count: infinite;
 @keyframes loadd {
   0% {opacity: 0; }
   100% {opacity: 1; } }
+
+@mixin btn($bgcolor,$borderra,$fntcolor){
+  @include trans(200ms);
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  @include box-shadow(0 -1px 0 2px darken($bgcolor, 10%) inset, 0 0 0 3px rgba($bgcolor,.27));
+  font-size: 0.875rem;
+  font-weight: normal;
+  line-height: 1.7rem;
+  text-decoration: none;
+  text-align: center;
+  opacity: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background:$bgcolor !important;
+  background-image: none;
+  @include border-radius($borderra);
+  border:none;
+  color:$fntcolor !important ;
+  @include text-shadow(none !important);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+  &:hover, &:active {background: darken(saturate($bgcolor,3%),3%) !important;opacity: 1;
+    color:$fntcolor !important;
+    @include box-shadow(0 -2px 0 darken($bgcolor, 10%) inset, 0 0 0 3px rgba(darken($bgcolor, 10%),1));
+    border:none; text-decoration: none;opacity: .9;}
+  &:focus {opacity: .7; background:$bgcolor; @include box-shadow(0 0 0 1px rgba(255, 255, 255, 0.47) inset, 0 2px 0 darken($bgcolor, 5%));
+    &::before {color:$fntcolor !important !important;}
+  }
+}
+
 
 
 

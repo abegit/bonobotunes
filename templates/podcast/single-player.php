@@ -22,13 +22,24 @@
   ga('send', 'pageview');
 
 </script>
+<script>
+    var urls = new Array();
+</script>
 </head>
 
 <?php $afil = $_GET["autoplay"]; ?>
 <body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?> class="bp-sm loading">
-<div class="overlay"><div class="pulse">woah</div></div>
+<div class="overlay">
+    <?php $logoImg = get_option('iTunesPodcastImage'); ?>
+    <?php if (isset($logoImg)) { ?>
+        <img class="pulse" src="<?php echo $logoImg; ?>">
+        <?php } else { ?>
+        <div class="pulse">BonoboRadio</div>
+        <?php }?><br><br><br>
+        <img width="32" height="16" src="<?php echo plugins_url( '/assets/images/ajax-loader.gif', dirname(__FILE__) )?>">
+    </div>
     <div id="header"><div class="container">
-        <?php $logoImg = get_option('iTunesPodcastImage'); ?>
+        
        <a href="#"><?php if (isset($logoImg)) { ?>
         <img height="11" src="<?php echo $logoImg; ?>">
         <?php } else { ?>
@@ -36,10 +47,8 @@
         <?php }?>
         </a>
         <ul id="nav">
-
-        <li><a href="#">Something Else <i class="ico-publish"></i> </a></li>
+        <li id="off"><a href="#" ><i class="ico-publish"></i> </a></li>
         <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')">Open Player <i class="ico-publish"></i> </a></li>
-        <li style="width:100% !important; clear:both;"></li>
     </ul>
    </div></div>
 
@@ -80,24 +89,32 @@
                 "<span id="track">Nothing Playing</span>" by
                 <strong id="artist">One Mic</strong> 
             </div>
-            <form id="searchform" style="position:absolute; top:100px; right:0;z-index: 999;">
+            <!-- <form id="searchform" style=" opacity: 0.1; position: absolute; right: 0; top: 5px; z-index: 999;">
                 <input type="text" value="" id="s">
                 <input type="submit" value="Submit">
-            </form>
-                 <div id="embedcode"  style="display:none;">
-                    <h1>Embed Code</h1>
-                    <textarea readonly style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"></iframe></textarea></div>
+            </form> -->
+         <div id="embedcode"  style="display:none;">
+            <h1>Embed Code</h1>
+            <textarea readonly style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"></iframe></textarea></div>
         <div class='nav'>        
-            <div class='next'><i class="ico-next"></i></div>
-            <div class='prev unselectable'><i class="ico-previous"></i></div>
-            <div id='more'><div id="thumb"><img src=""></div></div>
+            <div class='prev'><a onclick="prevSong()" href="#"><i class="ico-previous"></i></a></div>
+            <div><a href="#" id="play" onclick="playPause()"><i class="ico-play"></i></a></div>
+            <div class='next'><a href="#" onclick="nextSong()"><i class="ico-next"></i></a></div>
+            <div id='more'><div id="thumb"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>"></div></div>
         </div>
         <div id="artwork" style="position:relative; display:inline-block;">
-                <a href="#" onclick="playPause()" id="play"><i class="ico-play"></i></a>
-                <div id="img"><img src="" id="megaAlbum"></div>
+                <div id="img"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>" id="megaAlbum"></div>
                 <div id="advertisement" style="background:url('') repeat scroll center center / contain  rgba(0, 0, 0, 0);height:100%;width:100%;"></div>
                 <div id="warningGradientOuterBarG">
                     <div id="warningGradientFrontBarG" class="warningGradientAnimationG">
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
+                        <div class="warningGradientBarLineG"></div>
                         <div class="warningGradientBarLineG"></div>
                         <div class="warningGradientBarLineG"></div>
                         <div class="warningGradientBarLineG"></div>
@@ -108,84 +125,137 @@
                 </div>
                 <div style="clear:both"></div>
         </div>
-        <div class="on" id="tracklist"><div class="swiper-container playlist">
+        <div class="on" id="tracklist">
+            <div class="bar"><div>Tracklist</div></div>
+            <div class="swiper-container playlist">
             <div class="swiper-wrapper" id="tracks">
                 
             </div>
             <div class="swiper-pagination2" style="display: none;"></div>
         </div></div> <!-- end panel -->
         <div id="brief">
-            <div id="back" onClick="goBack()" style="line-height:35px; font-family:Arial, sans serif; display:block; background:#fff;"><- Go Back to Tracklist</div>
-            <div class="swiper-container coverflow" dir="rtl">
+            <div class="bar"><div onClick="goBack()"><- Go Back to Tracklist</div><div class="bar-next">></div><div class="bar-prev"><</div></div>
+            <div class="swiper-container coverflow">
                 <div class="swiper-wrapper" id="albumstack"></div>
             </div>
 
-                <div class="swiper-container fade" dir="rtl">
+                <div class="swiper-container fade">
                     <div class="swiper-wrapper">
                             <!-- Do other stuff... -->
                          <?php // The Loop
                             $i = 0; ?>
-                            <?php global $post;
-                            $numTracks = $_GET["tracks"];
-                                if (!isset($numTracks)) {
-                                    $numTracks = 999;
+                        <?php global $post;
+                        if ( have_posts() ) :
+                            while ( have_posts() ) : the_post();
+                            
+                            if (get_post_type( $post->ID ) == "radio") {
+                                $medias =& get_children( array (
+                                    'post_parent' => $post->ID,
+                                    'post_type' => 'attachment',
+                                    'post_mime_type' => array('audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio')
+                                ));
+                                if ( empty($medias) ) {
+                                    $hasTrack = "";
+                                } else {
+                                    foreach ( $medias as $attachment_id => $attachment ) {
+                                        $hasTrack = wp_get_attachment_url( $attachment_id ); ?>
+                                        <script>console.log('<?php echo $hasTrack.get_post_type( $post->ID ); ?>');</script>
+                                    <?php }
                                 }
-                            $args = array( 'numberposts' => $numTracks);
-                            $myposts = get_posts( $args );
-                            foreach( $myposts as $post ) :
-                              setup_postdata($post);
-                          $do_not_duplicate = $post->ID; ?>
-
-                        <?php $albumFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-                              $albumThumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
-                              $artistName = get_the_author(); ?>
-                    <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php the_title(); ?>" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
-                        <?php $textInfo = get_the_content(); ?>
-                        <h1><?php the_title(); ?></h1>
-                        <?php $author_id = $post->post_author;
-                        echo $artistName;
-                        echo get_avatar( $author_id, 32 ); ?>
-                        <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
-                        <?php echo get_option('iTunesPodcastTitle'); ?>
-                        <p><?php echo $textInfo; ?></p>
-
-                    </div>
-                    <?php if (!is_single()) { $i++; } ?>
+                            } else {
+                                ob_start();
+                                Cus_enc();
+                                $hasTrack = ob_get_clean();
+                            }
+                            
+                            
+                            $do_not_duplicate[] = $post->ID;
+                            if ($hasTrack != "") { ?>
+                                <?php $albumFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                                      $albumThumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+                                      $artistName = get_the_author();
+                                      $author_id = $post->post_author;
+                                      $songTitle = get_the_title(); ?>
+                                    <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php echo $songTitle; ?>" data-mp3="<?php echo $hasTrack; ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
+                                        <?php echo get_avatar( $author_id, 32 ); ?>
+                                        <div class="scroll" dir="ltr">
+                                        <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song</a>
+                                        <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Buy Tickets', '<?php echo $songTitle; ?>');" >Buy Tickets</a>
+                                        <?php echo get_option('iTunesPodcastTitle'); ?>
+                                        <?php ob_start();
+                                             the_content();
+                                            $old_content = ob_get_clean();
+                                            $text = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $old_content);?>
+                                        <p><?php $other = strip_tags($text,'<p><a><img><span><strong><ul><ol><iframe><li><br><br /><i><em><quote>'); 
+                                        echo $other; ?></p>
+                                        </div>
+                                    </div>
+                                    <?php if (!is_single()) { $i++; }
+                            } ?>
                             <!-- Do stuff... -->
-                        <?php endforeach; 
-                            wp_reset_postdata(); ?>
-<?php query_posts( array( 'post__not_in' => $do_not_duplicate) );
-if ( have_posts() ) : while ( have_posts() ) : the_post(); ?> 
+                        <?php endwhile;
+                                endif;?>
+                                                
+                            <?php wp_reset_query();
 
-                        <?php $albumFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                            $related_args = array(
+                                'post_type'      => array('post','radio'),
+                                'post__not_in'   => $do_not_duplicate,
+                                'numberposts' => 99,
+                                'post_status'    => 'publish',
+                                'orderby'        => 'rand',
+                            );
+                            $related = new WP_Query( $related_args );
+                            if( $related->have_posts() ):
+                            while( $related->have_posts() ): $related->the_post(); ?>
+                            <?php if (get_post_type( $post->ID ) == "radio") {
+                                $medias =& get_children( array (
+                                    'post_parent' => $post->ID,
+                                    'post_type' => 'attachment',
+                                    'post_mime_type' => array('audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio')
+                                ));
+                                if ( empty($medias) ) {
+                                    $hasTrack = "";
+                                } else {
+                                    foreach ( $medias as $attachment_id => $attachment ) {
+                                        $hasTrack = wp_get_attachment_url( $attachment_id ); ?>
+                                        <script>console.log('<?php echo $hasTrack.get_post_type( $post->ID ); ?>');</script>
+                                    <?php }
+                                }
+                            } else {
+                                ob_start();
+                                Cus_enc();
+                                $hasTrack = ob_get_clean();
+                            }
+                            if ($hasTrack != "") { ?>
+                            <?php $albumFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
                               $albumThumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
-                              $artistName = get_the_author(); ?>
-                    <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php the_title(); ?>" data-mp3="<?php Cus_enc(); ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
-                        <?php $textInfo = get_the_content(); ?>
-                        <h1><?php the_title(); ?></h1>
-                        <?php $author_id = $post->post_author;
-                        echo $artistName;
-                        echo get_avatar( $author_id, 32 ); ?>
-                        <h2 id='dc' onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Order Items', '<?php the_title(); ?>');" >Play song</h2>
-                        <?php echo get_option('iTunesPodcastTitle'); ?>
-                        <p><?php echo $textInfo; ?></p>
+                              $artistName = get_the_author();
+                              $author_id = $post->post_author;
+                              $songTitle = get_the_title(); ?>
+                                <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php echo $songTitle; ?>" data-mp3="<?php echo $hasTrack; ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
+                                    <?php echo get_avatar( $author_id, 32 ); ?>
+                                    <div class="scroll" dir="ltr">
+                                    <!-- <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song</a> -->
+                                    <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Tickets', '<?php echo $songTitle; ?>');" >Play Song</a>
+                                    <?php echo get_option('iTunesPodcastTitle'); ?>
+                                    <?php ob_start();
+                                         the_content();
+                                        $old_content = ob_get_clean();
+                                        $text = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $old_content);?>
+                                    <p><?php $other = strip_tags($text,'<p><a><img><span><strong><ul><ol><iframe><li><br><br /><i><em><quote>'); 
+                                    echo $other; ?></p>
+                                    </div>
+                                </div>
+                            <?php $i++;
+                             } else {}
+                            endwhile;
+                            endif;
+                            wp_reset_query(); ?>
 
-                    </div>
-                    <?php $i++;?>
-                <!-- Do stuff... -->
-
-    <!-- Do stuff... -->
-<?php endwhile; ?>
-
-<?php endif; ?>
 
 
-
-                    </div> 
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next"></div><div class="swiper-button-prev"></div>
+                    </div>                 
             </div> <!-- end fade swiper -->
         </div> <!-- end panel -->
         
@@ -228,7 +298,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/jquery-1.9.1.min.js', dirname(__FILE__) );?>"></script>
 <script>
-var urls = new Array();
+
 var trackImgs = new Array();
 var trackThumb = new Array();
 var trackTitles = new Array();
@@ -268,12 +338,12 @@ for (ixx = 0; ixx < trackTitles.length; ++ixx) {
     var currentIndex = ixx;
     var currentIndexPlus = ixx + 1;
     // console.log(trackTitles[ixx]);
-    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><strong>'+trackTitles[currentIndex]+'</strong><div class="album"></div></div>';
+    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><span class="track">'+trackTitles[currentIndex]+'</span><strong class="artistname">'+trackAuthor[currentIndex]+'</strong><div class="album"></div></div>';
     document.getElementById('tracks').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div class="thumb"></div><strong class="view" data-view="'+currentIndex+'">'+trackTitles[currentIndex]+'</strong><div class="view" data-view="'+currentIndex+'" onClick="pickSong('+currentIndex+');">play</div></div>';
 }
 
 
-var sticknav = function (){
+var appInit = function (){
     var h = $(window).height();
     var w = $(window).width();
 
@@ -290,15 +360,12 @@ var sticknav = function (){
     }
 }
 
-
-
 $(window).load(function() {
     // run our function on load
-    sticknav();
-
+    appInit();
     // and run it again every time you scroll
     $(window).resize(function() {
-        sticknav();
+        appInit();
     });
 });
 </script>
@@ -371,10 +438,8 @@ var swiper2 = new Swiper('.fade', {
     centeredSlides: true,
     grabCursor: true,
     effect: 'slide',
-    nextButton: '.swiper-button-next',
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    prevButton: '.swiper-button-prev',
+    nextButton: '.bar-next',
+    prevButton: '.bar-prev',
     slidesPerView: 1,
     spaceBetween: 5,
     // paginationBulletRender: function (index, className) {
@@ -433,27 +498,31 @@ swiper2.params.control = swiper3;
     });
 </script>
 <script>
-    // Bind the submit event for your form
-$('#searchform').submit(function( e ){ 
-
-    // Stop the form from submitting
-    e.preventDefault();
-
-    // Get the search term
-    var term = $('#s').val();
-    var person = {s: term, embed: 1}; 
-
-    // Make sure the user searched for something
-    if ( term ){
-
-        $.get( '/', person, function( data ){
-            // Place the fetched results inside the #content element
-            $('.fade').html( $(data).find('#feed') );
-
-        });
-        swiper2.update();
-        swiper3.update();
-    }
-});
+// var arr = urls;
+// shuffle(arr);
 </script>
+<script>
+//     // Bind the submit event for your form
+// $('#searchform').submit(function( e ){ 
+
+//     // Stop the form from submitting
+//     e.preventDefault();
+
+//     // Get the search term
+//     var term = $('#s').val();
+
+
+//     // Make sure the user searched for something
+//     if ( term ){
+
+//         $.get( '/', person, function( data ){
+//             // Place the fetched results inside the #content element
+//             $('.fade').html( $(data).find('#feed') );
+
+//         });
+//         swiper2.update();
+//         swiper3.update();
+//     }
+// });
+// </script>
 </html>

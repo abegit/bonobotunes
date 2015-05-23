@@ -108,23 +108,23 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel> 
-		<title><![CDATA[<?php echo get_option('iTunesPodcastTitle'); ?>]]></title>
+		<title><![CDATA[<?php echo get_option('bonoboTitle'); ?>]]></title>
 		<link><?php echo get_bloginfo('url'); ?></link>
         <language><?php bloginfo_rss( 'language' ); ?></language>
 		<copyright>&#x2117; &amp; &#xA9; 2015 Bonoboville &amp;</copyright>
-		<itunes:subtitle><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></itunes:subtitle>
-		<itunes:author><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:author>
-		<itunes:summary><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></itunes:summary>
-		<description><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></description>
+		<itunes:subtitle><![CDATA[<?php echo get_option('bonoboSubtitle'); ?>]]></itunes:subtitle>
+		<itunes:author><![CDATA[<?php echo get_option('bonoboAuthorName'); ?>]]></itunes:author>
+		<itunes:summary><![CDATA[<?php echo get_option('bonoboSubtitle'); ?>]]></itunes:summary>
+		<description><![CDATA[<?php echo get_option('bonoboSubtitle'); ?>]]></description>
 		<itunes:owner>
-			<itunes:name><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:name>
-			<itunes:email><![CDATA[<?php echo get_option('iTunesAuthorEmail'); ?>]]></itunes:email>
+			<itunes:name><![CDATA[<?php echo get_option('bonoboAuthorName'); ?>]]></itunes:name>
+			<itunes:email><![CDATA[<?php echo get_option('bonoboAuthorEmail'); ?>]]></itunes:email>
 		</itunes:owner>
-		<itunes:image href="<?php echo get_option('iTunesPodcastImage'); ?>" />
+		<itunes:image href="<?php echo get_option('bonoboPodcastImage'); ?>" />
 		<itunes:category text="Health">
 		<itunes:category text="Sexuality"/> </itunes:category>
 
-		<itunes:explicit><![CDATA[<?php if ( get_option('iTunesExplicit') == '1') { echo 'yes';} else { echo 'clean'; } ?>]]></itunes:explicit>
+		<itunes:explicit><![CDATA[<?php if ( get_option('bonoboExplicit') == '1') { echo 'yes';} else { echo 'clean'; } ?>]]></itunes:explicit>
 
         <!-- Feed Logo (optional) -->
         <image>
@@ -143,9 +143,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
                 <title><?php the_title_rss(); ?></title>
                 <link><?php the_permalink_rss(); ?></link>
                 <guid><?php the_guid(); ?></guid>
-                <itunes:author><?php the_author(); ?></itunes:author>
-                <itunes:subtitle></itunes:subtitle>
-                <itunes:summary><![CDATA[]]></itunes:summary>
+                <itunes:author><![CDATA[<?php echo get_option('bonoboAuthorName'); ?>]]></itunes:author>
+                <itunes:subtitle><![CDATA[<?php echo strip_tags(the_content()); ?>]]></itunes:subtitle>
+                <itunes:summary><![CDATA[<?php the_content(); ?>]]></itunes:summary>
                 <?php if (has_post_thumbnail() ) {
 	                	$thumbnail_size = apply_filters( 'itunes_rss_image_size', 'itunes_rss_image_size' );
 						$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
@@ -157,7 +157,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
                 		} ?>
                 <datetime></datetime>
                 <pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
-            	<description></description>
+            	<description><![CDATA[<?php the_content(); ?>]]></description>
             	<?php echo rss_enclosure(); ?>
             </item>
 

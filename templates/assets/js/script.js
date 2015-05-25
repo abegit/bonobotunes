@@ -57,22 +57,24 @@ function nextSong() {
             var songThumb = document.getElementById("thumb");
             var songTitle = document.getElementById("track");
             var megaAlbum = document.getElementById('megaAlbum');
+            var currentSong = 'goToSlide(' + next + ')';
 
             audioPlayer.src=urls[next];
             songTitle.innerHTML=trackTitles[next];
             songArtist.innerHTML=trackAuthor[next];
             songThumb.getElementsByTagName('img')[0].src=trackThumb[next];
+            songThumb.setAttribute('onClick', currentSong);
             megaAlbum.src=trackImgs[next];
             audioPlayer.load();
-            audioPlayer.volume = 0;
+            audioPlayer.volume = .5;
             audioPlayer.play();
 
             document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
             document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
             document.getElementById('play').setAttribute('class', 'notfadeed'); //browsers
             document.getElementById('play').setAttribute('className', 'notfadeed'); //IE
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-paus');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-paus');
             next++;
             if( screen.availWidth >= 3000 ) {
                 setTimeout(function (){ nextAd() }, 6000);  
@@ -97,51 +99,24 @@ function prevSong() {
             var songThumb = document.getElementById("thumb");
             var songTitle = document.getElementById("track");
             var megaAlbum = document.getElementById('megaAlbum');
+            var currentSong = 'goToSlide(' + next + ')';
 
             audioPlayer.src=urls[next];
             songTitle.innerHTML=trackTitles[next];
             songArtist.innerHTML=trackAuthor[next];
             songThumb.getElementsByTagName('img')[0].src=trackThumb[next];
+            songThumb.setAttribute('onClick', currentSong);
             megaAlbum.src=trackImgs[next];
             audioPlayer.load();
-            audioPlayer.volume = 0;
+            audioPlayer.volume = 1;
             audioPlayer.play();
-            setTimeout(function (){
-                audioPlayer.volume = 0.1;
-                setTimeout(function (){
-                    audioPlayer.volume = 0.2;
-                    setTimeout(function (){
-                        audioPlayer.volume = 0.3;
-                        setTimeout(function (){
-                            audioPlayer.volume = 0.4;
-                            setTimeout(function (){
-                                audioPlayer.volume = .5;
-                                setTimeout(function (){
-                                    audioPlayer.volume = 0.6;
-                                    setTimeout(function (){
-                                        audioPlayer.volume = 0.7;
-                                        setTimeout(function (){
-                                            audioPlayer.volume = 0.8;
-                                            setTimeout(function (){
-                                                audioPlayer.volume = 0.9;
-                                                setTimeout(function (){
-                                                    audioPlayer.volume = 1;
-                                                }, 700);
-                                            }, 700);
-                                        }, 700);
-                                    }, 700);
-                                }, 700);
-                            }, 700);
-                        }, 700);
-                    }, 700);
-                }, 700);
-            }, 700);
+            
             document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
             document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
             document.getElementById('play').setAttribute('class', 'notfadeed'); //browsers
             document.getElementById('play').setAttribute('className', 'notfadeed'); //IE
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-paus');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-paus');
             next++;
             if( screen.availWidth >= 3000 ) {
                 setTimeout(function (){ nextAd() }, 6000);  
@@ -200,15 +175,15 @@ function resSong() {
     if( screen.availWidth >= 3000 ) {
      var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
      if (audioPlayer.paused) {
-         document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
-         document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+         document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-play');
+         document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-play');
          audioPlayer.play();
      } else {
          audioPlayer.play();
      }
 
      nextAd();
- 
+    }
 }
 
 // play this specific track number
@@ -268,14 +243,14 @@ function playPause() {
     if(audioPlayer!=undefined) {
         if (audioPlayer.paused) {
             audioPlayer.play();
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-paus');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-paus');
             document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
             document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
         } else {
             audioPlayer.pause();
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
-            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-play');
+            document.getElementById("play").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-play');
             document.getElementById('warningGradientOuterBarG').removeAttribute('class', 'fadeed'); //browsers
             document.getElementById('warningGradientOuterBarG').removeAttribute('className', 'fadeed'); //IE
         }
@@ -301,12 +276,12 @@ function ad() {
     if(audioAdPlayer!=undefined) {
         if (audioAdPlayer.paused) {
             audioAdPlayer.play();
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'ico-play');
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'ico-play');
+            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-play');
+            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-play');
         } else {
             audioAdPlayer.pause();
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'ico-pause');
-            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'ico-pause');
+            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-paus');
+            document.getElementById("ad").getElementsByTagName('i')[0].setAttribute('className', 'icon-controller-paus');
         }
     } else {
         loadAd();
@@ -338,6 +313,14 @@ q(document).ready(function(){
             q(this).attr('data-uri', '1');
         }
     });
+    // artwork move to slide
+    // q("#thumb").click(function(){
+    //     var index=q(this).data('view');
+    //     swiper2.slideTo(index);
+    //     swiper3.slideTo(index);
+    //     q("#tracklist").delay( 300 ).removeClass('on');
+    //     q("#brief").delay( 300 ).addClass('on');                    
+    // });
 
     q("#off").click(function(e){
         e.preventDefault();

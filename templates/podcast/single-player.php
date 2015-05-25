@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|PT+Sans+Caption|Paytone+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/style.css', dirname(__FILE__) );?>">
-    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/icos.css', dirname(__FILE__) );?>">
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/ico.css', dirname(__FILE__) );?>">
+    <!--[if lt IE 8]><!-->
+    <link rel="stylesheet" href="<?php echo plugins_url( '/assets/ie7.css', dirname(__FILE__) );?>">
+    <!--<![endif]-->
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/swiper.min.css', dirname(__FILE__) ); ?>">
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/fade.css', dirname(__FILE__) ); ?>">
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/css/coverflow.css', dirname(__FILE__) ); ?>">
@@ -36,7 +39,16 @@
         <?php } else { ?>
         <div class="pulse">BonoboRadio</div>
         <?php }?><br><br><br>
-        <img width="32" height="16" src="<?php echo plugins_url( '/assets/images/ajax-loader.gif', dirname(__FILE__) )?>">
+        <div class="loader">
+        <div class="loader-inner line-scale-pulse-out-rapid">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
     </div>
     <div id="header"><div class="container">
         
@@ -47,8 +59,9 @@
         <?php }?>
         </a>
         <ul id="nav">
-        <li id="off"><a href="#" ><i class="ico-publish"></i> </a></li>
-        <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')">Open Player <i class="ico-publish"></i> </a></li>
+        <li id="off"><a href="#"><i class="icon-resize-full-screen"></i> </a></li>
+        <li id="more"><a href="#"><i class="icon-export"></i> </a></li>
+        <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')"><i class="icon-share-alternitive"></i> </a></li>
     </ul>
    </div></div>
 
@@ -94,13 +107,16 @@
                 <input type="submit" value="Submit">
             </form> -->
          <div id="embedcode"  style="display:none;">
-            <h1>Embed Code</h1>
-            <textarea readonly style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"></iframe></textarea></div>
+            <div style="margin-bottom:140px">
+            <h1>Straight URL</h1>
+            <textarea readonly onclick="this.focus();this.select();" style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?></textarea>
+            <br><br><br><br><h1>Embed Code</h1>
+            <textarea readonly onclick="this.focus();this.select();" style="background: #000; color: #444; border-radius: 10px; font-size: 18px; max-width: 100%; min-width: 50%;"><iframe width="640px" height="240px" style="-webkit-border-radius: 4px; -webkit-box-shadow: 0 4px 0 #707070; -moz-border-radius: 4px; -moz-box-shadow: 0 4px 0 #707070; -o-border-radius: 4px; -o-box-shadow: 0 4px 0 #707070; border-radius: 4px; box-shadow: 0 4px 0 #707070; display: block;" frameborder="0" src="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"></iframe></textarea></div></div>
         <div class='nav'>        
-            <div class='prev'><a onclick="prevSong()" href="#"><i class="ico-previous"></i></a></div>
-            <div><a href="#" id="play" onclick="playPause()"><i class="ico-play"></i></a></div>
-            <div class='next'><a href="#" onclick="nextSong()"><i class="ico-next"></i></a></div>
-            <div id='more'><div id="thumb"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>"></div></div>
+            <div class='prev'><a onclick="prevSong()" href="#"><i class="icon-controller-next"></i></a></div>
+            <div><a href="#" id="play" onclick="playPause()"><i class=" icon-controller-play"></i></a></div>
+            <div class='next'><a href="#" onclick="nextSong()"><i class=" icon-controller-next"></i></a></div>
+            <div id='mini-art'><div id="thumb" data-view="1"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>"></div></div>
         </div>
         <div id="artwork" style="position:relative; display:inline-block;">
                 <div id="img"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>" id="megaAlbum"></div>
@@ -126,7 +142,7 @@
                 <div style="clear:both"></div>
         </div>
         <div class="on" id="tracklist">
-            <div class="bar"><div>Tracklist</div></div>
+            <div class="bar"><div><i class="icon-list"></i> Tracklist</div></div>
             <div class="swiper-container playlist">
             <div class="swiper-wrapper" id="tracks">
                 
@@ -134,7 +150,7 @@
             <div class="swiper-pagination2" style="display: none;"></div>
         </div></div> <!-- end panel -->
         <div id="brief">
-            <div class="bar"><div onClick="goBack()"><- Go Back to Tracklist</div><div class="bar-next">></div><div class="bar-prev"><</div></div>
+            <div class="bar"><div onClick="goBack()"><- Go Back to Tracklist</div><div class="bar-next"><i class="icon-chevron-right"></i></div><div class="bar-prev"><i class="icon-chevron-right"></i></div></div>
             <div class="swiper-container coverflow">
                 <div class="swiper-wrapper" id="albumstack"></div>
             </div>
@@ -179,8 +195,8 @@
                                     <div class="swiper-slide swiper-slide-<?php echo $i; ?>" data-author="<?php echo $artistName; ?>" data-title="<?php echo $songTitle; ?>" data-mp3="<?php echo $hasTrack; ?>" data-image="<?php echo $albumFull[0]; ?>" data-thumb="<?php echo $albumThumb[0]; ?>">
                                         <?php echo get_avatar( $author_id, 32 ); ?>
                                         <div class="scroll" dir="ltr">
-                                        <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song</a>
-                                        <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Buy Tickets', '<?php echo $songTitle; ?>');" >Buy Tickets</a>
+                                        <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song <i class="icon-controller-play"></i></a>
+                                        <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Buy Tickets', '<?php echo $songTitle; ?>');" >Buy Tickets <i class="icon-ticket"></i></a>
                                         <?php echo get_option('iTunesPodcastTitle'); ?>
                                         <?php ob_start();
                                              the_content();
@@ -237,7 +253,7 @@
                                     <?php echo get_avatar( $author_id, 32 ); ?>
                                     <div class="scroll" dir="ltr">
                                     <!-- <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song</a> -->
-                                    <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Tickets', '<?php echo $songTitle; ?>');" >Play Song</a>
+                                    <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Tickets', '<?php echo $songTitle; ?>');" >Play Song <i class="icon-controller-play"></a>
                                     <?php echo get_option('iTunesPodcastTitle'); ?>
                                     <?php ob_start();
                                          the_content();
@@ -292,6 +308,8 @@
 <div id="playerAd" style="display:none;"></div>
 
 
+
+<script src="<?php echo plugins_url( '/assets/js/ie7.js', dirname(__FILE__) );?>"></script>
 </body>
 
 
@@ -338,7 +356,7 @@ for (ixx = 0; ixx < trackTitles.length; ++ixx) {
     var currentIndex = ixx;
     var currentIndexPlus = ixx + 1;
     // console.log(trackTitles[ixx]);
-    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><span class="track">'+trackTitles[currentIndex]+'</span><strong class="artistname">'+trackAuthor[currentIndex]+'</strong><div class="album"></div></div>';
+    document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div><span class="track">'+trackTitles[currentIndex]+'</span><strong class="artistname">'+trackAuthor[currentIndex]+'</strong></div><div class="album"></div></div>';
     document.getElementById('tracks').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div class="thumb"></div><strong class="view" data-view="'+currentIndex+'">'+trackTitles[currentIndex]+'</strong><div class="view" data-view="'+currentIndex+'" onClick="pickSong('+currentIndex+');">play</div></div>';
 }
 
@@ -422,8 +440,15 @@ function myFunction(which) {
 function artistLink(which) {
     var myWindow = window.open(which, "Confirmation for Purchase", "width=300, height=600");
 }
+function goToSlide(which) {
+    swiper2.slideTo(which);
+    swiper3.slideTo(which);
+    jQSwipe("#tracklist").delay( 300 ).removeClass('on');
+    jQSwipe("#brief").delay( 300 ).addClass('on');       
+}
 </script>
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/script.js', dirname(__FILE__) );?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( '/assets/js/object-watch.js', dirname(__FILE__) );?>"></script>
 <script src="<?php echo plugins_url( 'assets/js/swiper.min.js', dirname(__FILE__) ); ?>"></script>
 <script> 
 var swiper = new Swiper('.swiper-container.playlist', {
@@ -526,3 +551,4 @@ swiper2.params.control = swiper3;
 // });
 // </script>
 </html>
+

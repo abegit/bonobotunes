@@ -45,8 +45,8 @@
             <h3>Need To Talk?</h3>
             <a href="tel:3105680066">Call Us (310) 568-0066</a><br>
         <ul class="actions">
-            <li> <?php echo get_option('iTunesAuthorName'); ?>
-            <div class="message"><?php echo get_option('iTunesPodcastTitle'); ?><?php echo get_option('iTunesPodcastSummary'); ?><br>
+            <li> <?php echo get_option('bvtAuthorName'); ?>
+            <div class="message"><?php echo get_option('bvtPodcastTitle'); ?><?php echo get_option('bvtPodcastSummary'); ?><br>
                 <br><?php if( is_home() ) { echo get_bloginfo( 'title' ); }
   elseif (is_category() ) { echo single_cat_title(); }
   elseif (is_single() || is_page()) { the_title(); }
@@ -55,7 +55,7 @@
   else {echo the_title();} ?>
 </div></li>
             <li>Tracklisting
-            <div class="message"><?php echo get_option('iTunesPodcastImage'); ?></div></li>
+            <div class="message"><?php echo get_option('bvtPodcastImage'); ?></div></li>
             <li>Attend a Show
             <div class="message">this is the info i want you to read.</div></li>
             <li>Sponsors

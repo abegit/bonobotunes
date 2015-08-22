@@ -113,19 +113,19 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
         <language><?php bloginfo_rss( 'language' ); ?></language>
 		<copyright>&#x2117; &amp; &#xA9; 2015 Bonoboville &amp;</copyright>
 		<itunes:subtitle>A show about everything</itunes:subtitle>
-		<itunes:author><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:author>
-		<itunes:summary><![CDATA[<?php echo get_option('iTunesPodcastSummary'); ?>]]></itunes:summary>
+		<itunes:author><![CDATA[<?php echo get_option('bvtAuthorName'); ?>]]></itunes:author>
+		<itunes:summary><![CDATA[<?php echo get_option('bvtPodcastSummary'); ?>]]></itunes:summary>
 		<description>All About Everything is a show about everything. Each week we dive into any subject known to man and talk about it as much as we can. Look for our podcast in the Podcasts app or in the iTunes Store</description>
 		<itunes:owner>
-			<itunes:name><![CDATA[<?php echo get_option('iTunesAuthorName'); ?>]]></itunes:name>
-			<itunes:email><![CDATA[<?php echo get_option('iTunesAuthorEmail'); ?>]]></itunes:email>
+			<itunes:name><![CDATA[<?php echo get_option('bvtAuthorName'); ?>]]></itunes:name>
+			<itunes:email><![CDATA[<?php echo get_option('bvtAuthorEmail'); ?>]]></itunes:email>
 		</itunes:owner>
-		<itunes:image href="<?php echo get_option('iTunesPodcastImage'); ?>" />
+		<itunes:image href="<?php echo get_option('bvtPodcastImage'); ?>" />
 		<itunes:category text="Technology">
 		<itunes:category text="Gadgets"/>
 		<itunes:category text="TV &amp; Film"/> </itunes:category>
 
-		<itunes:explicit><![CDATA[<?php if ( get_option('iTunesExplicit') == '1') { echo 'yes';} else { echo 'clean'; } ?>]]></itunes:explicit>
+		<itunes:explicit><![CDATA[<?php if ( get_option('bvtExplicit') == '1') { echo 'yes';} else { echo 'clean'; } ?>]]></itunes:explicit>
 
         <!-- Feed Logo (optional) -->
         <image>

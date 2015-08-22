@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo get_option('iTunesPodcastTitle'); ?></title>
+    <title><?php echo get_option('bvtPodcastTitle'); ?></title>
     <meta name="viewport" content="width=device-width" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|PT+Sans+Caption|Paytone+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/style.css', dirname(__FILE__) );?>">
@@ -33,7 +33,7 @@
 <?php $afil = $_GET["autoplay"]; ?>
 <body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?> class="bp-sm loading">
 <div class="overlay">
-    <?php $logoImg = get_option('iTunesPodcastImage'); ?>
+    <?php $logoImg = get_option('bvtPodcastImage'); ?>
     <?php if (isset($logoImg)) { ?>
         <img class="pulse" src="<?php echo $logoImg; ?>">
         <?php } else { ?>
@@ -76,8 +76,8 @@
             <h3>Need To Talk?</h3>
             <a href="tel:3105680066">Call Us (310) 568-0066</a><br>
         <ul class="actions">
-            <li> <?php echo get_option('iTunesAuthorName'); ?>
-            <div class="message"><?php echo get_option('iTunesPodcastTitle'); ?><?php echo get_option('iTunesPodcastSummary'); ?><br>
+            <li> <?php echo get_option('bvtAuthorName'); ?>
+            <div class="message"><?php echo get_option('bvtPodcastTitle'); ?><?php echo get_option('bvtPodcastSummary'); ?><br>
                 <br><?php if( is_home() ) { echo get_bloginfo( 'title' ); }
   elseif (is_category() ) { echo single_cat_title(); }
   elseif (is_single() || is_page()) { the_title(); }
@@ -86,7 +86,7 @@
   else {echo the_title();} ?>
 </div></li>
             <li>Tracklisting
-            <div class="message"><?php echo get_option('iTunesPodcastImage'); ?></div></li>
+            <div class="message"><?php echo get_option('bvtPodcastImage'); ?></div></li>
             <li>Attend a Show
             <div class="message">this is the info i want you to read.</div></li>
             <li>Sponsors
@@ -197,7 +197,7 @@
                                         <div class="scroll" dir="ltr">
                                         <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song <i class="icon-controller-play"></i></a>
                                         <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Buy Tickets', '<?php echo $songTitle; ?>');" >Buy Tickets <i class="icon-ticket"></i></a>
-                                        <?php echo get_option('iTunesPodcastTitle'); ?>
+                                        <?php echo get_option('bvtPodcastTitle'); ?>
                                         <?php ob_start();
                                              the_content();
                                             $old_content = ob_get_clean();
@@ -254,7 +254,7 @@
                                     <div class="scroll" dir="ltr">
                                     <!-- <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song</a> -->
                                     <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Tickets', '<?php echo $songTitle; ?>');" >Play Song <i class="icon-controller-play"></a>
-                                    <?php echo get_option('iTunesPodcastTitle'); ?>
+                                    <?php echo get_option('bvtPodcastTitle'); ?>
                                     <?php ob_start();
                                          the_content();
                                         $old_content = ob_get_clean();
@@ -290,7 +290,7 @@
 
 
 
-<div id="footer"><div class="container">
+<div id="footer"><div class="container">f
     <ul>
         <li id="player"></li>
         <li> <!-- <ul id="sites">

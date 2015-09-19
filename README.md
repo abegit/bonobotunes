@@ -1,6 +1,6 @@
 ![Build Passing](https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg)
-<a href="http://unscene.us/podcast-creator"><img src="https://raw.githubusercontent.com/abegit/bonobotunes/master/templates/assets/images/bonobotunes-podcast-creator-by-unscene.png" alt="Bonobo Tunes" width="100"/></a>
-# Bonobo Tunes
+
+# <a href="http://unscene.us/podcast-creator"><img src="https://raw.githubusercontent.com/abegit/bonobotunes/master/templates/assets/images/bonobotunes-podcast-creator-by-unscene.png" alt="Bonobo Tunes" width="100"/></a> Bonobo Tunes
 Bonobo Tunes is a Wordpress Plugin that makes it easy for podcasters and musicians to make RSS-Friendly urls for their iTunes Podcast Submittion. It is designed to give you a set of features, organized in a way that allows anyone with WordPress Experience, to update their Album Artwork Images, Artist Name, Podcast Description, Podcast Title, Podcast Saftey (a.k.a. Is Podcast Explicit). We take care of the RSS final input so that you can use your WordPress Installation as Jukebox for your Audio Files.
 
 

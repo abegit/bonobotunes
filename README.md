@@ -1,5 +1,4 @@
 ![Alt text](https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg)
-<img src="https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg">
 
 Wordpress Sanity Plugin Framework
 =================================

@@ -1,3 +1,6 @@
+![Alt text](https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg)
+<img src="https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg">
+
 Wordpress Sanity Plugin Framework
 =================================
 The goal of this simple framework is to add some sanity and civility to Wordpress plugin development, a task which is currently messy and savage. So, without further ado, I should like to present you with some sanity.

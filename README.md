@@ -1,6 +1,7 @@
-![Alt text](https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg)
+![Build Passing](https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg)
 
-Wordpress Sanity Plugin Framework
+
+# [![Bonobo Tunes Logo](https://raw.githubusercontent.com/abegit/bonobotunes/master/templates/assets/images/bonobotunes-podcast-creator-by-unscene.png)](http://unscene.us/podcast-creator/) Bonobo Tunes
 =================================
 The goal of this simple framework is to add some sanity and civility to Wordpress plugin development, a task which is currently messy and savage. So, without further ado, I should like to present you with some sanity.
 

@@ -36,4 +36,4 @@ There are two types of packages:
   * To our awesome <a href="https://github.com/BonoboDesigns">core team</a> with help of our Lead Developer <a href="https://github.com/abegit">Abe Perez</a> which have made this project possible.
 
 ## License
-We believe that mean should be free and easy to integrate within your existing projects so we chose [The MIT License](http://opensource.org/licenses/MIT)
+We believe that Bonobo Tunes should be free and easy to integrate within your existing projects so we chose [The MIT License](http://opensource.org/licenses/MIT)

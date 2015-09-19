@@ -1,7 +1,7 @@
 ![Build Passing](https://img.shields.io/jenkins/s/https/jenkins.qa.ubuntu.com/precise-desktop-amd64_default.svg)
 
 
-# [![Bonobo Tunes Logo](https://raw.githubusercontent.com/abegit/bonobotunes/master/templates/assets/images/bonobotunes-podcast-creator-by-unscene.png =100x100)](http://unscene.us/podcast-creator/) Bonobo Tunes
+# <a href="http://unscene.us/podcast-creator"><img src="https://raw.githubusercontent.com/abegit/bonobotunes/master/templates/assets/images/bonobotunes-podcast-creator-by-unscene.png" alt="Bonobo Tunes" style="width: 100px;"/></a> Bonobo Tunes
 The goal of this simple framework is to add some sanity and civility to Wordpress plugin development, a task which is currently messy and savage. So, without further ado, I should like to present you with some sanity.
 
 

@@ -1,6 +1,9 @@
 <?php
 class SanityPluginFramework {
 
+    // Plugin Global
+    var $plugin_global = 'bvt';
+    var $page_global = 'toplevel_page_bvt';
     // Container variables
     var $view = '';
     var $data = array();
@@ -39,7 +42,7 @@ class SanityPluginFramework {
         $this->css_path = WP_PLUGIN_URL.'/'.$this->plugin_dir_name.'/css/';
         $this->js_path = WP_PLUGIN_URL.'/'.$this->plugin_dir_name.'/js/';
         add_action('wp_loaded', array(&$this, 'create_nonce'));
-        if(!empty($this->admin_css) || !empty($this->admin_js) && $hook == 'toplevel_page_unscene_rss_feed' ) {
+        if(!empty($this->admin_css) || !empty($this->admin_js) && $hook == 'toplevel_page_bvt' ) {
             add_action('admin_enqueue_scripts', array(&$this, 'load_admin_scripts'));
         }
         if(!empty($this->plugin_css) || !empty($this->plugin_js) ) {

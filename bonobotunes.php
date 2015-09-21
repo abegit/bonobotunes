@@ -1,5 +1,5 @@
 <?php /*
-Plugin Name: bvt Tunes (with RSS)
+Plugin Name: BonoboTunes (with RSS)
 Plugin URI: http://unscene.us/podcast-creator
 Description: Turn your WordPress Blog into the Podcast Engine it was meant to be! Follow the steps to setup your blog to be compatible with Apple bvt Podcast RSS Guidelines to allow for easily-synced downloads.
 Author: Abraham Perez
@@ -31,6 +31,7 @@ class bvtRSS extends SanityPluginFramework {
 	function __construct() {
       parent::__construct(__FILE__);
 
+		
       // STEP #1 -- create options page
 		add_action( 'admin_menu', 'bvtCreatePage' );
 		function bvtCreatePage(){
@@ -50,12 +51,12 @@ class bvtRSS extends SanityPluginFramework {
 			register_setting( 'bvtStart', 'bvtPodcastImage');
 			register_setting( 'bvtStart', 'bvtExplicit');
 			register_setting( 'bvtStart', 'bvtCategories');
-			register_setting( 'bvtFeedStart', 'bvtMusicPlayer');
-			register_setting( 'bvtFeedStart', 'bvtMusicLogo');
+			register_setting( 'bvtStart', 'bvtMusicPlayer');
+			register_setting( 'bvtStart', 'bvtMusicLogo');
 		}
 
 		function bvtConfigPage(){
-			require_once($plugin_path.'templates/admin/page.php');
+			require_once(plugin_dir_path(__FILE__).'/templates/admin/page.php');
 		}
 
 	if ( get_option('bvtFeedSync') == '1') { 
@@ -64,10 +65,10 @@ class bvtRSS extends SanityPluginFramework {
 				add_feed( 'listen', 'bvtPodcast' );
 				add_feed( 'ios', 'bvtiOS' );
 				function bvtPodcast() {
-					require_once($plugin_path.'templates/podcast/bvt.php');
+					require_once(plugin_dir_path(__FILE__).'/templates/podcast/bvt.php');
 				}
 				function bvtiOS() {
-					require_once($plugin_path.'templates/podcast/iosSlider.php');
+					require_once(plugin_dir_path(__FILE__).'/templates/podcast/iosSlider.php');
 				}
 			}
 			 
@@ -89,7 +90,7 @@ class bvtRSS extends SanityPluginFramework {
 			    global $wp;
 			    global $wp_query;
 			    if (isset($wp->query_vars["embed"])) {
-			        require_once($plugin_path.'templates/podcast/single-player.php');
+			        require_once(plugin_dir_path(__FILE__).'/templates/podcast/single-player.php');
 			        die();
 			    }
 			}

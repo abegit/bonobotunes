@@ -46,7 +46,7 @@ class bvtRSS extends SanityPluginFramework {
 			register_setting( 'bvtStart', 'bvtSync');
 			register_setting( 'bvtStart', 'bvtAuthorName');
 			register_setting( 'bvtStart', 'bvtAuthorEmail');
-			register_setting( 'bvtStart', 'bvtTitle');
+			register_setting( 'bvtStart', 'bvtPodcastTitle');
 			register_setting( 'bvtStart', 'bvtPodcastSummary');
 			register_setting( 'bvtStart', 'bvtPodcastImage');
 			register_setting( 'bvtStart', 'bvtExplicit');
@@ -59,13 +59,13 @@ class bvtRSS extends SanityPluginFramework {
 			require_once(plugin_dir_path(__FILE__).'/templates/admin/page.php');
 		}
 
-	if ( get_option('bvtFeedSync') == '1') { 
+	if ( get_option('bvtSync') == '1') { 
 			add_action( 'after_setup_theme', 'addCustomPodcastRSS' );
 			function addCustomPodcastRSS() {
 				add_feed( 'listen', 'bvtPodcast' );
 				add_feed( 'ios', 'bvtiOS' );
 				function bvtPodcast() {
-					require_once(plugin_dir_path(__FILE__).'/templates/podcast/bvt.php');
+					require_once(plugin_dir_path(__FILE__).'/templates/podcast/rss-itunes.php');
 				}
 				function bvtiOS() {
 					require_once(plugin_dir_path(__FILE__).'/templates/podcast/iosSlider.php');
@@ -83,14 +83,14 @@ class bvtRSS extends SanityPluginFramework {
 			}
 
 			add_filter('query_vars', 'bvtPlayerCallback');
-			add_action("template_redirect", 'PlayerTemplateInit');
+			add_action('template_redirect', 'PlayerTemplateInit');
 
 			// Template selection
 			function PlayerTemplateInit() {
 			    global $wp;
 			    global $wp_query;
 			    if (isset($wp->query_vars["embed"])) {
-			        require_once(plugin_dir_path(__FILE__).'/templates/podcast/single-player.php');
+			        require_once($plugin_path.'templates/podcast/single-player.php');
 			        die();
 			    }
 			}
@@ -135,7 +135,7 @@ class bvtRSS extends SanityPluginFramework {
 
 		// }
 		
-		add_option("bvtFeedSync", '1', '', 'yes');
+		add_option("bvtSync", '1', '', 'yes');
 		add_option("bvtAuthorName", 'Mr. Unscene', '', 'yes');
 		add_option("bvtAuthorEmail", '', '', 'yes');
 		add_option("bvtPodcastTitle", '', '', 'yes');

@@ -24,7 +24,7 @@ wp_enqueue_script( 'media-upload');
 				        </tr>
 				        <tr valign="top">
 				        	<th scope="row">Podcast Title</th>
-							<td>Podcast Title: <input type="text" name="bvtTitle" value="<?php echo get_option('bvtTitle'); ?>" style="width:100%; height:auto;"/></td>
+							<td>Podcast Title: <input type="text" name="bvtPodcastTitle" value="<?php echo get_option('bvtPodcastTitle'); ?>" style="width:100%; height:auto;"/></td>
 						</tr>
 				        <tr valign="top">
 				        <th scope="row">Podcast Details</th>

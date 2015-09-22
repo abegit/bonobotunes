@@ -20,7 +20,7 @@ class SanityPluginFramework {
     var $css_path = 'css';
     var $js_path = 'js';
     var $plugin_dir = '';
-    var $plugin_dir_name = '';
+    var $plugin_dir_name = 'bonobotunes';
 
     // Used to define custom fields
     var $custom_fields = array();
@@ -38,11 +38,11 @@ class SanityPluginFramework {
         if(empty($this->plugin_dir)) {
             $this->plugin_dir = WP_PLUGIN_DIR.'/'.basename(dirname($here));
         }
-        $this->plugin_dir_name = basename(dirname($here));
+        // $this->plugin_dir_name = basename(dirname($here));
         $this->css_path = WP_PLUGIN_URL.'/'.$this->plugin_dir_name.'/css/';
         $this->js_path = WP_PLUGIN_URL.'/'.$this->plugin_dir_name.'/js/';
         add_action('wp_loaded', array(&$this, 'create_nonce'));
-        if(!empty($this->admin_css) || !empty($this->admin_js) && $hook == 'toplevel_page_bvt' ) {
+        if(!empty($this->admin_css) || !empty($this->admin_js) && $hook == $page_global ) {
             add_action('admin_enqueue_scripts', array(&$this, 'load_admin_scripts'));
         }
         if(!empty($this->plugin_css) || !empty($this->plugin_js) ) {
@@ -61,7 +61,7 @@ class SanityPluginFramework {
     */
     function load_admin_scripts() {
             foreach($this->admin_css as $css) {
-                wp_enqueue_style($css, $this->css_path.$css.'.css');
+                wp_enqueue_style('bvt-'.$css, $this->css_path.$css.'.css');
             }
             foreach($this->admin_js as $js) {
                 wp_enqueue_script($js, $this->js_path.$js.'.js');
@@ -180,7 +180,7 @@ class SanityPluginFramework {
     *
     */
     function render($view, $from_template = false) {
-		$template_path = $this->plugin_dir.'/views/'.$view.'.php';
+        $template_path = $this->plugin_dir.'/views/'.$view.'.php';
         
         if($from_template) {
             // Look for the view in the template/child-template directories.

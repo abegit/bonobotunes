@@ -8,7 +8,7 @@ wp_enqueue_script( 'media-upload');
    <h3>Settings Page / <a href="http://unscene.us">FAQ</a></h3>
    <h4>With this page you'll be up and ready to submit your URL to bonobo and get listed!</h4>
  
-   <form method="POST" action="options.php" id="bonobo">
+   <form method="POST" action="options.php" id="bvt">
 				    <?php settings_fields( 'bvtStart' ); ?>
 				    <!-- Wordpress documentation is wrong and suggests do_settings (which is for older versions below 2.7) -->
 				    <?php do_settings_sections( 'bvtStart' ); ?>

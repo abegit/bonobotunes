@@ -1,5 +1,5 @@
 <?php /*
-Plugin Name: BonoboTunes (with RSS)
+Plugin Name: Bonobo Tunes
 Plugin URI: http://unscene.us/podcast-creator
 Description: Turn your WordPress Blog into the Podcast Engine it was meant to be! Follow the steps to setup your blog to be compatible with Apple bvt Podcast RSS Guidelines to allow for easily-synced downloads.
 Author: Abraham Perez
@@ -83,14 +83,14 @@ class bvtRSS extends SanityPluginFramework {
 			}
 
 			add_filter('query_vars', 'bvtPlayerCallback');
-			add_action('template_redirect', 'PlayerTemplateInit');
+			add_action("template_redirect", 'bvtPlayerTemplate');
 
 			// Template selection
-			function PlayerTemplateInit() {
+			function bvtPlayerTemplate() {
 			    global $wp;
 			    global $wp_query;
 			    if (isset($wp->query_vars["embed"])) {
-			        require_once($plugin_path.'templates/podcast/single-player.php');
+			        require_once(plugin_dir_path(__FILE__).'/templates/podcast/single-player.php');
 			        die();
 			    }
 			}

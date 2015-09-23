@@ -10,15 +10,15 @@ Author URI: http://unscene.us
 
 // Derive the current path and load up Sanity
 $plugin_path = plugin_dir_path(__FILE__).'/';
-if(class_exists('SanityPluginFramework') != true)
-    include($plugin_path.'framework/sanity.php');
+if(class_exists('BonoboTunesPluginFramework') != true)
+    include($plugin_path.'framework/bvt.php');
 
 /*
-*		Define your plugin class which extends the SanityPluginFramework
+*		Define your plugin class which extends the BonoboTunesPluginFramework
 *		Make sure you skip down to the end of this file, as there are a few
 *		lines of code that are very important.
 */ 
-class bvtRSS extends SanityPluginFramework {
+class bvtRSS extends BonoboTunesPluginFramework {
 	
 	/*
 	*	Some required plugin information
@@ -77,13 +77,12 @@ class bvtRSS extends SanityPluginFramework {
 			//add my_print to query vars
 			function bvtPlayerCallback($vars) {
 			    // add my_print to the valid list of variables
-			    $new_vars = array('embed');
+			    $new_vars = array("embed");
 			    $vars = $new_vars + $vars;
 			    return $vars;
 			}
 
-			add_filter('query_vars', 'bvtPlayerCallback');
-			add_action("template_redirect", 'bvtPlayerTemplate');
+			add_filter("query_vars", 'bvtPlayerCallback');
 
 			// Template selection
 			function bvtPlayerTemplate() {
@@ -94,6 +93,7 @@ class bvtRSS extends SanityPluginFramework {
 			        die();
 			    }
 			}
+			add_action("template_redirect", 'bvtPlayerTemplate');
 
 
 			function Cus_enc() {

@@ -1,5 +1,5 @@
 <?php
-class SanityPluginFramework {
+class BonoboTunesPluginFramework {
 
     // Plugin Global
     var $plugin_global = 'bvt';

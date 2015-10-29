@@ -56,8 +56,13 @@ function nextSong() {
             var songArtist = document.getElementById("artist");
             var songThumb = document.getElementById("thumb");
             var songTitle = document.getElementById("track");
-            var megaAlbum = document.getElementById('megaAlbum');
-            var currentSong = 'goToSlide(' + next + ')';
+            var megaAlbum = document.getElementById("megaAlbum");
+            var currentSong = "goToSlide(" + next + ")";
+            var songNumber = "swiper-slide-" + next;
+            var songNowPlaying = document.getElementsByClassName(songNumber);
+            var songNotPlaying = document.getElementsByClassName("swiper-slide");
+
+            var cusRx = new RegExp(" *" + "np" + " *");
 
             audioPlayer.src=urls[next];
             songTitle.innerHTML=trackTitles[next];
@@ -66,11 +71,20 @@ function nextSong() {
             songThumb.setAttribute('onClick', currentSong);
             megaAlbum.src=trackImgs[next];
             audioPlayer.load();
-            audioPlayer.volume = .5;
+            audioPlayer.volume = 1;
             audioPlayer.play();
 
             document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
             document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
+
+            // songNotPlaying.className = songNotPlaying.;
+            for (var i = songNotPlaying.length - 1; i >= 0; i--) {
+                songNotPlaying[i].className = songNotPlaying[i].className.replace(cusRx, " ");
+            };
+
+            songNowPlaying[0].className = songNowPlaying[0].className + " np";
+            songNowPlaying[1].className = songNowPlaying[1].className + " np";
+            songNowPlaying[2].className = songNowPlaying[2].className + " np";
             document.getElementById('play').setAttribute('class', 'notfadeed'); //browsers
             document.getElementById('play').setAttribute('className', 'notfadeed'); //IE
             document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-paus');
@@ -100,6 +114,11 @@ function prevSong() {
             var songTitle = document.getElementById("track");
             var megaAlbum = document.getElementById('megaAlbum');
             var currentSong = 'goToSlide(' + next + ')';
+            var songNumber = "swiper-slide-" + next;
+            var songNowPlaying = document.getElementsByClassName(songNumber);
+            var songNotPlaying = document.getElementsByClassName("swiper-slide");
+
+            var cusRx = new RegExp(" *" + "np" + " *");
 
             audioPlayer.src=urls[next];
             songTitle.innerHTML=trackTitles[next];
@@ -113,6 +132,15 @@ function prevSong() {
             
             document.getElementById('warningGradientOuterBarG').setAttribute('class', 'fadeed'); //browsers
             document.getElementById('warningGradientOuterBarG').setAttribute('className', 'fadeed'); //IE
+
+            // songNotPlaying.className = songNotPlaying.;
+            for (var i = songNotPlaying.length - 1; i >= 0; i--) {
+                songNotPlaying[i].className = songNotPlaying[i].className.replace(cusRx, " ");
+            };
+
+            songNowPlaying[0].className = songNowPlaying[0].className + " np";
+            songNowPlaying[1].className = songNowPlaying[1].className + " np";
+            songNowPlaying[2].className = songNowPlaying[2].className + " np";
             document.getElementById('play').setAttribute('class', 'notfadeed'); //browsers
             document.getElementById('play').setAttribute('className', 'notfadeed'); //IE
             document.getElementById("play").getElementsByTagName('i')[0].setAttribute('class', 'icon-controller-paus');
@@ -322,7 +350,7 @@ q(document).ready(function(){
     //     q("#brief").delay( 300 ).addClass('on');                    
     // });
 
-    q("#off").click(function(e){
+    q("#home").click(function(e){
         e.preventDefault();
         var X=q(this).attr('data-uri');
         if(X==1){
@@ -330,12 +358,13 @@ q(document).ready(function(){
             q("#tracklist").addClass('on');
             q("#brief").removeClass('on');
             q(this).attr('data-uri', '0');
-            q(this).find('i').removeClass('icon-list5')
+            q(this).find('i').removeClass('icon-list').addClass('icon-air');
         } else{
             q(this).addClass('toggle');
             q("#tracklist").removeClass('on');
             q("#brief").addClass('on');
             q(this).attr('data-uri', '1');
+            q(this).find('i').removeClass('icon-air').addClass('icon-list');
         }
     });
 

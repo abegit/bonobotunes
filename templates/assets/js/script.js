@@ -396,7 +396,72 @@ q(document).ready(function(){
                 q('#content > .institute').removeClass('unselected').addClass('selected');
             } else{
 
+
+    var appInit = function (){
+        var h = $(window).height();
+        var w = $(window).width();
+        if(w>480) {
+            if(h>141) {
+                q("body").addClass('bp-lg').removeClass('bp-sm bp-md phone');
+            } if(h<141) {
+                q("body").addClass('bp-md').removeClass('bp-sm bp-lg phone');
+            } if(h<91) {
+                q("body").addClass('bp-sm').removeClass('bp-lg bp-md phone');
+            } 
+        } else {
+            q("body").addClass('bp-lg phone').removeClass('bp-sm bp-md');
+        }
             }
+
+    q(window).load(function() {
+        // run our function on load
+        appInit();
+        // and run it again every time you scroll
+        q(window).resize(function() {
+            appInit();
         });
-    });  // end sites
+        });
+
+    /*! sites ajax */
+    // q('#sites li').each( function() {
+    //     q(this).click(function(){
+    //         var b0ggie=q(this).attr('data-uri');
+    //         var iFrameSrc=q(this).attr('src');
+    //         if(b0ggie==1){
+    //             q(this).addClass('selected').removeClass('unselected');
+    //             q('#content > *').addClass('unselected').removeClass('selected');
+    //             q('#content > .home').removeClass('unselected').addClass('selected');
+    //         } if(b0ggie==2){
+    //             q(this).attr('data-uri', '5');
+    //             q('#content > .bonobo iframe').attr('src' , 'http://drsusanblock.tv/');
+    //             q('#header').hide();
+    //             q(this).addClass('selected').removeClass('unselected');
+    //             q('#content > *').addClass('unselected').removeClass('selected');
+    //             q('#content > .bonobo').removeClass('unselected').addClass('selected');
+    //         } if(b0ggie==3){
+    //             q(this).attr('data-uri', '6');
+    //             q('#content > .institute iframe').attr('src' , 'http://drsusanblockinstitute.com/');
+    //             q('#header').hide();
+    //             q(this).addClass('selected').removeClass('unselected');
+    //             q('#content > *').addClass('unselected').removeClass('selected');
+    //             q('#content > .institute').removeClass('unselected').addClass('selected');
+    //         } if(b0ggie==4){
+    //             q(this).addClass('selected').removeClass('unselected');
+    //             q('#content > *').addClass('unselected').removeClass('selected');
+    //             q('#content > .radio').removeClass('unselected').addClass('selected');
+    //         } if(b0ggie==5){
+    //             q('#header').show();
+    //             q(this).addClass('selected').removeClass('unselected');
+    //             q('#content > *').addClass('unselected').removeClass('selected');
+    //             q('#content > .bonobo').removeClass('unselected').addClass('selected');
+    //         } if(b0ggie==6){
+    //             q('#header').hide();
+    //             q(this).addClass('selected').removeClass('unselected');
+    //             q('#content > *').addClass('unselected').removeClass('selected');
+    //             q('#content > .institute').removeClass('unselected').addClass('selected');
+    //         } else{
+
+    //         }
+    //     });
+    // });  // end sites
 }); 

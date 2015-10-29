@@ -52,14 +52,8 @@
     </div>
     <div id="header"><div class="container">
         
-       <a href="#"><?php if (isset($logoImg)) { ?>
-        <img height="11" src="<?php echo $logoImg; ?>">
-        <?php } else { ?>
-        BonoboRadio
-        <?php }?>
-        </a>
         <ul id="nav">
-        <li id="off"><a href="#"><i class="icon-resize-full-screen"></i> </a></li>
+        <li id="home"><a href="#"><i class="icon-air"></i></a></li>
         <li id="more"><a href="#"><i class="icon-export"></i> </a></li>
         <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')"><i class="icon-share-alternitive"></i> </a></li>
     </ul>
@@ -121,24 +115,7 @@
         <div id="artwork" style="position:relative; display:inline-block;">
                 <div id="img"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>" id="megaAlbum"></div>
                 <div id="advertisement" style="background:url('') repeat scroll center center / contain  rgba(0, 0, 0, 0);height:100%;width:100%;"></div>
-                <div id="warningGradientOuterBarG">
-                    <div id="warningGradientFrontBarG" class="warningGradientAnimationG">
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                        <div class="warningGradientBarLineG"></div>
-                    </div>
-                </div>
+                <div id="loadingbar"></div>
                 <div style="clear:both"></div>
         </div>
         <div class="on" id="tracklist">
@@ -357,35 +334,8 @@ for (ixx = 0; ixx < trackTitles.length; ++ixx) {
     var currentIndexPlus = ixx + 1;
     // console.log(trackTitles[ixx]);
     document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div><span class="track">'+trackTitles[currentIndex]+'</span><strong class="artistname">'+trackAuthor[currentIndex]+'</strong></div><div class="album"></div></div>';
-    document.getElementById('tracks').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div class="thumb"></div><strong class="view" data-view="'+currentIndex+'">'+trackTitles[currentIndex]+'</strong><div class="view" data-view="'+currentIndex+'" onClick="pickSong('+currentIndex+');">play</div></div>';
-}
-
-
-var appInit = function (){
-    var h = $(window).height();
-    var w = $(window).width();
-
-    if(w>480) {
-        if(h>141) {
-            $("body").addClass('bp-lg').removeClass('bp-sm bp-md phone');
-        } if(h<141) {
-            $("body").addClass('bp-md').removeClass('bp-sm bp-lg phone');
-        } if(h<91) {
-            $("body").addClass('bp-sm').removeClass('bp-lg bp-md phone');
+    document.getElementById('tracks').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div class="thumb"><div></div><div></div><div></div><div></div></div><strong class="view" data-view="'+currentIndex+'">'+trackTitles[currentIndex]+'</strong><div class="view" data-view="'+currentIndex+'" onClick="pickSong('+currentIndex+');">play</div></div>';
         } 
-    } else {
-        $("body").addClass('bp-lg phone').removeClass('bp-sm bp-md');
-    }
-}
-
-$(window).load(function() {
-    // run our function on load
-    appInit();
-    // and run it again every time you scroll
-    $(window).resize(function() {
-        appInit();
-    });
-});
 </script>
 
 <script>
@@ -451,6 +401,9 @@ function goToSlide(which) {
 <script type="text/javascript" src="<?php echo plugins_url( '/assets/js/object-watch.js', dirname(__FILE__) );?>"></script>
 <script src="<?php echo plugins_url( 'assets/js/swiper.min.js', dirname(__FILE__) ); ?>"></script>
 <script> 
+
+    jQSwipe = jQuery.noConflict();
+if ( jQSwipe(window).width()>1023 ) {
 var swiper = new Swiper('.swiper-container.playlist', {
         pagination: '.swiper-pagination2',
         paginationClickable: true,
@@ -458,7 +411,7 @@ var swiper = new Swiper('.swiper-container.playlist', {
         slidesPerView: 'auto',
         slideToClickedSlide: true,
     });
-
+}
 var swiper2 = new Swiper('.fade', {
     centeredSlides: true,
     grabCursor: true,
@@ -486,7 +439,8 @@ var swiper3 = new Swiper('.coverflow', {
         slideShadows : true
     }
 });
-swiper.update();
+// swiper.update();
+
 swiper2.update();
 swiper3.update();
 
@@ -497,10 +451,12 @@ swiper2.params.control = swiper3;
 
 </script>
 <script>
-    jQSwipe = jQuery.noConflict();
       jQSwipe(document).ready(function() {
         jQSwipe(window).load(function() {
+            if ( jQSwipe(window).width()>1023 ) {
             swiper.update();
+            }
+
             swiper2.update();
             swiper3.update();
             jQSwipe('body').removeClass('loading');
@@ -514,7 +470,9 @@ swiper2.params.control = swiper3;
             });
         });
          jQSwipe(window).resize(function() {
+            if ( jQSwipe(window).width()>1023 ) {
             swiper.update();
+            }
             swiper2.update();
             swiper3.update();
         });

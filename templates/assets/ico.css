@@ -22,6 +22,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+[class^="icon-"] span, [class*=" icon-"] span { display: none;}
+
 
 .icon-chevron-right:before {
   content: "\e600";

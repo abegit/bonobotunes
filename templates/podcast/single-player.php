@@ -335,7 +335,7 @@ for (ixx = 0; ixx < trackTitles.length; ++ixx) {
     // console.log(trackTitles[ixx]);
     document.getElementById('albumstack').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div><span class="track">'+trackTitles[currentIndex]+'</span><strong class="artistname">'+trackAuthor[currentIndex]+'</strong></div><div class="album"></div></div>';
     document.getElementById('tracks').innerHTML += '<div class="swiper-slide swiper-slide-'+ currentIndex +'"><div class="thumb"><div></div><div></div><div></div><div></div></div><strong class="view" data-view="'+currentIndex+'">'+trackTitles[currentIndex]+'</strong><div class="view" data-view="'+currentIndex+'" onClick="pickSong('+currentIndex+');">play</div></div>';
-        } 
+}
 </script>
 
 <script>
@@ -454,7 +454,7 @@ swiper2.params.control = swiper3;
       jQSwipe(document).ready(function() {
         jQSwipe(window).load(function() {
             if ( jQSwipe(window).width()>1023 ) {
-            swiper.update();
+                 swiper.update();
             }
 
             swiper2.update();
@@ -471,7 +471,7 @@ swiper2.params.control = swiper3;
         });
          jQSwipe(window).resize(function() {
             if ( jQSwipe(window).width()>1023 ) {
-            swiper.update();
+                 swiper.update();
             }
             swiper2.update();
             swiper3.update();

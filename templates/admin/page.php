@@ -3,6 +3,11 @@ wp_enqueue_style('thickbox'); // call to media files in wp
 wp_enqueue_script('thickbox');
 wp_enqueue_script( 'media-upload');
  ?><div class="wrap" style="padding:2% 4%;">
+ <?php $current_screen = get_current_screen(); ?>
+ <?php $new_screen = @unserialize($current_screen);
+ // var_dump(get_current_screen());
+ $defaultImage = '<img src="//placehold.it/200x200">';
+ ?>
 
    <h2>BonoboTunes Podcast Creator <a href="http://unscene.us/" style="font-size:80%; font-weight:normal;">by Mr. Unscene</a></h2>
    <h3>Settings Page / <a href="http://unscene.us">FAQ</a></h3>
@@ -30,7 +35,7 @@ wp_enqueue_script( 'media-upload');
 				        <th scope="row">Podcast Details</th>
 				        <td><div id="bvtPodcastImage_thumb" class="wpss-file">
     <?php if(get_option('bvtPodcastImage') !='' ){ ?>
-       <img src="<?php echo get_option('bvtPodcastImage'); ?>"  width="100%"/><?php } else {    echo $defaultImage; } ?>
+       <img src="<?php echo get_option('bvtPodcastImage'); ?>"  width="100%"/><?php } else { echo $defaultImage; } ?>
 </div> 
 <input id="bvtPodcastImage" type="text" size="36" style="direction:rtl; width:100%;" name="bvtPodcastImage" value="<?php echo get_option('bvtPodcastImage'); ?>" class="wpss_text wpss-file" />
 				        <td><input id="bvtPodcastImage_button" type="button" value="Upload Image" class="wpss-filebtn" /></td></td>

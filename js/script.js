@@ -19,10 +19,10 @@ iTunes(document).ready(function(){
 
 
 iTunes(document).ready(function ($) {
-  iTunes('#bvtPodcastImage_button').click(function() {
+  iTunes('.wpss-filebtn').click(function() {
     iTunes(this).attr('data-open','1');
-    titlevar = iTunes(this).attr('id').split("_button");
-    formfield = iTunes('#'+titlevar).attr('name');
+    titlevar = iTunes(this).attr('id').split('_button');
+    // formfield = iTunes('#'+titlevar).attr('name');
     tb_show('', 'media-upload.php?type=image&TB_iframe=true');
     return false;
   });

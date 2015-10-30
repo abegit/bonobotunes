@@ -26,12 +26,7 @@ iTunes(document).ready(function ($) {
     tb_show('', 'media-upload.php?type=image&TB_iframe=true');
     return false;
   });
-  iTunes('#bvtMusicLogo_button').click(function() {
-    iTunes(this).attr('data-open','1');
-    formfield = iTunes('#bvtMusicLogo').attr('name');
-    tb_show('', 'media-upload.php?type=image&TB_iframe=true');
-    return false;
-  });
+
   window.send_to_editor = function(html) {
     imgurl = iTunes('img',html).attr('src');
 

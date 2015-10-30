@@ -22,7 +22,7 @@ iTunes(document).ready(function ($) {
   iTunes('#bvtPodcastImage_button').click(function() {
     iTunes(this).attr('data-open','1');
     titlevar = iTunes(this).attr('id').split("_button");
-    formfield = iTunes('#bvtPodcastImage').attr('name');
+    formfield = iTunes('#'+titlevar).attr('name');
     tb_show('', 'media-upload.php?type=image&TB_iframe=true');
     return false;
   });

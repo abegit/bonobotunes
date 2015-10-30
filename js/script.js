@@ -34,12 +34,12 @@ iTunes(document).ready(function ($) {
   window.send_to_editor = function(html) {
     imgurl = iTunes('img',html).attr('src');
 
-    if (iTunes('#bvtMusicLogo_button').data('open') == "1") {
-        iTunes('#bvtMusicLogo').data('open','0');
+    if (iTunes('#bvtMusicLogo_button').attr('data-open') == "1") {
+        iTunes('#bvtMusicLogo').attr('data-open','0');
         iTunes('#bvtMusicLogo').val(imgurl);
         iTunes('#bvtMusicLogo_thumb').html("<img width='100%' src='"+imgurl+"'/>");
-    } else if (iTunes('#bvtPodcastImage_button').data('open') == "1") {
-        iTunes('#bvtPodcastImage').data('open','0');
+    } else if (iTunes('#bvtPodcastImage_button').attr('data-open') == "1") {
+        iTunes('#bvtPodcastImage').attr('data-open','0');
         iTunes('#bvtPodcastImage').val(imgurl);
         iTunes('#bvtPodcastImage_thumb').html("<img width='100%' src='"+imgurl+"'/>");
     }

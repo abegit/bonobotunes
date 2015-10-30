@@ -59,6 +59,19 @@ class bvtRSS extends BonoboTunesPluginFramework {
 			require_once(plugin_dir_path(__FILE__).'/templates/admin/page.php');
 		}
 
+		
+		// function thisScreen() {
+		//     $screen = get_current_screen();
+		//     if ( $screen->id === 'toplevel_page_bvt' ) {
+  //   			$admin_js = array('script');
+  //   		}
+		// }
+		// add_action( 'current_screen', 'thisScreen' );
+
+
+
+
+
 	if ( get_option('bvtSync') == '1') { 
 			add_action( 'after_setup_theme', 'addCustomPodcastRSS' );
 			function addCustomPodcastRSS() {
@@ -123,7 +136,7 @@ class bvtRSS extends BonoboTunesPluginFramework {
 			} // end pg_enc
 			
 
-	} // end if option UnsceneMusicPlayer = 1 aka yes
+	} // end if option bvtMusicPlayer = 1 aka yes
 }
 	/*
 	*		Run during the activation of the plugin

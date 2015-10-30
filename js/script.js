@@ -19,28 +19,31 @@ iTunes(document).ready(function(){
 
 
 iTunes(document).ready(function ($) {
-  iTunes('#iTunesPodcastImage_button').click(function() {
-    formfield = iTunes('#iTunesPodcastImage').attr('name');
+  iTunes('#bvtPodcastImage_button').click(function() {
+    iTunes(this).attr('data-open','1');
+    formfield = iTunes('#bvtPodcastImage').attr('name');
     tb_show('', 'media-upload.php?type=image&TB_iframe=true');
     return false;
   });
-
+  iTunes('#bvtMusicLogo_button').click(function() {
+    iTunes(this).attr('data-open','1');
+    formfield = iTunes('#bvtMusicLogo').attr('name');
+    tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+    return false;
+  });
   window.send_to_editor = function(html) {
     imgurl = iTunes('img',html).attr('src');
-    iTunes('#iTunesPodcastImage').val(imgurl);
-    tb_remove();
-    iTunes('#iTunesPodcastImage_thumb').html("<img width='100%' src='"+imgurl+"'/>");
+
+    if (iTunes('#bvtMusicLogo_button').data('open') == "1") {
+        iTunes('#bvtMusicLogo').data('open','0');
+        iTunes('#bvtMusicLogo').val(imgurl);
+        iTunes('#bvtMusicLogo_thumb').html("<img width='100%' src='"+imgurl+"'/>");
+    } else if (iTunes('#bvtPodcastImage_button').data('open') == "1") {
+        iTunes('#bvtPodcastImage').data('open','0');
+        iTunes('#bvtPodcastImage').val(imgurl);
+        iTunes('#bvtPodcastImage_thumb').html("<img width='100%' src='"+imgurl+"'/>");
+    }
+        tb_remove();
   }
-  iTunes('#UnsceneMusicLogo_button').click(function() {
-    formfield = iTunes('#UnsceneMusicLogo').attr('name');
-    tb_show('', 'media-upload.php?type=image&TB_iframe=true');
-    return false;
-  });
-  // window.send_to_editor = function(html) {
-  //   imgurl = iTunes('img',html).attr('src');
-  //   iTunes('#UnsceneMusicLogo').val(imgurl);
-  //   tb_remove();
-  //   iTunes('#UnsceneMusicLogo_thumb').html("<img width='100%' src='"+imgurl+"'/>");
-  // }
   
 }); 

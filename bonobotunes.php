@@ -168,7 +168,7 @@ class bvtRSS extends BonoboTunesPluginFramework {
 	
 	// abedit
     
-	    var $admin_css = array('style' , 'fonts');
+	    var $admin_css = array('style' , 'ico');
 		// var $admin_js = array('script');
 }
 

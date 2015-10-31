@@ -5,11 +5,11 @@ iTunes(document).ready(function(){
    iTunes(this).click(function(){
     var X=iTunes(this).attr('data-uri');
     if(X==null | X=='0'){
-      iTunes(this).removeClass('selected');
+      iTunes(this).removeClass('ui-open');
       iTunes(this).parent('.node').find('.message').removeClass('visible');
       iTunes(this).attr('data-uri', '0');
     } else {
-      iTunes(this).addClass('selected');
+      iTunes(this).addClass('ui-open');
       iTunes(this).parent('.node').find('.message').addClass('visible');
       iTunes(this).attr('data-uri', '1');
     }

@@ -1,16 +1,27 @@
 /*! share mode popup */
 var iTunes = jQuery.noConflict();
 iTunes(document).ready(function(){
+    iTunes('.toggle-all').toggle(function() {
+        iTunes(this).text('Expand All').attr('data-uri', '0');
+        iTunes('.node').addClass('ui-open');
+        iTunes('.message').addClass('visible');
+        iTunes('.actions li span').attr('data-uri', '1');
+     }, function() {
+        iTunes(this).text('Close All').attr('data-uri', '1');
+        iTunes('.node').removeClass('ui-open');
+        iTunes('.message').removeClass('visible');
+        iTunes('.actions li span').attr('data-uri', '0');
+    });
   iTunes('.actions li span').each( function() {
    iTunes(this).click(function(){
     var X=iTunes(this).attr('data-uri');
     if(X==null | X=='0'){
-      iTunes(this).removeClass('selected');
-      iTunes(this).parent('.node').find('.message').removeClass('visible');
+      iTunes(this).parent('.node').addClass('ui-open');
+      iTunes(this).parent('.node').find('.message').addClass('visible');
       iTunes(this).attr('data-uri', '1');
     } else {
-      iTunes(this).addClass('selected');
-      iTunes(this).parent('.node').find('.message').addClass('visible');
+      iTunes(this).parent('.node').removeClass('ui-open');
+      iTunes(this).parent('.node').find('.message').removeClass('visible');
       iTunes(this).attr('data-uri', '0');
     }
   });

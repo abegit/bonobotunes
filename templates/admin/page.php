@@ -17,20 +17,20 @@ wp_enqueue_script( 'media-upload');
 				    <?php settings_fields( 'bvtStart' ); ?>
 				    <!-- Wordpress documentation is wrong and suggests do_settings (which is for older versions below 2.7) -->
 				    <?php do_settings_sections( 'bvtStart' ); ?>
-				    <a href="#" class="toggle-all alignright">Expand All</a><div class="clear"></div>
+				    <a href="#" class="toggle-all alignright button button-default">Expand All</a><div class="clear"></div>
       	<ul class="actions">
             
             <li class="node ui-open"><span data-uri="1">Music Player <i class="icon-chevron-right"></i></span>
             <div class="message visible">
 				    <table class="form-table">
 				        <tr valign="top">
-				        <th scope="row">Activate Unscene Music Player (?embed) (in beta)</th>
-				        <td><input type="radio" name="bvtMusicPlayer" value="1" <?php if ( get_option('bvtMusicPlayer' ) == '1' ){ echo 'checked';}?> /> Yes <br />
+				        <th scope="row">Unscene Music</th>
+				        <td>Activate? <br><input type="radio" name="bvtMusicPlayer" value="1" <?php if ( get_option('bvtMusicPlayer' ) == '1' ){ echo 'checked';}?> /> Yes <br />
 				        	<input type="radio" name="bvtMusicPlayer" value="2" <?php if ( get_option('bvtMusicPlayer' ) == '2' ){ echo 'checked';}?> /> No <br />
 				        </td>
 				        </tr>
 				        <tr valign="top">
-				        <th scope="row">Player Thumbnail</th>
+				        <th scope="row">'Enter' Logo</th>
 				        <td><div id="bvtMusicLogo_thumb" class="wpss-file">
     <?php if(get_option('bvtMusicLogo') !='' ){ ?>
        <img src="<?php echo get_option('bvtMusicLogo'); ?>"  width="100%"/><?php } else {    echo $defaultImage; } ?>
@@ -38,6 +38,30 @@ wp_enqueue_script( 'media-upload');
 <input id="bvtMusicLogo" type="text" size="36" style="direction:rtl; width:100%;" name="bvtMusicLogo" value="<?php echo get_option('bvtMusicLogo'); ?>" class="wpss_text wpss-file" />
 				        <td><input id="bvtMusicLogo_button" type="button" value="Upload Image" class="wpss-filebtn" /></td></td>
 				        </tr>
+				        <tr valign="top">
+				        <th scope="row">'Music Home' Text Align</th>
+				        <td><input type="radio" name="bvtMusicHomeAlign" value="1" <?php if ( get_option('bvtMusicHomeAlign' ) == '1' ){ echo 'checked';}?> /> Left <br />
+				        	<input type="radio" name="bvtMusicHomeAlign" value="2" <?php if ( get_option('bvtMusicHomeAlign' ) == '2' ){ echo 'checked';}?> /> Center <br />
+				        	<input type="radio" name="bvtMusicHomeAlign" value="3" <?php if ( get_option('bvtMusicHomeAlign' ) == '3' ){ echo 'checked';}?> /> Right <br />
+				        </td>
+				        </tr>
+				        <tr valign="top">
+				        	<th scope="row">Music Home</th>
+							<td>Music Home: <input type="text" name="bvtMusicHome" value="<?php echo get_option('bvtMusicHome'); ?>" style="width:100%; height:auto;"/></td>
+						</tr>
+						<tr valign="top">
+				        <th scope="row">Sponsor Image</th>
+				        <td><div id="bvtMusicSponsor_thumb" class="wpss-file">
+    <?php if(get_option('bvtMusicSponsor') !='' ){ ?>
+       <img src="<?php echo get_option('bvtMusicSponsor'); ?>"  width="100%"/><?php } else {    echo $defaultImage; } ?>
+</div> 
+<input id="bvtMusicSponsor" type="text" size="36" style="direction:rtl; width:100%;" name="bvtMusicSponsor" value="<?php echo get_option('bvtMusicSponsor'); ?>" class="wpss_text wpss-file" />
+				        <td><input id="bvtMusicSponsor_button" type="button" value="Upload Image" class="wpss-filebtn" /></td></td>
+				        </tr>
+				        <tr valign="top">
+				        	<th scope="row">Sponsor URL</th>
+							<td><input type="text" name="bvtMusicSponsorURL" value="<?php echo get_option('bvtMusicSponsorURL'); ?>" style="width:100%; height:auto;"/></td>
+						</tr>
 				    </table>
             </div></li>
             <li class="node"><span data-uri="0">Podcast <i class="icon-chevron-right"></i></span>

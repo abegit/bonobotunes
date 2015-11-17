@@ -56,6 +56,8 @@ function nextSong() {
             var songArtist = document.getElementById("artist");
             var songThumb = document.getElementById("thumb");
             var songTitle = document.getElementById("track");
+            var songNowPlay = document.getElementById("nowplay");
+            var notmegaAlbum = document.getElementById("notmegaAlbum");
             var megaAlbum = document.getElementById("megaAlbum");
             var currentSong = "goToSlide(" + next + ")";
             var songNumber = "swiper-slide-" + next;
@@ -68,8 +70,9 @@ function nextSong() {
             songTitle.innerHTML=trackTitles[next];
             songArtist.innerHTML=trackAuthor[next];
             songThumb.getElementsByTagName('img')[0].src=trackThumb[next];
-            songThumb.setAttribute('onClick', currentSong);
+            songNowPlay.setAttribute('onClick', currentSong);
             megaAlbum.src=trackImgs[next];
+            notmegaAlbum.src=trackImgs[next];
             audioPlayer.load();
             audioPlayer.volume = 1;
             audioPlayer.play();
@@ -115,6 +118,7 @@ function prevSong() {
             var songThumb = document.getElementById("thumb");
             var songTitle = document.getElementById("track");
             var megaAlbum = document.getElementById('megaAlbum');
+            var notmegaAlbum = document.getElementById('notmegaAlbum');
             var currentSong = 'goToSlide(' + next + ')';
             var songNumber = "swiper-slide-" + next;
             var songNowPlaying = document.getElementsByClassName(songNumber);
@@ -128,6 +132,7 @@ function prevSong() {
             songThumb.getElementsByTagName('img')[0].src=trackThumb[next];
             songThumb.setAttribute('onClick', currentSong);
             megaAlbum.src=trackImgs[next];
+            notmegaAlbum.src=trackImgs[next];
             audioPlayer.load();
             audioPlayer.volume = 1;
             audioPlayer.play();
@@ -372,6 +377,31 @@ q(document).ready(function(){
             q(this).find('i').removeClass('icon-air').addClass('icon-list');
         }
     });
+    q("#mini-art").click(function(e){
+        e.preventDefault();
+        var X=q(this).attr('data-uri');
+        var K=q(this).attr('data-toggle');
+        if(X==1){
+            q(this).removeClass('toggle');
+            q("#artwork").removeClass('on');
+            q(this).attr('data-uri', '0');
+        } else{
+            q(this).addClass('toggle');
+            q("#artwork").addClass('on');
+            q(this).attr('data-uri', '1');
+        }
+    });
+    // q("#playstation").click(function(e){
+    //     e.preventDefault();
+    //     var X=q(this).attr('data-uri');
+    //     if(X==1){
+    //         q("#player").removeClass('visible');
+    //         q(this).attr('data-uri', '0');
+    //     } else{
+    //         q("#player").addClass('visible');
+    //         q(this).attr('data-uri', '1');
+    //     }
+    // });
 
 
 
@@ -394,18 +424,26 @@ q(document).ready(function(){
 
 
     var appInit = function (){
-        var h = $(window).height();
-        var w = $(window).width();
-        if(w>480) {
-            if(h>141) {
-                q("body").addClass('bp-lg').removeClass('bp-sm bp-md phone');
-            } if(h<141) {
-                q("body").addClass('bp-md').removeClass('bp-sm bp-lg phone');
-            } if(h<91) {
-                q("body").addClass('bp-sm').removeClass('bp-lg bp-md phone');
-            } 
+        var h = q(window).height();
+        var w = q(window).width();
+        var startingScreen = "radio";
+        q("iframe").attr('height', h + 'px');
+
+        if (w>801) {
+            // large
+            q("body").addClass('bp-lg ' + startingScreen).removeClass('bp-sm bp-md phone home upload bonobo');
+            q("#content").css('width', w).css('height', h);
         } else {
-            q("body").addClass('bp-lg phone').removeClass('bp-sm bp-md');
+            q("#info, #tracklist, #brief, #artwork").css('height', h);
+            
+                
+            if (w>480) {
+                // medium - tablet
+                q("body").addClass('bp-md bp-sm ' + startingScreen).removeClass('bp-lg phone');
+            } else {
+                // small
+                q("body").addClass('bp-sm phone ' + startingScreen).removeClass('bp-lg bp-md');
+            }
         }
     }
 
@@ -419,45 +457,45 @@ q(document).ready(function(){
     });
 
     /*! sites ajax */
-    // q('#sites li').each( function() {
-    //     q(this).click(function(){
-    //         var b0ggie=q(this).attr('data-uri');
-    //         var iFrameSrc=q(this).attr('src');
-    //         if(b0ggie==1){
-    //             q(this).addClass('selected').removeClass('unselected');
-    //             q('#content > *').addClass('unselected').removeClass('selected');
-    //             q('#content > .home').removeClass('unselected').addClass('selected');
-    //         } if(b0ggie==2){
-    //             q(this).attr('data-uri', '5');
-    //             q('#content > .bonobo iframe').attr('src' , 'http://drsusanblock.tv/');
-    //             q('#header').hide();
-    //             q(this).addClass('selected').removeClass('unselected');
-    //             q('#content > *').addClass('unselected').removeClass('selected');
-    //             q('#content > .bonobo').removeClass('unselected').addClass('selected');
-    //         } if(b0ggie==3){
-    //             q(this).attr('data-uri', '6');
-    //             q('#content > .institute iframe').attr('src' , 'http://drsusanblockinstitute.com/');
-    //             q('#header').hide();
-    //             q(this).addClass('selected').removeClass('unselected');
-    //             q('#content > *').addClass('unselected').removeClass('selected');
-    //             q('#content > .institute').removeClass('unselected').addClass('selected');
-    //         } if(b0ggie==4){
-    //             q(this).addClass('selected').removeClass('unselected');
-    //             q('#content > *').addClass('unselected').removeClass('selected');
-    //             q('#content > .radio').removeClass('unselected').addClass('selected');
-    //         } if(b0ggie==5){
-    //             q('#header').show();
-    //             q(this).addClass('selected').removeClass('unselected');
-    //             q('#content > *').addClass('unselected').removeClass('selected');
-    //             q('#content > .bonobo').removeClass('unselected').addClass('selected');
-    //         } if(b0ggie==6){
-    //             q('#header').hide();
-    //             q(this).addClass('selected').removeClass('unselected');
-    //             q('#content > *').addClass('unselected').removeClass('selected');
-    //             q('#content > .institute').removeClass('unselected').addClass('selected');
-    //         } else{
 
-    //         }
-    //     });
-    // });  // end sites
+     q('#sites li').each( function() {
+         q(this).click(function(){
+             var b0ggie=q(this).attr('data-uri');
+             var iFrameSrc=q(this).attr('src');
+             q('#content > *').removeClass('selected');
+             q('#sites > li').removeClass('selected');
+             if(b0ggie==1){
+                 q('body').addClass('home').removeClass('bonobo upload radio');
+                 q('#header').show();
+                 q('#content > .home').addClass('selected');
+             } if(b0ggie==2){
+                q('body').addClass('radio').removeClass('home upload bonobo');
+                 q('#header').show();
+                 q('#content > .radio').addClass('selected');
+             } if(b0ggie==3){
+                q('body').addClass('upload').removeClass('home bonobo radio');;
+                 q(this).attr('data-uri', '6');
+                 q('#content > .upload iframe').attr('src' , 'https://drsusanblockinstitute.com/');
+                 q('#header').hide();
+                 q('#content > .upload').addClass('selected');
+             } if(b0ggie==4){
+                q('body').addClass('bonobo').removeClass('home upload radio');;
+                q(this).attr('data-uri', '5');
+                q('#content > .radio').addClass('selected');
+                q('#content > .bonobo iframe').attr('src' , 'https://bonoboville.com/');
+             } if(b0ggie==5){
+                q('body').addClass('bonobo').removeClass('home upload radio');;
+                q('#header').show();
+                q('#content > .bonobo').addClass('selected');
+             } if(b0ggie==6){
+                q('body').addClass('upload').removeClass('home bonobo radio');;
+                q('#header').hide();
+                q('#content > .upload').addClass('selected');
+             } else{
+
+             }
+             q(this).addClass('selected');
+
+         });
+     });  // end sites
 }); 

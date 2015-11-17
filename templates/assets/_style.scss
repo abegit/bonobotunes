@@ -2,7 +2,7 @@
 @import "eq";
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {border: 0 none; font-size: 100%; margin: 0; padding: 0; vertical-align: baseline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block; }
-body {line-height: 1; }
+body {line-height: 1; overflow-x:hidden;}
 ol, ul {list-style: outside none none; }
 blockquote, q {quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after {content: none; }
@@ -25,25 +25,95 @@ a {color: lighten($color,10%); font-family: arial; }
 
 
 /*header*/
-#header {@include box-shadow(0 15px 10px -10px rgba(0, 0, 0, 0.4) inset); display: block; padding: 5px; position: relative; text-align: left; top: 0; width: 100%; z-index: 3; }
+#header {@include box-shadow(0 15px 10px -10px rgba(0, 0, 0, 0.4) inset); pointer-events: none; display: block; height: 47px; line-height: 37px; padding: 5px; position: fixed; text-align: left; top: 0; width: 100%; z-index: 11; }
 #header *, .actions * {transition: all 100ms ease-in-out 0s; }
-#header ul li { display:inline-block;
-    a {border: 1px solid rgba(0, 0, 0, 0); padding: 5px; color:#fff; text-decoration: none;}
+#header ul { pointer-events:none; width: 100%;
+        li { display:inline-block; pointer-events:auto;
+            &:first-child {float:left;}
+            a {border: 1px solid rgba(0, 0, 0, 0); padding: 5px; color:#fff; text-decoration: none;}
+        }
 }
 #header ul li a:hover {border: 1px solid #aaaaaa; color: #ffffff; }
 #header ul {display: inline-block; float: right; text-align: right;}
 #header .container {padding: 0 10px;}
-#nowplay {height:47px; line-height: 47px; color:#fff; font-size:.8rem; font-weight:normal; font-family: "PT Sans Caption",Arial, sans-serif;}
+#nowplay {height:47px; line-height: 47px; color:#fff; font-size:.8rem; font-weight:normal; font-family: "PT Sans Caption",Arial, sans-serif; width: 100%;cursor:pointer;
+    &:hover {text-decoration:underline;}
+}
 
 
 /*content-player*/
 .container {margin: 0 auto;max-width: 780px;}
 #content {background: none repeat scroll 0 0 #b2b2b2; box-sizing: border-box; display: block; height: 100vh; left: 0; max-height: 100%; min-height: 100%; opacity: 1; overflow: hidden; text-align: center; top: 0; width: 100%; z-index: 2; }
-#content > * {display: none; }
+#content > * {display: none;
+    transition: 1s ease;
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.radio {
+    #content > .home {
+      margin-left: -100%;
+    }
+    #content > .radio {
+      margin-left: 0%;
+    }
+    #content > .upload {
+      margin-left: 100%;
+    }
+    #content > .bonobo {
+      margin-left: 200%;
+    }
+}
+.home {
+    #content > .home {
+      margin-left: 0;
+    }
+    #content > .radio {
+      margin-left: 100%;
+    }
+    #content > .upload {
+      margin-left: 200%;
+    }
+    #content > .bonobo {
+      margin-left: 300%;
+    }
+}
+
+.upload {
+    #content > .home {
+      margin-left: -200%;
+    }
+    #content > .radio {
+      margin-left: -100%;
+    }
+    #content > .upload {
+      margin-left: 0%;
+    }
+    #content > .bonobo {
+      margin-left: 100%;
+    }
+}
+.bonobo {
+    #content > .home {
+      margin-left: -300%;
+    }
+    #content > .radio {
+      margin-left: -200%;
+    }
+    #content > .upload {
+      margin-left: -100%;
+    }
+    #content > .bonobo {
+      margin-left: 0%;
+    }
+}
+
 
 #content .selected.radio, #content .radio, #content .selected.home, #content .home {height: 100vh; overflow: auto; padding: 0; }
 #content > .radio {display: block; }
-#content > .institute.selected {background: #f5f5f5;}
+#content > .upload.selected {background: #f5f5f5;}
 #content > .unselected, #content > .radio.unselected {height: 0; opacity: 0; padding: 0; position: relative; width: 0; z-index: 1; }
 #content > .selected {display: block; min-height: 100vh; }
 #content .container #header ul li a {border: 1px solid rgba(0, 0, 0, 0); border-radius: 10px; padding: 5px; text-decoration: none !important; }
@@ -51,13 +121,19 @@ a {color: lighten($color,10%); font-family: arial; }
 
 /*panels*/
 #tracklist, #brief {bottom: 0;
-    height: 480px;
+    height: 465px;
     left: 0;
-    max-width: 300px !important;
+    max-width: 300px;
     position: absolute;
     z-index: 1;
     background: desaturate(lighten($color,1%),50%);
     &.on {z-index: 2;}
+}
+#artwork {
+    z-index: 1;
+    &.on {
+        z-index: 3;
+    }
 }
 
 
@@ -80,12 +156,16 @@ p {font-family: lato;
     text-align: left;}
 #sites li {border: 0 none; display: inline-block; float: left; margin: 0; text-align: center; }
 #sites i {margin-right: 5px; }
+
 #advertisement {background: none repeat scroll 0 0 #7f7f7f; left: 0; opacity: 0; pointer-events: none; position: absolute; text-align: center; top: 0; transition: all 1s ease-in-out 0s; vertical-align: middle; width: 100%; z-index: 2; }
 #advertisement.fadeed {opacity: 1; pointer-events: auto; z-index: 9; }
 #info {display: block; margin: 0 auto;background-color:desaturate(darken($color,6%),50%); max-width: 780px; height:580px; overflow: hidden; position: relative; width: 100%;@include box-shadow(0 0 0 10px desaturate(darken($color,6%),50%), 0 -300px 200px -300px $color inset) }
 #artwork {float: left; height: 200px; left: 0; position: absolute !important; top: 0; width: 200px; }
 #artwork #img {z-index: 1; display: block; padding:3px; height: 200px; width:100%; position: absolute; left: 0; opacity: 1; top: 0;
-    &> img {max-height: 100%; min-height: 100%;}}
+    &> img {max-height: 100%;
+    max-width: 100%; width: 100%;
+    min-height: 100%;}
+}
 
 
 .nav {height: 67px; width: 100%; position:relative; z-index: 10;background-color:desaturate(lighten($color,1%),50%); 
@@ -137,7 +217,7 @@ p {font-family: lato;
     padding: 20px 0;
     position: absolute;
     width: 100%;
-    z-index: 11;
+    z-index: 5;
     h1 {margin-bottom: 10px;}
 }
 
@@ -160,7 +240,7 @@ p {font-family: lato;
 .swiper-container.playlist {
     margin: 0 !important;
     width: 100% !important;
-    .swiper-slide {width: 170px; background:lighten(desaturate($color2,3%),3%);}
+    .swiper-slide {background:lighten(desaturate($color2,3%),3%); height: 40px; width: 100%; @include box-shadow(0 -1px 0 darken(desaturate($color2,50%),10%) inset); overflow: hidden;}
     .swiper-slide > strong { @include border-box;
     cursor: pointer;
     display: table-cell;
@@ -189,7 +269,7 @@ p {font-family: lato;
         border-left: solid 1px darken(desaturate($color2,50%),10%); border-bottom: solid 1px darken(desaturate($color2,50%),10%);
         &:active, &:focus, &:hover {@include box-shadow(0 0 10px -1px darken(desaturate($color2,50%),10%) inset); color:darken(desaturate($color2,50%),10%);}
     }
-    .swiper-slide .thumb {background-size: contain !important; display: table-cell; height: 40px !important; left: 0; right: auto; width: 40px;}
+    .swiper-slide .thumb {background-size: contain !important; display: table-cell; height: 40px; left: 0; right: auto; width: 40px;}
 }
 
 .swiper-container.coverflow {
@@ -199,7 +279,7 @@ p {font-family: lato;
 }
 
 .swiper-container.fade{
-    .swiper-wrapper .swiper-slide {background-color:$color2; padding:10px;}
+    .swiper-wrapper .swiper-slide {background-color:$color2; padding:10px 0;}
     .scroll {display: block !important;
     height: 240px;
     text-align: left;
@@ -207,7 +287,7 @@ p {font-family: lato;
     line-height: 1.3rem;
     max-width: 100%;
     font-family: lato;
-    overflow-y: scroll;
+    overflow: auto;
     position: relative;
     width: 100%;padding:3px 20px;
         li:nth-child(2n) {
@@ -225,7 +305,11 @@ p {font-family: lato;
 
 /*footer*/
 #footer {background: none repeat scroll 0 0 #e0e0e0; bottom: 0; clear: both; display: block; position: fixed; text-align: center; width: 100%; z-index: 3; }
-#footer li#player { height: 0; overflow: hidden; text-align: left;}
+#footer .container ul {display: flex; flex-flow:row wrap;
+                    li {flex-grow:1;display: flex;}
+}
+
+#player { height: 0; overflow: hidden; text-align: left;}
 
 
 
@@ -238,30 +322,118 @@ p {font-family: lato;
         top: auto;
         z-index: 2;
     #img {height: 480px; width: 480px;}}
-    .fade {height: 295px !important; }
+    .fade {height: 278px !important; }
     &.phone {
         #artwork {width: 100%;}
     }
     .playlist {float: left;
         left: 0;
         margin: 0 !important;
-        height: 445px;
+        height: 430px;
         top: 0;
-        .swiper-slide {height: 40px; width: 100%; @include box-shadow(0 -1px 0 darken(desaturate($color2,50%),10%) inset); overflow: hidden;
+        .swiper-slide {
             &:hover {@include box-shadow(none)}
         }
     }
     .coverflow, .fade {float: right;}
 }
 .bp-sm, .bp-md {
-    .swiper-container {height: 140px; margin-left: 140px;}
-    #artwork {height: 140px; width: 140px; }
-    #artwork #img {height: 140px; width:100%;}
-    #footer {margin-left: 143px; padding-right: 143px;}
     #footer audio {width: 100%;}
+    #img > img {
+        opacity: 0.5;
+    }
+    #img > img#notmegaAlbum {
+        filter: blur(0px);
+        left: 50%;
+        max-width: 100%;
+        min-height: 200px !important;
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 90%;
+        z-index: 5;
+    }
+    #artwork.on #img {
+        background: rgb(0, 0, 0) none repeat scroll 0 0;
+    }
+
 }
 /*medium*/
 /*large*/
+.bp-sm, .bp-md {
+    #tracklist {overflow-y: scroll;}
+    #tracklist, #brief {max-width: 100%;}
+    #tracks {display: flex; flex-flow: row wrap; height: 100%; overflow: scroll !important; }
+    #nowplay {
+        background:#000000;
+        bottom: 0;
+        position: fixed;
+        z-index: 4;
+        &:hover {background: #222;}
+        &:active {background: #000000;}
+    }
+    .swiper-container.playlist {overflow-y: scroll !important; padding-bottom: 150px !important;
+        .swiper-slide { height: 47px;}
+        .swiper-slide > strong {padding-left: 54px;}
+        .swiper-slide > strong, .swiper-slide > div, .swiper-slide .thumb { height: 47px; max-height: 47px;}
+        .swiper-slide > div {line-height: 47px;}
+        .swiper-slide .thumb {width: 47px;}
+    }
+}
+.bp-sm {
+    #tracklist, #brief {padding-top: 67px;}
+    #img {width: 100%;}
+}
+
+
+.bp-md {
+    #artwork #img {
+        height: unset;
+        margin-top: 67px;
+        padding: 0;
+    }
+    #artwork {
+        height: unset !important;
+        width: 100%;
+    }
+    #tracklist, #brief {
+        background: rgba(18, 37, 62, 0.8) none repeat scroll 0 0;
+        height: 100%;
+        max-width: 100%;
+    }
+    .swiper-container.playlist .swiper-slide {
+        background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0 !important;
+    }
+    #brief {
+        filter: blur(40px);
+    transition: all 1s ease 0s;
+    }
+    .playlist {
+        flex-flow: row wrap !important;
+    }
+    #brief.on {
+        filter: blur(0px);
+    }
+    #tracklist {
+        filter: blur(40px);
+        transition: all 1s ease 0s;
+    }
+    #tracklist.on {
+        filter: blur(0px);
+    }
+    .swiper-container.playlist .swiper-slide > strong {
+        color: rgb(189, 189, 189);
+        display: inline-block;
+        font-weight: normal;
+        line-height: 47px;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .swiper-container.playlist .swiper-slide > strong:hover {
+        background: rgba(221, 221, 221, 0.1) none repeat scroll 0 0;
+    }
+}
 
 
 /*temp*/
@@ -283,8 +455,8 @@ p {font-family: lato;
 
 @media only screen and (max-width: $maxsmall) {}
 @media only screen and (max-width: $maxsmall) {
-    #artwork {float: none; margin: 30px auto; height: 40vh; max-width: 400px; width: 100%;
-        #img {height: 40vh;}
+    #artwork {float: none; margin: 67px auto 0; height: auto; width: 100%;
+        #img {float: none; height: auto; position: relative;}
     }
 }
 @media only screen and (max-width: $maxlarge) {}

@@ -53,6 +53,10 @@ class bvtRSS extends BonoboTunesPluginFramework {
 			register_setting( 'bvtStart', 'bvtCategories');
 			register_setting( 'bvtStart', 'bvtMusicPlayer');
 			register_setting( 'bvtStart', 'bvtMusicLogo');
+			register_setting( 'bvtStart', 'bvtMusicHomeAlign');
+			register_setting( 'bvtStart', 'bvtMusicHome');
+			register_setting( 'bvtStart', 'bvtMusicSponsor');
+			register_setting( 'bvtStart', 'bvtMusicSponsorURL');
 		}
 
 		function bvtConfigPage(){
@@ -90,23 +94,31 @@ class bvtRSS extends BonoboTunesPluginFramework {
 			//add my_print to query vars
 			function bvtPlayerCallback($vars) {
 			    // add my_print to the valid list of variables
-			    $new_vars = array("embed");
+			    $new_vars = array('embed','live','play');
 			    $vars = $new_vars + $vars;
 			    return $vars;
 			}
 
 			add_filter("query_vars", 'bvtPlayerCallback');
+			add_action("template_redirect", 'bvtPlayerTemplate');
 
 			// Template selection
 			function bvtPlayerTemplate() {
 			    global $wp;
 			    global $wp_query;
 			    if (isset($wp->query_vars["embed"])) {
-			        require_once(plugin_dir_path(__FILE__).'/templates/podcast/single-player.php');
+			        require_once($plugin_path.'templates/podcast/single-player.php');
+			        die();
+			    }
+			    if (isset($wp->query_vars["play"])) {
+			        require_once($plugin_path.'templates/podcast/soundmanager.php');
+			        die();
+			    }
+			    if (isset($wp->query_vars["live"])) {
+			        require_once($plugin_path.'templates/podcast/jpl.php');
 			        die();
 			    }
 			}
-			add_action("template_redirect", 'bvtPlayerTemplate');
 
 
 			function Cus_enc() {
@@ -158,6 +170,11 @@ class bvtRSS extends BonoboTunesPluginFramework {
 		add_option("bvtCategories", 'Design', '', 'yes');
 		add_option("bvtMusicPlayer", '1', '', 'yes');	
 		add_option("bvtMusicLogo", '', '', 'yes');
+		add_option("bvtMusicHomeAlign", '2', '', 'yes');
+		add_option("bvtMusicHome", 'Welcome to my music app! <br> Next weeks show is <br> <strong>NOV 28, 15 - AUSTIN, TX</strong>', '', 'yes');
+		add_option("bvtMusicSponsor", '', '', 'yes');
+		add_option("bvtMusicSponsorURL", '', '', 'yes');
+
 	}
 	/*
 	*		Run during the initialization of Wordpress

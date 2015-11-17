@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo get_option('bvtPodcastTitle'); ?></title>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|PT+Sans+Caption|Paytone+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/style.css', dirname(__FILE__) );?>">
     <link rel="stylesheet" href="<?php echo plugins_url( '/assets/ico.css', dirname(__FILE__) );?>">
@@ -31,7 +31,7 @@
 </head>
 
 <?php $afil = $_GET["autoplay"]; ?>
-<body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?> class="bp-sm loading">
+<body<?php if (isset($afil)) { ?> onLoad="playPause()"<?php } ?> class="bp-sm loading radio">
 <div class="overlay">
     <?php $logoImg = get_option('bvtPodcastImage'); ?>
     <?php if (isset($logoImg)) { ?>
@@ -54,8 +54,8 @@
         
         <ul id="nav">
         <li id="home"><a href="#"><i class="icon-air"></i></a></li>
-        <li id="more"><a href="#"><i class="icon-export"></i> </a></li>
-        <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')"><i class="icon-share-alternitive"></i> </a></li>
+        <li id="more"><a href="#"><i class="icon-info-with-circle"></i> </a></li>
+        <li><a href="#" onclick="myFunction('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>')"><i class="icon-export"></i> </a></li>
     </ul>
    </div></div>
 
@@ -67,11 +67,12 @@
 
     <div class="home">
         <div style="padding:30px 0;max-width:960px; margin:0 auto;">
-            <h3>Need To Talk?</h3>
-            <a href="tel:3105680066">Call Us (310) 568-0066</a><br>
         <ul class="actions">
             <li> <?php echo get_option('bvtAuthorName'); ?>
-            <div class="message"><?php echo get_option('bvtPodcastTitle'); ?><?php echo get_option('bvtPodcastSummary'); ?><br>
+            <div class="message"><p style="text-align:<?php if ( get_option('bvtMusicHomeAlign' ) == '1' ){ echo 'left';}
+                if ( get_option('bvtMusicHomeAlign' ) == '2' ){ echo 'center';}
+                if ( get_option('bvtMusicHomeAlign' ) == '3' ){ echo 'right';} ?>">
+                <?php echo get_option('bvtMusicHome');?></p><br>
                 <br><?php if( is_home() ) { echo get_bloginfo( 'title' ); }
   elseif (is_category() ) { echo single_cat_title(); }
   elseif (is_single() || is_page()) { the_title(); }
@@ -83,11 +84,21 @@
             <div class="message"><?php echo get_option('bvtPodcastImage'); ?></div></li>
             <li>Attend a Show
             <div class="message">this is the info i want you to read.</div></li>
-            <li>Sponsors
+            
+            <?php if ( get_option('bvtMusicSponsor' ) !== '' ){ ?> 
+            <li>Special Shoutout To:
+                 <?php if ( get_option('bvtMusicSponsorURL' ) !== '' ){ ?>
+                 <a href="<?php echo get_option('bvtMusicSponsorURL' ); ?>" target="_new"> <?php } ?>
+                    <img style="max-width:100%;" src="<?php echo get_option('bvtMusicSponsor' ); ?>">
+                    <?php if ( get_option('bvtMusicSponsorURL' ) !== '' ){ ?></a><?php }
+            } ?>
+                
             <div class="message">this is the info i want you to read.</div></li>
         </ul>
         </div>
     </div>
+
+
 
     <div class="radio">
     <div class="container">
@@ -113,9 +124,10 @@
             <div id='mini-art'><div id="thumb" data-view="1"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>"></div></div>
         </div>
         <div id="artwork" style="position:relative; display:inline-block;">
-                <div id="img"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>" id="megaAlbum"></div>
+                <div id="img"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>" id="megaAlbum"><img src="<?php echo plugins_url( '/assets/images/b10.png', dirname(__FILE__) );?>" id="notmegaAlbum"></div>
                 <div id="advertisement" style="background:url('') repeat scroll center center / contain  rgba(0, 0, 0, 0);height:100%;width:100%;"></div>
                 <div id="loadingbar"></div>
+                <div id="player"></div>
                 <div style="clear:both"></div>
         </div>
         <div class="on" id="tracklist">
@@ -230,7 +242,7 @@
                                     <?php echo get_avatar( $author_id, 32 ); ?>
                                     <div class="scroll" dir="ltr">
                                     <!-- <a class="button" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Song', '<?php echo $songTitle; ?>');" >Play song</a> -->
-                                    <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Tickets', '<?php echo $songTitle; ?>');" >Play Song <i class="icon-controller-play"></a>
+                                    <a class="button buy" href="#" onClick="pickSong(<?php echo $i; ?>);ga('send', 'event', 'mobile', 'Play Tickets', '<?php echo $songTitle; ?>');" >Play Song <i class="icon-controller-play"></i></a>
                                     <?php echo get_option('bvtPodcastTitle'); ?>
                                     <?php ob_start();
                                          the_content();
@@ -258,6 +270,17 @@
     </div>
 
 </div>
+
+
+
+<!-- <div class="bonobo">
+    <iframe name="bonobo" frameborder="0" width="100%" height="640px" src="1"></iframe></div> -->
+
+<div class="upload">
+<iframe name="upload" frameborder="0" width="100%" height="640px" src="1"></iframe></div>
+
+
+
 </div>
 <!--  end content -->
 
@@ -267,17 +290,16 @@
 
 
 
-<div id="footer"><div class="container">f
+<div id="footer"><div class="container">
     <ul>
-        <li id="player"></li>
-        <li> <!-- <ul id="sites">
-            <li data-uri="1"><img src="<?php echo plugins_url( '/assets/images/ico-bloggamy.png', dirname(__FILE__) );?>" alt=""></li>
-            <li data-uri="2"><img src="<?php echo plugins_url( '/assets/images/ico-tv.png', dirname(__FILE__) );?>" alt=""></li>
-            <li data-uri="3"><img src="<?php echo plugins_url( '/assets/images/ico-institute.png', dirname(__FILE__) );?>" alt=""></li>
-            <li data-uri="4"><img src="<?php echo plugins_url( '/assets/images/ico-marketplace.png', dirname(__FILE__) );?>" alt=""></li>
-            <li style="width:100% !important; clear:both;"></li>
-            </ul> -->
-        </li>
+    <li> <ul id="sites">
+        <li data-uri="1">Home</li>
+        <li data-uri="2">Player</li>
+        <li data-uri="3">Upload</li>
+        <li style="width:100% !important; clear:both;"></li>
+        </ul>
+    </li>
+    <li><i class="icon-controller-play" id="playstation"></i></li>
     </ul>
 
 </div>
@@ -403,7 +425,7 @@ function goToSlide(which) {
 <script> 
 
     jQSwipe = jQuery.noConflict();
-if ( jQSwipe(window).width()>1023 ) {
+if ( jQSwipe(window).width()>801 ) {
 var swiper = new Swiper('.swiper-container.playlist', {
         pagination: '.swiper-pagination2',
         paginationClickable: true,
@@ -453,7 +475,7 @@ swiper2.params.control = swiper3;
 <script>
       jQSwipe(document).ready(function() {
         jQSwipe(window).load(function() {
-            if ( jQSwipe(window).width()>1023 ) {
+            if ( jQSwipe(window).width()>801 ) {
                  swiper.update();
             }
 
@@ -470,7 +492,7 @@ swiper2.params.control = swiper3;
             });
         });
          jQSwipe(window).resize(function() {
-            if ( jQSwipe(window).width()>1023 ) {
+            if ( jQSwipe(window).width()>801 ) {
                  swiper.update();
             }
             swiper2.update();

@@ -75,7 +75,8 @@
       display: block;
       height: auto;
       margin: 0 auto;
-      max-width: 100%;
+      max-width: 300px;
+      float: left;
       text-align: center;
       -webkit-transition: all 200ms ease-in-out 0s;
       -moz-transition: all 200ms ease-in-out 0s;

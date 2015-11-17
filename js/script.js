@@ -1,16 +1,19 @@
 /*! share mode popup */
 var iTunes = jQuery.noConflict();
 iTunes(document).ready(function(){
-    iTunes('.toggle-all').toggle(function() {
-        iTunes(this).text('Expand All').attr('data-uri', '0');
-        iTunes('.node').addClass('ui-open');
-        iTunes('.message').addClass('visible');
-        iTunes('.actions li span').attr('data-uri', '1');
-     }, function() {
-        iTunes(this).text('Close All').attr('data-uri', '1');
-        iTunes('.node').removeClass('ui-open');
-        iTunes('.message').removeClass('visible');
-        iTunes('.actions li span').attr('data-uri', '0');
+    iTunes('.toggle-all').click(function(){
+      var Y=iTunes(this).attr('data-uri');
+      if(Y==null | Y=='0'){
+          iTunes(this).text('Close All').attr('data-uri', '1');
+          iTunes('.node').addClass('ui-open');
+          iTunes('.message').addClass('visible');
+          iTunes('.actions li span').attr('data-uri', '1');
+       } else {
+          iTunes(this).text('Expand All').attr('data-uri', '0');
+          iTunes('.node').removeClass('ui-open');
+          iTunes('.message').removeClass('visible');
+          iTunes('.actions li span').attr('data-uri', '0');
+      }
     });
   iTunes('.actions li span').each( function() {
    iTunes(this).click(function(){
@@ -45,6 +48,10 @@ iTunes(document).ready(function ($) {
         iTunes('#bvtMusicLogo_button').attr('data-open','0');
         iTunes('#bvtMusicLogo').val(imgurl);
         iTunes('#bvtMusicLogo_thumb').html("<img width='100%' src='"+imgurl+"'/>");
+    } else if (iTunes('#bvtMusicSponsor_button').attr('data-open') == "1") {
+        iTunes('#bvtMusicSponsor_button').attr('data-open','0');
+        iTunes('#bvtMusicSponsor').val(imgurl);
+        iTunes('#bvtMusicSponsor_thumb').html("<img width='100%' src='"+imgurl+"'/>");
     } else if (iTunes('#bvtPodcastImage_button').attr('data-open') == "1") {
         iTunes('#bvtPodcastImage_button').attr('data-open','0');
         iTunes('#bvtPodcastImage').val(imgurl);

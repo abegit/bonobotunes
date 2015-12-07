@@ -50,6 +50,7 @@ a {color: lighten($color,10%); font-family: arial; }
     position: absolute;
     width: 100%;
     z-index: 2;
+    height: 100%; overflow: auto; padding: 0;
 }
 
 .radio {
@@ -111,7 +112,6 @@ a {color: lighten($color,10%); font-family: arial; }
 }
 
 
-#content .selected.radio, #content .radio, #content .selected.home, #content .home {height: 100vh; overflow: auto; padding: 0; }
 #content > .radio {display: block; }
 #content > .upload.selected {background: #f5f5f5;}
 #content > .unselected, #content > .radio.unselected {height: 0; opacity: 0; padding: 0; position: relative; width: 0; z-index: 1; }
@@ -154,8 +154,6 @@ p {font-family: lato;
     line-height: 1.3rem;
     margin-bottom: 20px;
     text-align: left;}
-#sites li {border: 0 none; display: inline-block; float: left; margin: 0; text-align: center; }
-#sites i {margin-right: 5px; }
 
 #advertisement {background: none repeat scroll 0 0 #7f7f7f; left: 0; opacity: 0; pointer-events: none; position: absolute; text-align: center; top: 0; transition: all 1s ease-in-out 0s; vertical-align: middle; width: 100%; z-index: 2; }
 #advertisement.fadeed {opacity: 1; pointer-events: auto; z-index: 9; }
@@ -306,8 +304,13 @@ p {font-family: lato;
 /*footer*/
 #footer {background: none repeat scroll 0 0 #e0e0e0; bottom: 0; clear: both; display: block; position: fixed; text-align: center; width: 100%; z-index: 3; }
 #footer .container ul {display: flex; flex-flow:row wrap;
-                    li {flex-grow:1;display: flex;}
+                    li {flex-grow:1;display: flex; flex-flow:column wrap;@include box-shadow(1px 0 0 #b0b0b0, -1px 0 0 #fff);font-family: lato; font-size: 0.7rem;height: 47px;}
 }
+#footer {
+    .container > ul {@include box-shadow(-2px 0 0 #b0b0b0, 2px 0 0 #fff);}
+    i {display: block; text-align: center; width: 100%;font-size: 2rem;}
+}
+#sites li {border: 0 none; display: inline-block; float: left; margin: 0; text-align: center; }
 
 #player { height: 0; overflow: hidden; text-align: left;}
 

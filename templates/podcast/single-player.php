@@ -88,7 +88,7 @@
             <?php if ( get_option('bvtMusicSponsor' ) !== '' ){ ?> 
             <li>Special Shoutout To:
                  <?php if ( get_option('bvtMusicSponsorURL' ) !== '' ){ ?>
-                 <a href="<?php echo get_option('bvtMusicSponsorURL' ); ?>" target="_new"> <?php } ?>
+                 <a href="<?php echo get_option('bvtMusicSponsorURL' ); ?>" data-src="<?php echo get_option('bvtMusicSponsorURL' ); ?>" target="_new" class="upload-click"> <?php } ?>
                     <img style="max-width:100%;" src="<?php echo get_option('bvtMusicSponsor' ); ?>">
                     <?php if ( get_option('bvtMusicSponsorURL' ) !== '' ){ ?></a><?php }
             } ?>
@@ -191,7 +191,7 @@
                                              the_content();
                                             $old_content = ob_get_clean();
                                             $text = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $old_content);?>
-                                        <p><?php $other = strip_tags($text,'<p><a><img><span><strong><ul><ol><iframe><li><br><br /><i><em><quote>'); 
+                                        <p><?php $other = strip_tags($text,'<p><a><img><span><strong><ul><ol><iframe><style><li><br><br /><i><em><quote><div>'); 
                                         echo $other; ?></p>
                                         </div>
                                     </div>
@@ -277,7 +277,9 @@
     <iframe name="bonobo" frameborder="0" width="100%" height="640px" src="1"></iframe></div> -->
 
 <div class="upload">
-<iframe name="upload" frameborder="0" width="100%" height="640px" src="1"></iframe></div>
+    <a href="#" class="upload-click" data-src="<?php echo get_option('bvtMusicSponsorURL' ); ?>">Enter</a>
+
+</div>
 
 
 
@@ -293,13 +295,14 @@
 <div id="footer"><div class="container">
     <ul>
     <li> <ul id="sites">
-        <li data-uri="1">Home</li>
-        <li data-uri="2">Player</li>
-        <li data-uri="3">Upload</li>
+        <li data-uri="1"><i class="icon-ticket"></i>Home</li>
+        <li data-uri="2"><i class="icon-sound-mix"></i>Playlist</li>
+        <li data-uri="3" data-src="<?php echo get_option('bvtMusicSponsorURL' ); ?>"><i class="icon-modern-mic"></i>Feat</li>
+        <li onclick="playPause()"><i class="icon-controller-play"></i>Play</li>
         <li style="width:100% !important; clear:both;"></li>
         </ul>
     </li>
-    <li><i class="icon-controller-play" id="playstation"></i></li>
+    <!-- <li><i class="icon-controller-play" id="playstation"></i></li> -->
     </ul>
 
 </div>

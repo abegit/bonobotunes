@@ -128,7 +128,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 
         <!-- Feed Logo (optional) -->
         <image>
-            <url><?php echo get_stylesheet_directory_uri(); ?>/images/show.jpg</url>
+            <url></url>
             <title>
                 <?php bloginfo_rss( 'description' ) ?>
             </title>
@@ -157,7 +157,8 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
                 		} ?>
                 <datetime></datetime>
                 <pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
-            	<description><![CDATA[<?php the_content(); ?>]]></description>
+            	<description><![CDATA[<a itemscope itemtype="http://schema.org/Article" href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>" class="title"> <?php if ( has_post_thumbnail() ) { the_post_thumbnail('thumbnail'); } ?></a><br>
+                            Click to <a href="<?php echo the_permalink(); ?>">View PG Photos</a>]]></description>
             	<?php echo rss_enclosure(); ?>
             </item>
 

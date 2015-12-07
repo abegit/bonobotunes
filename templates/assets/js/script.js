@@ -278,7 +278,6 @@ function errorFallback() {
 
 function playPause() {
     var audioPlayer = document.getElementById('player').getElementsByTagName('audio')[0];
-
     if(audioPlayer!=undefined) {
         if (audioPlayer.paused) {
             audioPlayer.play();
@@ -462,11 +461,14 @@ q(document).ready(function(){
          q(this).click(function(){
              var b0ggie=q(this).attr('data-uri');
              var iFrameSrc=q(this).attr('src');
+             var checkUpload=q('#content > .upload').attr('data-uri');
+
              q('#content > *').removeClass('selected');
              q('#sites > li').removeClass('selected');
+
              if(b0ggie==1){
                  q('body').addClass('home').removeClass('bonobo upload radio');
-                 q('#header').show();
+                 q('#header').hide();
                  q('#content > .home').addClass('selected');
              } if(b0ggie==2){
                 q('body').addClass('radio').removeClass('home upload bonobo');
@@ -474,28 +476,45 @@ q(document).ready(function(){
                  q('#content > .radio').addClass('selected');
              } if(b0ggie==3){
                 q('body').addClass('upload').removeClass('home bonobo radio');;
-                 q(this).attr('data-uri', '6');
-                 q('#content > .upload iframe').attr('src' , 'https://drsusanblockinstitute.com/');
-                 q('#header').hide();
-                 q('#content > .upload').addClass('selected');
+                q('#header').hide();
+                q('#content > .upload').addClass('selected');
              } if(b0ggie==4){
                 q('body').addClass('bonobo').removeClass('home upload radio');;
                 q(this).attr('data-uri', '5');
                 q('#content > .radio').addClass('selected');
-                q('#content > .bonobo iframe').attr('src' , 'https://bonoboville.com/');
+                q('#content > .bonobo iframe').attr('src' , q(this).attr('data-src') );
              } if(b0ggie==5){
                 q('body').addClass('bonobo').removeClass('home upload radio');;
                 q('#header').show();
                 q('#content > .bonobo').addClass('selected');
-             } if(b0ggie==6){
-                q('body').addClass('upload').removeClass('home bonobo radio');;
-                q('#header').hide();
-                q('#content > .upload').addClass('selected');
              } else{
-
+                
              }
              q(this).addClass('selected');
 
          });
      });  // end sites
+
+
+    q('.upload-click').click(function(e) {
+        e.preventDefault();
+        q('body').addClass('upload').removeClass('home bonobo radio');;
+        q('#header').hide();
+        var checkView = q(this).attr('data-uri');
+        if(checkView=='1'){
+            q('.upload-click').attr('data-uri', '0');
+            q(this).attr('data-uri', '0');
+         } else {
+            q('.upload-click').attr('data-uri', '1');
+            q(this).attr('data-uri', '1');
+            q('#content > .upload .upload-click').attr('style','display:none');
+            q('#content > .upload').html('<iframe name="upload" frameborder="0" width="100%" height="' + q(window).height() + '" src="' + q(this).attr('data-src') + '"></iframe>');
+         } 
+         q('#content > .upload').addClass('selected');
+         // q('#content > .upload iframe').attr('src' , 'https://drsusanblockinstitute.com/');
+    });
+
+
+
+
 }); 

@@ -472,7 +472,10 @@ a {
   display: block;
   position: absolute;
   width: 100%;
-  z-index: 2; }
+  z-index: 2;
+  height: 100%;
+  overflow: auto;
+  padding: 0; }
 
 .radio #content > .home {
   margin-left: -100%; }
@@ -509,11 +512,6 @@ a {
   margin-left: -100%; }
 .bonobo #content > .bonobo {
   margin-left: 0%; }
-
-#content .selected.radio, #content .radio, #content .selected.home, #content .home {
-  height: 100vh;
-  overflow: auto;
-  padding: 0; }
 
 #content > .radio {
   display: block; }
@@ -586,16 +584,6 @@ p {
   line-height: 1.3rem;
   margin-bottom: 20px;
   text-align: left; }
-
-#sites li {
-  border: 0 none;
-  display: inline-block;
-  float: left;
-  margin: 0;
-  text-align: center; }
-
-#sites i {
-  margin-right: 5px; }
 
 #advertisement {
   background: none repeat scroll 0 0 #7f7f7f;
@@ -1014,7 +1002,31 @@ p {
   flex-flow: row wrap; }
   #footer .container ul li {
     flex-grow: 1;
-    display: flex; }
+    display: flex;
+    flex-flow: column wrap;
+    -webkit-box-shadow: 1px 0 0 #b0b0b0, -1px 0 0 #fff;
+    -moz-box-shadow: 1px 0 0 #b0b0b0, -1px 0 0 #fff;
+    box-shadow: 1px 0 0 #b0b0b0, -1px 0 0 #fff;
+    font-family: lato;
+    font-size: 0.7rem;
+    height: 47px; }
+
+#footer .container > ul {
+  -webkit-box-shadow: -2px 0 0 #b0b0b0, 2px 0 0 #fff;
+  -moz-box-shadow: -2px 0 0 #b0b0b0, 2px 0 0 #fff;
+  box-shadow: -2px 0 0 #b0b0b0, 2px 0 0 #fff; }
+#footer i {
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-size: 2rem; }
+
+#sites li {
+  border: 0 none;
+  display: inline-block;
+  float: left;
+  margin: 0;
+  text-align: center; }
 
 #player {
   height: 0;

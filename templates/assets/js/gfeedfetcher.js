@@ -6,7 +6,7 @@
 // Updated Sept 20th, 12': Version 2. Adds support for templating of entries' output, search and replace via regular expressions inside any RSS field
 // -------------------------------------------------------------------
 
-var gfeedfetcher_loading_image="indicator.gif" //Full URL to "loading" image. No need to config after this line!!
+var gfeedfetcher_loading_image="wp-content/plugins/bonobotunes/templates/assets/images/indicator.gif" //Full URL to "loading" image. No need to config after this line!!
 
 google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
 

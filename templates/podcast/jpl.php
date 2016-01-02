@@ -105,17 +105,24 @@ h3 {font-size: 0.8rem;
 
 <div class="blogside">
     <div style="width:100%"><h3>Now Playing on RadioSuzy1</h3>
-      <script type="text/javascript">
+<script type="text/javascript">
             var newcss=new gfeedfetcher("excerpt", "", "");
-            newcss.addFeed("Bloggamy", "http://archive.bloggamy.com/category/shows/feed") //Specify "label" plus URL to RSS feed
+            newcss.addFeed("Bloggamy", "http://drsusanblock.com/category/shows/feed") //Specify "label" plus URL to RSS feed
             newcss.displayoptions("description") //show the specified additional fields
             newcss.addregexp(/(\[CDATA\[)|(\]\])/g, '', 'descriptionfield')
             newcss.definetemplate("{title}<p>{description}</p>")
             newcss.setentrycontainer("div", "item") //Display each entry as a DIV (div element)
             newcss.filterfeed(1, "date") //Show 5 entries, sort by date
-            // newcss.onfeedload=function(){
-            //     alert("RSS Displayer has loaded!")
-            // }
+            newcss.onfeedload=function(){
+            //     alert("RSS Displayer has loaded!");
+                  var linkList = document.getElementById('excerpt').getElementsByTagName('a');
+                  // New browsers (IE8+)
+                  var linkList = document.querySelectorAll('#excerpt a');
+
+                  for(var i in linkList){
+                    linkList[i].setAttribute('target', '_blank');
+                  }
+            }
             newcss.init() //Always call this last 
             </script>
     </div>
@@ -124,20 +131,6 @@ h3 {font-size: 0.8rem;
 
 <div class="clear"></div>
 </div>
-<script>
 
-function addLinks(){
-  // Very old browsers
-  // var linkList = document.getElementById('link_other').getElementsByTagName('a');
-
-  // New browsers (IE8+)
-  // var linkList = document.querySelectorAll('#link_other a');
-
-  // for(var i in linkList){
-  //   linkList[i].setAttribute('target', '_blank');
-  // }
-}
-
-</script>
 </body>
 </html>

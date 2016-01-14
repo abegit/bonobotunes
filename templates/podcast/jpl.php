@@ -62,7 +62,7 @@ h3 {font-size: 0.8rem;
             keyEnabled: true
         });
      bLue(window).load(function(){
-       bLue("#jquery_jplayer_1").jPlayer("play");
+       <?php if ( $_GET["live"] == 1 ) { echo "//"; } ?> bLue("#jquery_jplayer_1").jPlayer("play");
      });
   });
 </script>
